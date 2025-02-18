@@ -1,0 +1,57 @@
+version: 2.1
+
+jobs:
+  build:
+    docker:
+      - image: node:18  # Use the official Node.js 18 image
+
+    # Increase the memory limit for Node.js
+    environment:
+      NODE_OPTIONS: "--max-old-space-size=4096"
+
+    steps:
+      - checkout
+
+      # Cache node_modules to speed up subsequent builds
+      - restore_cache:
+          keys:
+            - v1-npm-cache-{{ checksum "package-lock.json" }}
+            - v1-npm-cache-
+
+      # Install dependencies
+      - run:
+          name: Install Dependencies
+          command: npm install
+
+      # Save node_modules to cache
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-npm-cache-{{ checksum "package-lock.json" }}
+
+      # Build the application
+      - run:
+          name: Build the App
+          command: npm run build
+
+      # Check if AWS CLI is already installed
+      - run:
+          name: Install AWS CLI
+          command: |
+            if ! command -v aws &> /dev/null; then
+              apt-get update
+              apt-get install -y awscli
+            else
+              echo "AWS CLI is already installed."
+            fi
+
+      # Sync build output to S3
+      - run:
+          name: Sync to S3
+          command: aws s3 sync ./dist s3://lmclub  --delete
+
+workflows:
+  version: 2
+  build_and_deploy:
+    jobs:
+      - build
