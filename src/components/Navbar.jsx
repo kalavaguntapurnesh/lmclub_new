@@ -388,7 +388,7 @@ const NavBar = () => {
                 href="/login"
                 className="border-[1px] relative py-[10px] bg-trumpOne text-white rounded-full border-green-500 text-sm bg-green-500 flex justify-center items-center font-semibold overflow-hidden text-center w-[90%]"
               >
-                <span className="relative z-10">Login</span>
+                <span className="relative z-10">Login / Register</span>
               </a>
             </li>
           </ul>
