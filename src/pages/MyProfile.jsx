@@ -10,13 +10,13 @@ const MyProfile = () => {
     useContext(AppContext);
 
   const [selectedCountry, setSelectedCountry] = useState(
-    userData?.country || ""
+    userData?.billingAddress?.country || ""
   );
   const [selectedState, setSelectedState] = useState(
-    userData?.stateResidence || ""
+    userData?.billingAddress?.state || ""
   );
   const [selectedCity, setSelectedCity] = useState(
-    userData?.cityResidence || ""
+    userData?.billingAddress?.city || ""
   );
   const [states, setStates] = useState([]);
   const [cities, setCities] = useState([]);
@@ -52,28 +52,23 @@ const MyProfile = () => {
 
   const updateUserProfileData = async () => {
     try {
-      console.log("The state is : ", selectedState);
-      console.log("The city is : ", selectedCity);
-
-      const finalState = selectedState || userData.stateResidence;
-      const finalCity = selectedCity || userData.cityResidence;
-      const finalCountry = selectedCountry || userData.country;
-
-      console.log("The state is : ", finalState);
-      console.log("The city is : ", finalCity);
-      console.log("The country is : ", finalCountry);
+      const finalState = selectedState || userData.billingAddress?.state;
+      const finalCity = selectedCity || userData.billingAddress?.city;
+      const finalCountry = selectedCountry || userData.billingAddress?.country;
 
       const payLoad = {
         name: userData.name,
         phoneNumber: userData.phoneNumber,
         gender: userData.gender !== "Not Selected" ? userData.gender : "",
         secondaryEmail: userData.secondaryEmail,
-        addressLaneOne: userData.addressLaneOne,
-        addressLaneTwo: userData.addressLaneTwo,
-        country: finalCountry,
-        stateResidence: finalState,
-        cityResidence: finalCity,
-        pinCode: userData.pinCode,
+        billingAddress: {
+          country: finalCountry,
+          state: finalState,
+          city: finalCity,
+          pinCode: userData.billingAddress?.pinCode,
+          name: userData.billingAddress?.name,
+          phoneNumber: userData.billingAddress?.phoneNumber,
+        },
       };
 
       const { data } = await axios.post(
@@ -279,6 +274,7 @@ const MyProfile = () => {
                               disabled
                               value={userData.gender || "Not Selected"}
                             >
+                              <option value="Not Selected">Not Selected</option>
                               <option value="Male">Male</option>
                               <option value="Female">Female</option>
                             </select>
@@ -372,7 +368,7 @@ const MyProfile = () => {
                               //   }))
                               // }
                               disabled
-                              value={userData.country}
+                              value={userData.billingAddress?.country}
                             ></input>
                           )}
                         </div>
@@ -415,7 +411,7 @@ const MyProfile = () => {
                               //   }))
                               // }
                               disabled
-                              value={userData.stateResidence}
+                              value={userData.billingAddress?.state}
                             ></input>
                           )}
                         </div>
@@ -455,7 +451,7 @@ const MyProfile = () => {
                               //   }))
                               // }
                               disabled
-                              value={userData.cityResidence}
+                              value={userData.billingAddress?.city}
                             ></input>
                           )}
                         </div>
@@ -465,7 +461,7 @@ const MyProfile = () => {
                             htmlFor="email"
                             className="block mb-2 text-sm font-bold text-colorThree "
                           >
-                            Phone
+                            Phone Number
                           </label>
                           {isEdit ? (
                             <input
@@ -478,10 +474,13 @@ const MyProfile = () => {
                               onChange={(e) =>
                                 setUserData((prev) => ({
                                   ...prev,
-                                  phoneNumber: e.target.value,
+                                  billingAddress: {
+                                    ...prev.billingAddress,
+                                    phoneNumber: e.target.value,
+                                  },
                                 }))
                               }
-                              value={userData.phoneNumber}
+                              value={userData.billingAddress?.phoneNumber || ""}
                             ></input>
                           ) : (
                             <input
@@ -489,7 +488,7 @@ const MyProfile = () => {
                               name="phone"
                               id="phone"
                               className=" border border-gray-300 text-gray-900 sm:text-sm rounded focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 "
-                              placeholder="name@domain.com"
+                              placeholder="Your Mobile Number"
                               required="true"
                               // onChange={(e) =>
                               //   setUserData((prev) => ({
@@ -497,7 +496,7 @@ const MyProfile = () => {
                               //     phoneNumber: e.target.value,
                               //   }))
                               // }
-                              value={userData.phoneNumber}
+                              value={userData.billingAddress?.phoneNumber || ""}
                               disabled
                             ></input>
                           )}
@@ -521,10 +520,13 @@ const MyProfile = () => {
                               onChange={(e) =>
                                 setUserData((prev) => ({
                                   ...prev,
-                                  pinCode: e.target.value,
+                                  billingAddress: {
+                                    ...prev.billingAddress,
+                                    pinCode: e.target.value,
+                                  },
                                 }))
                               }
-                              value={userData.pinCode}
+                              value={userData.billingAddress?.pinCode || ""}
                             ></input>
                           ) : (
                             <input
@@ -532,7 +534,7 @@ const MyProfile = () => {
                               name="phone"
                               id="phone"
                               className=" border border-gray-300 text-gray-900 sm:text-sm rounded focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 "
-                              placeholder="name@domain.com"
+                              placeholder="Your Zip Code"
                               required="true"
                               // onChange={(e) =>
                               //   setUserData((prev) => ({
@@ -540,7 +542,7 @@ const MyProfile = () => {
                               //     phoneNumber: e.target.value,
                               //   }))
                               // }
-                              value={userData.pinCode}
+                              value={userData.billingAddress?.pinCode || ""}
                               disabled
                             ></input>
                           )}

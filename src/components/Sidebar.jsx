@@ -40,7 +40,7 @@ const Sidebar = () => {
                 isActive ? "bg-[#f2f2f3] border-r-4 border-green-400" : ""
               }`
             }
-            to={"/users-list"}
+            to={"/my-orders"}
           >
             <FaUsers className="text-green-500 w-5 h-5" />
 
@@ -53,10 +53,10 @@ const Sidebar = () => {
                 isActive ? "bg-[#f2f2f3] border-r-4 border-green-400" : ""
               }`
             }
-            to={"/plans"}
+            to={"/my-subscription"}
           >
-            <FaCalculator className="text-green-500 w-5 h-5" />
-            <p>Memberships</p>
+            <MdWidgets className="text-green-500 w-5 h-5" />
+            <p>Subscriptions</p>
           </NavLink>
 
           <NavLink
@@ -65,10 +65,10 @@ const Sidebar = () => {
                 isActive ? "bg-[#f2f2f3] border-r-4 border-green-400" : ""
               }`
             }
-            to={"/widgets"}
+            to={"/plans"}
           >
-            <MdWidgets className="text-green-500 w-5 h-5" />
-            <p>Subscriptions</p>
+            <FaCalculator className="text-green-500 w-5 h-5" />
+            <p>Memberships</p>
           </NavLink>
 
           <NavLink

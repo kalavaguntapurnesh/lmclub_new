@@ -35,6 +35,8 @@ import { AppContext } from "./context/AppContext";
 import AuthNavbar from "./components/AuthNavbar";
 import Sidebar from "./components/Sidebar";
 import Addresses from "./pages/Addresses";
+import Orders from "./pages/Orders";
+import UserSubscription from './pages/UserSubscription';
 function App() {
   const { token } = useContext(AppContext);
 
@@ -48,6 +50,8 @@ function App() {
           <Route path="/my-profile" element={<MyProfile />} />
           <Route path="/dashboard" element={<Dashboard />}></Route>
           <Route path="/my-addresses" element={<Addresses />}></Route>
+          <Route path="/my-orders" element={<Orders />}></Route>
+          <Route path="/my-subscription" element={<UserSubscription />}></Route>
         </Routes>
       </div>
     </div>

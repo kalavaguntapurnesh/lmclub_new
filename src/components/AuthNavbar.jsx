@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Logo from "../assets/LMDarkLogo.webp";
 import { BsSearch } from "react-icons/bs";
@@ -6,11 +6,40 @@ import { NavLink } from "react-router-dom";
 import dropIcon from "../assets/dropdown_icon.svg";
 import { toast } from "react-toastify";
 import { AppContext } from "./../context/AppContext";
+import { RiMenu3Fill } from "react-icons/ri";
+import { AiOutlineClose } from "react-icons/ai";
+import { BsGrid1X2Fill } from "react-icons/bs";
+import { FaUsers } from "react-icons/fa";
+import { FaCalculator } from "react-icons/fa";
+import { MdWidgets } from "react-icons/md";
+import { MdCategory } from "react-icons/md";
+import { GrStatusGood } from "react-icons/gr";
+import { IoMdSettings } from "react-icons/io";
+import { IoDocument } from "react-icons/io5";
+import { SiMinutemailer } from "react-icons/si";
 
 const AuthNavbar = () => {
   const { token, setToken, userData } = useContext(AppContext);
 
   const navigate = useNavigate();
+
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [openDropdown, setOpenDropdown] = useState(null);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [openDropdownMobile, setOpenDropdownMobile] = useState(null);
+
+  // Toggle dropdown and close others
+  const toggleDropdown = (dropdown) => {
+    if (openDropdown === dropdown) {
+      setOpenDropdown(null); // close if the same dropdown is clicked
+    } else {
+      setOpenDropdown(dropdown); // open the clicked dropdown
+    }
+  };
+
+  const toggleMobileDropdown = (dropdown) => {
+    setOpenDropdownMobile((prev) => (prev === dropdown ? null : dropdown)); // Toggle the dropdown
+  };
 
   const logout = () => {
     toast.success("Logged out successfully!");
@@ -78,13 +107,13 @@ const AuthNavbar = () => {
               <div className="absolute top-0 right-0 pt-14 text-base text-gray-600 z-20 hidden group-hover:block">
                 <div className="min-w-48 bg-white shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)] rounded flex flex-col gap-4 p-4">
                   <p
-                    onClick={() => navigate("admin-profile")}
+                    onClick={() => navigate("my-profile")}
                     className="text-black cursor-pointer"
                   >
                     My Profile
                   </p>
                   <p
-                    onClick={() => navigate("my-appointments")}
+                    onClick={() => navigate("my-profile")}
                     className="text-black cursor-pointer"
                   >
                     Delete Account
@@ -103,6 +132,124 @@ const AuthNavbar = () => {
         >
           Logout
         </button>
+
+        <button
+          className="md:hidden block"
+          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+        >
+          {isMobileMenuOpen ? (
+            <AiOutlineClose
+              className={`w-5 h-5 ${isScrolled ? "text-black" : "text-black"}`}
+            />
+          ) : (
+            <RiMenu3Fill
+              className={`w-5 h-5 ${isScrolled ? "text-black" : "text-black"}`}
+            />
+          )}
+        </button>
+
+        <div
+          className={
+            !isMobileMenuOpen
+              ? "lg:hidden fixed left-[-100%] h-[100%] ease-in-out duration-1000 "
+              : "lg:hidden fixed left-0 top-0 w-[100%] h-[100%] bg-white ease-in-out duration-1000 rounded-b-lg z-10 shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)]"
+          }
+        >
+          <div className="flex flex-row w-[100%] px-5 mt-6 justify-between items-center">
+            <div className="w-[50%]">
+              <img src={Logo} className="w-[65px] h-auto " alt="logo" />
+            </div>
+            <div className="mb-4 flex justify-end w-[50%]">
+              <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
+                <AiOutlineClose className="w-[22px] h-[22px] text-black" />
+              </button>
+            </div>
+          </div>
+
+          <div className="p-4 mt-4 grid grid-cols-2">
+            <a
+              href="/admin-dashboard"
+              className="flex items-center gap-3 py-3 px-3 cursor-pointer shadow my-[10px] mx-4 text-sm"
+            >
+              <BsGrid1X2Fill className="text-green-500 w-4 h-4" />
+              <p>Dashboard</p>
+            </a>
+
+            <a
+              className="flex  items-center gap-3 py-3 px-3 cursor-pointer shadow my-[10px] mx-4 text-sm"
+              href="/users-list"
+            >
+              <FaUsers className="text-green-500 w-4 h-4" />
+
+              <p>All Users</p>
+            </a>
+
+            <a
+              className="flex  items-center gap-3 py-3 px-3 cursor-pointer shadow my-[10px] mx-4 text-sm"
+              href="/plans"
+            >
+              <FaCalculator className="text-green-500 w-4 h-4" />
+              <p>Plans</p>
+            </a>
+
+            <a
+              className="flex  items-center gap-3 py-3 px-3 cursor-pointer shadow my-[10px] mx-4 text-sm"
+              href="/widgets"
+            >
+              <MdWidgets className="text-green-500 w-4 h-4" />
+              <p>Widgets</p>
+            </a>
+
+            <a
+              className="flex  items-center gap-3 py-3 px-3 cursor-pointer shadow my-[10px] mx-4 text-sm"
+              href="/category"
+            >
+              <MdCategory className="text-green-500 w-4 h-4" />
+              <p>Category</p>
+            </a>
+
+            <a
+              className="flex  items-center gap-3 py-3 px-3 cursor-pointer shadow my-[10px] mx-4 text-sm"
+              href="/approvals"
+            >
+              <GrStatusGood className="text-green-500 w-4 h-4" />
+              <p>Approvals</p>
+            </a>
+
+            <a
+              className="flex  items-center gap-3 py-3 px-3 cursor-pointer shadow my-[10px] mx-4 text-sm"
+              href="/email-templates"
+            >
+              <SiMinutemailer className="text-green-500 w-4 h-4" />
+              <p>Email Templates</p>
+            </a>
+
+            <a
+              className="flex  items-center gap-3 py-3 px-3 cursor-pointer shadow my-[10px] mx-4 text-sm"
+              href="/system-settings"
+            >
+              <IoMdSettings className="text-green-500 w-4 h-4" />
+              <p>System Settings</p>
+            </a>
+
+            <a
+              className="flex  items-center gap-3 py-3 px-3 cursor-pointer shadow my-[10px] mx-4 text-sm"
+              href="/admin-profile"
+            >
+              <IoDocument className="text-green-500 w-4 h-4" />
+              <p>Admin Profile</p>
+            </a>
+          </div>
+
+          <div className="px-4 mt-10 w-[100%] flex justify-center items-center">
+            <button
+              onClick={logout}
+              className="border-[1px] relative py-[10px] bg-trumpOne text-white rounded-full border-green-500 text-sm bg-green-500 flex justify-center items-center font-semibold overflow-hidden text-center w-[90%]"
+            >
+              <span className="relative z-10">Logout</span>
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   );

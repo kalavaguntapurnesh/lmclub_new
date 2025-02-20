@@ -103,7 +103,7 @@ const NavBar = () => {
                 : "font-semibold text-green-500"
             }`}
           >
-            <span className="relative z-10">Sign Up / In</span>
+            <span className="relative z-10">Login / Register</span>
           </a>
         </div>
 

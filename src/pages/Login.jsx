@@ -69,6 +69,7 @@ const Login = () => {
         if (data.success) {
           localStorage.setItem("token", data.token);
           setToken(data.token);
+          toast.success("Logged In Successfully!");
           navigate("/dashboard");
           scrollTo(0, 0);
         } else {
@@ -81,7 +82,7 @@ const Login = () => {
         });
         if (data.success) {
           localStorage.setItem("token", data.token);
-          console.log("Login was success");
+          toast.success("Registered Successfully!");
           setToken(data.token);
           navigate("/dashboard");
           scrollTo(0, 0);
