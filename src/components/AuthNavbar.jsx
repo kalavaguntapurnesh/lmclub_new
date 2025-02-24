@@ -187,19 +187,10 @@ const AuthNavbar = () => {
 
             <a
               className="flex  items-center gap-3 py-3 px-3 cursor-pointer shadow my-[10px] mx-4 text-sm"
-              href="/users-list"
-            >
-              <FaUsers className="text-green-500 w-4 h-4" />
-
-              <p>All Users</p>
-            </a>
-
-            <a
-              className="flex  items-center gap-3 py-3 px-3 cursor-pointer shadow my-[10px] mx-4 text-sm"
               href="/plans"
             >
               <FaCalculator className="text-green-500 w-4 h-4" />
-              <p>Plans</p>
+              <p>Orders</p>
             </a>
 
             <a
@@ -207,7 +198,7 @@ const AuthNavbar = () => {
               href="/widgets"
             >
               <MdWidgets className="text-green-500 w-4 h-4" />
-              <p>Widgets</p>
+              <p>Subscriptions</p>
             </a>
 
             <a
@@ -215,23 +206,7 @@ const AuthNavbar = () => {
               href="/category"
             >
               <MdCategory className="text-green-500 w-4 h-4" />
-              <p>Category</p>
-            </a>
-
-            <a
-              className="flex  items-center gap-3 py-3 px-3 cursor-pointer shadow my-[10px] mx-4 text-sm"
-              href="/approvals"
-            >
-              <GrStatusGood className="text-green-500 w-4 h-4" />
-              <p>Approvals</p>
-            </a>
-
-            <a
-              className="flex  items-center gap-3 py-3 px-3 cursor-pointer shadow my-[10px] mx-4 text-sm"
-              href="/email-templates"
-            >
-              <SiMinutemailer className="text-green-500 w-4 h-4" />
-              <p>Email Templates</p>
+              <p>Memberships</p>
             </a>
 
             <a
@@ -239,7 +214,7 @@ const AuthNavbar = () => {
               href="/system-settings"
             >
               <IoMdSettings className="text-green-500 w-4 h-4" />
-              <p>System Settings</p>
+              <p>Downloads</p>
             </a>
 
             <a
@@ -247,7 +222,7 @@ const AuthNavbar = () => {
               href="/admin-profile"
             >
               <IoDocument className="text-green-500 w-4 h-4" />
-              <p>Admin Profile</p>
+              <p>My Profile</p>
             </a>
           </div>
 
