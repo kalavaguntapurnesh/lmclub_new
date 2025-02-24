@@ -269,7 +269,7 @@ const Login = () => {
                                 User Type
                               </label>
                               <select
-                                className=" border border-gray-300 text-gray-900 sm:text-sm rounded focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 "
+                                className="w-full mb-4 p-[10px] border border-gray-300 rounded shadow bg-white text-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-gray-500 appearance-none "
                                 // onChange={(e) =>
                                 //   setUserData((prev) => ({
                                 //     ...prev,
