@@ -82,6 +82,12 @@ const NavBar = () => {
         {/* Desktop Nav Links */}
         <ul className="hidden md:flex flex-grow justify-center space-x-8 items-center">
           <Tabs />
+          <a
+            href="/ecommerce"
+            className={` ${isScrolled ? "text-gray-700" : "text-gray-700"}`}
+          >
+            E-Store
+          </a>
         </ul>
 
         <div className="lg:flex hidden relative mr-5">

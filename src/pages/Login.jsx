@@ -19,6 +19,9 @@ const Login = () => {
   const [selectedCountry, setSelectedCountry] = useState("");
   const [selectedState, setSelectedState] = useState("");
   const [selectedCity, setSelectedCity] = useState("");
+
+  const [selectedRole, setSelectedRole] = useState("");
+
   const [states, setStates] = useState([]);
   const [cities, setCities] = useState([]);
   useEffect(() => {
@@ -48,7 +51,8 @@ const Login = () => {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [name, setName] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [state, setState] = useState("Sign Up");
   const [type, setType] = useState("password");
@@ -57,20 +61,33 @@ const Login = () => {
     e.preventDefault();
     try {
       if (state === "Sign Up") {
+        console.log(
+          firstName,
+          lastName,
+          email,
+          selectedCountry,
+          selectedState,
+          selectedCity,
+          password,
+          selectedRole
+        );
+
         const { data } = await axios.post(backendUrl + "/api/user/register", {
-          name,
+          firstName,
+          lastName,
           email,
           country: selectedCountry,
           stateResidence: selectedState,
           cityResidence: selectedCity,
           password,
+          selectedRole,
         });
 
         if (data.success) {
           localStorage.setItem("token", data.token);
           setToken(data.token);
           toast.success("Logged In Successfully!");
-          navigate("/dashboard");
+          navigate("/my-profile");
           scrollTo(0, 0);
         } else {
           toast.error(data.message);
@@ -84,7 +101,7 @@ const Login = () => {
           localStorage.setItem("token", data.token);
           toast.success("Registered Successfully!");
           setToken(data.token);
-          navigate("/dashboard");
+          navigate("/my-profile");
           scrollTo(0, 0);
         } else {
           toast.error(data.message);
@@ -178,7 +195,7 @@ const Login = () => {
                               type="email"
                               name="email"
                               id="email"
-                              className=" border border-gray-300 text-gray-900 sm:text-sm rounded focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 "
+                              className=" border border-gray-300 text-gray-900 sm:text-sm rounded focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-gray-500  block w-full p-2.5 "
                               placeholder="name@domain.com"
                               required="true"
                               onChange={(e) => setEmail(e.target.value)}
@@ -190,21 +207,40 @@ const Login = () => {
                             <div className="flex gap-5">
                               <div className="w-full">
                                 <label
-                                  htmlFor="username"
+                                  htmlFor="firstName"
                                   className="block mb-2 text-sm font-bold text-colorThree "
                                 >
-                                  FullName
+                                  First Name
                                 </label>
                                 <input
                                   type="text"
-                                  name="fullname"
-                                  id="fullname"
-                                  className=" border border-gray-300 text-gray-900 sm:text-sm rounded focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                                  name="firstName"
+                                  id="firstName"
+                                  className=" border border-gray-300 text-gray-900 sm:text-sm rounded focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-gray-500  block w-full p-2.5"
                                   placeholder="Joe Root"
                                   required="true"
-                                  onChange={(e) => setName(e.target.value)}
+                                  onChange={(e) => setFirstName(e.target.value)}
                                 ></input>
                               </div>
+
+                              <div className="w-full">
+                                <label
+                                  htmlFor="lastName"
+                                  className="block mb-2 text-sm font-bold text-colorThree "
+                                >
+                                  Last Name
+                                </label>
+                                <input
+                                  type="text"
+                                  name="lastName"
+                                  id="lastName"
+                                  className=" border border-gray-300 text-gray-900 sm:text-sm rounded focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-gray-500  block w-full p-2.5"
+                                  placeholder="Joe Root"
+                                  required="true"
+                                  onChange={(e) => setLastName(e.target.value)}
+                                ></input>
+                              </div>
+
                               {/* <div className="w-full">
                                 <label
                                   htmlFor="phoneNumber"
@@ -230,10 +266,42 @@ const Login = () => {
                           {state === "Sign Up" && (
                             <div>
                               <label className="block mb-2 text-sm font-bold text-colorThree ">
+                                User Type
+                              </label>
+                              <select
+                                className=" border border-gray-300 text-gray-900 sm:text-sm rounded focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 "
+                                // onChange={(e) =>
+                                //   setUserData((prev) => ({
+                                //     ...prev,
+                                //     gender: e.target.value,
+                                //   }))
+                                // }
+
+                                onChange={(e) =>
+                                  setSelectedRole(e.target.value)
+                                }
+                                value={selectedRole}
+                              >
+                                <option value="Not Selected">
+                                  Not Selected
+                                </option>
+                                <option value="Business User">
+                                  Business User
+                                </option>
+                                <option value="General User">
+                                  General User
+                                </option>
+                              </select>
+                            </div>
+                          )}
+
+                          {state === "Sign Up" && (
+                            <div>
+                              <label className="block mb-2 text-sm font-bold text-colorThree ">
                                 Country
                               </label>
                               <select
-                                className="w-full mb-4 p-3 border border-gray-300 rounded shadow bg-white text-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-gray-500 appearance-none pr-8"
+                                className="w-full mb-4 p-[10px] border border-gray-300 sm:text-sm rounded bg-white text-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-gray-500 appearance-none pr-8"
                                 onChange={(e) =>
                                   setSelectedCountry(e.target.value)
                                 }
@@ -257,7 +325,7 @@ const Login = () => {
                                     State
                                   </label>
                                   <select
-                                    className="w-full mb-4 p-3 border border-gray-300 rounded shadow bg-white text-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-gray-500 appearance-none pr-8"
+                                    className="w-full mb-4 p-[10px] border border-gray-300 sm:text-sm  rounded bg-white text-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-gray-500 appearance-none pr-8"
                                     onChange={(e) =>
                                       setSelectedState(e.target.value)
                                     }
@@ -293,7 +361,7 @@ const Login = () => {
                                       setSelectedCity(e.target.value)
                                     }
                                     value={selectedCity}
-                                    className="w-full mb-4 p-3 border border-gray-300 rounded shadow bg-white text-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-gray-500 appearance-none pr-8"
+                                    className="w-full mb-4 p-[10px] border border-gray-300 sm:text-sm  rounded bg-white text-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-gray-500 appearance-none pr-8"
                                   >
                                     <option value="">Select City</option>
                                     {cities.map((city) => (
@@ -321,7 +389,7 @@ const Login = () => {
                                 value={password}
                                 id="password"
                                 placeholder="••••••••"
-                                className=" border border-gray-300 text-gray-900 sm:text-sm rounded focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 "
+                                className=" border border-gray-300 text-gray-900 sm:text-sm rounded focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-gray-500  block w-full p-2.5 "
                                 required="true"
                                 onChange={(e) => setPassword(e.target.value)}
                               ></input>

@@ -9,6 +9,8 @@ const MyProfile = () => {
   const { userData, setUserData, token, backendUrl, loadUserProfileData } =
     useContext(AppContext);
 
+  const [userImg, setUserImg] = useState(null);
+
   const [selectedCountry, setSelectedCountry] = useState(
     userData?.billingAddress?.country || ""
   );
@@ -48,25 +50,38 @@ const MyProfile = () => {
 
   const [isEdit, setIsEdit] = useState(false);
 
-  const [image, setImage] = useState(false);
-
   const updateUserProfileData = async () => {
     try {
+      let base64Image = userData.image;
+
+      if (userImg) {
+        const reader = new FileReader();
+        reader.readAsDataURL(userImg);
+        base64Image = await new Promise((resolve) => {
+          reader.onload = () => resolve(reader.result);
+        });
+      }
+
+      const formData = new FormData();
+
       const finalState = selectedState || userData.billingAddress?.state;
       const finalCity = selectedCity || userData.billingAddress?.city;
       const finalCountry = selectedCountry || userData.billingAddress?.country;
 
       const payLoad = {
-        name: userData.name,
+        firstName: userData.firstName,
+        lastName: userData.lastName,
         phoneNumber: userData.phoneNumber,
         gender: userData.gender !== "Not Selected" ? userData.gender : "",
         secondaryEmail: userData.secondaryEmail,
+        image: base64Image,
         billingAddress: {
           country: finalCountry,
           state: finalState,
           city: finalCity,
           pinCode: userData.billingAddress?.pinCode,
-          name: userData.billingAddress?.name,
+          firstName: userData.billingAddress?.firstName,
+          lastName: userData.billingAddress?.lastName,
           phoneNumber: userData.billingAddress?.phoneNumber,
         },
       };
@@ -76,6 +91,7 @@ const MyProfile = () => {
         payLoad,
         {
           headers: { token },
+          "Content-Type": "multipart/form-data",
         }
       );
 
@@ -137,28 +153,59 @@ const MyProfile = () => {
                     </div>
                   </div>
 
-                  <div className="mt-4 bg-[#f2f2f3] px-4 py-5 shadow w-[100%]">
-                    <img
+                  <div className="mt-2 bg-[#f2f2f3] px-4 py-5 shadow w-[100%]">
+                    {/* <img
                       className="w-36 rounded"
                       src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?w=1000&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8dXNlcnxlbnwwfHwwfHx8MA%3D%3D"
                       alt="image"
-                    />
+                    /> */}
+
+                    <div className="flex flex-col items-center">
+                      <label htmlFor="user-img">
+                        <img
+                          src={
+                            userImg
+                              ? URL.createObjectURL(userImg)
+                              : userData.image
+                              ? userData.image
+                              : "https://res.cloudinary.com/dieqhbgmy/image/upload/v1740039858/uploads/tntaay3cfzuiyeregrvg.png"
+                          }
+                          alt="User Profile"
+                          className="w-36 h-36 rounded-full cursor-pointer object-cover border border-gray-300"
+                        />
+                      </label>
+                      <input
+                        type="file"
+                        id="user-img"
+                        hidden
+                        onChange={(e) => setUserImg(e.target.files[0])}
+                      />
+                      {isEdit ? (
+                        <p className="mt-2 text-gray-500 text-sm">
+                          Click above to upload
+                        </p>
+                      ) : (
+                        <p className="mt-2 text-gray-500 text-sm">
+                          Your Profile Picture
+                        </p>
+                      )}
+                    </div>
 
                     {isEdit ? (
                       <input
                         className="md:text-3xl bg-[#f2f2f3] text-2xl font-semibold max-w-80 mt-4"
                         type="text"
-                        value={userData.name}
+                        value={userData.firstName}
                         onChange={(e) =>
                           setUserData((prev) => ({
                             ...prev,
-                            name: e.target.value,
+                            firstName: e.target.value,
                           }))
                         }
                       />
                     ) : (
                       <p className="font-semibold text-3xl text-neutral-800 mt-4">
-                        {userData.name}
+                        {userData.firstName}
                       </p>
                     )}
 
@@ -172,33 +219,33 @@ const MyProfile = () => {
                       <div className="grid md:grid-cols-2 grid-cols-1 lg:grid-cols-3 w-[100%] gap-y-2.5 text-neutral-700 mt-3">
                         <div className="lg:w-[90%] w-[100%]">
                           <label
-                            htmlFor="email"
+                            htmlFor="firstName"
                             className="block mb-2 text-sm font-bold text-colorThree "
                           >
-                            Full Name
+                            First Name
                           </label>
                           {isEdit ? (
                             <input
                               type="text"
-                              name="name"
-                              id="name"
-                              className=" border  border-gray-300 text-gray-900 sm:text-sm rounded focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 "
+                              name="firstName"
+                              id="firstName"
+                              className=" border border-gray-300 text-gray-900 sm:text-sm rounded focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-gray-500  block w-full p-2.5"
                               placeholder="name@domain.com"
                               onChange={(e) =>
                                 setUserData((prev) => ({
                                   ...prev,
-                                  name: e.target.value,
+                                  firstName: e.target.value,
                                 }))
                               }
-                              value={userData.name}
+                              value={userData.firstName}
                             ></input>
                           ) : (
                             <input
                               type="text"
-                              name="name"
-                              id="name"
+                              name="firstName"
+                              id="firstName"
                               className=" border  border-gray-300 text-gray-900 sm:text-sm rounded focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 "
-                              placeholder="name@domain.com"
+                              placeholder="First Name of User"
                               // onChange={(e) =>
                               //   setUserData((prev) => ({
                               //     ...prev,
@@ -206,10 +253,52 @@ const MyProfile = () => {
                               //   }))
                               // }
                               disabled
-                              value={userData.name}
+                              value={userData.firstName}
                             ></input>
                           )}
                         </div>
+
+                        <div className="lg:w-[90%] w-[100%]">
+                          <label
+                            htmlFor="lastName"
+                            className="block mb-2 text-sm font-bold text-colorThree "
+                          >
+                            Last Name
+                          </label>
+                          {isEdit ? (
+                            <input
+                              type="text"
+                              name="lastName"
+                              id="lastName"
+                              className=" border border-gray-300 text-gray-900 sm:text-sm rounded focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-gray-500  block w-full p-2.5"
+                              placeholder="Last Name of User"
+                              onChange={(e) =>
+                                setUserData((prev) => ({
+                                  ...prev,
+                                  lastName: e.target.value,
+                                }))
+                              }
+                              value={userData.lastName}
+                            ></input>
+                          ) : (
+                            <input
+                              type="text"
+                              name="lastName"
+                              id="lastName"
+                              className=" border  border-gray-300 text-gray-900 sm:text-sm rounded focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 "
+                              placeholder="Last Name of User"
+                              // onChange={(e) =>
+                              //   setUserData((prev) => ({
+                              //     ...prev,
+                              //     name: e.target.value,
+                              //   }))
+                              // }
+                              disabled
+                              value={userData.lastName}
+                            ></input>
+                          )}
+                        </div>
+
                         <div className="lg:w-[90%] w-[100%]">
                           <label
                             htmlFor="email"
@@ -223,7 +312,7 @@ const MyProfile = () => {
                               name="email"
                               id="email"
                               disabled
-                              className=" border  border-gray-300 text-gray-900 sm:text-sm rounded focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 "
+                              className=" border border-gray-300 text-gray-900 sm:text-sm rounded focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-gray-500  block w-full p-2.5"
                               placeholder="name@domain.com"
                               value={userData.email}
                             ></input>
@@ -242,14 +331,14 @@ const MyProfile = () => {
 
                         <div className="lg:w-[90%] w-[100%]">
                           <label
-                            htmlFor="email"
+                            htmlFor="gender"
                             className="block mb-2 text-sm font-bold text-colorThree "
                           >
                             Gender
                           </label>
                           {isEdit ? (
                             <select
-                              className="w-full mb-4 p-3 border border-gray-300 rounded shadow bg-white text-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-gray-500 appearance-none pr-8"
+                              className="w-full mb-4 p-[10px] border border-gray-300 rounded shadow bg-white text-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-gray-500 appearance-none pr-8"
                               onChange={(e) =>
                                 setUserData((prev) => ({
                                   ...prev,
@@ -293,7 +382,7 @@ const MyProfile = () => {
                               type="email"
                               name="secondaryEmail"
                               id="secondaryEmail"
-                              className=" border border-gray-300 text-gray-900 sm:text-sm rounded focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 "
+                              className=" border border-gray-300 text-gray-900 sm:text-sm rounded focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-gray-500  block w-full p-2.5"
                               placeholder="name@domain.com"
                               required="true"
                               onChange={(e) =>
@@ -341,7 +430,7 @@ const MyProfile = () => {
                           </label>
                           {isEdit ? (
                             <select
-                              className="w-full mb-4 p-3 border border-gray-300 rounded shadow bg-white text-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-gray-500 appearance-none pr-8"
+                              className="w-full mb-4 p-[10px] border border-gray-300 rounded shadow bg-white text-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-gray-500 appearance-none pr-8"
                               onChange={(e) =>
                                 setSelectedCountry(e.target.value)
                               }
@@ -368,7 +457,7 @@ const MyProfile = () => {
                               //   }))
                               // }
                               disabled
-                              value={userData.billingAddress?.country}
+                              value={userData?.billingAddress?.country}
                             ></input>
                           )}
                         </div>
@@ -382,7 +471,7 @@ const MyProfile = () => {
                           </label>
                           {isEdit ? (
                             <select
-                              className="w-full mb-4 p-3 border border-gray-300 rounded shadow bg-white text-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-gray-500 appearance-none pr-8"
+                              className="w-full mb-4 p-[10px] border border-gray-300 rounded shadow bg-white text-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-gray-500 appearance-none pr-8"
                               onChange={(e) => setSelectedState(e.target.value)}
                               value={selectedState}
                             >
@@ -425,7 +514,7 @@ const MyProfile = () => {
                           </label>
                           {isEdit ? (
                             <select
-                              className="w-full mb-4 p-3 border border-gray-300 rounded shadow bg-white text-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-gray-500 appearance-none pr-8"
+                              className="w-full mb-4 p-[10px] border border-gray-300 rounded shadow bg-white text-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-gray-500 appearance-none pr-8"
                               onChange={(e) => setSelectedCity(e.target.value)}
                               value={selectedCity}
                             >
@@ -468,7 +557,7 @@ const MyProfile = () => {
                               type="text"
                               name="phone"
                               id="phone"
-                              className=" border border-gray-300 text-gray-900 sm:text-sm rounded focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 "
+                              className=" border border-gray-300 text-gray-900 sm:text-sm rounded focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-gray-500  block w-full p-2.5"
                               placeholder="name@domain.com"
                               required="true"
                               onChange={(e) =>
@@ -507,14 +596,14 @@ const MyProfile = () => {
                             htmlFor="email"
                             className="block mb-2 text-sm font-bold text-colorThree "
                           >
-                            PIN Code
+                            Zip Code
                           </label>
                           {isEdit ? (
                             <input
                               type="text"
                               name="pinCode"
                               id="pinCode"
-                              className=" border border-gray-300 text-gray-900 sm:text-sm rounded focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 "
+                              className=" border border-gray-300 text-gray-900 sm:text-sm rounded focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-gray-500  block w-full p-2.5"
                               placeholder="name@domain.com"
                               required="true"
                               onChange={(e) =>

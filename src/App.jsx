@@ -36,7 +36,8 @@ import AuthNavbar from "./components/AuthNavbar";
 import Sidebar from "./components/Sidebar";
 import Addresses from "./pages/Addresses";
 import Orders from "./pages/Orders";
-import UserSubscription from './pages/UserSubscription';
+import UserSubscription from "./pages/UserSubscription";
+import ECommerce from "./pages/ECommerce";
 function App() {
   const { token } = useContext(AppContext);
 
@@ -85,6 +86,7 @@ function App() {
         <Route path="/events" element={<Events />}></Route>
 
         <Route path="/privacy-policy" element={<Privacy />}></Route>
+        <Route path="/ecommerce" element={<ECommerce />}></Route>
 
         <Route path="/enroll-rewards" element={<Enroll_Rewards />}></Route>
         <Route path="/rewards" element={<Rewards />}></Route>

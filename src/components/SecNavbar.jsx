@@ -93,6 +93,7 @@ const SecNavbar = () => {
         {/* Desktop Nav Links */}
         <ul className="hidden lg:flex flex-grow justify-center space-x-8 items-center">
           <Tabs />
+          
         </ul>
 
         <div className="hidden lg:flex relative mr-5">

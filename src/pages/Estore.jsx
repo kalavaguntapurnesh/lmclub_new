@@ -13,7 +13,7 @@ import WhatsApp from "../components/WhatsApp";
 const Estore = () => {
   return (
     <div>
-      {/* <Navbar /> */}
+      <Navbar />
       <ScrollToTop />
       <WhatsApp />
 
@@ -233,7 +233,7 @@ const Estore = () => {
         </div>
       </div>
 
-      {/* <Footer /> */}
+      <Footer />
     </div>
   );
 };

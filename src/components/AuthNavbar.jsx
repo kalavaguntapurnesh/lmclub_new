@@ -98,11 +98,21 @@ const AuthNavbar = () => {
         <div className="flex items-center gap-4">
           {token && (
             <div className="flex items-center gap-2 cursor-pointer group relative">
-              <img
-                src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80"
-                className="w-8 rounded-full"
-                alt="profile"
-              />
+              {userData?.image ? (
+                <img
+                  src={userData?.image}
+                  className="w-8 rounded-full"
+                  alt="profile"
+                />
+              ) : (
+                <img
+                  // src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80"
+                  src="https://res.cloudinary.com/dieqhbgmy/image/upload/v1740048276/uploads/vgowbl1mzufap4bz3n0k.png"
+                  className="w-10 rounded-full"
+                  alt="profile"
+                />
+              )}
+
               <img className="w-2.5 " src={dropIcon} alt="drop" />
               <div className="absolute top-0 right-0 pt-14 text-base text-gray-600 z-20 hidden group-hover:block">
                 <div className="min-w-48 bg-white shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)] rounded flex flex-col gap-4 p-4">
