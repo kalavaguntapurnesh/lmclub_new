@@ -1,59 +1,36 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import Navbar from "../components/Navbar";
 import { useNavigate } from "react-router-dom";
-// import { useDispatch } from "react-redux";
-// import { hideLoading, showLoading } from "../redux/features/alertSlice";
 import axios from "axios";
-import Swal from "sweetalert2";
 import { FaUnlock } from "react-icons/fa";
 import Footer from "../components/Footer";
+import { AppContext } from "./../context/AppContext";
+import { toast } from "react-toastify";
 const ForgotPassword = () => {
+  const { backendUrl } = useContext(AppContext);
+
   const [email, setEmail] = useState("");
-  const navigate = useNavigate();
-  // const dispatch = useDispatch();
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // dispatch(showLoading());
-    // axios.post("http://localhost:9090/api/forgotPassword", {
-    axios.post("https://lmclub-backend.onrender.com/api/forgotPassword", {
-        email,
-      })
-      .then((response) => {
-        // dispatch(hideLoading());
-        if (response.status === 200) {
-          const verifyMail = response.data.email;
-          // const partialEmail = verifyMail.replace(
-          //   /(\w{3})[\w.-]+@([\w.]+\w)/,
-          //   "$1***@$2"
-          // );
-          const partialEmail = verifyMail;
-          Swal.fire({
-            title: "Password Reset Initiated",
-            text:
-              "We have sent an email to " +
-              partialEmail +
-              " registered with us, please check the email for password reset.",
-            icon: "success",
-          });
-          navigate("/login");
-        } else {
-          Swal.fire({
-            icon: "error",
-            title: "Oops...",
-            text: "Something went wrong!",
-          });
-          navigate("/register");
-        }
-      })
-      .catch((error) => {
-        // dispatch(hideLoading());
-        console.log(error);
-        Swal.fire({
-          icon: "error",
-          title: "Oops...",
-          text: "Something went wrong!",
-        });
-      });
+  const [loading, setLoading] = useState(false);
+
+  const handleSubmit = async (e) => {
+    try {
+      e.preventDefault();
+      setLoading(true);
+      const { data } = await axios.post(
+        backendUrl + "/api/user/forgot-password",
+        { email }
+      );
+      toast.success(data.message);
+      resetForm();
+    } catch (error) {
+      console.log(error);
+      toast.error("Something went wrong");
+    }
+    setLoading(false);
+  };
+
+  const resetForm = () => {
+    setEmail("");
   };
 
   return (
@@ -100,28 +77,23 @@ const ForgotPassword = () => {
                                   name="email"
                                   id="email"
                                   className=" border border-gray-300 text-gray-900 sm:text-sm rounded focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 "
-                                  placeholder="name@company.com"
+                                  placeholder="Enter your email here"
                                   required=""
                                   onChange={(e) => setEmail(e.target.value)}
                                 ></input>
                               </div>
 
-                              {/* <button
-                                type="submit"
-                                className="w-full text-white bg-colorFour hover:bg-colorFour transition ease-in-out duration-1000 focus:outline-none font-medium rounded text-sm px-5 py-2.5 text-center cursor-pointer"
-                              >
-                                Submit
-                              </button> */}
                               <button
-                                 type="submit"
-                                 className="w-full text-white bg-green-500 hover:bg-green-500 transition ease-in-out duration-300 focus:outline-none font-medium rounded text-sm px-5 py-2.5 text-center cursor-pointer"
-                                >
-                                      Submit
+                                type="submit"
+                                disabled={loading}
+                                className="w-full text-white bg-green-500 hover:bg-green-500 transition ease-in-out duration-300 focus:outline-none font-medium rounded text-sm px-5 py-2.5 text-center cursor-pointer"
+                              >
+                                {loading ? "Sending..." : "Send Reset Link"}
                               </button>
                               <p className="text-sm text-center font-light text-gray-500 ">
                                 Don’t have an account yet?{" "}
                                 <a
-                                  href="/register"
+                                  href="/login"
                                   className="font-medium hover:underline "
                                 >
                                   Sign up

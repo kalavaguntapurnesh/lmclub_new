@@ -20,6 +20,7 @@ import success from "../assets/success.png";
 import Logo from "../assets/LMDark.webp";
 import Error from "../assets/error.png";
 import { AppContext } from "../context/AppContext";
+import { toast } from "react-toastify";
 
 const Contact = () => {
   const { backendUrl } = useContext(AppContext);
@@ -30,158 +31,44 @@ const Contact = () => {
   const [email, setEmail] = useState("");
   const [subject, setSubject] = useState("");
   const [message, setMessage] = useState("");
-  const [responseMessage, setResponseMessage] = useState("");
+
   const handleSubmit = async (e) => {
-    const style = document.createElement("style");
-    style.innerHTML = `
-      .swal-custom-ok-button {
-        background-color:rgb(27, 202, 103); /* Custom color */
-        color:white;
-        border: none;
-        padding: 10px 20px;
-        font-size: 16px;
-        border-radius: 5px;
-      }
-
-      .swal-custom-ok-button:hover {
-        background-color:rgb(18, 91, 25); /* Hover color */
-      }
-    `;
-    document.head.appendChild(style);
-
     e.preventDefault();
 
-    const formData = {
-      fullName,
-      email,
-      subject,
-      message,
-    };
-
-    console.log("Sending Data:", formData);
-
     try {
-      const response = await axios.post(
+      const payload = {
+        fullName: fullName,
+        email: email,
+        subject: subject,
+        message: message,
+      };
+
+      console.log("Submit form pay load is : ", payload);
+
+      const { data } = await axios.post(
         backendUrl + "/api/user/user-contactForm",
-        formData
-        // {
-        //   headers: {
-        //     "Content-Type": "application/json",
-        //   },
-        // }
+        payload
       );
 
-      setResponseMessage(response.data.message);
-
-      if (response.status === 201) {
-        setFullName("");
-        setEmail("");
-        setSubject("");
-        setMessage("");
-        Swal.fire({
-          html: `
-                   <div style="display: flex; flex-direction: column; align-items: center;">
-                       
-                       <!-- Logo + Title -->
-                       <div style="width: 100%; display: flex; align-items: center; justify-content: center; position: relative; margin-bottom: 20px;">
-                           <img src="${Logo}" alt="Logo" 
-                               style="position: absolute; top: 0; left: 0; width: 50px; height: 50px; margin: 10px;" />
-                           
-                           <h4 style="margin: 0; font-size: 30px; font-weight: bold;">
-                               <span style="color: black;">LM</span>
-                               <span style="color: rgb(37, 218, 73);">Club</span>
-                           </h4>
-                       </div>
-          
-                       <!-- Success Image -->
-                       <div style="margin-bottom: 20px;">
-                           <img src="${success}" alt="Success" style="width: 50px; height: 50px; margin: 0 10px;" />
-                       </div>
-          
-                       <!-- Registration Success Message -->
-                       <div style="width: 100%; text-align: center; ;">
-                           <h1 style="margin: 0; font-size: 25px;">Form Submitted Successful</h1>
-                       </div>
-                   </div>
-               `,
-          customClass: {
-            confirmButton: "swal-custom-ok-button",
-          },
-        });
+      if (data.success) {
+        toast.success(data.message);
+        resetForm();
+      } else {
+        toast.error(data.message);
+        resetForm();
       }
     } catch (error) {
-      setResponseMessage(
-        error.response?.data?.message || "Something went wrong!"
-      );
       console.log("Error response:", error.response);
-
-      if (error.response && error.response.status === 401) {
-        Swal.fire({
-          html: `
-              <div style="display: flex; flex-direction: column; align-items: center;">
-                  
-                  <!-- Logo + Title -->
-                  <div style="width: 100%; display: flex; align-items: center; justify-content: center; position: relative; margin-bottom: 20px;">
-                      <img src="${Logo}" alt="Logo" 
-                          style="position: absolute; top: 0; left: 0; width: 50px; height: 50px; margin: 10px;" />
-                      
-                      <h4 style="margin: 0; font-size: 30px; font-weight: bold;">
-                          <span style="color: black;">LM</span>
-                          <span style="color: rgb(37, 218, 73);">Club</span>
-                      </h4>
-                  </div>
-     
-                  <!-- Success Image -->
-                  <div style="margin-bottom: 20px;">
-                      <img src="${Error}" alt="Success" style="width: 50px; height: 50px; margin: 0 10px;" />
-                  </div>
-     
-                  <!-- Registration Success Message -->
-                  <div style="width: 100%; text-align: center; ;">
-                      <h1 style="margin: 0; font-size: 25px;">User Already Exits!</h1>
-                  </div>
-              </div>
-          `,
-          customClass: {
-            confirmButton: "swal-custom-ok-button",
-          },
-        });
-      } else {
-        Swal.fire({
-          html: `
-            <div style="display: flex; flex-direction: column; align-items: center;">
-                
-                <!-- Logo + Title -->
-                <div style="width: 100%; display: flex; align-items: center; justify-content: center; position: relative; margin-bottom: 20px;">
-                    <img src="${Logo}" alt="Logo" 
-                        style="position: absolute; top: 0; left: 0; width: 50px; height: 50px; margin: 10px;" />
-                    
-                    <h4 style="margin: 0; font-size: 30px; font-weight: bold;">
-                        <span style="color: black;">LM</span>
-                        <span style="color: rgb(37, 218, 73);">Club</span>
-                    </h4>
-                </div>
-   
-                <!-- Success Image -->
-                <div style="margin-bottom: 20px;">
-                    <img src="${Error}" alt="Success" style="width: 50px; height: 50px; margin: 0 10px;" />
-                </div>
-   
-                <!-- Registration Success Message -->
-                <div style="width: 100%; text-align: center; ;">
-                    <h1 style="margin: 0; font-size: 25px;">Some Internal Error!</h1>
-                </div>
-            </div>
-        `,
-          customClass: {
-            confirmButton: "swal-custom-ok-button",
-          },
-        });
-      }
+      toast.error(error.mesage);
+      resetForm();
     }
   };
-  const handleCheckboxChange = (event) => {
-    setIsChecked(event.target.checked);
+
+  const resetForm = () => {
+    setEmail("");
+    setFullName("");
+    setMessage("");
+    setSubject("");
   };
 
   const phoneNumber = "16782004524";
@@ -428,6 +315,7 @@ const Contact = () => {
                             onChange={(e) => {
                               setFullName(e.target.value);
                             }}
+                            value={fullName}
                             placeholder="Your Full Name"
                             required
                             className="w-full rounded border border-[#e0e0e0] bg-white py-3 px-6 text-base text-[#6B7280] outline-none  focus:shadow-md"
@@ -443,6 +331,7 @@ const Contact = () => {
                             Email Address
                           </label>
                           <input
+                            value={email}
                             type="email"
                             name="email"
                             id="email"
@@ -465,6 +354,7 @@ const Contact = () => {
                             Subject
                           </label>
                           <input
+                            value={subject}
                             type="text"
                             name="subject"
                             id="subject"
@@ -488,6 +378,7 @@ const Contact = () => {
                           </label>
                           <textarea
                             rows="4"
+                            value={message}
                             name="message"
                             id="message"
                             onChange={(e) => {
@@ -501,7 +392,10 @@ const Contact = () => {
 
                       <div className="flex items-center justify-center pt-2 md:mx-0">
                         <div className="mb-5 md:w-11/12 w-full">
-                          <button className="rounded bg-green-500 transition duration-1000 py-3 ease-in-out w-full text-base  text-white outline-none">
+                          <button
+                            type="submit"
+                            className="rounded bg-green-500 transition duration-1000 py-3 ease-in-out w-full text-base  text-white outline-none"
+                          >
                             Submit
                           </button>
                         </div>

@@ -54,7 +54,7 @@ const Login = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
-  const [state, setState] = useState("Sign Up");
+  const [state, setState] = useState("Login");
   const [type, setType] = useState("password");
 
   const onSubmitHandler = async (e) => {
@@ -84,10 +84,16 @@ const Login = () => {
         });
 
         if (data.success) {
-          localStorage.setItem("token", data.token);
-          setToken(data.token);
-          toast.success("Logged In Successfully!");
-          navigate("/my-profile");
+          // localStorage.setItem("token", data.token);
+          // setToken(data.token);
+          // toast.success("Logged In Successfully!");
+          // navigate("/my-profile");
+
+          toast.success(
+            "Registration Successful! Please check your email for verification link."
+          );
+          setState("Login");
+
           scrollTo(0, 0);
         } else {
           toast.error(data.message);
@@ -98,11 +104,15 @@ const Login = () => {
           password,
         });
         if (data.success) {
-          localStorage.setItem("token", data.token);
-          toast.success("Registered Successfully!");
-          setToken(data.token);
-          navigate("/my-profile");
-          scrollTo(0, 0);
+          if (data.verified) {
+            localStorage.setItem("token", data.token);
+            toast.success("Registered Successfully!");
+            setToken(data.token);
+            navigate("/my-profile");
+            scrollTo(0, 0);
+          } else {
+            toast.warning("Please verify your email before logging in.");
+          }
         } else {
           toast.error(data.message);
         }
@@ -458,7 +468,10 @@ const Login = () => {
                             <p className="text-sm text-center font-light text-gray-500  ">
                               Already have an account?{" "}
                               <span
-                                onClick={() => setState("Login")}
+                                onClick={() => {
+                                  setState("Login");
+                                  scrollTo(0, 0);
+                                }}
                                 className="font-medium cursor-pointer text-primary-600 hover:underline "
                               >
                                 Login Here
@@ -468,7 +481,10 @@ const Login = () => {
                             <p className="text-sm text-center font-light text-gray-500  ">
                               Not Registered?{" "}
                               <span
-                                onClick={() => setState("Sign Up")}
+                                onClick={() => {
+                                  setState("Sign Up");
+                                  scrollTo(0, 0);
+                                }}
                                 className="font-medium cursor-pointer text-primary-600 hover:underline "
                               >
                                 Create an Account

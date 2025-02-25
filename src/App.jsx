@@ -149,15 +149,21 @@ function App() {
           element={<RefundAndReturnPolicy />}
         />
         <Route path="/select-payment-method" element={<PaymentMethods />} />
-        <Route path="/complete-order" element={<PayPalSuccessPage />} />
+
+        <Route
+          path="/api/paypal/complete-order"
+          element={<PayPalSuccessPage />}
+        />
         {/* <Route
           path="/organisation-register"
           element={<OrganisationRegister />}
         />
         <Route path="/organisation-login" element={<OrganisationLogin />} /> */}
+        <Route path="/api/paypal/cancel-order/:token" element={<Failure />} />
+
         <Route path="/cancel-order/:token" element={<Failure />} />
         <Route path="/forgotPassword" element={<ForgotPassword />} />
-        <Route path="/resetPassword/:id/:token" element={<ResetPassword />} />
+        <Route path="/reset-password/:token" element={<ResetPassword />} />
       </Routes>
 
       {/* <Footer /> */}
