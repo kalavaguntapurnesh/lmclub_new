@@ -18,7 +18,9 @@ import Broadcast from "./pages/Broadcast";
 import Events from "./pages/Events";
 import Blogs from "./pages/Blogs";
 import VerifyEmail from "./pages/VerifyEmail";
+import VerifyEmailForBussinessUser from "./pages/VerifyEmailForBussinessUser";
 import OtpAndEmailVerification from "./pages/OtpAndEmailVerification";
+import OtpAndEmailVerificationForBussinessUser from "./pages/OtpAndEmailVerificationForBussinessUser";
 import SelectedPlan from "./pages/SelectedPlan";
 import Cart from "./pages/Cart";
 import CartProvider from "./context/CartContext";
@@ -38,6 +40,20 @@ import Addresses from "./pages/Addresses";
 import Orders from "./pages/Orders";
 import UserSubscription from "./pages/UserSubscription";
 import ECommerce from "./pages/ECommerce";
+import GrowTAC from "./pages/GrowTAC";
+import NetworkTAC from "./pages/NetworkTAC";
+import BeehiveTAC from "./pages/BeehiveTAC";
+import EstoreTAC from "./pages/EstoreTAC";
+import BroadcastTAC from "./pages/BroadcastTAC";
+import TermsAndConditions from "./pages/TermsAndConditions";
+import RefundAndReturnPolicy from "./pages/RefundAndReturnPolicy";
+import PaymentMethods from "./pages/PaymentMethods";
+import PayPalSuccessPage from "./pages/PayPalSuccessPage";
+// import OrganisationRegister from "./pages/OrganisationRegister";
+// import OrganisationLogin from "./pages/OrganisationLogin";
+import ForgotPassword from "./pages/ForgotPassword";
+import ResetPassword from "./pages/ResetPassword";
+
 function App() {
   const { token } = useContext(AppContext);
 
@@ -63,6 +79,23 @@ function App() {
 
       <Routes>
         <Route path="/" element={<Home />}></Route>
+        <Route path="/grow-terms-and-conditions" element={<GrowTAC />}></Route>
+        <Route
+          path="/network-terms-and-conditions"
+          element={<NetworkTAC />}
+        ></Route>
+        <Route
+          path="/beehive-terms-and-conditions"
+          element={<BeehiveTAC />}
+        ></Route>
+        <Route
+          path="/e-store-terms-and-conditions"
+          element={<EstoreTAC />}
+        ></Route>
+        <Route
+          path="/broadcast-terms-and-conditions"
+          element={<BroadcastTAC />}
+        ></Route>
 
         <Route path="/contact-us" element={<Contact />}></Route>
         <Route path="/estore" element={<Estore />}></Route>
@@ -73,11 +106,22 @@ function App() {
         <Route path="/blogs" element={<Blogs />}></Route>
         <Route path="/verify-email/:token" element={<VerifyEmail />} />
         <Route
+          path="/verify-bussiness-email/:token"
+          element={<VerifyEmailForBussinessUser />}
+        />
+        <Route
           path="/otp-verification"
           element={<OtpAndEmailVerification />}
         ></Route>
 
+        <Route
+          path="/otp-verification-for-bussiness"
+          element={<OtpAndEmailVerificationForBussinessUser />}
+        ></Route>
+
         <Route path="/learn-about-us" element={<About />}></Route>
+
+        <Route path="/privacy-policy" element={<Privacy />}></Route>
 
         <Route path="/login" element={<Login />}></Route>
         <Route path="/videos" element={<Videos />}></Route>
@@ -98,6 +142,22 @@ function App() {
         <Route path="/payment" element={<HandlePayment />} />
         <Route path="/payment-success" element={<Success />} />
         <Route path="/payment-failed" element={<Failure />} />
+
+        <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
+        <Route
+          path="/refund-and-return-policy"
+          element={<RefundAndReturnPolicy />}
+        />
+        <Route path="/select-payment-method" element={<PaymentMethods />} />
+        <Route path="/complete-order" element={<PayPalSuccessPage />} />
+        {/* <Route
+          path="/organisation-register"
+          element={<OrganisationRegister />}
+        />
+        <Route path="/organisation-login" element={<OrganisationLogin />} /> */}
+        <Route path="/cancel-order/:token" element={<Failure />} />
+        <Route path="/forgotPassword" element={<ForgotPassword />} />
+        <Route path="/resetPassword/:id/:token" element={<ResetPassword />} />
       </Routes>
 
       {/* <Footer /> */}

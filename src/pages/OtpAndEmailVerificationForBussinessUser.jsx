@@ -58,9 +58,12 @@ const OtpInput = ({ onOtpChange }) => {
     );
   };
 
-const OtpAndEmailVerification = () => {
-  const location = useLocation();
-  const { email, phoneNumber } = location.state || {};
+
+const OtpAndEmailVerificationForBussinessUser = () => {
+   const location = useLocation();
+  const { bussinessEmail, phoneNumber } = location.state || {};
+  console.log(bussinessEmail);
+  console.log(phoneNumber);
   const [otp, setOtp] = useState('');
   const [verifyOtp, setVerifyOtp] = useState(false);
   const [emailVerified, setEmailVerified] = useState(false);
@@ -89,10 +92,15 @@ const OtpAndEmailVerification = () => {
     setOtp(newOtp);
   };
 
+  console.log("entered otp : ", otp);
+  
   const verifySMS = async () => {
     try {
       // const response = await axios.post("http://localhost:9090/api/verify-otp", { phone: phoneNumber, otp });
       const response = await axios.post("https://lmclub-backend.onrender.com/api/verify-otp", { phone: phoneNumber, otp });
+      console.log(response);
+      console.log(phoneNumber);
+      console.log(otp);
       if (response.status === 200) {
         // Swal.fire({
         //   icon: 'success',
@@ -207,8 +215,8 @@ const OtpAndEmailVerification = () => {
   // Function to check email verification status
   const checkEmailVerification = async () => {
     try {
-      // const emailResponse = await axios.get(`http://localhost:9090/api/check-email-verification?email=${email}`);
-    const emailResponse = await axios.get(`https://lmclub-backend.onrender.com/api/check-email-verification?email=${email}`);
+      // const emailResponse = await axios.get(`http://localhost:9090/api/check-email-verification-for-bussiness?bussinessEmail=${bussinessEmail}`);
+    const emailResponse = await axios.get(`https://lmclub-backend.onrender.com/api/check-email-verification-for-bussiness?bussinessEmail=${bussinessEmail}`);
       setEmailVerified(emailResponse.data.verified);
       Swal.fire({
         html: `
@@ -272,7 +280,7 @@ const OtpAndEmailVerification = () => {
 
   useEffect(() => {
     checkEmailVerification();
-  }, [email]);
+  }, [bussinessEmail]);
 
   useEffect(() => {
     checkVerificationStatus();  
@@ -360,4 +368,5 @@ const OtpAndEmailVerification = () => {
   );
 };
 
-export default OtpAndEmailVerification;
+
+export default OtpAndEmailVerificationForBussinessUser

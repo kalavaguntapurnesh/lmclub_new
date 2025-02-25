@@ -5,6 +5,7 @@ import gPay from "../assets/GPlay.webp";
 import appStore from "../assets/AppStore.webp";
 import { motion } from "framer-motion";
 import { fadeIn } from "../variants.js";
+import LMTwo from "../assets/LMTwo.webp";
 
 const Banner = () => {
   return (
@@ -25,7 +26,7 @@ const Banner = () => {
                     {/* Image with full overlay */}
                     <div className="absolute inset-0 bg-black bg-opacity-40"></div>
                     <img
-                      src="https://lmclub.club/wp-content/uploads/2024/10/GettyImages-2164278820.webp"
+                      src={LMTwo}
                       alt="image"
                       className="w-full h-full object-cover rounded"
                     />

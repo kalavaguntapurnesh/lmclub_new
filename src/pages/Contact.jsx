@@ -2,8 +2,8 @@ import Footer from "../components/Footer";
 import us from "../assets/us.svg";
 import Navbar from "../components/Navbar";
 import ScrollToTop from "../components/ScrollToTop";
-import { useState } from "react";
-import { FaBlenderPhone, FaHandshake } from "react-icons/fa";
+import { useContext, useState } from "react";
+import { FaBlenderPhone, FaBuilding, FaHandshake } from "react-icons/fa";
 import { FaInstagram } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 import { FaLinkedin } from "react-icons/fa";
@@ -14,33 +14,181 @@ import World from "../assets/WorldMap.svg";
 import { FaYoutube } from "react-icons/fa";
 import { FaWhatsapp } from "react-icons/fa";
 import WhatsApp from "../components/WhatsApp";
-import { motion } from "framer-motion";
-import { fadeIn } from "../variants.js";
+import axios from "axios";
+import Swal from "sweetalert2";
+import success from "../assets/success.png";
+import Logo from "../assets/LMDark.webp";
+import Error from "../assets/error.png";
+import { AppContext } from "../context/AppContext";
 
 const Contact = () => {
+  const { backendUrl } = useContext(AppContext);
+
   const [isChecked, setIsChecked] = useState(false);
 
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [subject, setSubject] = useState("");
-  const [meassage, setMessage] = useState("");
+  const [message, setMessage] = useState("");
+  const [responseMessage, setResponseMessage] = useState("");
+  const handleSubmit = async (e) => {
+    const style = document.createElement("style");
+    style.innerHTML = `
+      .swal-custom-ok-button {
+        background-color:rgb(27, 202, 103); /* Custom color */
+        color:white;
+        border: none;
+        padding: 10px 20px;
+        font-size: 16px;
+        border-radius: 5px;
+      }
 
-  const handleSubmit = (e) => {
+      .swal-custom-ok-button:hover {
+        background-color:rgb(18, 91, 25); /* Hover color */
+      }
+    `;
+    document.head.appendChild(style);
+
     e.preventDefault();
-    console.log(fullName);
-    console.log(email);
-    console.log(subject);
-    console.log(meassage);
+
+    const formData = {
+      fullName,
+      email,
+      subject,
+      message,
+    };
+
+    console.log("Sending Data:", formData);
+
+    try {
+      const response = await axios.post(
+        backendUrl + "/api/user/user-contactForm",
+        formData
+        // {
+        //   headers: {
+        //     "Content-Type": "application/json",
+        //   },
+        // }
+      );
+
+      setResponseMessage(response.data.message);
+
+      if (response.status === 201) {
+        setFullName("");
+        setEmail("");
+        setSubject("");
+        setMessage("");
+        Swal.fire({
+          html: `
+                   <div style="display: flex; flex-direction: column; align-items: center;">
+                       
+                       <!-- Logo + Title -->
+                       <div style="width: 100%; display: flex; align-items: center; justify-content: center; position: relative; margin-bottom: 20px;">
+                           <img src="${Logo}" alt="Logo" 
+                               style="position: absolute; top: 0; left: 0; width: 50px; height: 50px; margin: 10px;" />
+                           
+                           <h4 style="margin: 0; font-size: 30px; font-weight: bold;">
+                               <span style="color: black;">LM</span>
+                               <span style="color: rgb(37, 218, 73);">Club</span>
+                           </h4>
+                       </div>
+          
+                       <!-- Success Image -->
+                       <div style="margin-bottom: 20px;">
+                           <img src="${success}" alt="Success" style="width: 50px; height: 50px; margin: 0 10px;" />
+                       </div>
+          
+                       <!-- Registration Success Message -->
+                       <div style="width: 100%; text-align: center; ;">
+                           <h1 style="margin: 0; font-size: 25px;">Form Submitted Successful</h1>
+                       </div>
+                   </div>
+               `,
+          customClass: {
+            confirmButton: "swal-custom-ok-button",
+          },
+        });
+      }
+    } catch (error) {
+      setResponseMessage(
+        error.response?.data?.message || "Something went wrong!"
+      );
+      console.log("Error response:", error.response);
+
+      if (error.response && error.response.status === 401) {
+        Swal.fire({
+          html: `
+              <div style="display: flex; flex-direction: column; align-items: center;">
+                  
+                  <!-- Logo + Title -->
+                  <div style="width: 100%; display: flex; align-items: center; justify-content: center; position: relative; margin-bottom: 20px;">
+                      <img src="${Logo}" alt="Logo" 
+                          style="position: absolute; top: 0; left: 0; width: 50px; height: 50px; margin: 10px;" />
+                      
+                      <h4 style="margin: 0; font-size: 30px; font-weight: bold;">
+                          <span style="color: black;">LM</span>
+                          <span style="color: rgb(37, 218, 73);">Club</span>
+                      </h4>
+                  </div>
+     
+                  <!-- Success Image -->
+                  <div style="margin-bottom: 20px;">
+                      <img src="${Error}" alt="Success" style="width: 50px; height: 50px; margin: 0 10px;" />
+                  </div>
+     
+                  <!-- Registration Success Message -->
+                  <div style="width: 100%; text-align: center; ;">
+                      <h1 style="margin: 0; font-size: 25px;">User Already Exits!</h1>
+                  </div>
+              </div>
+          `,
+          customClass: {
+            confirmButton: "swal-custom-ok-button",
+          },
+        });
+      } else {
+        Swal.fire({
+          html: `
+            <div style="display: flex; flex-direction: column; align-items: center;">
+                
+                <!-- Logo + Title -->
+                <div style="width: 100%; display: flex; align-items: center; justify-content: center; position: relative; margin-bottom: 20px;">
+                    <img src="${Logo}" alt="Logo" 
+                        style="position: absolute; top: 0; left: 0; width: 50px; height: 50px; margin: 10px;" />
+                    
+                    <h4 style="margin: 0; font-size: 30px; font-weight: bold;">
+                        <span style="color: black;">LM</span>
+                        <span style="color: rgb(37, 218, 73);">Club</span>
+                    </h4>
+                </div>
+   
+                <!-- Success Image -->
+                <div style="margin-bottom: 20px;">
+                    <img src="${Error}" alt="Success" style="width: 50px; height: 50px; margin: 0 10px;" />
+                </div>
+   
+                <!-- Registration Success Message -->
+                <div style="width: 100%; text-align: center; ;">
+                    <h1 style="margin: 0; font-size: 25px;">Some Internal Error!</h1>
+                </div>
+            </div>
+        `,
+          customClass: {
+            confirmButton: "swal-custom-ok-button",
+          },
+        });
+      }
+    }
   };
   const handleCheckboxChange = (event) => {
     setIsChecked(event.target.checked);
   };
 
   const phoneNumber = "16782004524";
-  const message =
-    "Hello LM Club, I need your guidance on professional technicians..."; // Pre-filled message
+  const initialMessage =
+    "Hello LM Club, I need your guidance on professional technicians...";
   const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(
-    message
+    initialMessage
   )}`;
 
   return (
@@ -55,13 +203,7 @@ const Contact = () => {
           <div className="w-full">
             <div className="w-full mx-auto max-w-[1400px] ">
               <div className="p-4">
-                <motion.div
-                  variants={fadeIn("down", 0.1)} // Fade in from top to bottom
-                  initial="hidden"
-                  whileInView="show"
-                  viewport={{ once: true, amount: 0.5 }}
-                  className="space-y-3"
-                >
+                <div className="space-y-3">
                   <div className="flex items-center justify-center ">
                     <div className="h-4 w-1 bg-green-500"></div>
                     <h1 className="ml-2 font-bold text-green-500 lg:uppercase">
@@ -80,15 +222,9 @@ const Contact = () => {
                       reach out to us from the following social media links.
                     </p>
                   </div>
-                </motion.div>
+                </div>
 
-                <motion.div
-                  variants={fadeIn("up", 0.1)} // Fade in from top to bottom
-                  initial="hidden"
-                  whileInView="show"
-                  viewport={{ once: true, amount: 0.5 }}
-                  className="max-w-[600px] mx-auto my-6"
-                >
+                <div className="max-w-[600px] mx-auto my-6">
                   <div className="grid grid-cols-7 gap-4">
                     <a
                       href={whatsappUrl}
@@ -151,14 +287,9 @@ const Contact = () => {
                       </div>
                     </a>
                   </div>
-                </motion.div>
+                </div>
 
-                <motion.div
-                  variants={fadeIn("up", 0.1)} // Fade in from top to bottom
-                  initial="hidden"
-                  whileInView="show"
-                  viewport={{ once: true, amount: 0.5 }}
-                >
+                <div>
                   <div className="pt-2">
                     <div className="w-full">
                       <a
@@ -178,16 +309,10 @@ const Contact = () => {
                       </a>
                     </div>
                   </div>
-                </motion.div>
+                </div>
 
                 <div className="grid lg:grid-cols-2 grid-cols-1 gap-4 pt-16">
-                  <motion.div
-                    variants={fadeIn("down", 0.1)} // Fade in from top to bottom
-                    initial="hidden"
-                    whileInView="show"
-                    viewport={{ once: true, amount: 0.5 }}
-                    className="flex flex-col space-y-4 pt-12"
-                  >
+                  <div className="flex flex-col space-y-4 pt-12">
                     <div className="lg:text-start text-center">
                       <p className="lg:text-4xl text-2xl font-bold text-trumpTwo">
                         Have questions? Just fill out this form, and we&apos;ll
@@ -280,15 +405,9 @@ const Contact = () => {
                         </div>
                       </div>
                     </div>
-                  </motion.div>
+                  </div>
 
-                  <motion.div
-                    variants={fadeIn("up", 0.1)} // Fade in from top to bottom
-                    initial="hidden"
-                    whileInView="show"
-                    viewport={{ once: true, amount: 0.5 }}
-                    className="mx-2"
-                  >
+                  <div className="mx-2">
                     <form
                       onSubmit={handleSubmit}
                       method="POST"
@@ -310,6 +429,7 @@ const Contact = () => {
                               setFullName(e.target.value);
                             }}
                             placeholder="Your Full Name"
+                            required
                             className="w-full rounded border border-[#e0e0e0] bg-white py-3 px-6 text-base text-[#6B7280] outline-none  focus:shadow-md"
                           />
                         </div>
@@ -326,6 +446,7 @@ const Contact = () => {
                             type="email"
                             name="email"
                             id="email"
+                            required
                             onChange={(e) => {
                               setEmail(e.target.value);
                             }}
@@ -347,6 +468,7 @@ const Contact = () => {
                             type="text"
                             name="subject"
                             id="subject"
+                            required
                             onChange={(e) => {
                               setSubject(e.target.value);
                             }}
@@ -385,7 +507,7 @@ const Contact = () => {
                         </div>
                       </div>
                     </form>
-                  </motion.div>
+                  </div>
                 </div>
               </div>
             </div>

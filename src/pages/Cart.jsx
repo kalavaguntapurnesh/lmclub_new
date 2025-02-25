@@ -24,9 +24,12 @@ console.log("cart page content", CartPlan);
 
 // extracting registration fee from description 
 
-  const registrationFee = items.length > 0 ? 
-  (items[0].description.match(/\$\d+(\.\d{2})?/)?.[0] || "$0") 
-  : "$0";
+const registrationFee = items.length > 0 
+  ? (items[0].description.match(/\$\d+(\.\d{2})?/)?.[0] || "$0")
+  : "0";
+
+  const removingDollarForRegistrationFee = registrationFee.replace("$", "")
+console.log("registrationFee:", removingDollarForRegistrationFee);
 
  const handleGoToAgainSelectedPage = ()=>{
     navigate("/pricing");
@@ -40,7 +43,12 @@ console.log("cart page content", CartPlan);
             <h2 className="text-3xl font-bold mb-4 text-center text-gray-800">Your Cart</h2>
             <div className="w-full border border-2 border-black   items-center p-6">
                 <div className="lg:text-xl font-semibold mr-[70px] text-center">
-                    <p>{items[0].name} Membership - in Now & Enjoy All 5 Widgets!” has been added to your cart.</p>
+                <p>
+                  {items.length > 0 
+                    ? `${items[0].name} Membership - in Now & Enjoy All 5 Widgets! has been added to your cart.` 
+                    : "Your cart is empty. Add any membership to continue!"}
+                </p>
+
                 </div>
                 {/* <button className="p-3 text-white font-bold rounded-full bg-green-600 hover:bg-green-800">
                     <Link to='/pricing'>Continue Shopping</Link>
@@ -65,27 +73,26 @@ console.log("cart page content", CartPlan);
                     <p className="text-gray-500 text-sm">Price: ${item.price}</p>
                     <p className="text-gray-500 text-sm">Registration Fee: {registrationFee}</p>
                     {/* <p className="text-gray-500 text-sm">Quantity: {item.quantity}</p> */}
-                    <div className="flex justify-between gap-1 w-1/6">
-                    <button
-                      onClick={() => removeOneFromCart(item.id)}
-                      className="mt-4 w-1/4 bg-green-400 text-white py-1 rounded-md  transition-colors hover:bg-green-600"
-                    >
-                      -
-                    </button>
-                    <button
-                      className="mt-4 w-1/4 bg-green-400 text-white py-1 rounded-md  transition-colors"
-                    >
-                      {item.quantity}
-                    </button>
-                    <button
-                      onClick={()=>addOneToCart(item.id,item.image, item.name, item.price,item.quantity+1)}
-                      className="mt-4 w-1/4 bg-green-400 text-white py-1 rounded-md  transition-colors hover:bg-green-600"
-                    >
-                      +
-                    </button>
-                    {/* id, plan.name, plan.price, plan.description, quantity */}
+                    {/* <div className="flex justify-between gap-1 w-1/6">
+                      <button
+                        onClick={() => removeOneFromCart(item.id)}
+                        className="mt-4 w-1/4 bg-green-400 text-white py-1 rounded-md  transition-colors hover:bg-green-600"
+                      >
+                        -
+                      </button>
+                      <button
+                        className="mt-4 w-1/4 bg-green-400 text-white py-1 rounded-md  transition-colors"
+                      >
+                        {item.quantity}
+                      </button>
+                      <button
+                        onClick={()=>addOneToCart(item.id,item.image, item.name, item.price,item.quantity+1)}
+                        className="mt-4 w-1/4 bg-green-400 text-white py-1 rounded-md  transition-colors hover:bg-green-600"
+                      >
+                        +
+                      </button>
+                    </div> */}
 
-                  </div>
                   </div>
 
                   <div className="text-lg font-semibold text-gray-800 flex flex-col gap-2">
@@ -104,7 +111,7 @@ console.log("cart page content", CartPlan);
                 </div>
               ))
             ) : (
-              <p className="text-gray-600 text-center py-4">Your cart is empty.</p>
+              <p className="text-gray-600 text-center py-4"></p>
             )}
 
               

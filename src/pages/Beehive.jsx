@@ -42,7 +42,7 @@ const Estore = () => {
                         discovered. Plus, receive exclusive offers and updates
                         shared by other members. Connect with your community and
                         enjoy unique deals from local restaurants, hotels,
-                        retailers, and more!
+                        retailers, and more!{" "}. <a className="text-blue-500 underline cursor-pointer  hover:font-bold" href="/beehive-terms-and-conditions">Please read Terms and conditions. </a>
                       </p>
                     </div>
 

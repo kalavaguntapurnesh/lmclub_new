@@ -33,13 +33,10 @@ const NavBar = () => {
   };
 
   const [cartItemsCount, setCartItemsCount] = useState(0);
+
   useEffect(() => {
     const storedCartItems = JSON.parse(localStorage.getItem("cart")) || [];
-    const totalQuantity = storedCartItems.reduce(
-      (total, item) => total + item.quantity,
-      0
-    );
-    setCartItemsCount(totalQuantity);
+    setCartItemsCount(storedCartItems.length > 0 ? 1 : 0);
   }, []);
 
   useEffect(() => {
@@ -70,11 +67,7 @@ const NavBar = () => {
         <a href="/" className="flex items-center">
           <img
             src={LMDarkLogo}
-            className={` ${
-              isScrolled
-                ? "md:w-[56px] md:h-[56px] w-[52px] h-[52px]"
-                : "md:w-[56px] md:h-[56px] w-[52px] h-[52px]"
-            }`}
+            className={` ${isScrolled ? "w-16 h-16" : "w-16 h-16"}`}
             alt="logo"
           />
         </a>
@@ -82,17 +75,11 @@ const NavBar = () => {
         {/* Desktop Nav Links */}
         <ul className="hidden md:flex flex-grow justify-center space-x-8 items-center">
           <Tabs />
-          <a
-            href="/ecommerce"
-            className={` ${isScrolled ? "text-gray-700" : "text-gray-700"}`}
-          >
-            E-Store
-          </a>
         </ul>
 
         <div className="lg:flex hidden relative mr-5">
           <a href="/selected-plan/cart" className="cursor-pointer">
-            <CiShoppingCart className="md:w-8 md:h-8 w-4 h-4"></CiShoppingCart>
+            <CiShoppingCart className="w-10 h-10"></CiShoppingCart>
           </a>
           <div className="absolute top-[-8px] right-[-8px] text-[10px] bg-red-500 text-white rounded-full px-2 py-1">
             <h1>{cartItemsCount}</h1>
@@ -109,16 +96,16 @@ const NavBar = () => {
                 : "font-semibold text-green-500"
             }`}
           >
-            <span className="relative z-10">Login / Register</span>
+            <span className="relative z-10">Sign Up / Sign In </span>
           </a>
         </div>
 
-        <div className="lg:hidden flex gap-6">
+        <div className="lg:hidden lg:hidden flex gap-6">
           <div className="relative">
             <a href="/selected-plan/cart" className="cursor-pointer">
-              <CiShoppingCart className="w-7 h-7"></CiShoppingCart>
+              <CiShoppingCart className="w-10 h-10"></CiShoppingCart>
             </a>
-            <div className="absolute top-[-8px] right-[-8px] text-[8px] bg-red-500 text-white rounded-full px-2 py-1">
+            <div className="absolute top-[-8px] right-[-8px] text-[10px] bg-red-500 text-white rounded-full px-2 py-1">
               <h1>{cartItemsCount}</h1>
             </div>
           </div>
@@ -241,10 +228,14 @@ const NavBar = () => {
                     className="mt-6 grid grid-cols-2 gap-4"
                   >
                     <li className="text-navGray p-2 rounded bg-[#e6e6e6] text-center">
-                      <a href="/grow" className="block text-sm text-gray-700">
-                        Grow
+                      <a
+                        href="/network"
+                        className="block text-sm text-gray-700"
+                      >
+                        Network
                       </a>
                     </li>
+
                     <li className="text-navGray p-2 rounded bg-[#e6e6e6] text-center">
                       <a
                         href="/beehive"
@@ -253,6 +244,7 @@ const NavBar = () => {
                         Beehive
                       </a>
                     </li>
+
                     <li className="text-navGray p-2 rounded bg-[#e6e6e6] text-center">
                       <a
                         href="/broadcast"
@@ -261,6 +253,7 @@ const NavBar = () => {
                         Broadcast
                       </a>
                     </li>
+
                     <li className="text-navGray p-2 rounded bg-[#e6e6e6] text-center">
                       <a href="/estore" className="block text-sm text-gray-700">
                         Estore
@@ -268,11 +261,8 @@ const NavBar = () => {
                     </li>
 
                     <li className="text-navGray p-2 rounded bg-[#e6e6e6] text-center">
-                      <a
-                        href="/network"
-                        className="block text-sm text-gray-700"
-                      >
-                        Network
+                      <a href="/grow" className="block text-sm text-gray-700">
+                        Grow
                       </a>
                     </li>
                   </motion.ul>
@@ -394,7 +384,7 @@ const NavBar = () => {
                 href="/login"
                 className="border-[1px] relative py-[10px] bg-trumpOne text-white rounded-full border-green-500 text-sm bg-green-500 flex justify-center items-center font-semibold overflow-hidden text-center w-[90%]"
               >
-                <span className="relative z-10">Login / Register</span>
+                <span className="relative z-10">Login</span>
               </a>
             </li>
           </ul>
@@ -551,16 +541,15 @@ const WidgetsBar = () => {
   return (
     <div className="grid grid-cols-2 gap-4 p-4 ">
       <a
-        href="/grow"
+        href="/network"
         className="space-y-1 transition duration-1000 ease-in-out p-2 hover:bg-[#e6e6e6] rounded-lg"
       >
         <div className="flex flex-col items-start gap-3">
-          <img src={enroll} alt="network" className="w-10 h-10" />
+          <img src={network} alt="network" className="w-10 h-10" />
           <div className="flex flex-col">
-            <h1 className="text-[#1a1a1a] font-semibold">Grow</h1>
+            <h1 className="text-[#1a1a1a] font-semibold">Network</h1>
             <p className="text-gray-800 text-sm">
-              Enroll earn rewards for helping our community to expand. T & C
-              apply.
+              Activate Network today to connect with like-minded individuals
             </p>
           </div>
         </div>
@@ -615,15 +604,16 @@ const WidgetsBar = () => {
       </a>
 
       <a
-        href="/network"
+        href="/grow"
         className="space-y-1 transition duration-1000 ease-in-out p-2 hover:bg-[#e6e6e6] rounded-lg"
       >
         <div className="flex flex-col items-start gap-3">
-          <img src={network} alt="network" className="w-10 h-10" />
+          <img src={enroll} alt="network" className="w-10 h-10" />
           <div className="flex flex-col">
-            <h1 className="text-[#1a1a1a] font-semibold">Network</h1>
+            <h1 className="text-[#1a1a1a] font-semibold">Grow</h1>
             <p className="text-gray-800 text-sm">
-              Activate Network today to connect with like-minded individuals
+              Enroll earn rewards for helping our community to expand. T & C
+              apply.
             </p>
           </div>
         </div>

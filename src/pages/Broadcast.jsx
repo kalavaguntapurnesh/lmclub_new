@@ -1,3 +1,4 @@
+
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import ScrollToTop from "../components/ScrollToTop";
@@ -46,7 +47,7 @@ const Broadcast = () => {
                       <p>
                         Easily enroll businesses with a marketing fillable
                         template that generates a custom URL for their
-                        promotions.
+                        promotions.{" "}<a className="text-blue-500 underline cursor-pointer  hover:font-bold" href="/broadcast-terms-and-conditions">Please read Terms and conditions. </a>
                       </p>
                     </div>
 

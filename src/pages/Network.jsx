@@ -42,7 +42,7 @@ const Network = () => {
                         right from your dashboard. Provides interest-based
                         groups where members can collaborate and discuss
                         specific topics. Join groups that match your interests
-                        to share resources, insights, and event updates.
+                        to share resources, insights, and event updates.{" "} <a className="text-blue-500 underline cursor-pointer  hover:font-bold" href="/network-terms-and-conditions">Please read Terms and conditions. </a>
                       </p>
                     </div>
 

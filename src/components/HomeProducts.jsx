@@ -11,13 +11,12 @@ import { fadeIn } from "../variants.js";
 const HomeProducts = () => {
   const values2 = [
     {
-      icon: enroll,
-      Title: "Grow",
+      icon: network,
+      Title: "Network",
       description:
-        "Grow program allows you to earn redeemable points and milestones simply by inviting others to join our community.",
-      link: "/grow",
+        "Network guides your journey and connects you to fellow club members, events, and resources right from your dashboard. ",
+      link: "/network",
     },
-
     {
       icon: beehive,
       Title: "Beehive",
@@ -25,6 +24,7 @@ const HomeProducts = () => {
         "Beehive allows you to start earning redeemable points by sharing deals, coupons, and information you've discovered. ",
       link: "/beehive",
     },
+
     {
       icon: broadcast,
       Title: "Broadcast",
@@ -40,11 +40,11 @@ const HomeProducts = () => {
       link: "/estore",
     },
     {
-      icon: network,
-      Title: "Network",
+      icon: enroll,
+      Title: "Grow",
       description:
-        "Network guides your journey and connects you to fellow club members, events, and resources right from your dashboard. ",
-      link: "/network",
+        "Grow program allows you to earn redeemable points and milestones simply by inviting others to join our community.",
+      link: "/grow",
     },
   ];
 

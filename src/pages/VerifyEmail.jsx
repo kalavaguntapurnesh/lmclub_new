@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import Swal from 'sweetalert2';
-import { useParams } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import Swal from "sweetalert2";
+import { useParams } from "react-router-dom";
 import success from "../assets/success.png";
 import Logo from "../assets/LMDark.webp";
 
@@ -15,9 +15,10 @@ const VerifyEmail = () => {
     }
   }, [token, isVerified]);
 
+  console.log("token :", token);
   const verifyEmail = async (token) => {
     // Handle success response
-    const style = document.createElement('style');
+    const style = document.createElement("style");
     style.innerHTML = `
       .swal-custom-ok-button {
         background-color:rgb(27, 202, 103); /* Custom color */
@@ -35,9 +36,15 @@ const VerifyEmail = () => {
     document.head.appendChild(style);
 
     try {
-      const response = await axios.get(`http://localhost:9090/api/confirm/${token}`);
-    // const response = await axios.get(`https://lmclub-backend.onrender.com/api/confirm/${token}`);
-      if (response.data && response.data.message === "Email Verified Successfully") {
+      // const response = await axios.get(`http://localhost:9090/api/confirm/${token}`);
+      const response = await axios.get(
+        `https://lmclub-backend.onrender.com/api/confirm/${token}`
+      );
+      console.log("response from token ", response);
+      if (
+        response.data &&
+        response.data.message === "Email Verified Successfully"
+      ) {
         setIsVerified(true);
 
         Swal.fire({
@@ -73,26 +80,32 @@ const VerifyEmail = () => {
           timer: 60000, // Keeps the success message for 1 minute
           timerProgressBar: true,
           customClass: {
-            confirmButton: 'swal-custom-ok-button' 
+            confirmButton: "swal-custom-ok-button",
           },
-          confirmButtonText: 'Login Here',
+          confirmButtonText: "Login Here",
           willClose: () => {
-            window.location.href = 'http://localhost:5173/login';
+            window.location.href = "http://localhost:5173/login";
             // window.location.href = 'https://lmclub.vercel.app/login';
-            
-          }
+          },
         });
-
       } else {
         setTimeout(() => {
-          Swal.fire('Error', 'Something went wrong. Please try again later.', 'error');
+          Swal.fire(
+            "Error",
+            "Something went wrong. Please try again later.",
+            "error"
+          );
         }, 60000); // Show error after 1 minute
       }
     } catch (error) {
-      console.error('Error during email verification:', error);
+      console.error("Error during email verification:", error);
       setTimeout(() => {
-        Swal.fire('Error', 'This verification link is invalid or has expired.', 'error');
-      }, 60000); // Delay error message by 1 minute
+        Swal.fire(
+          "Error",
+          "This verification link is invalid or has expired.",
+          "error"
+        );
+      }, 600000); // Delay error message by 1 minute
     }
   };
 

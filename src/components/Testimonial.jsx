@@ -11,6 +11,7 @@ import lity from "../assets/lity.svg";
 import star from "../assets/star.svg";
 import { motion } from "framer-motion";
 import { fadeIn } from "../variants.js";
+import LMFour from "../assets/LMFour.webp";
 
 import { FreeMode, Pagination, Autoplay } from "swiper/modules";
 
@@ -136,11 +137,7 @@ const Testimonial = () => {
                       whileInView="show"
                       viewport={{ once: true, amount: 0.5 }}
                     >
-                      <img
-                        src="https://lmclub.club/wp-content/uploads/2024/10/GettyImages-1490847054.webp"
-                        alt="image"
-                        className="rounded"
-                      />
+                      <img src={LMFour} alt="image" className="rounded" />
                     </motion.div>
                   </div>
                 </div>

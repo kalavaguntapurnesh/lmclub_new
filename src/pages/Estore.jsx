@@ -1,3 +1,4 @@
+
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import ScrollToTop from "../components/ScrollToTop";
@@ -47,7 +48,7 @@ const Estore = () => {
                       <p>
                         Activate E-Store and we will share a percentage of our
                         profits with you. Why? Because you are helping our brand
-                        to grow. And in return we present you the profits.
+                        to grow. And in return we present you the profits.{" "} <a className="text-blue-500 underline cursor-pointer hover:font-bold" href="/e-store-terms-and-conditions">Please read Terms and conditions. </a>
                       </p>
                     </div>
 

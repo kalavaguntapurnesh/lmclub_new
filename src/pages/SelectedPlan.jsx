@@ -19,7 +19,10 @@ import Logo from "../assets/LMDark.webp";
 const SelectedPlan = () => {
   const location = useLocation();
   const [plan, setPlan] = useState(location.state?.plan || {});
+  const isYearly = location.state?.isYearly;
 
+  console.log(isYearly);
+  
   useEffect(() => {
     if (location.state?.plan) {
       setPlan(location.state.plan);
@@ -37,7 +40,7 @@ const SelectedPlan = () => {
   const handleAddToCart = () => {
     const id = plan.id || `${plan.name}-${plan.price}`;
     console.log(id);
-    addOneToCart(id, plan.name, plan.price, plan.description, quantity);
+    addOneToCart(id, plan.name, plan.price, plan.description);
     console.log("Adding item:", plan.name);
     console.log("Adding item:", plan.price);
     console.log("Adding item:", plan.description);
@@ -101,7 +104,7 @@ const SelectedPlan = () => {
     }
   };
 
-  const widgetImages = [enroll, beehive, broadcast, estore, network];
+  const widgetImages = [network, beehive, broadcast,  estore , enroll ];
 
   // extracting registration fee from description 
 
@@ -182,30 +185,30 @@ const SelectedPlan = () => {
   const getPlanUpgradeMessage = (oldPlan, newPlan) => {
     const messages = {
       "Bronze-Silver":
-        "Congratulations! You've upgraded to Silver membership! 🎉 Now you earn more points and get 30% of the store’s profit!",
+        "Congratulations! You've moved from Bronze to Silver membership! 🎉 Now you earn more points and get 30% of the store’s profit!",
       "Bronze-Gold":
-        "Great choice! You’ve upgraded to Gold membership! 🚀 Enjoy even higher points and a 40% share in store profits!",
+        "Great choice! You’ve moved from Bronze to Gold membership! 🚀 Enjoy even higher points and a 40% share in store profits!",
       "Bronze-Platinum":
-        "Welcome to the Platinum tier! 💎 You now earn maximum points and a 70% share in store profits!",
+        "You’ve moved from Bronze to Platinum membership! 💎 You now earn maximum points and a 70% share in store profits!",
       "Silver-Gold":
-        "Level up! You’re now a Gold member! 🌟 More rewards, higher earnings, and better benefits await you!",
+        "You’ve moved from Silver to Gold membership! 🌟 More rewards, higher earnings, and better benefits await you!",
       "Silver-Platinum":
-        "You're now a Platinum member! 💎 Enjoy premium benefits, maximum points, and exclusive perks!",
+        "You’ve moved from Silver to Platinum membership! 💎 Enjoy premium benefits, maximum points, and exclusive perks!",
       "Gold-Platinum":
-        "Top-tier unlocked! 🏆 Platinum membership gives you the best benefits, highest points, and maximum profit sharing!",
+        "You’ve moved from Gold to 🏆 Platinum membership gives you the best benefits, highest points, and maximum profit sharing!",
 
       "Platinum-Gold":
-        "You downgraded to Gold membership. Some premium benefits are now limited, but you still earn great rewards!",
+        "You moved from Platinum to Gold membership. Some premium benefits are now limited, but you still earn great rewards!",
       "Platinum-Silver":
-        "You switched to Silver membership. You now get fewer points and a reduced profit share. Consider upgrading again!",
+        "You moved from Platinum to Silver membership. You now get fewer points and a reduced profit share. Consider upgrading again!",
       "Platinum-Bronze":
-        "You moved to Bronze membership. You may lose access to some features. Upgrade anytime to unlock better benefits!",
+        "You moved from Platinum to Bronze membership. You may lose access to some features. Upgrade anytime to unlock better benefits!",
       "Gold-Silver":
-        " You downgraded to Silver. Some rewards are now lower, but you can always upgrade again!",
+        " You moved from Gold to Silver. Some rewards are now lower, but you can always upgrade again!",
       "Gold-Bronze":
-        "You switched to Bronze membership. You may lose some rewards and earnings. Upgrade to enjoy better perks!",
+        "You moved from Gold to Bronze membership. You may lose some rewards and earnings. Upgrade to enjoy better perks!",
       "Silver-Bronze":
-        "You're now on Bronze membership. Your earning potential is lower. Upgrade anytime to get more benefits!",
+        "You moved from silver to Bronze membership. Your earning potential is lower. Upgrade anytime to get more benefits!",
     };
 
     return messages[`${oldPlan}-${newPlan}`] || null;
@@ -267,8 +270,8 @@ const SelectedPlan = () => {
                         <tbody>
                           {[
                             {
-                              title: "Monthly Price",
-                              price: `$${plan.price} / month`,
+                              title: `${isYearly ? "Yearly" : "Monthly"} Price`,
+                              price: `$${plan.price} / ${isYearly ? "Year" : "Month"}`,
                             },
                             {
                               title: "Registration Fee",
@@ -307,7 +310,7 @@ const SelectedPlan = () => {
                         onClick={handleAddToCart}
                         className="bg-green-500 text-white px-4 py-2 rounded font-semibold hover:bg-green-700"
                       >
-                        Go to Cart
+                        Add to Cart
                       </button>
                     </div>
                   </div>
@@ -318,7 +321,7 @@ const SelectedPlan = () => {
                       <video
                         src={intro}
                         className="rounded w-auto h-auto"
-                        autoPlay
+                        // autoPlay
                         muted
                         controls
                       />

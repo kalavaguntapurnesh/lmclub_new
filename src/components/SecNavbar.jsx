@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
 import { RiMenu3Fill } from "react-icons/ri";
 import { AiOutlineClose } from "react-icons/ai";
 // import Logo from "../assets/LMDark.webp"
@@ -15,22 +15,8 @@ import estore from "../assets/estore.webp";
 import LMDark from "../assets/LMDark.webp";
 import LMDarkLogo from "../assets/LMDarkLogo.webp";
 import { CiShoppingCart } from "react-icons/ci";
-import { useNavigate } from "react-router-dom";
-import { AppContext } from "./../context/AppContext";
-import { toast } from "react-toastify";
 
 const SecNavbar = () => {
-  const navigate = useNavigate();
-
-  const { token, setToken, userData } = useContext(AppContext);
-
-  const logout = () => {
-    setToken(false);
-    localStorage.removeItem("token");
-    navigate("/");
-    toast.success("Logged out successfully!");
-  };
-
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
@@ -44,15 +30,13 @@ const SecNavbar = () => {
     }
   };
 
-  const [cartItemsCount, setCartItemsCount] = useState(0);
-  useEffect(() => {
-    const storedCartItems = JSON.parse(localStorage.getItem("cart")) || [];
-    const totalQuantity = storedCartItems.reduce(
-      (total, item) => total + item.quantity,
-      0
-    );
-    setCartItemsCount(totalQuantity);
-  }, []);
+   const [cartItemsCount, setCartItemsCount] = useState(0);
+   
+     useEffect(() => {
+       const storedCartItems = JSON.parse(localStorage.getItem("cart")) || [];
+       setCartItemsCount(storedCartItems.length > 0 ? 1 : 0);
+     }, []);
+
 
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
@@ -74,18 +58,14 @@ const SecNavbar = () => {
   return (
     <nav
       className={`fixed top-0 left-0 w-full z-20 transition-all duration-300 ease-in-out select-none  ${
-        isScrolled ? "bg-white shadow-md lg:py-5 py-4" : "bg-transparent py-6"
+        isScrolled ? "bg-white shadow-md lg:py-5 py-6" : "bg-transparent py-6"
       }`}
     >
       <div className="max-w-[1400px] mx-auto flex justify-between items-center px-4">
-        <a href="/" className="flex flex-row items-center md:ml-0 ml-1">
+        <a href="/" className="flex flex-row items-center md:ml-0 ml-1  ">
           <img
             src={LMDarkLogo}
-            className={` ${
-              isScrolled
-                ? "md:w-[56px] md:h-[56px] w-[52px] h-[52px]"
-                : "md:w-[56px] md:h-[56px] w-[52px] h-[52px]"
-            }`}
+            className={` ${isScrolled ? "w-16 h-16" : "w-16 h-16"}`}
             alt="logo"
           />
         </a>
@@ -93,74 +73,42 @@ const SecNavbar = () => {
         {/* Desktop Nav Links */}
         <ul className="hidden lg:flex flex-grow justify-center space-x-8 items-center">
           <Tabs />
-          
         </ul>
 
         <div className="hidden lg:flex relative mr-5">
-          <a href="/selected-plan/cart" className="cursor-pointer">
-            <CiShoppingCart className="md:w-8 md:h-8 w-4 h-4 text-green-500"></CiShoppingCart>
-          </a>
-          <div className="absolute top-[-8px] right-[-8px] text-[10px] bg-red-500 text-white rounded-full px-2 py-1">
-            <h1>{cartItemsCount}</h1>
-          </div>
+            <a href="/selected-plan/cart" className="cursor-pointer">
+              <CiShoppingCart className="w-10 h-10 text-green-700 text-2xl"></CiShoppingCart>
+            </a>
+            <div className="absolute top-[-8px] right-[-8px] text-[10px] bg-red-500 text-white rounded-full px-2 py-1">
+              <h1>{cartItemsCount}</h1>
+            </div>
         </div>
 
         {/* Login Button */}
         <div className="hidden lg:flex space-x-4">
-          {token ? (
-            <div className="flex flex-row items-center gap-4">
-              <div className="relative inline-flex w-fit cursor-pointer">
-                <div className="absolute bottom-auto left-auto right-0 top-0 z-10 inline-block -translate-y-1/2 translate-x-2/4 rotate-0 skew-x-0 skew-y-0 scale-x-100 scale-y-100 rounded-full bg-red-500 p-1.5 text-xs"></div>
-                <div className="flex items-center justify-center rounded-lg bg-green-400 px-2 py-2 text-center text-white shadow-lg dark:text-gray-200">
-                  <span className="[&>svg]:h-4 [&>svg]:w-4">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 24 24"
-                      fill="currentColor"
-                    >
-                      <path
-                        fillRule="evenodd"
-                        d="M5.25 9a6.75 6.75 0 0 1 13.5 0v.75c0 2.123.8 4.057 2.118 5.52a.75.75 0 0 1-.297 1.206c-1.544.57-3.16.99-4.831 1.243a3.75 3.75 0 1 1-7.48 0 24.585 24.585 0 0 1-4.831-1.244.75.75 0 0 1-.298-1.205A8.217 8.217 0 0 0 5.25 9.75V9Zm4.502 8.9a2.25 2.25 0 1 0 4.496 0 25.057 25.057 0 0 1-4.496 0Z"
-                        clipRule="evenodd"
-                      />
-                    </svg>
-                  </span>
-                </div>
-              </div>
-              <div
-                onClick={logout}
-                className={`border-[1px] relative lg:px-[28px] md:px-4 py-2 text-sm overflow-hidden transition-all border-green-500 text-green-500 rounded-full cursor-pointer ${
-                  isScrolled
-                    ? "border-green-500 font-semibold text-green-500"
-                    : "font-semibold text-green-500"
-                }`}
-              >
-                <span className="relative z-10">LogOut</span>
-              </div>
-            </div>
-          ) : (
-            <a
-              href="/login"
-              className={`border-[1px] relative lg:px-[28px] md:px-4 py-2 bg-trumpOne  text-sm overflow-hidden transition-all rounded-full ${
-                isScrolled
-                  ? "border-green-500 font-semibold text-green-500"
-                  : "font-semibold text-white"
-              }`}
-            >
-              <span className="relative z-10">Login / Register</span>
-            </a>
-          )}
+          <a
+            href="/login"
+            className={`border-[1px] relative lg:px-[28px] md:px-4 py-2 bg-trumpOne  text-sm overflow-hidden transition-all rounded-full ${
+              isScrolled
+                ? "border-green-500 font-semibold text-green-500"
+                : "font-semibold text-white"
+            }`}
+          >
+            <span className="relative z-10">Sign Up / Sign In </span>
+          </a>
         </div>
+
+        
 
         <div className="lg:hidden flex gap-6">
           <div className="relative">
-            <a href="/selected-plan/cart" className="cursor-pointer">
-              <CiShoppingCart className="w-7 h-7 text-green-800"></CiShoppingCart>
-            </a>
-            <div className="absolute top-[-8px] right-[-8px] text-[8px] bg-red-500 text-white rounded-full px-2 py-1">
-              <h1>{cartItemsCount}</h1>
-            </div>
-          </div>
+              <a href="/selected-plan/cart" className="cursor-pointer">
+                <CiShoppingCart className="w-10 h-10 text-green-800"></CiShoppingCart>
+              </a>
+              <div className="absolute top-[-8px] right-[-8px] text-[10px] bg-red-500 text-white rounded-full px-2 py-1">
+                <h1>{cartItemsCount}</h1>
+              </div>
+           </div>
           <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
             {isMobileMenuOpen ? (
               <AiOutlineClose
@@ -278,33 +226,7 @@ const SecNavbar = () => {
                     exit={{ opacity: 0, height: 0 }}
                     className="mt-6 grid grid-cols-2 gap-4"
                   >
-                    <li className="text-navGray p-2 rounded bg-[#e6e6e6] text-center">
-                      <a href="/grow" className="block text-sm text-gray-700">
-                        Grow
-                      </a>
-                    </li>
-                    <li className="text-navGray p-2 rounded bg-[#e6e6e6] text-center">
-                      <a
-                        href="/beehive"
-                        className="block text-sm text-gray-700"
-                      >
-                        Beehive
-                      </a>
-                    </li>
-                    <li className="text-navGray p-2 rounded bg-[#e6e6e6] text-center">
-                      <a
-                        href="/broadcast"
-                        className="block text-sm text-gray-700"
-                      >
-                        Broadcast
-                      </a>
-                    </li>
-                    <li className="text-navGray p-2 rounded bg-[#e6e6e6] text-center">
-                      <a href="/estore" className="block text-sm text-gray-700">
-                        Estore
-                      </a>
-                    </li>
-
+                    
                     <li className="text-navGray p-2 rounded bg-[#e6e6e6] text-center">
                       <a
                         href="/network"
@@ -313,6 +235,37 @@ const SecNavbar = () => {
                         Network
                       </a>
                     </li>
+
+                    <li className="text-navGray p-2 rounded bg-[#e6e6e6] text-center">
+                      <a
+                        href="/beehive"
+                        className="block text-sm text-gray-700"
+                      >
+                        Beehive
+                      </a>
+                    </li>
+
+                    <li className="text-navGray p-2 rounded bg-[#e6e6e6] text-center">
+                      <a
+                        href="/broadcast"
+                        className="block text-sm text-gray-700"
+                      >
+                        Broadcast
+                      </a>
+                    </li>
+
+                    <li className="text-navGray p-2 rounded bg-[#e6e6e6] text-center">
+                      <a href="/estore" className="block text-sm text-gray-700">
+                        Estore
+                      </a>
+                    </li>
+
+                    <li className="text-navGray p-2 rounded bg-[#e6e6e6] text-center">
+                      <a href="/grow" className="block text-sm text-gray-700">
+                        Grow
+                      </a>
+                    </li>
+                    
                   </motion.ul>
                 )}
               </AnimatePresence>
@@ -422,6 +375,8 @@ const SecNavbar = () => {
               </AnimatePresence>
             </li>
 
+              
+
             <div className="h-[200px] flex flex-row items-center justify-center">
               <img src={phone} alt="phone" className="h-full" />
               <img src={phoneTwo} alt="phone" className="h-full" />
@@ -432,7 +387,7 @@ const SecNavbar = () => {
                 href="/login"
                 className="border-[1px] relative py-[10px] bg-trumpOne text-white rounded-full border-green-500 text-sm bg-green-500 flex justify-center items-center font-semibold overflow-hidden text-center w-[90%]"
               >
-                <span className="relative z-10">Login / Register</span>
+                <span className="relative z-10">Login</span>
               </a>
             </li>
           </ul>
@@ -521,7 +476,7 @@ const Tab = ({ children, tab, handleSetSelected, selected }) => {
       onMouseEnter={() => handleSetSelected(tab)}
       onClick={() => handleSetSelected(tab)}
       className={`flex items-center gap-1 rounded-full md:text-sm lg:text-base px-3 py-1.5 transition-colors  ${
-        isScrolled ? "text-trumpTwo" : ""
+        isScrolled ? "text-trumpTwo font-medium" : ""
       } ${selected === tab ? "  text-trumpOne" : "text-trumpTwo"}`}
     >
       <span>{children}</span>
@@ -619,22 +574,22 @@ const Nub = ({ selected }) => {
 const WidgetsBar = () => {
   return (
     <div className="grid grid-cols-2 gap-4 p-4 ">
+      
       <a
-        href="/grow"
+        href="/network"
         className="space-y-1 transition duration-1000 ease-in-out p-2 hover:bg-[#e6e6e6] rounded-lg"
       >
         <div className="flex flex-col items-start gap-3">
-          <img src={enroll} alt="network" className="w-10 h-10" />
+          <img src={network} alt="network" className="w-10 h-10" />
           <div className="flex flex-col">
-            <h1 className="text-[#1a1a1a] font-semibold">Grow</h1>
+            <h1 className="text-[#1a1a1a] font-semibold">Network</h1>
             <p className="text-gray-800 text-sm">
-              Enroll earn rewards for helping our community to expand. T & C
-              apply.
+              Activate Network today to connect with like-minded individuals
             </p>
           </div>
         </div>
       </a>
-
+      
       <a
         href="/beehive"
         className="space-y-1 transition duration-1000 ease-in-out p-2 hover:bg-[#e6e6e6] rounded-lg"
@@ -683,20 +638,23 @@ const WidgetsBar = () => {
         </div>
       </a>
 
+    
       <a
-        href="/network"
+        href="/grow"
         className="space-y-1 transition duration-1000 ease-in-out p-2 hover:bg-[#e6e6e6] rounded-lg"
       >
         <div className="flex flex-col items-start gap-3">
-          <img src={network} alt="network" className="w-10 h-10" />
+          <img src={enroll} alt="network" className="w-10 h-10" />
           <div className="flex flex-col">
-            <h1 className="text-[#1a1a1a] font-semibold">Network</h1>
+            <h1 className="text-[#1a1a1a] font-semibold">Grow</h1>
             <p className="text-gray-800 text-sm">
-              Activate Network today to connect with like-minded individuals
+              Enroll earn rewards for helping our community to expand. T & C
+              apply.
             </p>
           </div>
         </div>
       </a>
+
     </div>
   );
 };
@@ -913,4 +871,5 @@ const TABS = [
     title: "Our Blogs",
     Component: ContactBar,
   },
+  
 ].map((n, idx) => ({ ...n, id: idx + 1 }));

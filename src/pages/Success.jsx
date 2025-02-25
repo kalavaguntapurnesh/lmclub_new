@@ -1,8 +1,15 @@
+
 import React from 'react'
 import success from "../assets/success.png";
 import Logo from "../assets/LMDark.webp";
 import { Link } from 'react-router-dom';
+import { useContext } from 'react';
+import { CartContext } from "../context/CartContext";
+
 const Success = () => {
+  const { items, getProductQuantity, getTotalCost, addOneToCart,deleteFromCart, clearCart} = useContext(CartContext);
+
+  clearCart();
   return (
     <div>
         <div className="fixed inset-0 flex justify-center items-center bg-gray-800 bg-opacity-50">

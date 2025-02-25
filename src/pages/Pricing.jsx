@@ -25,16 +25,24 @@ const Pricing = () => {
     setYearly((prev) => !prev);
   };
 
+  
   const handleSelectedPlan = (plan) => {
-    navigate("/selected-plan", { state: { plan } });
+    navigate("/selected-plan", { state: { plan, isYearly  } });
   };
+
+  useEffect(() => {
+    if (location.state?.isYearly !== undefined) {
+      setYearly(location.state.isYearly);
+    }
+  }, [location.state?.isYearly]);
+  
 
   const monthlyPlans = [
     {
       name: "Bronze",
       description: "Registration fee is $20.00 / Yearly",
       renewalFee: "Yearly renewal fee $20.00 / Yearly",
-      price: 5.99,
+      price: isYearly ? 12 * 5.99 : 5.99,
       points: [
         "Make a post get 25 likes and earn 5 points",
         "Promote a business earn 5 points",
@@ -47,7 +55,7 @@ const Pricing = () => {
       name: "Silver",
       description: "Registration fee is $25.00 / Yearly",
       renewalFee: "Yearly renewal fee $25.00 / Yearly",
-      price: 8.99,
+      price: isYearly ? 12 * 8.99 : 8.99,
       points: [
         "Make a post get 25 likes earn 10 points",
         "Promote a business earn 10 points",
@@ -60,7 +68,7 @@ const Pricing = () => {
       name: "Gold",
       description: "Registration fee is $30.00 / Yearly",
       renewalFee: "Yearly renewal fee $30.00 / Yearly",
-      price: 11.99,
+      price: isYearly ? 12 * 11.99 : 11.99,
       points: [
         "Make a post get 25 likes earn 15 points",
         "Promote a business earn 15 points",
@@ -73,7 +81,7 @@ const Pricing = () => {
       name: "Platinum",
       description: "Registration fee is $35.00 / Yearly",
       renewalFee: "Yearly renewal fee $35.00 / Yearly",
-      price: 14.99,
+      price: isYearly ? 12 * 14.99 : 14.99,
       points: [
         "Make a post get 25 likes earn 20 points",
         "Promote a business earn 20 points",
@@ -209,7 +217,8 @@ const Pricing = () => {
                           <p className="text-gray-600">{plan.description}</p>
                           <div className="flex justify-center items-baseline my-8">
                             <span className="mr-2 text-4xl font-bold">
-                              ${isYearly ? plan.price * 12 : plan.price}
+                              {/* ${isYearly ? plan.price * 12 : plan.price} */}
+                              {plan.price}
                             </span>
                             <span className="text-gray-500 ">
                               /{isYearly ? "year" : "month"}
@@ -251,269 +260,85 @@ const Pricing = () => {
                 </motion.section>
 
                 <div className="overflow-x-auto lg:flex justify-center items-center hidden pt-8">
-                  <table class="features" className="w-[90%]">
-                    <thead>
-                      <tr>
-                        <th></th>
-                        <th class="features__cell features__cell--bold features__cell--shaded features__cell--large">
-                          Bronze
-                        </th>
-                        <th class="features__cell features__cell--bold features__cell--shaded features__cell--large">
-                          Silver
-                        </th>
-                        <th class="features__cell features__cell--bold features__cell--shaded features__cell--large">
-                          Gold
-                        </th>
-                        <th class="features__cell features__cell--bold features__cell--shaded features__cell--large">
-                          Platinum
-                        </th>
-                      </tr>
-                      <tr>
-                        <th></th>
-                        <th class="features__cell features__cell--bold features__cell--large">
-                          $5.99/mo
-                        </th>
-                        <th class="features__cell features__cell--bold features__cell--large">
-                          $8.99/mo
-                        </th>
-                        <th class="features__cell features__cell--bold features__cell--large">
-                          $11.99/mo
-                        </th>
-                        <th class="features__cell features__cell--bold features__cell--large">
-                          $14.99/mo
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td
-                          class="features__cell features__cell--bold features__cell--shaded"
-                          colspan="5"
-                        >
-                          <div className="text-sm font-medium">
-                            Make a post & get 25 likes
-                          </div>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td class="features__cell">
-                          <div className="widget_image">
-                            <img
-                              src={beehive}
-                              alt="beehive"
-                              className="w-16 h-16"
-                            />
-                          </div>
-                        </td>
-                        <td class="features__cell features__cell--center">
-                          <h1 className="text-base font-semibold text-gray-600">
-                            5
-                          </h1>
-                        </td>
-                        <td class="features__cell features__cell--center">
-                          <h1 className="text-base font-semibold text-gray-600">
-                            10
-                          </h1>
-                        </td>
-                        <td class="features__cell features__cell--center">
-                          <h1 className="text-base font-semibold text-gray-600">
-                            15
-                          </h1>
-                        </td>
-                        <td class="features__cell features__cell--center">
-                          <h1 className="text-base font-semibold text-gray-600">
-                            20
-                          </h1>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td
-                          class="features__cell features__cell--bold features__cell--shaded"
-                          colspan="5"
-                        >
-                          <div className="text-sm font-medium">
-                            Promote a business
-                          </div>
-                        </td>
-                      </tr>
+                  <table className="features w-[90%] border-collapse shadow-2xl rounded-lg overflow-hidden">
+                 <thead>
+                  <tr className="bg-gradient-to-r from-green-400 to-green-600 text-white shadow-md">
+                  <th className="p-4 border border-gray-300"> Reward Cards</th>
+                  <th className="p-4 border border-gray-300 font-bold text-xl">Bronze</th>
+                  <th className="p-4 border border-gray-300 font-bold text-xl">Silver</th>
+                  <th className="p-4 border border-gray-300 font-bold text-xl">Gold</th>
+                  <th className="p-4 border border-gray-300 font-bold text-xl">Platinum</th>
+                  </tr>
+                 <tr className="bg-gray-100 shadow">
+                  <th className="p-4 border border-gray-300">Amazon Gift Card Worth $500 </th>
+                 <th className="p-4 border border-gray-300 text-lg text-gray-700">$5.99/mo</th>
+                <th className="p-4 border border-gray-300 text-lg text-gray-700">$8.99/mo</th>
+                <th className="p-4 border border-gray-300 text-lg text-gray-700">$11.99/mo</th>
+                 <th className="p-4 border border-gray-300 text-lg text-gray-700">$14.99/mo</th>
+                </tr>
+              </thead>
+              <tbody>
+                {/* Make a Post */}
+                  <tr className="bg-green-50 ">
+                   <td colSpan={5} className="p-4 font-medium text-green-500 border border-gray-300 shadow-lg">Make a post & get 25 likes</td>
+                  </tr>
+              <tr className="hover:bg-gray-100 transition-all duration-300 shadow-md">
+                <td className="p-4 border border-gray-300"><img src={beehive} alt="beehive" className="w-16 h-16 drop-shadow-lg" /></td>
+                <td className="p-4 text-center font-semibold text-gray-700 border border-gray-300">5</td>
+                <td className="p-4 text-center font-semibold text-gray-700 border border-gray-300">10</td>
+                <td className="p-4 text-center font-semibold text-gray-700 border border-gray-300">15</td>
+                <td className="p-4 text-center font-semibold text-gray-700 border border-gray-300">20</td>
+             </tr>
 
-                      <tr>
-                        <td class="features__cell">
-                          <div className="widget_image">
-                            <img
-                              src={broadcast}
-                              alt="beehive"
-                              className="w-16 h-16"
-                            />
-                          </div>
-                        </td>
-                        <td class="features__cell features__cell--center">
-                          <h1
-                            className="text-base
- font-semibold text-gray-600"
-                          >
-                            5
-                          </h1>
-                        </td>
-                        <td class="features__cell features__cell--center">
-                          <h1
-                            className="text-base
- font-semibold text-gray-600"
-                          >
-                            10
-                          </h1>
-                        </td>
-                        <td class="features__cell features__cell--center">
-                          <h1
-                            className="text-base
- font-semibold text-gray-600"
-                          >
-                            15
-                          </h1>
-                        </td>
-                        <td class="features__cell features__cell--center">
-                          <h1 className="text-base font-semibold text-gray-600">
-                            20
-                          </h1>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td
-                          class="features__cell features__cell--bold features__cell--shaded"
-                          colspan="5"
-                        >
-                          <div className="text-sm font-medium">
-                            Complete (TFS) tasks
-                          </div>
-                        </td>
-                      </tr>
+              {/* Promote a Business */}
+              <tr className="bg-green-50 ">
+                   <td colSpan={5} className="p-4 font-medium text-green-500 border border-gray-300 shadow-lg">Promote a business</td>
+             </tr>
+             <tr className="hover:bg-gray-100 transition-all duration-300 shadow-md">
+           <td className="p-4 border border-gray-300"><img src={broadcast} alt="broadcast" className="w-16 h-16 drop-shadow-lg" /></td>
+           <td className="p-4 text-center font-semibold text-gray-700 border border-gray-300">5</td>
+           <td className="p-4 text-center font-semibold text-gray-700 border border-gray-300">10</td>
+           <td className="p-4 text-center font-semibold text-gray-700 border border-gray-300">15</td>
+           <td className="p-4 text-center font-semibold text-gray-700 border border-gray-300">20</td>
+           </tr>
 
-                      <tr>
-                        <td class="features__cell">
-                          <div className="widget_image">
-                            <img
-                              src={network}
-                              alt="beehive"
-                              className="w-16 h-16"
-                            />
-                          </div>
-                        </td>
-                        <td class="features__cell features__cell--center">
-                          <h1 className="text-base font-semibold text-gray-600">
-                            25
-                          </h1>
-                        </td>
-                        <td class="features__cell features__cell--center">
-                          <h1 className="text-base font-semibold text-gray-600">
-                            50
-                          </h1>
-                        </td>
-                        <td class="features__cell features__cell--center">
-                          <h1 className="text-base font-semibold text-gray-600">
-                            75
-                          </h1>
-                        </td>
-                        <td class="features__cell features__cell--center">
-                          <h1 className="text-base font-semibold text-gray-600">
-                            100
-                          </h1>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td
-                          class="features__cell features__cell--bold features__cell--shaded"
-                          colspan="5"
-                        >
-                          <div className="text-sm font-medium">
-                            Promote e-Store Online
-                          </div>
-                        </td>
-                      </tr>
+           {/* Complete (TFS) Tasks */}
+           <tr className="bg-green-50 ">
+              <td colSpan={5} className="p-4 font-medium text-green-500 border border-gray-300 shadow-lg">Complete (TFS) tasks</td>
+          </tr>
+         <tr className="hover:bg-gray-100 transition-all duration-300 shadow-md">
+               <td className="p-4 border border-gray-300"><img src={network} alt="network" className="w-16 h-16 drop-shadow-lg" /></td>
+               <td className="p-4 text-center font-semibold text-gray-700 border border-gray-300">25</td>
+               <td className="p-4 text-center font-semibold text-gray-700 border border-gray-300">50</td>
+               <td className="p-4 text-center font-semibold text-gray-700 border border-gray-300">75</td>
+               <td className="p-4 text-center font-semibold text-gray-700 border border-gray-300">100</td>
+          </tr>
 
-                      <tr>
-                        <td class="features__cell">
-                          <div className="widget_image">
-                            <img
-                              src={estore}
-                              alt="beehive"
-                              className="w-16 h-16"
-                            />
-                          </div>
-                        </td>
-                        <td class="features__cell features__cell--center">
-                          {/* <span class="features__tick"></span> */}
-                          <h1 className="text-base font-semibold text-gray-600">
-                            20%
-                          </h1>
-                          <p></p>
-                        </td>
-                        <td class="features__cell features__cell--center">
-                          {/* <span class="features__tick"></span> */}
-                          <h1 className="text-base font-semibold text-gray-600">
-                            30%
-                          </h1>
-                        </td>
-                        <td class="features__cell features__cell--center">
-                          {/* <span class="features__tick"></span> */}
-                          <h1 className="text-base font-semibold text-gray-600">
-                            40%
-                          </h1>
-                        </td>
-                        <td class="features__cell features__cell--center">
-                          {/* <span class="features__tick"></span> */}
-                          <h1 className="text-base font-semibold text-gray-600">
-                            70%
-                          </h1>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td
-                          class="features__cell features__cell--bold features__cell--shaded"
-                          colspan="5"
-                        >
-                          <div className="text-sm font-medium">
-                            Enroll Members
-                          </div>
-                        </td>
-                      </tr>
+          {/* Promote e-Store Online */}
+            <tr className="bg-green-50 ">
+               <td colSpan={5} className="p-4 font-medium text-green-500 border border-gray-300 shadow-lg">Promote e-Store Online</td>
+            </tr>
+           <tr className="hover:bg-gray-100 transition-all duration-300 shadow-md">
+        <td className="p-4 border border-gray-300"><img src={estore} alt="estore" className="w-16 h-16 drop-shadow-lg" /></td>
+        <td className="p-4 text-center font-semibold text-gray-700 border border-gray-300">20%</td>
+        <td className="p-4 text-center font-semibold text-gray-700 border border-gray-300">30%</td>
+        <td className="p-4 text-center font-semibold text-gray-700 border border-gray-300">40%</td>
+        <td className="p-4 text-center font-semibold text-gray-700 border border-gray-300">70%</td>
+      </tr>
 
-                      <tr>
-                        <td class="features__cell">
-                          <div className="widget_image">
-                            <img
-                              src={enroll}
-                              alt="beehive"
-                              className="w-16 h-16"
-                            />
-                          </div>
-                        </td>
-                        <td class="features__cell features__cell--center">
-                          {/* <span class="features__tick"></span> */}
-                          <h1 className="text-base font-semibold text-gray-600">
-                            35
-                          </h1>
-                        </td>
-                        <td class="features__cell features__cell--center">
-                          {/* <span class="features__tick"></span> */}
-                          <h1 className="text-base font-semibold text-gray-600">
-                            30
-                          </h1>
-                        </td>
-                        <td class="features__cell features__cell--center">
-                          {/* <span class="features__tick"></span> */}
-                          <h1 className="text-base font-semibold text-gray-600">
-                            25
-                          </h1>
-                        </td>
-                        <td class="features__cell features__cell--center">
-                          {/* <span class="features__tick"></span> */}
-                          <h1 className="text-base font-semibold text-gray-600">
-                            20
-                          </h1>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
+               {/* Enroll Members */}
+               <tr className="bg-green-50 ">
+                 <td colSpan={5} className="p-4 font-medium text-green-500 border border-gray-300 shadow-lg">Enroll Members</td>
+               </tr>
+                          <tr className="hover:bg-gray-100 transition-all duration-300 shadow-md">
+                            <td className="p-4 border border-gray-300"><img src={enroll} alt="enroll" className="w-16 h-16 drop-shadow-lg" /></td>
+                            <td className="p-4 text-center font-semibold text-gray-700 border border-gray-300">35</td>
+                            <td className="p-4 text-center font-semibold text-gray-700 border border-gray-300">30</td>
+                            <td className="p-4 text-center font-semibold text-gray-700 border border-gray-300">25</td>
+                            <td className="p-4 text-center font-semibold text-gray-700 border border-gray-300">20</td>
+                         </tr>
+                     </tbody>
+                   </table>
                 </div>
 
                 <div className="pt-12 pb-12" id="faq">

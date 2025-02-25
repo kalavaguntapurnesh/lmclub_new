@@ -5,6 +5,9 @@ import Three from "../assets/Three.svg";
 import Two from "../assets/Two.svg";
 import { motion } from "framer-motion";
 import { fadeIn } from "../variants.js";
+import LMOne from "../assets/LMOne.webp";
+import LMTwo from "../assets/LMTwo.webp";
+import LMThree from "../assets/LMThree.webp";
 
 const AppDesc = () => {
   const values2 = [
@@ -74,27 +77,15 @@ const AppDesc = () => {
                     className="grid grid-cols-2 grid-rows-2 gap-4"
                   >
                     <div className="col-span-2 row-span-1">
-                      <img
-                        src="https://lmclub.club/wp-content/uploads/2024/10/GettyImages-1360197604.webp"
-                        alt="one"
-                        className="rounded"
-                      />
+                      <img src={LMOne} alt="one" className="rounded" />
                     </div>
 
                     <div className="col-span-1 row-span-1">
-                      <img
-                        src="https://lmclub.club/wp-content/uploads/2024/10/GettyImages-2164278820.webp"
-                        alt="two"
-                        className="rounded"
-                      />
+                      <img src={LMTwo} alt="two" className="rounded" />
                     </div>
 
                     <div className="col-span-1 row-span-1">
-                      <img
-                        src="https://lmclub.club/wp-content/uploads/2024/10/GettyImages-2000672702.webp"
-                        alt="two"
-                        className="rounded"
-                      />
+                      <img src={LMThree} alt="two" className="rounded" />
                     </div>
                   </motion.div>
 

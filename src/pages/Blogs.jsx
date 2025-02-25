@@ -59,15 +59,15 @@ const Blogs = () => {
 
                       <div className="text-xl font-bold">
                         <p>
-                          Lorem ipsum dolor sit amet consectetur adipisicing
-                          elit.
+                          Handshake Button and its usage in Broadcast Widget
                         </p>
                       </div>
 
                       <div className="text-gray-500">
                         <p>
-                          Lorem ipsum dolor sit amet, consectetur adipisicing
-                          elit. Rem vitae saepe rerum laborum illum itaque?
+                          Use the Handshake Button to enroll businesses with a
+                          custom promo URL. Share it online and build rapport
+                          with a Beehive compliment first!
                         </p>
                       </div>
                     </div>
@@ -87,16 +87,14 @@ const Blogs = () => {
                       </div>
 
                       <div className="text-xl font-bold">
-                        <p>
-                          Lorem ipsum dolor sit amet consectetur adipisicing
-                          elit.
-                        </p>
+                        <p>Tips for Maximizing Your Beehive Experience</p>
                       </div>
 
                       <div className="text-gray-500">
                         <p>
-                          Lorem ipsum dolor sit amet, consectetur adipisicing
-                          elit. Rem vitae saepe rerum laborum illum itaque?
+                          Share more deals to earn points and help the
+                          community. Stay updated, engage with others, and post
+                          your experiences!
                         </p>
                       </div>
                     </div>
@@ -116,16 +114,14 @@ const Blogs = () => {
                       </div>
 
                       <div className="text-xl font-bold">
-                        <p>
-                          Lorem ipsum dolor sit amet consectetur adipisicing
-                          elit.
-                        </p>
+                        <p>Tips for Success with LM Club Grow Rewards</p>
                       </div>
 
                       <div className="text-gray-500">
                         <p>
-                          Lorem ipsum dolor sit amet, consectetur adipisicing
-                          elit. Rem vitae saepe rerum laborum illum itaque?
+                          Share your LM Club experience and its benefits to
+                          inspire others. Track referrals, stay motivated, and
+                          engage regularly for rewards!
                         </p>
                       </div>
                     </div>
