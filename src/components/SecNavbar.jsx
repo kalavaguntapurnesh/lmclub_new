@@ -30,13 +30,12 @@ const SecNavbar = () => {
     }
   };
 
-   const [cartItemsCount, setCartItemsCount] = useState(0);
-   
-     useEffect(() => {
-       const storedCartItems = JSON.parse(localStorage.getItem("cart")) || [];
-       setCartItemsCount(storedCartItems.length > 0 ? 1 : 0);
-     }, []);
+  const [cartItemsCount, setCartItemsCount] = useState(0);
 
+  useEffect(() => {
+    const storedCartItems = JSON.parse(localStorage.getItem("cart")) || [];
+    setCartItemsCount(storedCartItems.length > 0 ? 1 : 0);
+  }, []);
 
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
@@ -73,15 +72,21 @@ const SecNavbar = () => {
         {/* Desktop Nav Links */}
         <ul className="hidden lg:flex flex-grow justify-center space-x-8 items-center">
           <Tabs />
+          <a
+            href="/ecommerce"
+            className={` ${isScrolled ? "text-gray-700" : "text-white"}`}
+          >
+            LMClub Merchandise
+          </a>
         </ul>
 
         <div className="hidden lg:flex relative mr-5">
-            <a href="/selected-plan/cart" className="cursor-pointer">
-              <CiShoppingCart className="w-10 h-10 text-green-700 text-2xl"></CiShoppingCart>
-            </a>
-            <div className="absolute top-[-8px] right-[-8px] text-[10px] bg-red-500 text-white rounded-full px-2 py-1">
-              <h1>{cartItemsCount}</h1>
-            </div>
+          <a href="/selected-plan/cart" className="cursor-pointer">
+            <CiShoppingCart className="w-10 h-10 text-green-700 text-2xl"></CiShoppingCart>
+          </a>
+          <div className="absolute top-[-8px] right-[-8px] text-[10px] bg-red-500 text-white rounded-full px-2 py-1">
+            <h1>{cartItemsCount}</h1>
+          </div>
         </div>
 
         {/* Login Button */}
@@ -98,17 +103,15 @@ const SecNavbar = () => {
           </a>
         </div>
 
-        
-
         <div className="lg:hidden flex gap-6">
           <div className="relative">
-              <a href="/selected-plan/cart" className="cursor-pointer">
-                <CiShoppingCart className="w-10 h-10 text-green-800"></CiShoppingCart>
-              </a>
-              <div className="absolute top-[-8px] right-[-8px] text-[10px] bg-red-500 text-white rounded-full px-2 py-1">
-                <h1>{cartItemsCount}</h1>
-              </div>
-           </div>
+            <a href="/selected-plan/cart" className="cursor-pointer">
+              <CiShoppingCart className="w-10 h-10 text-green-800"></CiShoppingCart>
+            </a>
+            <div className="absolute top-[-8px] right-[-8px] text-[10px] bg-red-500 text-white rounded-full px-2 py-1">
+              <h1>{cartItemsCount}</h1>
+            </div>
+          </div>
           <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
             {isMobileMenuOpen ? (
               <AiOutlineClose
@@ -226,7 +229,6 @@ const SecNavbar = () => {
                     exit={{ opacity: 0, height: 0 }}
                     className="mt-6 grid grid-cols-2 gap-4"
                   >
-                    
                     <li className="text-navGray p-2 rounded bg-[#e6e6e6] text-center">
                       <a
                         href="/network"
@@ -265,7 +267,6 @@ const SecNavbar = () => {
                         Grow
                       </a>
                     </li>
-                    
                   </motion.ul>
                 )}
               </AnimatePresence>
@@ -374,8 +375,6 @@ const SecNavbar = () => {
                 )}
               </AnimatePresence>
             </li>
-
-              
 
             <div className="h-[200px] flex flex-row items-center justify-center">
               <img src={phone} alt="phone" className="h-full" />
@@ -574,7 +573,6 @@ const Nub = ({ selected }) => {
 const WidgetsBar = () => {
   return (
     <div className="grid grid-cols-2 gap-4 p-4 ">
-      
       <a
         href="/network"
         className="space-y-1 transition duration-1000 ease-in-out p-2 hover:bg-[#e6e6e6] rounded-lg"
@@ -589,7 +587,7 @@ const WidgetsBar = () => {
           </div>
         </div>
       </a>
-      
+
       <a
         href="/beehive"
         className="space-y-1 transition duration-1000 ease-in-out p-2 hover:bg-[#e6e6e6] rounded-lg"
@@ -638,7 +636,6 @@ const WidgetsBar = () => {
         </div>
       </a>
 
-    
       <a
         href="/grow"
         className="space-y-1 transition duration-1000 ease-in-out p-2 hover:bg-[#e6e6e6] rounded-lg"
@@ -654,7 +651,6 @@ const WidgetsBar = () => {
           </div>
         </div>
       </a>
-
     </div>
   );
 };
@@ -871,5 +867,4 @@ const TABS = [
     title: "Our Blogs",
     Component: ContactBar,
   },
-  
 ].map((n, idx) => ({ ...n, id: idx + 1 }));

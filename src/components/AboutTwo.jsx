@@ -1,16 +1,39 @@
-
 import { FaGlobe, FaHandshake, FaMedal } from "react-icons/fa";
-import Founder from "../assets/Founder.jpeg";
+import Founder from "../assets/Founder1.jpg";
 import { FaLinkedinIn } from "react-icons/fa6";
 import { TiArrowRight } from "react-icons/ti";
 import Logo from "../assets/LMDark.webp";
 import globalThree from "../assets/globeThree.jpg";
 import gPay from "../assets/GPlay.webp";
 import appStore from "../assets/AppStore.webp";
-import Founder1 from "../assets/Founder1.jpg";
-import Founder21 from "../assets/Founder21.jpg";
 import Founder22 from "../assets/Founder22.jpg";
+import { motion } from "framer-motion";
+import { fadeIn } from "../variants.js";
+import Founder2 from "../assets/Founder22.jpg";
+import { useRef, useState } from "react";
+import { section } from "framer-motion/client";
+
 const AboutTwo = () => {
+  const [visibleSection, setVisibleSection] = useState(null);
+
+  const richardRef = useRef(null);
+  const sandyRef = useRef(null);
+
+  const handleScrollToSection = (section) => {
+    setVisibleSection(section);
+
+    setTimeout(() => {
+      if (section === "richard" && richardRef.current) {
+        richardRef.current.scrollIntoView({
+          behavior: "smooth",
+          block: "start",
+        });
+      } else if (section === "sandy" && sandyRef.current) {
+        sandyRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    }, 100);
+  };
+
   return (
     <>
       <div className="lg:pb-8 mt-12">
@@ -237,71 +260,135 @@ const AboutTwo = () => {
         <div className="relative">
           <div className="w-full">
             <div className="w-full mx-auto max-w-[1400px] ">
-                <div className="flex items-center justify-center p-6 ">
-                <   div className="h-8 w-2 bg-mainColor"></div>
-                    <h1 className="ml-2 text-4xl font-bold text-green-500 uppercase">
-                      About the founders
-                    </h1>
-                </div>
               <div className="p-4">
-                <div className="grid md:grid-cols-2 grid-cols-1 lg:gap-4 gap-8">
-                  <div className="flex justify-center items-center">
-                    <div className="w-full">
+                <div className="flex flex-col space-y-3 w-full lg:pt-8">
+                  <motion.div
+                    variants={fadeIn("down", 0.1)} // Fade in from top to bottom
+                    initial="hidden"
+                    whileInView="show"
+                    viewport={{ once: true, amount: 0.5 }}
+                    className="flex items-center justify-center "
+                  >
+                    <div className="h-4 w-1 bg-green-500"></div>
+                    <h1 className="ml-2 font-bold text-green-500 lg:uppercase">
+                      Our Founding Team
+                    </h1>
+                  </motion.div>
+
+                  <motion.div
+                    variants={fadeIn("down", 0.1)} // Fade in from top to bottom
+                    initial="hidden"
+                    whileInView="show"
+                    viewport={{ once: true, amount: 0.5 }}
+                    className="lg:text-4xl text-2xl text-center font-bold text-headingColor"
+                  >
+                    <h1>Get to know our dedicated founders</h1>
+                  </motion.div>
+
+                  <motion.div
+                    variants={fadeIn("down", 0.1)} // Fade in from top to bottom
+                    initial="hidden"
+                    whileInView="show"
+                    viewport={{ once: true, amount: 0.5 }}
+                    className="text-gray-600 text-center"
+                  >
+                    <p>
+                      Meet our passionate founders—visionaries driven by
+                      innovation, commitment, and excellence, shaping a future
+                      of limitless possibilities with dedication.
+                    </p>
+                  </motion.div>
+
+                  <div className="grid md:grid-cols-2 pt-6 grid-cols-1 lg:gap-4 gap-6">
+                    <motion.div
+                      variants={fadeIn("up", 0.1)} // Fade in from top to bottom
+                      initial="hidden"
+                      whileInView="show"
+                      viewport={{ once: true, amount: 0.5 }}
+                      className="relative inset-0 z-0 overflow-hidden rounded aspect-[16/9]"
+                    >
+                      {/* Image with full overlay */}
+                      <div className="absolute inset-0 bg-black bg-opacity-10"></div>
                       <img
-                        src={Founder1}
-                        alt="founder"
-                        className="rounded lg:h-[420px] h-auto md:w-[90%] w-full"
+                        src={Founder}
+                        alt="image"
+                        className="w-full h-full object-cover rounded"
                       />
-                    </div>
-                  </div>
-                  <div className="flex flex-col space-y-4 w-full md:justify-center">
-                    {/* <div className="flex items-center md:justify-start justify-center ">
-                      <div className="h-4 w-1 bg-mainColor"></div>
-                      <h1 className="ml-2 font-bold text-green-500 uppercase">
-                        About the founder
-                      </h1>
-                    </div> */}
 
-                    <div className="lg:text-4xl text-2xl md:text-start text-center font-bold text-headingColor">
-                      <h1>Rickardo Anderson</h1>
-                    </div>
+                      {/* Text at the bottom */}
+                      <div className="absolute bottom-0 left-0 w-full p-4 text-white ">
+                        <div className="flex flex-row justify-between">
+                          <div className="flex flex-wrap flex-col lg:items-start items-start pb-1 space-y-1">
+                            <div className="lg:text-3xl text-lg lg:text-start text-center font-extrabold leading-relaxed">
+                              <h2>Richard Anderson</h2>
+                            </div>
+                            <div className="lg:w-20 w-16 h-1 border-b-2 border-green-500 mt-[1px]"></div>
+                            <p className="font-semibold lg:text-lg pt-[2px]">
+                              Founder
+                            </p>
+                          </div>
 
-                    <div className="text-sideHeading space-y-2 md:text-start text-center">
-                      <p>
-                        Laoe Maom is more than a membership club; it’s a
-                        community built on the principles of collaboration,
-                        positivity, and shared success. Founded by Richard
-                        Anderson and Sandy Pittman, Laoe Maom focuses on
-                        fostering a positive culture that energizes and
-                        motivates its members and businesses to network and
-                        create opportunities together.
-                      </p>
-                      <p>
-                        My mission, as the founder, is clear: to forge the
-                        premier networking club that supports our members and
-                        businesses efficiently and effectively. We strive to
-                        streamline success, minimizing time expenditure and
-                        maximizing achievements. Join us to transcend barriers
-                        and unlock a realm of exceptional networking and
-                        opportunities! To expand our vibrant community to 2.5
-                        billion members worldwide, creating a network of
-                        opportunities and shared success.
-                      </p>
-                    </div>
+                          <div className="mt-4">
+                            <button
+                              onClick={() => handleScrollToSection("richard")}
+                              className="group border-[1px] relative px-6 py-[6px] text-gray-50 text-sm rounded-full border-gray-50  font-semibold overflow-hidden flex items-center gap-2 w-[180px] "
+                            >
+                              <span className="relative flex-[8] text-center">
+                                Learn More
+                              </span>
+                              <span className="w-6 h-6 flex items-center justify-center rounded-full bg-gray-50 flex-[2] transition duration-1000 ease-in-out text-black group-hover:bg-white group-hover:text-green-500">
+                                <TiArrowRight className=" text-lg" />
+                              </span>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </motion.div>
 
-                    <div className="flex items-center lg:justify-start justify-center ">
-                      <a
-                        href="/contact-us"
-                        className="group border-[1px] relative px-6 py-2 text-green-500 text-sm rounded-full border-green-500 font-semibold overflow-hidden flex items-center gap-2 w-[200px] hover:bg-green-500 hover:text-white duration-1000 ease-in-out transition hover:font-medium"
-                      >
-                        <span className="relative flex-[8] text-center">
-                          Learn More
-                        </span>
-                        <span className="w-7 h-7 flex items-center justify-center rounded-full bg-green-500 flex-[2] transition duration-1000 ease-in-out text-black group-hover:bg-white group-hover:text-green-500">
-                          <TiArrowRight className=" text-lg" />
-                        </span>
-                      </a>
-                    </div>
+                    <motion.div
+                      variants={fadeIn("down", 0.1)} // Fade in from top to bottom
+                      initial="hidden"
+                      whileInView="show"
+                      viewport={{ once: true, amount: 0.5 }}
+                      className="relative inset-0 z-0 overflow-hidden rounded aspect-[16/9]"
+                    >
+                      {/* Image with full overlay */}
+                      <div className="absolute inset-0 bg-black bg-opacity-10"></div>
+                      <img
+                        src={Founder2}
+                        alt="image"
+                        className="w-full h-full rounded"
+                      />
+
+                      {/* Text at the bottom */}
+                      <div className="absolute bottom-0 left-0 w-full p-4 text-white ">
+                        <div className="flex flex-row justify-between">
+                          <div className="flex flex-wrap flex-col lg:items-start items-start pb-1 space-y-1">
+                            <div className="lg:text-3xl text-lg lg:text-start text-center font-extrabold leading-relaxed">
+                              <h2>Sandy Pittman</h2>
+                            </div>
+                            <div className="lg:w-20 w-16 h-1 border-b-2 border-green-500 mt-[1px]"></div>
+                            <p className="font-semibold lg:text-lg pt-[2px]">
+                              Founder
+                            </p>
+                          </div>
+
+                          <div className="mt-4">
+                            <button
+                              onClick={() => handleScrollToSection("sandy")}
+                              className="group border-[1px] relative px-6 py-[6px] text-gray-50 text-sm rounded-full border-gray-50  font-semibold overflow-hidden flex items-center gap-2 w-[180px] "
+                            >
+                              <span className="relative flex-[8] text-center">
+                                Learn More
+                              </span>
+                              <span className="w-6 h-6 flex items-center justify-center rounded-full bg-gray-50 flex-[2] transition duration-1000 ease-in-out text-black group-hover:bg-white group-hover:text-green-500">
+                                <TiArrowRight className=" text-lg" />
+                              </span>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </motion.div>
                   </div>
                 </div>
               </div>
@@ -310,61 +397,71 @@ const AboutTwo = () => {
         </div>
       </div>
 
-      <div className="lg:pt-10 pt-8" id="about_founder">
-        <div className="relative">
-          <div className="w-full">
-            <div className="w-full mx-auto max-w-[1400px] ">
-              <div className="p-4">
-                <div className="grid md:grid-cols-2 grid-cols-1 lg:gap-4 gap-8">
-                  
-                  <div className="flex flex-col space-y-4 w-full md:justify-center">
-                    <div className="flex items-center md:justify-start justify-center ">
-                      {/* <div className="h-4 w-1 bg-mainColor"></div>
+      {visibleSection === "richard" && (
+        <div ref={richardRef} className="lg:pt-16 pt-12" id="about_founder_one">
+          <div className="relative">
+            <div className="w-full">
+              <div className="w-full mx-auto max-w-[1400px] ">
+                <div className="p-4">
+                  <div className="grid md:grid-cols-2 grid-cols-1 lg:gap-4 gap-8">
+                    <div className="flex flex-col space-y-4 w-full md:justify-center">
+                      <div className="flex items-center md:justify-start justify-center ">
+                        {/* <div className="h-4 w-1 bg-mainColor"></div>
                       <h1 className="ml-2 font-bold text-green-500 uppercase">
                         About the founder
                       </h1> */}
-                    </div>
+                      </div>
 
-                    <div className="lg:text-4xl text-2xl md:text-start text-center font-bold text-headingColor">
-                      <h1>Sandy Pittman</h1>
-                    </div>
+                      <div className="lg:text-4xl text-2xl md:text-start text-center font-bold text-headingColor">
+                        <h1>Richard Anderson</h1>
+                      </div>
 
-                    <div className="text-sideHeading space-y-2 md:text-start text-center">
-                      <p>
-                      Sandy, a 35-year, former UPS VP of Global Strategy, led enterprise portfolio management, project governance, and business transformation. 
-                      He spearheaded the acquisition and global implementation of the enterprise's EPM platform, Planview, optimized processes across business 
-                      units and functions, and trained hundreds annually in the project management and process disciplines. His leadership in engineering and
-                       technology solutions, aircraft acquisitions, involvement in mergers and acquisitions, corporate and international strategies, and cost-saving
-                        process improvement initiatives helped enable UPS's success. A results-driven, servant leader, he excels in strategy, innovation,
-                         collaboration, problem solving and people development.  He has a Bachelors of ISyE from Georgia Tech, with a minor in American Literature, 
-                         and a Masters in International Logistics.  In addition to the LM Club, Sandy has a consulting firm, SLP Advisory Services, and is an
-                          Independent Advisor for C-Level Advisory and The Curated Network.  He enjoys spending time with his family, including his wife Angie, and
-                           their three boys, Will, Charlie and Ben, landscaping, traveling, golf and helping others through charity work and volunteering.
-                      </p>
-                      
-                    </div>
+                      <div className="text-sideHeading space-y-2 md:text-start text-center">
+                        <p>
+                          Laoe Maom is more than a membership club; it’s a
+                          community built on the principles of collaboration,
+                          positivity, and shared success. Founded by Richard
+                          Anderson and Sandy Pittman, Laoe Maom focuses on
+                          fostering a positive culture that energizes and
+                          motivates its members and businesses to network and
+                          create opportunities together.
+                        </p>
 
-                    <div className="flex items-center lg:justify-start justify-center ">
-                      <a
-                        href="/contact-us"
-                        className="group border-[1px] relative px-6 py-2 text-green-500 text-sm rounded-full border-green-500 font-semibold overflow-hidden flex items-center gap-2 w-[200px] hover:bg-green-500 hover:text-white duration-1000 ease-in-out transition hover:font-medium"
-                      >
-                        <span className="relative flex-[8] text-center">
-                          Learn More
-                        </span>
-                        <span className="w-7 h-7 flex items-center justify-center rounded-full bg-green-500 flex-[2] transition duration-1000 ease-in-out text-black group-hover:bg-white group-hover:text-green-500">
-                          <TiArrowRight className=" text-lg" />
-                        </span>
-                      </a>
+                        <p>
+                          My mission, as the founder, is clear: to forge the
+                          premier networking club that supports our members and
+                          businesses efficiently and effectively. We strive to
+                          streamline success, minimizing time expenditure and
+                          maximizing achievements. Join us to transcend barriers
+                          and unlock a realm of exceptional networking and
+                          opportunities! To expand our vibrant community to 2.5
+                          billion members worldwide, creating a network of
+                          opportunities and shared success.
+                        </p>
+                      </div>
+
+                      <div className="flex items-center lg:justify-start justify-center pt-4">
+                        <a
+                          href="/contact-us"
+                          className="group border-[1px] relative px-6 py-2 text-green-500 text-sm rounded-full border-green-500 font-semibold overflow-hidden flex items-center gap-2 w-[200px] hover:bg-green-500 hover:text-white duration-1000 ease-in-out transition hover:font-medium"
+                        >
+                          <span className="relative flex-[8] text-center">
+                            Learn More
+                          </span>
+                          <span className="w-7 h-7 flex items-center justify-center rounded-full bg-green-500 flex-[2] transition duration-1000 ease-in-out text-black group-hover:bg-white group-hover:text-green-500">
+                            <TiArrowRight className=" text-lg" />
+                          </span>
+                        </a>
+                      </div>
                     </div>
-                  </div>
-                  <div className="flex justify-center items-center">
-                    <div className="w-full">
-                      <img
-                        src={Founder22}
-                        alt="founder"
-                        className="rounded lg:h-[420px] h-auto md:w-[90%] w-full"
-                      />
+                    <div className="flex justify-center items-center">
+                      <div className="w-full">
+                        <img
+                          src={Founder}
+                          alt="founder"
+                          className="rounded lg:h-[420px] h-auto md:w-[100%] w-full"
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -372,8 +469,86 @@ const AboutTwo = () => {
             </div>
           </div>
         </div>
-      </div>
+      )}
 
+      {visibleSection === "sandy" && (
+        <div ref={sandyRef} className="lg:pt-16 pt-12" id="about_founder_two">
+          <div className="relative">
+            <div className="w-full">
+              <div className="w-full mx-auto max-w-[1400px] ">
+                <div className="p-4">
+                  <div className="grid md:grid-cols-2 grid-cols-1 lg:gap-4 gap-8">
+                    <div className="flex flex-col space-y-4 w-full md:justify-center">
+                      <div className="flex items-center md:justify-start justify-center ">
+                        {/* <div className="h-4 w-1 bg-mainColor"></div>
+                    <h1 className="ml-2 font-bold text-green-500 uppercase">
+                      About the founder
+                    </h1> */}
+                      </div>
+
+                      <div className="lg:text-4xl text-2xl md:text-start text-center font-bold text-headingColor">
+                        <h1>Sandy Pittman</h1>
+                      </div>
+
+                      <div className="text-sideHeading space-y-2 md:text-start text-center">
+                        <p>
+                          Sandy, a 35-year, former UPS VP of Global Strategy,
+                          led enterprise portfolio management, project
+                          governance, and business transformation. He
+                          spearheaded the acquisition and global implementation
+                          of the enterprise's EPM platform, Planview, optimized
+                          processes across business units and functions, and
+                          trained hundreds annually in the project management
+                          and process disciplines. His leadership in engineering
+                          and technology solutions, aircraft acquisitions,
+                          involvement in mergers and acquisitions, corporate and
+                          international strategies, and cost-saving process
+                          improvement initiatives helped enable UPS's success. A
+                          results-driven, servant leader, he excels in strategy,
+                          innovation, collaboration, problem solving and people
+                          development. He has a Bachelors of ISyE from Georgia
+                          Tech, with a minor in American Literature, and a
+                          Masters in International Logistics. In addition to the
+                          LM Club, Sandy has a consulting firm, SLP Advisory
+                          Services, and is an Independent Advisor for C-Level
+                          Advisory and The Curated Network. He enjoys spending
+                          time with his family, including his wife Angie, and
+                          their three boys, Will, Charlie and Ben, landscaping,
+                          traveling, golf and helping others through charity
+                          work and volunteering.
+                        </p>
+                      </div>
+
+                      <div className="flex items-center lg:justify-start justify-center ">
+                        <a
+                          href="/contact-us"
+                          className="group border-[1px] relative px-6 py-2 text-green-500 text-sm rounded-full border-green-500 font-semibold overflow-hidden flex items-center gap-2 w-[200px] hover:bg-green-500 hover:text-white duration-1000 ease-in-out transition hover:font-medium"
+                        >
+                          <span className="relative flex-[8] text-center">
+                            Learn More
+                          </span>
+                          <span className="w-7 h-7 flex items-center justify-center rounded-full bg-green-500 flex-[2] transition duration-1000 ease-in-out text-black group-hover:bg-white group-hover:text-green-500">
+                            <TiArrowRight className=" text-lg" />
+                          </span>
+                        </a>
+                      </div>
+                    </div>
+                    <div className="flex justify-center items-center">
+                      <div className="w-full">
+                        <img
+                          src={Founder22}
+                          alt="founder"
+                          className="rounded lg:h-[420px] h-auto md:w-[90%] w-full"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
 
       <div className="lg:pt-8">
         <div className="relative lg:block hidden">

@@ -118,7 +118,7 @@ const HomeProducts = () => {
                           </div>
 
                           <div className="flex md:justify-start justify-center items-center">
-                            <h1 className="text-2xl text-trumpTwo font-semibold text-center lg:text-start">
+                            <h1 className="text-2xl text-trumpTwo font-bold text-center lg:text-start">
                               {value.Title}
                             </h1>
                           </div>

@@ -51,6 +51,7 @@ import PayPalSuccessPage from "./pages/PayPalSuccessPage";
 // import OrganisationLogin from "./pages/OrganisationLogin";
 import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
+import ProductOverview from "./pages/ProductOverview";
 
 function App() {
   const { token } = useContext(AppContext);
@@ -140,6 +141,8 @@ function App() {
         <Route path="/payment" element={<HandlePayment />} />
         <Route path="/payment-success" element={<Success />} />
         <Route path="/payment-failed" element={<Failure />} />
+
+        <Route path="/product-overview/:id" element={<ProductOverview />} />
 
         <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
         <Route
