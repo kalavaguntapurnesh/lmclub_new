@@ -33,7 +33,7 @@ const PayPalSuccessPage = () => {
     const fetchPaymentDetails = async () => {
       try {
         const response = await axios.get(
-          backendUrl + /api/user/complete-order?token=${token}&PayerID=${payerID}
+          backendUrl + `/api/user/complete-order?token=${token}&PayerID=${payerID}`
         );
         setPaymentDetails(response.data);
       } catch (error) {
