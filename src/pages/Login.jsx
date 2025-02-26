@@ -49,6 +49,8 @@ const Login = () => {
     }
   }, [selectedState, selectedCountry]);
 
+  const [captchaStatus, setCaptchaStatus] = useState(false);
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [firstName, setFirstName] = useState("");
@@ -59,67 +61,71 @@ const Login = () => {
 
   const onSubmitHandler = async (e) => {
     e.preventDefault();
-    try {
-      if (state === "Sign Up") {
-        console.log(
-          firstName,
-          lastName,
-          email,
-          selectedCountry,
-          selectedState,
-          selectedCity,
-          password,
-          selectedRole
-        );
-
-        const { data } = await axios.post(backendUrl + "/api/user/register", {
-          firstName,
-          lastName,
-          email,
-          country: selectedCountry,
-          stateResidence: selectedState,
-          cityResidence: selectedCity,
-          password,
-          selectedRole,
-        });
-
-        if (data.success) {
-          // localStorage.setItem("token", data.token);
-          // setToken(data.token);
-          // toast.success("Logged In Successfully!");
-          // navigate("/my-profile");
-
-          toast.success(
-            "Registration Successful! Please check your email for verification link."
+    if (captchaStatus) {
+      try {
+        if (state === "Sign Up") {
+          console.log(
+            firstName,
+            lastName,
+            email,
+            selectedCountry,
+            selectedState,
+            selectedCity,
+            password,
+            selectedRole
           );
-          setState("Login");
 
-          scrollTo(0, 0);
-        } else {
-          toast.error(data.message);
-        }
-      } else {
-        const { data } = await axios.post(backendUrl + "/api/user/login", {
-          email,
-          password,
-        });
-        if (data.success) {
-          if (data.verified) {
-            localStorage.setItem("token", data.token);
-            toast.success("Registered Successfully!");
-            setToken(data.token);
-            navigate("/my-profile");
+          const { data } = await axios.post(backendUrl + "/api/user/register", {
+            firstName,
+            lastName,
+            email,
+            country: selectedCountry,
+            stateResidence: selectedState,
+            cityResidence: selectedCity,
+            password,
+            selectedRole,
+          });
+
+          if (data.success) {
+            // localStorage.setItem("token", data.token);
+            // setToken(data.token);
+            // toast.success("Logged In Successfully!");
+            // navigate("/my-profile");
+
+            toast.success(
+              "Registration Successful! Please check your email for verification link."
+            );
+            setState("Login");
+
             scrollTo(0, 0);
           } else {
-            toast.warning("Please verify your email before logging in.");
+            toast.error(data.message);
           }
         } else {
-          toast.error(data.message);
+          const { data } = await axios.post(backendUrl + "/api/user/login", {
+            email,
+            password,
+          });
+          if (data.success) {
+            if (data.verified) {
+              localStorage.setItem("token", data.token);
+              toast.success("Registered Successfully!");
+              setToken(data.token);
+              navigate("/my-profile");
+              scrollTo(0, 0);
+            } else {
+              toast.warning("Please verify your email before logging in.");
+            }
+          } else {
+            toast.error(data.message);
+          }
         }
+      } catch (error) {
+        toast.error(error.message);
+        console.log(error.message);
       }
-    } catch (error) {
-      toast.error(error.message);
-      console.log(error.message);
+    } else {
+      toast.error("Please verify the captcha");
     }
   };
 
@@ -129,7 +135,6 @@ const Login = () => {
     }
   }, [token]);
 
-  const [verified, setVerified] = useState(false);
   const navigate = useNavigate();
 
   const [currentImage, setCurrentImage] = useState(0);
@@ -170,7 +175,7 @@ const Login = () => {
 
   const handleCaptcha = (value) => {
     console.log("Captcha value:", value);
-    setVerified(true); // This will be true once reCAPTCHA is successfully completed
+    setCaptchaStatus(true);
   };
 
   return (
@@ -408,7 +413,7 @@ const Login = () => {
 
                           <div className="w-[100%] flex justify-center items-center">
                             <ReCAPTCHA
-                              sitekey="6LchMmUqAAAAANKg1dNzYDXJnCMf-L6TjRsUVAfG"
+                              sitekey="6Leb8OIqAAAAAGMagLTxEfJyRH1pIETbw2t_yJ9G"
                               onChange={handleCaptcha}
                             />
                           </div>

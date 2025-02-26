@@ -29,8 +29,6 @@ import Success from "./pages/Success";
 import Failure from "./pages/Failure";
 import Videos from "./pages/Videos";
 import { ToastContainer } from "react-toastify";
-import SecNavbar from "./components/SecNavbar";
-import Footer from "./components/Footer";
 import MyProfile from "./pages/MyProfile";
 import { useContext } from "react";
 import { AppContext } from "./context/AppContext";
