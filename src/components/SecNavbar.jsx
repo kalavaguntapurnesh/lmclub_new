@@ -15,6 +15,13 @@ import estore from "../assets/estore.webp";
 import LMDark from "../assets/LMDark.webp";
 import LMDarkLogo from "../assets/LMDarkLogo.webp";
 import { CiShoppingCart } from "react-icons/ci";
+import platinum from "../assets/platinum.jpg";
+import silver from "../assets/silver.jpg";
+import bronze from "../assets/bronze.jpg";
+import free from "../assets/Free.png";
+import gold from "../assets/gold.jpg";
+import PS from "../assets/PS.svg";
+import AS from "../assets/AS.svg";
 
 const SecNavbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -57,7 +64,9 @@ const SecNavbar = () => {
   return (
     <nav
       className={`fixed top-0 left-0 w-full z-20 transition-all duration-300 ease-in-out select-none  ${
-        isScrolled ? "bg-white shadow-md lg:py-5 py-4" : "bg-transparent lg:py-5 py-4"
+        isScrolled
+          ? "bg-white shadow-md lg:py-5 py-4"
+          : "bg-transparent lg:py-5 py-4"
       }`}
     >
       <div className="max-w-[1400px] mx-auto flex justify-between items-center px-4">
@@ -114,7 +123,11 @@ const SecNavbar = () => {
         <div className="lg:hidden flex gap-6">
           <div className="relative">
             <a href="/selected-plan/cart" className="cursor-pointer">
-              <CiShoppingCart className={`lg:w-10 w-8 lg:h-10 h-8 ${isScrolled ? "text-black" : "text-white"}`}></CiShoppingCart>
+              <CiShoppingCart
+                className={`lg:w-10 w-8 lg:h-10 h-8 ${
+                  isScrolled ? "text-black" : "text-white"
+                }`}
+              ></CiShoppingCart>
             </a>
             <div className="absolute top-[-8px] right-[-8px] text-[10px] bg-red-500 text-white rounded-full px-2 py-1">
               <h1>{cartItemsCount}</h1>
@@ -803,9 +816,9 @@ const Membership = () => {
         className="space-y-1 transition duration-1000 ease-in-out p-2 hover:bg-[#e6e6e6] rounded-lg"
       >
         <div className="flex flex-col items-start gap-3">
-          <img src={LMDark} alt="network" className="w-10 h-10" />
+          <img src={platinum} alt="network" className="w-10 h-10" />
           <div className="flex flex-col">
-            <h1 className="text-[#1a1a1a] font-semibold">Bronze</h1>
+            <h1 className="text-[#1a1a1a] font-semibold">Platinum</h1>
             <p className="text-gray-800 text-sm">
               Get to know more about our mision, vision and value.
             </p>
@@ -818,22 +831,7 @@ const Membership = () => {
         className="space-y-1 transition duration-1000 ease-in-out p-2 hover:bg-[#e6e6e6] rounded-lg"
       >
         <div className="flex flex-col items-start gap-3">
-          <img src={LMDark} alt="network" className="w-10 h-10" />
-          <div className="flex flex-col">
-            <h1 className="text-[#1a1a1a] font-semibold">Silver</h1>
-            <p className="text-gray-800 text-sm">
-              Get to know more about our mision, vision and value.
-            </p>
-          </div>
-        </div>
-      </a>
-
-      <a
-        href="/pricing"
-        className="space-y-1 transition duration-1000 ease-in-out p-2 hover:bg-[#e6e6e6] rounded-lg"
-      >
-        <div className="flex flex-col items-start gap-3">
-          <img src={LMDark} alt="network" className="w-10 h-10" />
+          <img src={gold} alt="network" className="w-10 h-10" />
           <div className="flex flex-col">
             <h1 className="text-[#1a1a1a] font-semibold">Gold</h1>
             <p className="text-gray-800 text-sm">
@@ -848,11 +846,75 @@ const Membership = () => {
         className="space-y-1 transition duration-1000 ease-in-out p-2 hover:bg-[#e6e6e6] rounded-lg"
       >
         <div className="flex flex-col items-start gap-3">
-          <img src={LMDark} alt="network" className="w-10 h-10" />
+          <img src={silver} alt="network" className="w-10 h-10" />
           <div className="flex flex-col">
-            <h1 className="text-[#1a1a1a] font-semibold">Platinum</h1>
+            <h1 className="text-[#1a1a1a] font-semibold">Silver</h1>
             <p className="text-gray-800 text-sm">
               Get to know more about our mision, vision and value.
+            </p>
+          </div>
+        </div>
+      </a>
+
+      <a
+        href="/pricing"
+        className="space-y-1 transition duration-1000 ease-in-out p-2 hover:bg-[#e6e6e6] rounded-lg"
+      >
+        <div className="flex flex-col items-start gap-3">
+          <img src={bronze} alt="network" className="w-10 h-10" />
+          <div className="flex flex-col">
+            <h1 className="text-[#1a1a1a] font-semibold">Bronze</h1>
+            <p className="text-gray-800 text-sm">
+              Get to know more about our mision, vision and value.
+            </p>
+          </div>
+        </div>
+      </a>
+      <a
+        href="/pricing"
+        className="space-y-1 transition duration-1000 ease-in-out p-2 hover:bg-[#e6e6e6] rounded-lg"
+      >
+        <div className="flex flex-col items-start gap-3">
+          <img src={free} alt="network" className="w-10 h-10 rounded-full" />
+          <div className="flex flex-col">
+            <h1 className="text-[#1a1a1a] font-semibold">Free</h1>
+            <p className="text-gray-800 text-sm">
+              Get to know more about our mision, vision and value.
+            </p>
+          </div>
+        </div>
+      </a>
+    </div>
+  );
+};
+
+const MobileApp = () => {
+  return (
+    <div className="grid grid-cols-2 gap-4 p-4 ">
+      <a
+        href="https://play.google.com/store/apps/details?id=com.lm.lmclub&hl=en_US"
+        className="space-y-1 transition duration-1000 ease-in-out p-2 hover:bg-[#e6e6e6] rounded-lg"
+      >
+        <div className="flex flex-col items-start gap-3">
+          <img src={PS} alt="network" className="w-10 h-10" />
+          <div className="flex flex-col">
+            <h1 className="text-[#1a1a1a] font-semibold">Android App</h1>
+            <p className="text-gray-800 text-sm">
+              Download our mobile app on Google Play Store.
+            </p>
+          </div>
+        </div>
+      </a>
+      <a
+        href="https://apps.apple.com/us/app/lm-club/id6469708246"
+        className="space-y-1 transition duration-1000 ease-in-out p-2 hover:bg-[#e6e6e6] rounded-lg"
+      >
+        <div className="flex flex-col items-start gap-3">
+          <img src={AS} alt="network" className="w-10 h-10" />
+          <div className="flex flex-col">
+            <h1 className="text-[#1a1a1a] font-semibold">Apple App</h1>
+            <p className="text-gray-800 text-sm">
+              Download our mobile app on Apple App Store.
             </p>
           </div>
         </div>
@@ -874,5 +936,9 @@ const TABS = [
   {
     title: "Our Blogs",
     Component: ContactBar,
+  },
+  {
+    title: "Mobile App",
+    Component: MobileApp,
   },
 ].map((n, idx) => ({ ...n, id: idx + 1 }));

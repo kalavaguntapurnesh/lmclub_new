@@ -3,14 +3,47 @@ import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import ScrollToTop from "../components/ScrollToTop";
 import { useLocation, useNavigate } from "react-router-dom";
+// import { ECommerceCartContext } from "../context/ECommerceCartContext";
+import { useECommerceCart } from "../context/ECommerceCartContext";
+import { useContext } from "react";
+import { useEffect } from "react";
 
 const ProductOverview = () => {
+  const { items, getProductQuantity, getTotalCost, addOneToCart } =
+    useECommerceCart();
   const location = useLocation();
 
   const [quantity, setQuantity] = useState(1);
+  console.log(quantity);
 
   const navigate = useNavigate();
-  const product = location.state.product;
+
+  const [product, setProduct] = useState(location.state?.product || {});
+  // const product = location.state.product;
+
+  useEffect(() => {
+    if (location.state?.product) {
+      setProduct(location.state.product);
+    }
+  }, [location.state?.product]);
+
+  console.log(product);
+
+  const handleAddToCart = () => {
+    const id = product.id || `${product.title}-${product.price}`;
+    console.log(id);
+    addOneToCart(
+      id,
+      product.title,
+      product.price,
+      product.description,
+      product.quantity
+    );
+    console.log("Adding item:", product.title);
+    console.log("Adding item:", product.price);
+    console.log("Adding item:", product.description);
+    navigate("/ecommerce-cart", { state: { product, quantity } });
+  };
 
   const [activeTab, setActiveTab] = useState("item-details");
 
@@ -168,6 +201,7 @@ const ProductOverview = () => {
 
                         <div className="mt-6 sm:gap-4 sm:items-center sm:flex sm:mt-8">
                           <a
+                            onClick={handleAddToCart}
                             href="#"
                             title=""
                             className="flex items-center justify-center py-2.5 px-8 text-sm border border-green-500 font-medium  focus:outline-none bg-white rounded   focus:z-10 focus:ring-4 text-green-500"

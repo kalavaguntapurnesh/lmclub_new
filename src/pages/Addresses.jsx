@@ -14,11 +14,12 @@ const Addresses = () => {
   const [selectedCity, setSelectedCity] = useState("");
   const [states, setStates] = useState([]);
   const [cities, setCities] = useState([]);
-
   const [shippingAddresses, setShippingAddresses] = useState([]);
+  const [useBillingAsShipping, setUseBillingAsShipping] = useState(false);
 
   const defaultShippingAddress = {
-    name: "",
+    firstName: "",
+    lastName: "",
     phoneNumber: "",
     country: "",
     state: "",
@@ -37,39 +38,21 @@ const Addresses = () => {
   useEffect(() => {
     if (userData?.shippingAddresses) {
       setShippingAddresses(userData.shippingAddresses);
-      
     }
   }, [userData]);
 
   useEffect(() => {
-    if (selectedCountry) {
-      const countryObj = countriesData.find((c) => c.name === selectedCountry);
-      setStates(countryObj ? countryObj.states : []);
-      setSelectedState("");
-      setCities([]);
-      setSelectedCity("");
+    if (useBillingAsShipping && userData.billingAddress) {
+      setNewShippingAddress(userData.billingAddress);
     } else {
-      setStates([]);
-      setCities([]);
-      setSelectedCity("");
+      setNewShippingAddress(defaultShippingAddress);
     }
-  }, [selectedCountry]);
-
-  useEffect(() => {
-    if (selectedState && selectedCountry) {
-      const countryObj = countriesData.find((c) => c.name === selectedCountry);
-      const stateObj = countryObj?.states.find((s) => s.name === selectedState);
-      setCities(stateObj ? stateObj.cities : []);
-      setSelectedCity("");
-    } else {
-      setCities([]);
-      setSelectedCity("");
-    }
-  }, [selectedState, selectedCountry]);
+  }, [useBillingAsShipping, userData]);
 
   const addShippingAddress = async () => {
     if (
-      !newShippingAddress.name ||
+      !newShippingAddress.firstName ||
+      !newShippingAddress.lastName ||
       !newShippingAddress.phoneNumber ||
       !newShippingAddress.country ||
       !newShippingAddress.state ||
@@ -83,9 +66,10 @@ const Addresses = () => {
     const updatedShippingAddresses = [...shippingAddresses, newShippingAddress];
 
     try {
+      console.log("The shipping address is : ", updatedShippingAddresses);
       const { data } = await axios.put(
         backendUrl + "/api/user/add-shipping-address",
-        { userId: userData._id, shippingAddresses: updatedShippingAddresses },
+        { userId: userData._id, shippingAddresses: [newShippingAddress] },
         {
           headers: { token },
         }
@@ -99,41 +83,13 @@ const Addresses = () => {
           shippingAddresses: updatedShippingAddresses,
         }));
         setNewShippingAddress(defaultShippingAddress);
-        loadUserProfileData(); // Refresh user data to reflect changes
-      } else {
-        toast.error(data.message);
-      }
-    } catch (error) {
-      toast.error("Error adding shipping address.");
-      console.log(error);
-    }
-  };
-
-  const deleteShippingAddress = async (index) => {
-    const updatedShippingAddresses = shippingAddresses.filter(
-      (_, i) => i !== index
-    );
-
-    try {
-      const { data } = await axios.put(
-        `${backendUrl}/api/user/delete-shipping-address`,
-        { userId: userData._id, shippingAddresses: updatedShippingAddresses },
-        { headers: { Authorization: token } }
-      );
-
-      if (data.success) {
-        toast.success("Shipping address removed.");
-        setShippingAddresses(updatedShippingAddresses);
-        setUserData((prev) => ({
-          ...prev,
-          shippingAddresses: updatedShippingAddresses,
-        }));
+        setUseBillingAsShipping(false);
         loadUserProfileData();
       } else {
         toast.error(data.message);
       }
     } catch (error) {
-      toast.error("Error removing shipping address.");
+      toast.error("Error adding shipping address.");
       console.log(error);
     }
   };
@@ -152,20 +108,20 @@ const Addresses = () => {
                   These addresses will be used at checkout.
                 </p>
 
-                {/* Billing Address */}
-                <div className="mt-4 bg-gray-100 px-4 py-5 shadow w-full">
-                  <p className="text-2xl font-bold mt-3">BILLING ADDRESS</p>
-                  <div className="grid lg:grid-cols-3 md:grid-cols-2 gap-4 text-neutral-700 mt-3">
+                <div className="mt-2 bg-gray-100 px-4 py-5 shadow w-full">
+                  <p className="text-2xl font-bold ">Billing Address</p>
+                  <div className="grid lg:grid-cols-4 md:grid-cols-2 gap-4 text-neutral-700 mt-3">
                     {[
-                      "name",
-                      "phoneNumber",
+                      "firstName",
+                      "lastName",
                       "country",
                       "state",
                       "city",
                       "pinCode",
+                      "phoneNumber",
                     ].map((field) => (
                       <div key={field}>
-                        <label className="block text-sm font-bold">
+                        <label className="block text-sm font-bold mb-1">
                           {field.toUpperCase()}
                         </label>
                         <input
@@ -179,45 +135,57 @@ const Addresses = () => {
                   </div>
                 </div>
 
-                {/* Shipping Addresses */}
-                <div className="mt-4 bg-gray-100 px-4 py-5 shadow w-full">
-                  <p className="text-2xl font-bold mt-3">SHIPPING ADDRESSES</p>
+                <div className="border-b border-gray-800"></div>
 
-                  {/* {userData?.shippingAddresses?.length > 0 ? (
+                <div className="mt-4 mb-4">
+                  <p className="text-2xl font-bold">
+                    Existing Shipping Addresses
+                  </p>
+                  {shippingAddresses.length > 0 ? (
                     shippingAddresses.map((address, index) => (
-                      <div
-                        key={index}
-                        className="flex justify-between items-center bg-white p-3 mt-3 rounded shadow"
-                      >
-                        <p>{`${address.name}, ${address.phoneNumber}, ${address.city}, ${address.state}, ${address.country}, ${address.pinCode}`}</p>
-                        <button
-                          onClick={() => deleteShippingAddress(index)}
-                          className="bg-red-500 text-white px-2 py-1 rounded"
-                        >
-                          <TiTrash />
-                        </button>
+                      <div key={index} className="bg-gray-200 p-4 mt-2 rounded">
+                        <p>{`${address.firstName} ${address.lastName}, ${address.phoneNumber}, ${address.city}, ${address.state}, ${address.country}, ${address.pinCode}`}</p>
                       </div>
                     ))
                   ) : (
-                    <p className="text-gray-500 mt-3">
-                      No shipping addresses added.
+                    <p className="text-gray-500">
+                      No shipping addresses available.
                     </p>
-                  )} */}
+                  )}
+                </div>
 
-                  <p className="mt-6 text-lg font-bold">
+                <div className=" bg-gray-100 px-4 py-5 shadow w-full">
+                  <p className="text-2xl font-bold ">
                     Add New Shipping Address
                   </p>
-                  <div className="grid lg:grid-cols-3 md:grid-cols-2 gap-4 text-neutral-700 mt-3">
+
+                  <div className="mt-3 flex items-center">
+                    <input
+                      type="checkbox"
+                      id="sameAsBilling"
+                      checked={useBillingAsShipping}
+                      onChange={() =>
+                        setUseBillingAsShipping(!useBillingAsShipping)
+                      }
+                      className="mr-2"
+                    />
+                    <label htmlFor="sameAsBilling" className="text-base">
+                      Make Shipping Address same as Billing Address
+                    </label>
+                  </div>
+
+                  <div className="grid lg:grid-cols-4 md:grid-cols-2 gap-4 text-neutral-700 mt-3">
                     {[
-                      "name",
-                      "phoneNumber",
+                      "firstName",
+                      "lastName",
                       "country",
                       "state",
                       "city",
                       "pinCode",
+                      "phoneNumber",
                     ].map((field) => (
                       <div key={field}>
-                        <label className="block text-sm font-bold">
+                        <label className="block text-sm font-bold mb-1">
                           {field.toUpperCase()}
                         </label>
                         <input
@@ -230,6 +198,7 @@ const Addresses = () => {
                               [field]: e.target.value,
                             })
                           }
+                          disabled={useBillingAsShipping}
                         />
                       </div>
                     ))}

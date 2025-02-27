@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 import { CartContext } from "../context/CartContext";
 import { useContext } from "react";
 import { AppContext } from "../context/AppContext";
+import { useECommerceCart } from "../context/ECommerceCartContext";
 
 const PayPalSuccessPage = () => {
   const {
@@ -20,20 +21,23 @@ const PayPalSuccessPage = () => {
   } = useContext(CartContext);
   const { backendUrl } = useContext(AppContext);
 
+  const { EcommerceClearCart } = useECommerceCart();
+
   const [searchParams] = useSearchParams();
   const token = searchParams.get("token");
   const payerID = searchParams.get("PayerID");
   const [paymentDetails, setPaymentDetails] = useState(null);
   const [loading, setLoading] = useState(true);
   const [flag, setFlag] = useState(false);
-  
+
   useEffect(() => {
     if (!token || !payerID) return;
-  
+
     const fetchPaymentDetails = async () => {
       try {
         const response = await axios.get(
-          backendUrl + `/api/user/complete-order?token=${token}&PayerID=${payerID}`
+          backendUrl +
+            `/api/user/complete-order?token=${token}&PayerID=${payerID}`
         );
         setPaymentDetails(response.data);
       } catch (error) {
@@ -42,24 +46,26 @@ const PayPalSuccessPage = () => {
         setLoading(false);
       }
     };
-  
+
     fetchPaymentDetails();
   }, [token, payerID]);
-  
+
+  EcommerceClearCart();
+
   // Call handleStoringPaymentDetails only once when paymentDetails is available
   useEffect(() => {
     if (paymentDetails && !flag && items?.length > 0) {
       handleStoringPaymentDetails();
     }
-  }, [paymentDetails, flag, items]);  // Added 'items' to dependency to ensure it's available
-  
+  }, [paymentDetails, flag, items]); // Added 'items' to dependency to ensure it's available
+
   const handleStoringPaymentDetails = async () => {
     try {
       if (!items || items.length === 0) {
         console.error("Error: Items are undefined or empty");
-        return;  // Stop execution if items are not available
+        return; // Stop execution if items are not available
       }
-  
+
       console.log(items[0]?.name);
       console.log(items[0]?.price);
       console.log(items[0]?.description);
@@ -72,31 +78,35 @@ const PayPalSuccessPage = () => {
           ?.amount?.value
       );
       console.log(paymentDetails?.data?.payment_source?.paypal?.account_id);
-  
-      const response = await axios.post(backendUrl + "/api/user/payment-details", {
-        MembershipName: items?.[0]?.name || "N/A",
-        MembershipPrice: items?.[0]?.price || "N/A",
-        MembershipDescription: items?.[0]?.description || "N/A",
-        paymentOrderID: paymentDetails?.data?.id || "N/A",
-        paymentStatus: paymentDetails?.data?.status || "N/A",
-        paymentEmail: paymentDetails?.data?.payer?.email_address || "N/A",
-        paymentName: paymentDetails?.data?.payer?.name?.given_name || "N/A",
-        paymentAmount:
-          paymentDetails?.data?.purchase_units?.[0]?.payments?.captures?.[0]
-            ?.amount?.value || "0",
-        paymentAccountID:
-          paymentDetails?.data?.payment_source?.paypal?.account_id || "N/A",
-      });
-  
+
+      const response = await axios.post(
+        backendUrl + "/api/user/payment-details",
+        {
+          MembershipName: items?.[0]?.name || "N/A",
+          MembershipPrice: items?.[0]?.price || "N/A",
+          MembershipDescription: items?.[0]?.description || "N/A",
+          paymentOrderID: paymentDetails?.data?.id || "N/A",
+          paymentStatus: paymentDetails?.data?.status || "N/A",
+          paymentEmail: paymentDetails?.data?.payer?.email_address || "N/A",
+          paymentName: paymentDetails?.data?.payer?.name?.given_name || "N/A",
+          paymentAmount:
+            paymentDetails?.data?.purchase_units?.[0]?.payments?.captures?.[0]
+              ?.amount?.value || "0",
+          paymentAccountID:
+            paymentDetails?.data?.payment_source?.paypal?.account_id || "N/A",
+        }
+      );
+
       console.log("Payment details saved successfully:", response.data);
-  
-      setFlag(true); 
+
+      setFlag(true);
       clearCart();
+      // EcommerceClearCart();
     } catch (error) {
       console.error("Error while storing payment details into DB:", error);
     }
   };
-  
+
   return (
     <div className="fixed inset-0 flex justify-center items-center bg-gray-800 bg-opacity-50">
       <div className="bg-white w-[600px] p-6 rounded-lg shadow-lg ">

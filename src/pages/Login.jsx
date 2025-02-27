@@ -64,17 +64,6 @@ const Login = () => {
     if (captchaStatus) {
       try {
         if (state === "Sign Up") {
-          console.log(
-            firstName,
-            lastName,
-            email,
-            selectedCountry,
-            selectedState,
-            selectedCity,
-            password,
-            selectedRole
-          );
-
           const { data } = await axios.post(backendUrl + "/api/user/register", {
             firstName,
             lastName,
@@ -87,11 +76,6 @@ const Login = () => {
           });
 
           if (data.success) {
-            // localStorage.setItem("token", data.token);
-            // setToken(data.token);
-            // toast.success("Logged In Successfully!");
-            // navigate("/my-profile");
-
             toast.success(
               "Registration Successful! Please check your email for verification link."
             );
@@ -174,7 +158,6 @@ const Login = () => {
   }, []);
 
   const handleCaptcha = (value) => {
-    console.log("Captcha value:", value);
     setCaptchaStatus(true);
   };
 

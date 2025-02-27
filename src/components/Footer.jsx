@@ -3,13 +3,24 @@ import { FaXTwitter } from "react-icons/fa6";
 import { FaLinkedin } from "react-icons/fa";
 import { FaFacebook } from "react-icons/fa";
 import Logo from "../assets/LMDarkLogo.webp";
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { FaTiktok } from "react-icons/fa";
 import { FaYoutube } from "react-icons/fa";
-
+import { FaCheckCircle, FaExclamationCircle } from "react-icons/fa";
+import axios from "axios";
 const Footer = () => {
   const location = useLocation();
+  const [email, setEmail] = useState("");
+  const [error, setError] = useState("");
+  const [popupMessage, setPopupMessage] = useState("");
+  const [showPopup, setShowPopup] = useState(false);
+  const phoneNumber = "16782004524";
+  const message =
+    "Hello LM Club, I need your guidance on professional technicians...";
+  const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(
+    message
+  )}`;
 
   useEffect(() => {
     if (location.hash) {
@@ -19,6 +30,36 @@ const Footer = () => {
       }
     }
   }, [location]);
+  const handleSubscribe = async () => {
+    setError("");
+
+    if (!email) {
+      setError("Please enter an email.");
+      return;
+    }
+
+    try {
+      const response = await axios.post("http://localhost:9090/api/subscribe", {
+        email,
+      });
+
+      if (response.status === 200) {
+        setPopupMessage("Subscription added successfully!");
+        setShowPopup(true);
+        setEmail("");
+      }
+    } catch (err) {
+      if (err.response && err.response.status === 409) {
+        setPopupMessage(
+          "You are already subscribed! Still have issues? Contact us on WhatsApp."
+        );
+
+        setShowPopup(true);
+      } else {
+        setError("Something went wrong. Please try again.");
+      }
+    }
+  };
 
   return (
     <div className="px-15 select-none mt-20 lg:mx-4 lg:mb-4">
@@ -153,7 +194,7 @@ const Footer = () => {
 
                       <li className=" flex items-start md:justify-start justify-center">
                         <a
-                          href="/privacy-policy#terms_and_conditions"
+                          href="/terms-and-conditions"
                           className="hover:text-footerHeading font-[400] text-secondaryColor no-underline text-[14px] leading-6 text-footerLinks text-center transition duration-300 ease-in-out"
                         >
                           Terms & Conditions
@@ -298,7 +339,7 @@ const Footer = () => {
                       </li>
                       <li className=" flex items-start md:justify-start justify-center">
                         <a
-                          href="https://www.linkedin.com/company/laoe-maom/"
+                          href="/contact-us"
                           className="hover:text-footerHeading font-[400] text-secondaryColor no-underline text-[14px] leading-6 text-footerLinks text-center transition duration-300 ease-in-out"
                         >
                           Contact for Legal Inquiries
@@ -314,6 +355,76 @@ const Footer = () => {
                       </li>
                     </ul>
                   </div>
+                </div>
+
+                <div className="flex flex-col items-center md:items-start md:justify-start justify-center mt-8">
+                  <h1 className="text-xl leading-5 font-bold tracking-wider uppercase text-footerLinks">
+                    Join Our Mailing List
+                  </h1>
+                  <div className="mt-3 flex flex-col md:flex-row w-full max-w-sm space-y-2 md:space-y-0 md:space-x-2">
+                    <input
+                      type="email"
+                      placeholder="Enter your email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      className={`w-full md:w-auto px-3 py-2 text-sm border rounded-md focus:outline-none focus:ring-2 ${
+                        error
+                          ? "border-red-500 focus:ring-red-500"
+                          : "border-green-500 focus:ring-green-500"
+                      }`}
+                    />
+                    <button
+                      onClick={handleSubscribe}
+                      className="w-full md:w-auto px-4 py-2 text-sm font-medium text-white bg-green-600 rounded-md hover:bg-green-700"
+                    >
+                      Subscribe
+                    </button>
+                  </div>
+                  {error && (
+                    <p className="text-red-500 text-xs mt-1">{error}</p>
+                  )}
+                  {showPopup && (
+                    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+                      <div className="bg-white p-6 rounded-lg shadow-lg w-[90%] max-w-md relative">
+                        <img
+                          src={Logo}
+                          alt="LM Club"
+                          className="w-12 h-12 absolute top-4 left-4"
+                        />
+
+                        <h2 className="text-3xl font-bold text-center mt-2">
+                          LM <span className="text-green-600">Club</span>
+                        </h2>
+                        <div className="text-center mt-6">
+                          {popupMessage.includes("successfully") ? (
+                            <FaCheckCircle className="text-green-600 mx-auto text-5xl my-3" />
+                          ) : (
+                            <FaExclamationCircle className="text-red-600 mx-auto text-5xl my-3" />
+                          )}
+                          <p className="text-gray-700 text-lg">
+                            {popupMessage}
+                          </p>
+                          {popupMessage.includes("already subscribed") && (
+                            <a
+                              href={whatsappUrl}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="block mt-4 px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700"
+                            >
+                              Contact on WhatsApp
+                            </a>
+                          )}
+
+                          <button
+                            onClick={() => setShowPopup(false)}
+                            className="mt-4 px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700"
+                          >
+                            OK
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  )}
                 </div>
               </div>
             </div>

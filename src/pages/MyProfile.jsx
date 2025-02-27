@@ -204,7 +204,7 @@ const MyProfile = () => {
                         }
                       />
                     ) : (
-                      <p className="font-semibold text-3xl text-neutral-800 mt-4">
+                      <p className="font-bold text-3xl text-neutral-800 mt-4">
                         {userData.firstName}
                       </p>
                     )}
