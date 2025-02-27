@@ -57,24 +57,28 @@ const SecNavbar = () => {
   return (
     <nav
       className={`fixed top-0 left-0 w-full z-20 transition-all duration-300 ease-in-out select-none  ${
-        isScrolled ? "bg-white shadow-md lg:py-5 py-6" : "bg-transparent py-6"
+        isScrolled ? "bg-white shadow-md lg:py-5 py-4" : "bg-transparent lg:py-5 py-4"
       }`}
     >
       <div className="max-w-[1400px] mx-auto flex justify-between items-center px-4">
         <a href="/" className="flex flex-row items-center md:ml-0 ml-1  ">
           <img
             src={LMDarkLogo}
-            className={` ${isScrolled ? "w-16 h-16" : "w-16 h-16"}`}
+            className={` ${
+              isScrolled
+                ? "lg:w-16 w-[56px] lg:h-16 h-[56px]"
+                : "lg:w-16 w-[56px] lg:h-16 h-[56px]"
+            }`}
             alt="logo"
           />
         </a>
 
         {/* Desktop Nav Links */}
-        <ul className="hidden lg:flex flex-grow justify-center space-x-8 items-center">
+        <ul className="hidden lg:flex flex-grow justify-center space-x-4 items-center">
           <Tabs />
           <a
             href="/ecommerce"
-            className={` ${isScrolled ? "text-gray-700" : "text-white"}`}
+            className={` ${isScrolled ? " font-medium" : "text-white"}`}
           >
             LMClub Merchandise
           </a>
@@ -82,7 +86,11 @@ const SecNavbar = () => {
 
         <div className="hidden lg:flex relative mr-5">
           <a href="/selected-plan/cart" className="cursor-pointer">
-            <CiShoppingCart className="w-10 h-10 text-green-700 text-2xl"></CiShoppingCart>
+            <CiShoppingCart
+              className={`w-9 h-9 text-2xl ${
+                isScrolled ? "text-black" : "text-white"
+              }`}
+            ></CiShoppingCart>
           </a>
           <div className="absolute top-[-8px] right-[-8px] text-[10px] bg-red-500 text-white rounded-full px-2 py-1">
             <h1>{cartItemsCount}</h1>
@@ -106,7 +114,7 @@ const SecNavbar = () => {
         <div className="lg:hidden flex gap-6">
           <div className="relative">
             <a href="/selected-plan/cart" className="cursor-pointer">
-              <CiShoppingCart className="w-10 h-10 text-green-800"></CiShoppingCart>
+              <CiShoppingCart className={`lg:w-10 w-8 lg:h-10 h-8 ${isScrolled ? "text-black" : "text-white"}`}></CiShoppingCart>
             </a>
             <div className="absolute top-[-8px] right-[-8px] text-[10px] bg-red-500 text-white rounded-full px-2 py-1">
               <h1>{cartItemsCount}</h1>
@@ -430,7 +438,7 @@ const Tabs = () => {
   return (
     <div
       onMouseLeave={() => handleSetSelected(null)}
-      className={`relative flex h-fit gap-2 backdrop-blur-md py-[6px] px-[20px] rounded-full  bg-white/20 ${
+      className={`relative flex h-fit gap-2  ${
         isScrolled ? "text-[#1A1A1A]" : "text-gray-50"
       }`}
     >

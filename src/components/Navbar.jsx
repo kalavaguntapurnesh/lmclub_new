@@ -60,14 +60,14 @@ const NavBar = () => {
   return (
     <nav
       className={`fixed top-0 left-0 w-full z-10 transition-all duration-300 ease-in-out ${
-        isScrolled ? "bg-white shadow-md py-4" : "bg-transparent py-6"
+        isScrolled ? "bg-white shadow-md lg:py-5 py-4" : "bg-transparent py-6"
       }`}
     >
       <div className="max-w-[1400px] mx-auto flex justify-between items-center px-4">
         <a href="/" className="flex items-center">
           <img
             src={LMDarkLogo}
-            className={` ${isScrolled ? "w-16 h-16" : "w-16 h-16"}`}
+            className={` ${isScrolled ? "lg:w-16 w-[56px] lg:h-16 h-[56px]" : "lg:w-16 w-[56px] lg:h-16 h-[56px]"}`}
             alt="logo"
           />
         </a>
@@ -85,7 +85,7 @@ const NavBar = () => {
 
         <div className="lg:flex hidden relative mr-5">
           <a href="/selected-plan/cart" className="cursor-pointer">
-            <CiShoppingCart className="w-10 h-10"></CiShoppingCart>
+            <CiShoppingCart className="w-9 h-9"></CiShoppingCart>
           </a>
           <div className="absolute top-[-8px] right-[-8px] text-[10px] bg-red-500 text-white rounded-full px-2 py-1">
             <h1>{cartItemsCount}</h1>
@@ -106,10 +106,10 @@ const NavBar = () => {
           </a>
         </div>
 
-        <div className="lg:hidden lg:hidden flex gap-6">
+        <div className="lg:hidden flex gap-6">
           <div className="relative">
             <a href="/selected-plan/cart" className="cursor-pointer">
-              <CiShoppingCart className="w-10 h-10"></CiShoppingCart>
+              <CiShoppingCart className="lg:w-10 w-8 lg:h-10 h-8"></CiShoppingCart>
             </a>
             <div className="absolute top-[-8px] right-[-8px] text-[10px] bg-red-500 text-white rounded-full px-2 py-1">
               <h1>{cartItemsCount}</h1>
@@ -142,7 +142,7 @@ const NavBar = () => {
         >
           <div className="flex flex-row w-[100%] px-5 mt-6 justify-between items-center">
             <a href="/" className="w-[50%]">
-              <img src={logo} className="w-[70px] h-auto " alt="logo" />
+              <img src={LMDarkLogo} className="w-[70px] h-auto " alt="logo" />
             </a>
             <div className="mb-4 flex justify-end w-[50%]">
               <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>

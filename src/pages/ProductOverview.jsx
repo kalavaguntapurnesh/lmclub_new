@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import ScrollToTop from "../components/ScrollToTop";
@@ -7,8 +7,12 @@ import { useLocation, useNavigate } from "react-router-dom";
 const ProductOverview = () => {
   const location = useLocation();
 
+  const [quantity, setQuantity] = useState(1);
+
   const navigate = useNavigate();
   const product = location.state.product;
+
+  const [activeTab, setActiveTab] = useState("item-details");
 
   if (!product) {
     return (
@@ -24,11 +28,15 @@ const ProductOverview = () => {
     );
   }
 
+  const totalPrice = (quantity * product.price).toFixed(2);
+
+  const totalOriginalPrice = (quantity * product.originalPrice).toFixed(2);
+
   return (
     <>
       <Navbar />
       <ScrollToTop />
-      <div className="pt-24 lg:pb-8">
+      <div className="pt-20 lg:pb-8">
         <div className="relative">
           <div className="w-full">
             <div className="w-full mx-auto max-w-[1400px] ">
@@ -55,9 +63,9 @@ const ProductOverview = () => {
                         </h1>
                         <div className="mt-4 md:items-start items-center sm:gap-4 sm:flex flex-col">
                           <p className="text-2xl font-extrabold text-gray-900 sm:text-3xl dark:text-white">
-                            {product.price}{" "}
+                            ${totalPrice}{" "}
                             <span className="line-through ml-2">
-                              {product.originalPrice}
+                              ${totalOriginalPrice}
                             </span>
                           </p>
 
@@ -131,6 +139,33 @@ const ProductOverview = () => {
                           </div>
                         </div>
 
+                        <div className="mt-6 sm:gap-4 sm:items-center sm:flex">
+                          <div>
+                            <h1 className="text-green-700 font-medium text-lg">
+                              In Stock
+                            </h1>
+                          </div>
+
+                          <div className="flex items-center space-x-3">
+                            <label className="text-lg font-semibold">
+                              Quantity:
+                            </label>
+                            <select
+                              value={quantity}
+                              onChange={(e) =>
+                                setQuantity(Number(e.target.value))
+                              }
+                              className="p-2 border border-gray-600 rounded "
+                            >
+                              {[1, 2, 3, 4, 5].map((num) => (
+                                <option key={num} value={num}>
+                                  {num}
+                                </option>
+                              ))}
+                            </select>
+                          </div>
+                        </div>
+
                         <div className="mt-6 sm:gap-4 sm:items-center sm:flex sm:mt-8">
                           <a
                             href="#"
@@ -185,15 +220,151 @@ const ProductOverview = () => {
                           </a>
                         </div>
 
-                        <hr className="my-6 md:my-8 border-gray-200 dark:border-gray-800" />
+                        <hr className="my-6 md:my-4 border-gray-200 dark:border-gray-800" />
 
-                        <p className="mb-6 text-gray-500 dark:text-gray-400">
-                          {product.description}
-                        </p>
+                        <h1 className="font-semibold text-lg">
+                          Product Details
+                        </h1>
 
-                        <p className="text-gray-500 dark:text-gray-400">
-                          {product.descriptionTwo}
-                        </p>
+                        {/* <div className="grid lg:grid-cols-5 grid-cols-2 gap-6 pt-4 pb-4">
+                          <div className="border border-gray-800 rounded w-[120px] text-sm text-center py-1.5 text-gray-800">
+                            <h1>Top Highlights</h1>
+                          </div>
+                          <div className="border border-gray-800 rounded w-[120px] text-sm text-center py-1.5 text-gray-800">
+                            <h1>Item Details</h1>
+                          </div>
+                          <div className="border border-gray-800 rounded w-[120px] text-sm text-center py-1.5 text-gray-800">
+                            <h1>Features & Specs</h1>
+                          </div>
+                          <div className="border border-gray-800 rounded w-[120px] text-sm text-center py-1.5 text-gray-800">
+                            <h1>Measurements</h1>
+                          </div>
+                          <div className="border border-gray-800 rounded w-[120px] text-sm text-center py-1.5 text-gray-800">
+                            <h1>Style & Theme</h1>
+                          </div>
+                        </div> */}
+
+                        <div className="grid lg:grid-cols-5 gap-6 grid-cols-2 md:grid-cols-3 py-4">
+                          {[
+                            { key: "top-highlights", label: "Top Highlights" },
+                            { key: "item-details", label: "Item Details" },
+                            {
+                              key: "features-specs",
+                              label: "Features & Specs",
+                            },
+                            { key: "measurements", label: "Measurements" },
+                            { key: "style-theme", label: "Style & Theme" },
+                          ].map((tab) => (
+                            <button
+                              key={tab.key}
+                              className={`border border-gray-800 rounded w-[120px]  text-center text-sm font-medium py-1.5  ${
+                                activeTab === tab.key
+                                  ? " border-green-500 text-green-500"
+                                  : "text-gray-800"
+                              }`}
+                              onClick={() => setActiveTab(tab.key)}
+                            >
+                              {tab.label}
+                            </button>
+                          ))}
+                        </div>
+
+                        <div>
+                          {activeTab === "top-highlights" && (
+                            <p>{product.description}</p>
+                          )}
+
+                          {activeTab === "item-details" && (
+                            <ul className="list-disc list-inside">
+                              <li>
+                                <span className="font-medium">Brand:</span>{" "}
+                                {product.brand}
+                              </li>
+                              <li>
+                                <span className="font-medium">Color:</span>{" "}
+                                {product.color}
+                              </li>
+                              <li>
+                                <span className="font-medium">
+                                  {" "}
+                                  Material Type:
+                                </span>{" "}
+                                {product.materialType}
+                              </li>
+                              <li>
+                                <span className="font-medium">
+                                  Recommended Use:
+                                </span>{" "}
+                                {product.recommendedUse}
+                              </li>
+                              <li>
+                                <span className="font-medium">
+                                  {" "}
+                                  Origin Country:
+                                </span>{" "}
+                                {product.originCountry}
+                              </li>
+                              <li>
+                                <span className="font-medium">
+                                  Special Feature:
+                                </span>{" "}
+                                {product.specialFeature}
+                              </li>
+                            </ul>
+                          )}
+
+                          {activeTab === "features-specs" && (
+                            <ul className="list-disc list-inside">
+                              <li>
+                                <span className="font-medium">
+                                  Item Weight:
+                                </span>{" "}
+                                {product.itemWeight}
+                              </li>
+                              <li>
+                                <span className="font-medium">
+                                  Number of Items:{" "}
+                                </span>{" "}
+                                {product.noOfItems}
+                              </li>
+                            </ul>
+                          )}
+
+                          {activeTab === "measurements" && (
+                            <ul className="list-disc list-inside">
+                              <li>
+                                <span className="font-medium">Capacity:</span>{" "}
+                                {product.capacity}
+                              </li>
+                              <li>
+                                <span className="font-medium">Dimensions:</span>{" "}
+                                Item
+                                {product.itemDimensions}
+                              </li>
+                              <li>
+                                <span className="font-medium">Weight: </span>{" "}
+                                {product.itemWeight}
+                              </li>
+                            </ul>
+                          )}
+
+                          {activeTab === "style-theme" && (
+                            <ul className="list-disc list-inside">
+                              <li>
+                                <span className="font-medium">Theme:</span>{" "}
+                                {product.theme}
+                              </li>
+                              <li>
+                                <span className="font-medium">Style:</span>{" "}
+                                {product.descriptionTwo}
+                              </li>
+                            </ul>
+                          )}
+                        </div>
+
+                        <p className="pb-6 pt-4  ">{product.description}</p>
+
+                        <p className=" ">{product.descriptionTwo}</p>
                       </div>
                     </div>
                   </div>
