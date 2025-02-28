@@ -18,6 +18,7 @@ const Cart = () => {
       setFlag(!flag);
   }
 const location = useLocation();
+console.log("getting year or month", items[0].isYearly);
 const CartPlan = location.state?.plan;
 console.log("cart page content", CartPlan);
   const navigate = useNavigate();
@@ -70,7 +71,7 @@ console.log("registrationFee:", removingDollarForRegistrationFee);
                   />
                   <div className="flex-1 ml-4">
                     <h3 className="text-lg font-semibold text-gray-800">{item.name} Membership</h3>
-                    <p className="text-gray-500 text-sm">Price: ${item.price}</p>
+                    <p className="text-gray-500 text-sm">Price: ${item.price} / {item.isYearly? "Year": "Month"}</p>
                     <p className="text-gray-500 text-sm">Registration Fee: {registrationFee}</p>
                     {/* <p className="text-gray-500 text-sm">Quantity: {item.quantity}</p> */}
                     {/* <div className="flex justify-between gap-1 w-1/6">

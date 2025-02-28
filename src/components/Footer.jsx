@@ -67,8 +67,8 @@ const Footer = () => {
         <div className="w-full">
           <div className="w-full px-4 mx-auto max-w-[1400px] ">
             <div className="pb-8 mb-8 border-b border-gray-400">
-              <div className="w-full p-8">
-                <div className="grid grid-cols-2 gap-6 md:grid-cols-3 lg:grid-cols-6 mt-8">
+              <div className="w-full p-4">
+                <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-7 mt-8">
                   <div className="mb-12 md:mb-0 col-span-2">
                     <div className="flex items-center md:justify-start justify-center w-[100%]">
                       <div className="w-[100%] flex flex-col lg:justify-start justify-center ">
@@ -303,7 +303,6 @@ const Footer = () => {
                       </li>
                     </ul>
                   </div>
-
                   <div className="mb-12 md:mb-0">
                     <div className="flex items-center md:justify-start justify-center">
                       <div className="h-4 w-1 bg-mainColor"></div>
@@ -351,6 +350,56 @@ const Footer = () => {
                           className="hover:text-footerHeading font-[400] text-secondaryColor no-underline text-[14px] leading-6 text-footerLinks text-center transition duration-300 ease-in-out"
                         >
                           Acceptable Use Policy
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                  <div className="mb-12 md:mb-0">
+                    <div className="flex items-center md:justify-start justify-center">
+                      <div className="h-4 w-1 bg-mainColor"></div>
+                      <h4 className="ml-2 text-sm leading-5 font-bold tracking-wider uppercase flex md:justify-start justify-center items-start mt-1 text-footerLinks">
+                        Membership Plans
+                      </h4>
+                    </div>
+                    <ul className="pl-0 mt-4 space-y-3 list-none">
+                      <li className=" flex items-start md:justify-start justify-center">
+                        <a
+                          href="/pricing"
+                          className="hover:text-footerHeading font-[400] text-secondaryColor no-underline text-[14px] leading-6 text-footerLinks text-center transition duration-300 ease-in-out"
+                        >
+                          Platinum
+                        </a>
+                      </li>
+                      <li className=" flex items-start md:justify-start justify-center">
+                        <a
+                          href="/pricing"
+                          className="hover:text-footerHeading font-[400] text-secondaryColor no-underline text-[14px] leading-6 text-footerLinks text-center transition duration-300 ease-in-out"
+                        >
+                          Silver  
+                        </a>
+                      </li>
+                      <li className=" flex items-start md:justify-start justify-center">
+                        <a
+                          href="/pricing"
+                          className="hover:text-footerHeading font-[400] text-secondaryColor no-underline text-[14px] leading-6 text-footerLinks text-center transition duration-300 ease-in-out"
+                        >
+                          Gold
+                        </a>
+                      </li>
+                      <li className=" flex items-start md:justify-start justify-center">
+                        <a
+                          href="pricing"
+                          className="hover:text-footerHeading font-[400] text-secondaryColor no-underline text-[14px] leading-6 text-footerLinks text-center transition duration-300 ease-in-out"
+                        >
+                          Bronze
+                        </a>
+                      </li>
+                      <li className=" flex items-start md:justify-start justify-center">
+                        <a
+                          href="/pricing"
+                          className="hover:text-footerHeading font-[400] text-secondaryColor no-underline text-[14px] leading-6 text-footerLinks text-center transition duration-300 ease-in-out"
+                        >
+                          Free
                         </a>
                       </li>
                     </ul>

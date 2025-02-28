@@ -148,7 +148,7 @@ const HandlePayment = () => {
             <thead>
               <tr className="bg-gray-800 text-white text-center">
                 <th className="p-3 text-left">Plan</th>
-                {/* <th className="p-3 text-left">Price</th> */}
+                <th className="p-3 text-left">Plan Type</th>
                 <th className="p-3 text-left">Payable Amount</th>
               </tr>
             </thead>
@@ -160,7 +160,7 @@ const HandlePayment = () => {
                   className="border border-gray-300 text-center bg-blue-200"
                 >
                   <td className="p-3 text-left">{item.name} Membership</td>
-                  {/* <td className="p-3 text-left">${item.price}</td> */}
+                  <td className="p-3 text-left">{item.isYearly? "Year": "Month"}</td>
                   <td className="p-3 text-left">${item.price.toFixed(2)}</td>
                 </tr>
               ))}
@@ -168,7 +168,7 @@ const HandlePayment = () => {
               {/* Registration Fee Row */}
               <tr className="border border-gray-300 text-center bg-gray-200">
                 <td className="p-3 text-left ">Registration Fee</td>
-                {/* <td className="p-3"></td> */}
+                <td className="p-3 text-left">Annual</td>
 
                 <td className="p-3 text-left font-semibold text-red-600 font-semibold">
                   $
@@ -181,7 +181,7 @@ const HandlePayment = () => {
               {/* Net Amount Row */}
               <tr className="border border-gray-300 text-center bg-blue-200 ">
                 <td className="p-3 text-left">Total Amount</td>
-                {/* <td className="p-3"></td> */}
+                <td className="p-3"></td>
 
                 <td className="p-3 text-left text-green-700 font-bold">
                   $

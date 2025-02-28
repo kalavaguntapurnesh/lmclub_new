@@ -19,7 +19,8 @@ const PayPalSuccessPage = () => {
     deleteFromCart,
     clearCart,
   } = useContext(CartContext);
-  const { backendUrl } = useContext(AppContext);
+
+  const { backendUrl, userData } = useContext(AppContext);
 
   const { EcommerceClearCart } = useECommerceCart();
 
@@ -50,24 +51,27 @@ const PayPalSuccessPage = () => {
     fetchPaymentDetails();
   }, [token, payerID]);
 
-  EcommerceClearCart();
+  // EcommerceClearCart();
 
+ 
   // Call handleStoringPaymentDetails only once when paymentDetails is available
   useEffect(() => {
     if (paymentDetails && !flag && items?.length > 0) {
       handleStoringPaymentDetails();
+      handleSubscriptionDetails();
     }
-  }, [paymentDetails, flag, items]); // Added 'items' to dependency to ensure it's available
+  }, [paymentDetails, flag, items]); 
 
   const handleStoringPaymentDetails = async () => {
     try {
       if (!items || items.length === 0) {
         console.error("Error: Items are undefined or empty");
-        return; // Stop execution if items are not available
+        return; 
       }
 
       console.log(items[0]?.name);
       console.log(items[0]?.price);
+      console.log(items[0]?.isYearly)
       console.log(items[0]?.description);
       console.log(paymentDetails?.data?.id);
       console.log(paymentDetails?.data?.status);
@@ -106,6 +110,38 @@ const PayPalSuccessPage = () => {
       console.error("Error while storing payment details into DB:", error);
     }
   };
+
+  const handleSubscriptionDetails = async () => {
+    try {
+      if (!items || items.length === 0) {
+        console.error("Error: Items are undefined or empty");
+        return; 
+      }
+
+      console.log(items[0]?.name);
+      console.log(items[0]?.price);
+      console.log(items[0]?.isYearly)
+  
+      const response = await axios.post(
+        backendUrl + "/api/user/subscription-details",
+        {
+          planName: items?.[0]?.name || "N/A",
+          planType: items[0]?.isYearly|| "N/A",
+          price: items[0]?.isYearly || "N/A",
+         
+        }
+      );
+
+      console.log("Subscription details saved successfully:", response.data);
+
+      setFlag(true);
+      clearCart();
+      // EcommerceClearCart();
+    } catch (error) {
+      console.error("Error while storing payment details into DB:", error);
+    }
+  };
+
 
   return (
     <div className="fixed inset-0 flex justify-center items-center bg-gray-800 bg-opacity-50">

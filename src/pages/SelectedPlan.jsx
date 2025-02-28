@@ -35,15 +35,17 @@ const SelectedPlan = () => {
 
   const navigate = useNavigate();
   const [quantity, setQuantity] = useState(1);
-
+  console.log("year or month : ", plan.isyearly);
+  
   const { addOneToCart } = useContext(CartContext);
   const handleAddToCart = () => {
     const id = plan.id || `${plan.name}-${plan.price}`;
     console.log(id);
-    addOneToCart(id, plan.name, plan.price, plan.description);
+    addOneToCart(id, plan.name, plan.price, plan.description, plan.isyearly);
     console.log("Adding item:", plan.name);
     console.log("Adding item:", plan.price);
     console.log("Adding item:", plan.description);
+    console.log("adding item:", plan.isyearly);
     navigate("/selected-plan/cart", { state: { plan, quantity } });
   };
 
@@ -125,6 +127,7 @@ const SelectedPlan = () => {
         "Shares Its Online Store Profits With You! - Post our store on your social media get 20% percent of stores profit.",
         "Enroll 35 Members get a $500.00 Gift Certificate",
       ],
+     
     },
     {
       name: "Silver",

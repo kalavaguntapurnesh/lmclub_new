@@ -50,6 +50,7 @@ const Pricing = () => {
         "Shares Its Online Store Profits With You! - Post our store on your social media get 20% percent of stores profit.",
         "Enroll 35 Members get a $500.00 Gift Certificate",
       ],
+      isyearly: isYearly
     },
     {
       name: "Silver",
@@ -63,6 +64,7 @@ const Pricing = () => {
         "Shares Its Online Store Profits With You! - Post our store on your social media get 30% percent of stores profit.",
         "Enroll 30 Members get a $500.00 Gift Certificate",
       ],
+      isyearly: isYearly
     },
     {
       name: "Gold",
@@ -76,6 +78,7 @@ const Pricing = () => {
         "Shares Its Online Store Profits With You! - Post our store on your social media get 40% percent of stores profit.",
         "Enroll 25 Members get a $500.00 Gift Certificate",
       ],
+      isyearly: isYearly
     },
     {
       name: "Platinum",
@@ -89,6 +92,7 @@ const Pricing = () => {
         "Shares Its Online Store Profits With You! - Post our store on your social media get 70% percent of stores profit.",
         "Enroll 20 Members get a $500.00 Gift Certificate",
       ],
+      isyearly: isYearly
     },
   ];
 
@@ -221,7 +225,7 @@ const Pricing = () => {
                               {plan.price}
                             </span>
                             <span className="text-gray-500 ">
-                              /{isYearly ? "year" : "month"}
+                              / {isYearly ? "year" : "month"}
                             </span>
                           </div>
 

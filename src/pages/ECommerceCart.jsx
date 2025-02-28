@@ -105,10 +105,10 @@ const ECommerceCart = () => {
 
               <div className="flex flex-col lg:flex-row justify-between w-full">
                 <button
-                  onClick={handleGoToAgainSelectedPage}
+                  // onClick={handleGoToAgainSelectedPage}
                   className="pay-button mt-4 lg:w-1/3 bg-green-700 text-white py-2 rounded-md hover:bg-green-400 transition-colors"
                 >
-                  Would you like to explore more Plans
+                  <Link to="/ecommerce">Continue Shopping</Link>
                 </button>
                 <button
                   // onClick={handlePaymentClick}

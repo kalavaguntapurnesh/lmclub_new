@@ -271,7 +271,7 @@ const AboutTwo = () => {
                   >
                     <div className="h-4 w-1 bg-green-500"></div>
                     <h1 className="ml-2 font-bold text-green-500 lg:uppercase">
-                      Our Founding Team
+                      Our Founders Team
                     </h1>
                   </motion.div>
 
@@ -404,6 +404,15 @@ const AboutTwo = () => {
               <div className="w-full mx-auto max-w-[1400px] ">
                 <div className="p-4">
                   <div className="grid md:grid-cols-2 grid-cols-1 lg:gap-4 gap-8">
+                  <div className="flex justify-center items-center">
+                      <div className="w-full">
+                        <img
+                          src={Founder}
+                          alt="founder"
+                          className="rounded lg:h-[420px] h-auto md:w-[100%] w-full"
+                        />
+                      </div>
+                    </div>
                     <div className="flex flex-col space-y-4 w-full md:justify-center">
                       <div className="flex items-center md:justify-start justify-center ">
                         {/* <div className="h-4 w-1 bg-mainColor"></div>
@@ -454,15 +463,8 @@ const AboutTwo = () => {
                         </a>
                       </div>
                     </div>
-                    <div className="flex justify-center items-center">
-                      <div className="w-full">
-                        <img
-                          src={Founder}
-                          alt="founder"
-                          className="rounded lg:h-[420px] h-auto md:w-[100%] w-full"
-                        />
-                      </div>
-                    </div>
+                   
+                   
                   </div>
                 </div>
               </div>
@@ -478,6 +480,15 @@ const AboutTwo = () => {
               <div className="w-full mx-auto max-w-[1400px] ">
                 <div className="p-4">
                   <div className="grid md:grid-cols-2 grid-cols-1 lg:gap-4 gap-8">
+                  <div className="flex justify-center items-center">
+                      <div className="w-full">
+                        <img
+                          src={Founder22}
+                          alt="founder"
+                          className="rounded lg:h-[420px] h-auto md:w-[90%] w-full"
+                        />
+                      </div>
+                    </div>
                     <div className="flex flex-col space-y-4 w-full md:justify-center">
                       <div className="flex items-center md:justify-start justify-center ">
                         {/* <div className="h-4 w-1 bg-mainColor"></div>
@@ -531,15 +542,6 @@ const AboutTwo = () => {
                             <TiArrowRight className=" text-lg" />
                           </span>
                         </a>
-                      </div>
-                    </div>
-                    <div className="flex justify-center items-center">
-                      <div className="w-full">
-                        <img
-                          src={Founder22}
-                          alt="founder"
-                          className="rounded lg:h-[420px] h-auto md:w-[90%] w-full"
-                        />
                       </div>
                     </div>
                   </div>
