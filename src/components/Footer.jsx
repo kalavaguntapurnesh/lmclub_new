@@ -367,7 +367,7 @@ const Footer = () => {
                           href="/pricing"
                           className="hover:text-footerHeading font-[400] text-secondaryColor no-underline text-[14px] leading-6 text-footerLinks text-center transition duration-300 ease-in-out"
                         >
-                          Platinum
+                          Platinum Membership 
                         </a>
                       </li>
                       <li className=" flex items-start md:justify-start justify-center">
@@ -375,7 +375,7 @@ const Footer = () => {
                           href="/pricing"
                           className="hover:text-footerHeading font-[400] text-secondaryColor no-underline text-[14px] leading-6 text-footerLinks text-center transition duration-300 ease-in-out"
                         >
-                          Silver  
+                          Silver Membership 
                         </a>
                       </li>
                       <li className=" flex items-start md:justify-start justify-center">
@@ -383,7 +383,7 @@ const Footer = () => {
                           href="/pricing"
                           className="hover:text-footerHeading font-[400] text-secondaryColor no-underline text-[14px] leading-6 text-footerLinks text-center transition duration-300 ease-in-out"
                         >
-                          Gold
+                          Gold Membership 
                         </a>
                       </li>
                       <li className=" flex items-start md:justify-start justify-center">
@@ -391,7 +391,7 @@ const Footer = () => {
                           href="pricing"
                           className="hover:text-footerHeading font-[400] text-secondaryColor no-underline text-[14px] leading-6 text-footerLinks text-center transition duration-300 ease-in-out"
                         >
-                          Bronze
+                          Bronze Membership 
                         </a>
                       </li>
                       <li className=" flex items-start md:justify-start justify-center">
@@ -399,7 +399,7 @@ const Footer = () => {
                           href="/pricing"
                           className="hover:text-footerHeading font-[400] text-secondaryColor no-underline text-[14px] leading-6 text-footerLinks text-center transition duration-300 ease-in-out"
                         >
-                          Free
+                          Free Membership 
                         </a>
                       </li>
                     </ul>
@@ -416,7 +416,7 @@ const Footer = () => {
                       placeholder="Enter your email"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
-                      className={`w-full md:w-auto px-3 py-2 text-sm border rounded-md focus:outline-none focus:ring-2 ${
+                      className={`w-full md:w-auto px-3 py-2 text-sm border rounded focus:outline-none focus:ring-2 ${
                         error
                           ? "border-red-500 focus:ring-red-500"
                           : "border-green-500 focus:ring-green-500"
@@ -424,7 +424,7 @@ const Footer = () => {
                     />
                     <button
                       onClick={handleSubscribe}
-                      className="w-full md:w-auto px-4 py-2 text-sm font-medium text-white bg-green-600 rounded-md hover:bg-green-700"
+                      className="w-full md:w-auto px-4 py-2 text-sm font-medium text-white bg-green-600 rounded hover:bg-green-700"
                     >
                       Subscribe
                     </button>
