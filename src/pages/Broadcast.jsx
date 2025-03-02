@@ -225,6 +225,31 @@ const Broadcast = () => {
                     </div>
                   </div>
                 </div>
+                <div>
+                <h2 className="text-2xl font-semibold mt-6 text-green-600">Do's and Don’ts</h2>
+        
+        <h3 className="text-xl font-semibold mt-4 text-green-600">Do’s</h3>
+        <p className="mt-2"></p>
+        <ul className="list-decimal list-inside ml-6 mt-2  text-gray-600">
+          <li><span className="font-semibold"style={{ color: "#1a1a1a" }}>Share Authorized Promotions:</span> Only share broadcast URLs provided through the LM Club platform.</li>
+          <li><span className="font-semibold"style={{ color: "#1a1a1a" }}>Use Social Media Responsibly: </span>Post promotions on your social media accounts in accordance with the platform’s terms of service.</li>
+          <li><span className="font-semibold"style={{ color: "#1a1a1a" }}>Ensure Visibility:</span>Verify that your social media posts are public or visible to your intended audience for proper tracking.</li>
+          <li><span className="font-semibold"style={{ color: "#1a1a1a" }}>Track Your Progress:</span>Monitor your shared promotions and earned points in the LM Broadcast Rewards dashboard.</li>
+          <li><span className="font-semibold"style={{ color: "#1a1a1a" }}>Redeem Points Promptly:</span>Use accumulated points to redeem rewards through the designated Rewards Store in your account.</li>
+          <li><span className="font-semibold"style={{ color: "#1a1a1a" }}>Engage Positively:</span> Promote local businesses in a manner that reflects positively on LM Club and its partners.</li>
+        </ul>
+        
+        <h3 className="text-xl font-semibold mt-4 text-green-600">Don’ts</h3>
+        <p className="mt-2"></p>
+        <ul className="list-decimal list-inside ml-6 mt-2  text-gray-600">
+          <li><span className="font-semibold"style={{ color: "#1a1a1a" }}>Do Not Share Unauthorized Links:</span>Avoid sharing non-validated links or promotions that have not been provided by LM Club.</li>
+          <li><span className="font-semibold"style={{ color: "#1a1a1a" }}>Do Not Misrepresent Promotions:</span>Ensure the accuracy and authenticity of the promotional information you share.</li>
+          <li><span className="font-semibold"style={{ color: "#1a1a1a" }}>Do Not Spam:</span>Avoid spamming promotional URLs on social media, including repeated postings or sending unsolicited messages.</li>
+          <li><span className="font-semibold"style={{ color: "#1a1a1a" }}>Do Not Manipulate Points:</span> Fraudulent activities, such as creating fake social media accounts or posts, are strictly prohibited.</li>
+          <li><span className="font-semibold"style={{ color: "#1a1a1a" }}>Do Not Use Offensive Content:</span>Ensure your social media posts are free from offensive language, imagery, or behavior.</li>
+          <li><span className="font-semibold"style={{ color: "#1a1a1a" }}>Do Not Exploit Rewards: </span> Points must be earned and redeemed according to program rules and cannot be exchanged for cash or transferred to others.</li>
+      </ul>
+                </div>
               </div>
             </div>
           </div>

@@ -183,6 +183,34 @@ const Network = () => {
                     </div>
                   </div>
                 </div>
+                <div>
+  <h2 className="text-xl font-semibold mt-6" style={{ color: "#1a1a1a" }}>Do's and Don’ts</h2>
+
+  <h3 className="font-semibold mt-4" style={{ color: "#1a1a1a" }}>Do’s</h3>
+  <p className="mt-2"></p>
+  <ul className="list-decimal list-inside ml-6 mt-2 text-gray-600">
+    <li><span className="font-semibold" style={{ color: "#1a1a1a" }}>Complete Your Profile:</span> Add a profile picture, interests, and professional background to help others connect with you meaningfully.</li>
+    <li><span className="font-semibold" style={{ color: "#1a1a1a" }}>Engage Respectfully:</span> Maintain a professional and courteous tone when interacting with other members.</li>
+    <li><span className="font-semibold" style={{ color: "#1a1a1a" }}>Join Community Groups:</span> Participate in discussions and share resources in groups that align with your interests and goals.</li>
+    <li><span className="font-semibold" style={{ color: "#1a1a1a" }}>RSVP to Events:</span> Take advantage of the events section to engage with club activities and build connections.</li>
+    <li><span className="font-semibold" style={{ color: "#1a1a1a" }}>Use Messaging Responsibly:</span> Use the messaging feature for productive and respectful communication with other members.</li>
+    <li><span className="font-semibold" style={{ color: "#1a1a1a" }}>Stay Updated:</span> Regularly check the network for updates on events, discussions, and resources.</li>
+  </ul>
+
+  <h3 className="font-semibold mt-4" style={{ color: "#1a1a1a" }}>Don’ts</h3>
+  <p className="mt-2"></p>
+  <ul className="list-decimal list-inside ml-6 mt-2 text-gray-600">
+    <li><span className="font-semibold" style={{ color: "#1a1a1a" }}>Do Not Spam:</span> Avoid sending unsolicited or irrelevant messages to other members.</li>
+    <li><span className="font-semibold" style={{ color: "#1a1a1a" }}>Do Not Share Inappropriate Content:</span> Refrain from posting offensive, discriminatory, or harmful content in any section of the widget.</li>
+    <li><span className="font-semibold" style={{ color: "#1a1a1a" }}>Do Not Misuse Information:</span> Respect the privacy of other members and do not use their contact details for purposes outside the LM Club network.</li>
+    <li><span className="font-semibold" style={{ color: "#1a1a1a" }}>Do Not Advertise Without Permission:</span> Avoid promoting external businesses or services unless explicitly permitted by LM Club policies.</li>
+    <li><span className="font-semibold" style={{ color: "#1a1a1a" }}>Do Not Engage in Harassment:</span> Harassing, bullying, or threatening behavior towards other members is strictly prohibited.</li>
+    <li><span className="font-semibold" style={{ color: "#1a1a1a" }}>Do Not Share False Information:</span> Ensure that the information you share is accurate and truthful.</li>
+  </ul>
+</div>
+
+
+               
               </div>
             </div>
           </div>

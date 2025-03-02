@@ -11,7 +11,7 @@ const RewardsTerms = () => {
     <section className="my-8 border border-gray-300 rounded p-6">
       <div className="flex flex-col items-center text-center mb-6">
         <img src={network} alt="Enroll Rewards" className="w-24 h-24 object-contain mb-4" />
-        <h1 className="text-3xl font-bold"> Network Terms and Conditions</h1>
+        <h1 className="text-3xl font-bold "style={{ color: "#1a1a1a" }}> Network Widget Terms & Conditions</h1>
       </div>
       
       <div className="relative flex my-2 items-center mx-4">
@@ -29,7 +29,7 @@ const RewardsTerms = () => {
         </p>
         
         <h2 className="text-2xl font-semibold mt-6 text-green-600">Purpose</h2>
-        <p className="mt-2  text-gray-600">The LM Club Network Widget is designed to:</p>
+        <p className="mt-2  text-gray-600 font-semibold"style={{ color: "#1a1a1a" }}>The LM Club Network Widget is designed to:</p>
         <ul className="list-disc list-inside ml-6 mt-2  text-gray-600">
           <li>Connect members with each other for networking opportunities.</li>
           <li>Provide access to club events, news, and exclusive resources.</li>
@@ -41,23 +41,23 @@ const RewardsTerms = () => {
         <h3 className="font-semibold mt-4 text-green-600">Do’s</h3>
         <p className="mt-2"></p>
         <ul className="list-decimal list-inside ml-6 mt-2  text-gray-600">
-          <li><span className="font-semibold">Complete Your Profile:</span>Add a profile picture, interests, and professional background to help others connect with you meaningfully.</li>
-          <li><span className="font-semibold">Engage Respectfully: </span> Maintain a professional and courteous tone when interacting with other members. </li>
-          <li><span className="font-semibold">Join Community Groups:</span> Participate in discussions and share resources in groups that align with your interests and goals. </li>
-          <li><span className="font-semibold">RSVP to Events: </span> Take advantage of the events section to engage with club activities and build connections.</li>
-          <li><span className="font-semibold">Use Messaging Responsibly:</span>Use the messaging feature for productive and respectful communication with other members. </li>
-          <li><span className="font-semibold">Stay Updated:</span>Regularly check the network for updates on events, discussions, and resources. </li>
+          <li><span className="font-semibold"style={{ color: "#1a1a1a" }}>Complete Your Profile:</span>Add a profile picture, interests, and professional background to help others connect with you meaningfully.</li>
+          <li><span className="font-semibold"style={{ color: "#1a1a1a" }}>Engage Respectfully: </span> Maintain a professional and courteous tone when interacting with other members. </li>
+          <li><span className="font-semibold"style={{ color: "#1a1a1a" }}>Join Community Groups:</span> Participate in discussions and share resources in groups that align with your interests and goals. </li>
+          <li><span className="font-semibold"style={{ color: "#1a1a1a" }}>RSVP to Events: </span> Take advantage of the events section to engage with club activities and build connections.</li>
+          <li><span className="font-semibold"style={{ color: "#1a1a1a" }}>Use Messaging Responsibly:</span>Use the messaging feature for productive and respectful communication with other members. </li>
+          <li><span className="font-semibold"style={{ color: "#1a1a1a" }}>Stay Updated:</span>Regularly check the network for updates on events, discussions, and resources. </li>
         </ul>
         
         <h3 className="font-semibold mt-4 text-green-600">Don’ts</h3>
         <p className="mt-2"></p>
         <ul className="list-decimal list-inside ml-6 mt-2  text-gray-600">
-          <li><span className="font-semibold">Do Not Spam:</span> Avoid sending unsolicited or irrelevant messages to other members.</li>
-          <li><span className="font-semibold">Do Not Share Inappropriate Content:</span> Refrain from posting offensive, discriminatory, or harmful content in any section of the widget.</li>
-          <li><span className="font-semibold">Do Not Misuse Information:</span>  Respect the privacy of other members and do not use their contact details for purposes outside the LM Club network.</li>
-          <li><span className="font-semibold">Do Not Advertise Without Permission:</span>Avoid promoting external businesses or services unless explicitly permitted by LM Club policies. </li>
-          <li><span className="font-semibold">Do Not Engage in Harassment:</span>Harassing, bullying, or threatening behavior towards other members is strictly prohibited.</li>
-          <li><span className="font-semibold">Do Not Share False Information: </span> Ensure that the information you share is accurate and truthful.</li>
+          <li><span className="font-semibold"style={{ color: "#1a1a1a" }}>Do Not Spam:</span> Avoid sending unsolicited or irrelevant messages to other members.</li>
+          <li><span className="font-semibold"style={{ color: "#1a1a1a" }}>Do Not Share Inappropriate Content:</span> Refrain from posting offensive, discriminatory, or harmful content in any section of the widget.</li>
+          <li><span className="font-semibold"style={{ color: "#1a1a1a" }}>Do Not Misuse Information:</span>  Respect the privacy of other members and do not use their contact details for purposes outside the LM Club network.</li>
+          <li><span className="font-semibold"style={{ color: "#1a1a1a" }}>Do Not Advertise Without Permission:</span>Avoid promoting external businesses or services unless explicitly permitted by LM Club policies. </li>
+          <li><span className="font-semibold"style={{ color: "#1a1a1a" }}>Do Not Engage in Harassment:</span>Harassing, bullying, or threatening behavior towards other members is strictly prohibited.</li>
+          <li><span className="font-semibold"style={{ color: "#1a1a1a" }}>Do Not Share False Information: </span> Ensure that the information you share is accurate and truthful.</li>
         </ul>
         <>
         <h2 className="text-xl font-bold mt-4 text-green-600 pb-3">Key Features and How to Use Them</h2>
@@ -65,29 +65,29 @@ const RewardsTerms = () => {
             <li>
               <span className="font-semibold">Member Directory:</span>
               <ul className="list-disc ml-6 mt-1 text-gray-700 ">
-                <li><span className="font-semibold">What it Does:</span> Lists all LM Club members available for networking.</li>
-                <li><span className="font-semibold">How to Use:</span> Search by name, expertise, or interests to find members who align with your goals.</li>
+                <li><span className="font-semibold"style={{ color: "#1a1a1a" }}>What it Does:</span> Lists all LM Club members available for networking.</li>
+                <li><span className="font-semibold"style={{ color: "#1a1a1a" }}>How to Use:</span> Search by name, expertise, or interests to find members who align with your goals.</li>
               </ul>
             </li>
             <li>
-              <span className="font-semibold">Events Section:</span>
+              <span className="font-semibold"style={{ color: "#1a1a1a" }}>Events Section:</span>
               <ul className="list-disc ml-6 mt-1 text-gray-700">
-                <li><span className="font-semibold">What it Does:</span> Provides updates on upcoming club events and RSVP options.</li>
-                <li><span className="font-semibold">How to Use:</span> View event details, see attendee lists, RSVP, and add events to your calendar.</li>
+                <li><span className="font-semibold"style={{ color: "#1a1a1a" }}>What it Does:</span> Provides updates on upcoming club events and RSVP options.</li>
+                <li><span className="font-semibold"style={{ color: "#1a1a1a" }}>How to Use:</span> View event details, see attendee lists, RSVP, and add events to your calendar.</li>
               </ul>
             </li>
             <li>
-              <span className="font-semibold">Messaging and Chats:</span>
+              <span className="font-semibold"style={{ color: "#1a1a1a" }}>Messaging and Chats:</span>
               <ul className="list-disc ml-6 mt-1 text-gray-700">
-                <li><span className="font-semibold">What it Does:</span> Enables direct messaging and group chats within the club.</li>
-                <li><span className="font-semibold">How to Use:</span> Start private chats or join group discussions on topics of interest.</li>
+                <li><span className="font-semibold"style={{ color: "#1a1a1a" }}>What it Does:</span> Enables direct messaging and group chats within the club.</li>
+                <li><span className="font-semibold"style={{ color: "#1a1a1a" }}>How to Use:</span> Start private chats or join group discussions on topics of interest.</li>
               </ul>
             </li>
             <li>
-              <span className="font-semibold">Community Groups:</span>
+              <span className="font-semibold"style={{ color: "#1a1a1a" }}>Community Groups:</span>
               <ul className="list-disc ml-6 mt-1 text-gray-700">
-                <li><span className="font-semibold">What it Does:</span> Offers interest-based groups for members to collaborate and share resources.</li>
-                <li><span className="font-semibold">How to Use:</span> Join groups that match your interests and participate in discussions.</li>
+                <li><span className="font-semibold"style={{ color: "#1a1a1a" }}>What it Does:</span> Offers interest-based groups for members to collaborate and share resources.</li>
+                <li><span className="font-semibold"style={{ color: "#1a1a1a" }}>How to Use:</span> Join groups that match your interests and participate in discussions.</li>
               </ul>
             </li>
           </ol>
@@ -107,7 +107,7 @@ const RewardsTerms = () => {
         </div>
         
         <h2 className="font-semibold text-xl mt-4 text-green-600">Termination</h2>
-        <p className="mt-2  text-gray-600">LM Club reserves the right to restrict or terminate access to the Network Widget for:</p>
+        <p className="mt-2  text-gray-600 font-semibold"style={{ color: "#1a1a1a" }}>LM Club reserves the right to restrict or terminate access to the Network Widget for:</p>
         <div className="ml-10 mt-2  text-gray-600">
           <li>Violation of these Terms and Conditions.</li>
           <li>Misuse of the widget’s features or resources.</li>

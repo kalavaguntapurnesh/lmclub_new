@@ -11,7 +11,7 @@ const RewardsTerms = () => {
       <section className="my-8 border border-gray-300 rounded p-6">
       <div className="flex flex-col items-center text-center mb-6">
         <img src={estore} alt="Enroll Rewards" className="w-24 h-24 object-contain mb-4" />
-        <h1 className="text-3xl font-bold">E-Store Terms and Conditions</h1>
+        <h1 className="text-3xl font-bold"style={{ color: "#1a1a1a" }}>E-Store Widget Terms & Conditions</h1>
       </div>
 
       <div className="relative flex my-2 items-center mx-4">
@@ -30,7 +30,7 @@ const RewardsTerms = () => {
         </p>
         
         <h2 className="text-2xl font-semibold mt-6 text-green-600">Purpose:</h2>
-        <p className="mt-2  text-gray-600">The LM E-Store Rewards program is designed to:</p>
+        <p className="mt-2  text-gray-600 font-semibold"style={{ color: "#1a1a1a" }}>The LM E-Store Rewards program is designed to:</p>
         <ul className="list-disc list-inside ml-6 mt-2  text-gray-600">
           <li>Reward members with 50% of the profit on purchases made through their shared E-Store link.</li>
           <li>Provide an effortless way to promote high-quality products and earn rewards.</li>
@@ -42,23 +42,23 @@ const RewardsTerms = () => {
         <h3 className="text-xl font-semibold mt-4 text-green-600">Do’s</h3>
         <p className="mt-2"></p>
         <ul className="list-decimal list-inside ml-6 mt-2  text-gray-600">
-          <li><span className="font-semibold">Use a Legitimate Bank Account:</span> Ensure your earnings are transferred to a valid bank account under your name.</li>
-          <li><span className="font-semibold">Report Taxable Income: </span>  Keep track of your earnings and report them to relevant tax authorities as required by law. </li>
-          <li><span className="font-semibold">Share Your Unique E-Store Link: </span> Promote your personal link to track purchases and earnings accurately. </li>
-          <li><span className="font-semibold">Promote Authentically:  </span>  Share the benefits of LM Club products honestly to encourage purchases.</li>
-          <li><span className="font-semibold">Track Your Earnings:</span>Monitor your sales and profits using the E-Store dashboard. </li>
-          <li><span className="font-semibold">Comply with Program Guidelines:</span>Adhere to all LM Club policies and ensure your promotions are consistent with our brand values. </li>
+          <li><span className="font-semibold"style={{ color: "#1a1a1a" }}>Use a Legitimate Bank Account:</span> Ensure your earnings are transferred to a valid bank account under your name.</li>
+          <li><span className="font-semibold"style={{ color: "#1a1a1a" }}>Report Taxable Income: </span>  Keep track of your earnings and report them to relevant tax authorities as required by law. </li>
+          <li><span className="font-semibold"style={{ color: "#1a1a1a" }}>Share Your Unique E-Store Link: </span> Promote your personal link to track purchases and earnings accurately. </li>
+          <li><span className="font-semibold"style={{ color: "#1a1a1a" }}>Promote Authentically:  </span>  Share the benefits of LM Club products honestly to encourage purchases.</li>
+          <li><span className="font-semibold"style={{ color: "#1a1a1a" }}>Track Your Earnings:</span>Monitor your sales and profits using the E-Store dashboard. </li>
+          <li><span className="font-semibold"style={{ color: "#1a1a1a" }}>Comply with Program Guidelines:</span>Adhere to all LM Club policies and ensure your promotions are consistent with our brand values. </li>
         </ul>
         
         <h3 className="text-xl font-semibold mt-4 text-green-600">Don’ts</h3>
         <p className="mt-2"></p>
         <ul className="list-decimal list-inside ml-6 mt-2  text-gray-600">
-          <li><span className="font-semibold">Do Not Use Fraudulent Accounts:</span>Avoid creating fake accounts or purchases to manipulate earnings.</li>
-          <li><span className="font-semibold">Do Not Spam: </span>  Refrain from spamming your E-Store link across social media or sending unsolicited messages.</li>
-          <li><span className="font-semibold">Do Not Misrepresent Products: </span>Provide accurate and truthful information about the products you promote.</li>
-          <li><span className="font-semibold">Do Not Engage in Unethical Practices:</span>Avoid aggressive or deceptive marketing tactics to generate sales. </li>
-          <li><span className="font-semibold">Do Not Use Unauthorized Content: </span>Ensure that any promotional materials comply with copyright laws and LM Club guidelines.</li>
-          <li><span className="font-semibold">Do Not Fail to Report Income:</span> Neglecting to report taxable earnings may result in penalties or program termination.</li>
+          <li><span className="font-semibold"style={{ color: "#1a1a1a" }}>Do Not Use Fraudulent Accounts:</span>Avoid creating fake accounts or purchases to manipulate earnings.</li>
+          <li><span className="font-semibold"style={{ color: "#1a1a1a" }}>Do Not Spam: </span>  Refrain from spamming your E-Store link across social media or sending unsolicited messages.</li>
+          <li><span className="font-semibold"style={{ color: "#1a1a1a" }}>Do Not Misrepresent Products: </span>Provide accurate and truthful information about the products you promote.</li>
+          <li><span className="font-semibold"style={{ color: "#1a1a1a" }}>Do Not Engage in Unethical Practices:</span>Avoid aggressive or deceptive marketing tactics to generate sales. </li>
+          <li><span className="font-semibold"style={{ color: "#1a1a1a" }}>Do Not Use Unauthorized Content: </span>Ensure that any promotional materials comply with copyright laws and LM Club guidelines.</li>
+          <li><span className="font-semibold"style={{ color: "#1a1a1a" }}>Do Not Fail to Report Income:</span> Neglecting to report taxable earnings may result in penalties or program termination.</li>
         </ul>
         <h2 className="text-2xl font-semibold mt-6 text-green-600">Eligibility</h2>
         <div className=" ml-10 mt-2  text-gray-600">
@@ -69,21 +69,21 @@ const RewardsTerms = () => {
         <h2 className="text-2xl font-bold mt-4 text-green-600 pb-3">Earning and Sharing Profits</h2>
           <ol className="list-decimal ml-6 space-y-4">
             <li>
-              <span className="font-semibold">How to Earn Profits:</span>
+              <span className="font-semibold"style={{ color: "#1a1a1a" }}>How to Earn Profits:</span>
               <ul className="list-disc ml-6 mt-1 text-gray-700">
                 <li> Members earn 50% of the profit on purchases made through their unique E-Store link.</li>
                 <li>Earnings may vary based on product pricing and specific campaigns.</li>
               </ul>
             </li>
             <li>
-              <span className="font-semibold">Sharing Your E-Store Link:</span>
+              <span className="font-semibold"style={{ color: "#1a1a1a" }}>Sharing Your E-Store Link:</span>
               <ul className="list-disc ml-6 mt-1 text-gray-700">
                 <li> Share your personalized E-Store link on social media, blogs, or with your network.</li>
                 <li>Ensure the link is used for all promotions to properly track referrals and earnings.</li>
               </ul>
             </li>
             <li>
-              <span className="font-semibold">Tracking and Payments:</span>
+              <span className="font-semibold"style={{ color: "#1a1a1a" }}>Tracking and Payments:</span>
               <ul className="list-disc ml-6 mt-1 text-gray-700">
                 <li>View your earnings and transactions in the E-Store dashboard.</li>
                 <li>Payments will be made to your registered bank account after verification of sales.</li>
@@ -110,7 +110,7 @@ const RewardsTerms = () => {
         </div>
 
         <h2 className="text-2xl font-semibold mt-4 text-green-600">Termination</h2>
-        <p className="mt-2">LM Club reserves the right to terminate participation in the E-Store Rewards program for:</p>
+        <p className="mt-2 font-semibold"style={{ color: "#1a1a1a" }}>LM Club reserves the right to terminate participation in the E-Store Rewards program for:</p>
         <div className="ml-10 mt-2  text-gray-600">
           <li>Violation of these Terms and Conditions.</li>
           <li>Fraudulent or suspicious activity.</li>

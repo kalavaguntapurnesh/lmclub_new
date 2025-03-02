@@ -12,7 +12,7 @@ const RewardsTerms = () => {
     <section className="my-8 border border-gray-300 rounded p-6">
       <div className="flex flex-col items-center text-center mb-6">
         <img src={enroll} alt="Enroll Rewards" className="w-24 h-24 mb-4" />
-        <h1 className="text-3xl font-bold"> Grow Terms and Conditions</h1>
+        <h1 className="text-3xl font-bold"style={{ color: "#1a1a1a" }}> Grow Widget Terms & Conditions</h1>
       </div>
       
       <div className="relative flex my-2 items-center mx-4">
@@ -30,7 +30,7 @@ const RewardsTerms = () => {
         </p>
         
         <h2 className="text-2xl font-semibold mt-6  text-green-600">Purpose</h2>
-        <p className="mt-2  text-gray-600">The LM Grow Rewards program is designed to:</p>
+        <p className="mt-2  text-gray-600 font-semibold"style={{ color: "#1a1a1a" }}>The LM Grow Rewards program is designed to:</p>
         <ul className="list-disc list-inside ml-6 mt-2  text-gray-600">
           <li>Reward members for inviting others to join the LM Club community.</li>
           <li>Encourage community growth through member participation.</li>
@@ -42,23 +42,23 @@ const RewardsTerms = () => {
         <h3 className="font-semibold mt-4  text-green-600">Do’s</h3>
         <p className="mt-2"></p>
         <ul className="list-decimal list-inside ml-6 mt-2  text-gray-600">
-          <li><span className="font-semibold">Use Your Unique Referral Code:</span> Share your personal referral link or code with others to ensure your referrals are tracked accurately.</li>
-          <li><span className="font-semibold">Promote Authentically:</span> Share your genuine experiences and benefits of the LM Club to inspire others to join.</li>
-          <li><span className="font-semibold">Track Your Progress:</span> Regularly monitor your referral count and milestones in the LM Grow Rewards dashboard.</li>
-          <li><span className="font-semibold">Redeem Points Promptly:</span> Redeem accumulated points for rewards through the designated Rewards Store in your account.</li>
-          <li><span className="font-semibold">Engage Respectfully:</span> Maintain respectful communication with potential referrals and avoid pressure tactics.</li>
-          <li><span className="font-semibold">Follow All Program Guidelines:</span> Adhere to the program rules and ensure your referrals are genuine members.</li>
+          <li><span className="font-semibold"style={{ color: "#1a1a1a" }}>Use Your Unique Referral Code:</span> Share your personal referral link or code with others to ensure your referrals are tracked accurately.</li>
+          <li><span className="font-semibold"style={{ color: "#1a1a1a" }}>Promote Authentically:</span> Share your genuine experiences and benefits of the LM Club to inspire others to join.</li>
+          <li><span className="font-semibold"style={{ color: "#1a1a1a" }}>Track Your Progress:</span> Regularly monitor your referral count and milestones in the LM Grow Rewards dashboard.</li>
+          <li><span className="font-semibold"style={{ color: "#1a1a1a" }}>Redeem Points Promptly:</span> Redeem accumulated points for rewards through the designated Rewards Store in your account.</li>
+          <li><span className="font-semibold"style={{ color: "#1a1a1a" }}>Engage Respectfully:</span> Maintain respectful communication with potential referrals and avoid pressure tactics.</li>
+          <li><span className="font-semibold"style={{ color: "#1a1a1a" }}>Follow All Program Guidelines:</span> Adhere to the program rules and ensure your referrals are genuine members.</li>
         </ul>
         
         <h3 className="font-semibold mt-4  text-green-600">Don’ts</h3>
         <p className="mt-2"></p>
         <ul className="list-decimal list-inside ml-6 mt-2  text-gray-600">
-          <li><span className="font-semibold">Do Not Misrepresent LM Club:</span> Avoid providing false or misleading information about LM Club or its benefits.</li>
-          <li><span className="font-semibold">Do Not Use Spam Tactics:</span> Refrain from mass emailing, unsolicited messaging, or any form of spamming to share your referral link.</li>
-          <li><span className="font-semibold">Do Not Manipulate the System:</span> Fraudulent activities, such as creating fake accounts or falsifying referrals, are strictly prohibited.</li>
-          <li><span className="font-semibold">Do Not Share Unauthorized Content:</span> Avoid using copyrighted or unauthorized materials when promoting LM Club.</li>
-          <li><span className="font-semibold">Do Not Engage in Harassment:</span> Refrain from aggressive or inappropriate behavior when communicating with potential referrals.</li>
-          <li><span className="font-semibold">Do Not Exploit Points:</span> Points must be earned and redeemed according to program rules and cannot be exchanged for cash or transferred to others.</li>
+          <li><span className="font-semibold"style={{ color: "#1a1a1a" }}>Do Not Misrepresent LM Club:</span> Avoid providing false or misleading information about LM Club or its benefits.</li>
+          <li><span className="font-semibold"style={{ color: "#1a1a1a" }}>Do Not Use Spam Tactics:</span> Refrain from mass emailing, unsolicited messaging, or any form of spamming to share your referral link.</li>
+          <li><span className="font-semibold"style={{ color: "#1a1a1a" }}>Do Not Manipulate the System:</span> Fraudulent activities, such as creating fake accounts or falsifying referrals, are strictly prohibited.</li>
+          <li><span className="font-semibold"style={{ color: "#1a1a1a" }}>Do Not Share Unauthorized Content:</span> Avoid using copyrighted or unauthorized materials when promoting LM Club.</li>
+          <li><span className="font-semibold"style={{ color: "#1a1a1a" }}>Do Not Engage in Harassment:</span> Refrain from aggressive or inappropriate behavior when communicating with potential referrals.</li>
+          <li><span className="font-semibold"style={{ color: "#1a1a1a" }}>Do Not Exploit Points:</span> Points must be earned and redeemed according to program rules and cannot be exchanged for cash or transferred to others.</li>
         </ul>
         
         <h2 className="text-2xl font-semibold mt-6  text-green-600">Eligibility</h2>
@@ -69,19 +69,19 @@ const RewardsTerms = () => {
         
         <h2 className="text-2xl font-semibold mt-6  text-green-600">Referral Points and Trophies</h2>
         <ul className="list-decimal list-inside ml-6 mt-2">
-          <li><strong>Earning Points:</strong>
+          <li><strong style={{ color: "#1a1a1a" }}>Earning Points:</strong>
             <ul className="list-disc list-inside ml-6 mt-2  text-gray-600">
               <li>Points are awarded for each successful referral who joins LM Club using your referral link or code.</li>
               <li>Points may vary based on specific promotions or campaigns.</li>
             </ul>
           </li>
-          <li><strong>Trophy Milestones:</strong>
+          <li><strong style={{ color: "#1a1a1a" }}>Trophy Milestones:</strong>
             <ul className="list-disc list-inside ml-6 mt-2  text-gray-600">
               <li>For every tenth referral, you will receive bonus points and a trophy to celebrate your achievement.</li>
               <li>Trophies are symbolic rewards and do not hold monetary value.</li>
             </ul>
           </li>
-          <li><strong>Redeeming Points:</strong>
+          <li><strong style={{ color: "#1a1a1a" }}>Redeeming Points:</strong>
             <ul className="list-disc list-inside ml-6 mt-2  text-gray-600">
               <li>Points can be redeemed for rewards such as gift cards, discounts, and exclusive offers through the Rewards Store.</li>
               <li>Redeemed points will reset to zero after each redemption.</li>
@@ -103,7 +103,7 @@ const RewardsTerms = () => {
         </div>
         
         <h2 className="text-2xl font-semibold mt-6  text-green-600">Termination</h2>
-        <p className="mt-2  text-gray-600">LM Club reserves the right to terminate participation in the LM Grow Rewards program for:</p>
+        <p className="mt-2  text-gray-600 font-semibold"style={{ color: "#1a1a1a" }}>LM Club reserves the right to terminate participation in the LM Grow Rewards program for:</p>
         <div className="ml-10 mt-2  text-gray-600">
           <li>Violation of these Terms and Conditions.</li>
           <li>Fraudulent or suspicious activity.</li>

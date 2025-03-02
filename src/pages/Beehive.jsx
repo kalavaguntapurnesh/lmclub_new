@@ -167,6 +167,31 @@ const Estore = () => {
                     </div>
                   </div>
                 </div>
+                <div>
+                <h2 className="text-2xl font-semibold mt-6 text-green-600">Do's and Don’ts</h2>
+        
+        <h3 className="text-xl font-semibold mt-4 text-green-600">Do’s</h3>
+        <p className="mt-2"></p>
+        <ul className="list-decimal list-inside ml-6 mt-2  text-gray-600">
+          <li><span className="font-semibold"style={{ color: "#1a1a1a" }}>Share Authentic Information:</span> Ensure that the deals, coupons, or information you share are accurate and valid.</li>
+          <li><span className="font-semibold"style={{ color: "#1a1a1a" }}>Respect Community Guidelines: </span>  Engage respectfully with other members, maintaining a positive and constructive tone. </li>
+          <li><span className="font-semibold"style={{ color: "#1a1a1a" }}>Redeem Points Responsibly:</span> Redeem accumulated points for rewards such as gift cards or discounts through authorized channels. </li>
+          <li><span className="font-semibold"style={{ color: "#1a1a1a" }}>Keep Contact Information Updated: </span>  Ensure your phone number or email address is current for receiving updates and notifications.</li>
+          <li><span className="font-semibold"style={{ color: "#1a1a1a" }}>Report Issues:</span>Notify LM Club support if you encounter invalid deals, inappropriate content, or technical issues. </li>
+          <li><span className="font-semibold"style={{ color: "#1a1a1a" }}>Follow Activation Steps:</span>Complete all onboarding steps, including reviewing and accepting these Terms and Conditions. </li>
+        </ul>
+        
+        <h3 className="text-xl font-semibold mt-4 text-green-600">Don’ts</h3>
+        <p className="mt-2"></p>
+        <ul className="list-decimal list-inside ml-6 mt-2  text-gray-600">
+          <li><span className="font-semibold"style={{ color: "#1a1a1a" }}>Do Not Share Misleading Content:</span>  Refrain from posting false or outdated deals, coupons, or offers.</li>
+          <li><span className="font-semibold"style={{ color: "#1a1a1a" }}>Do Not Engage in Inappropriate Behavior: </span> Avoid offensive language, spamming, or harassing other members.</li>
+          <li><span className="font-semibold"style={{ color: "#1a1a1a" }}>Do Not Exploit the System: </span>   Attempting to manipulate or exploit the points system is strictly prohibited.</li>
+          <li><span className="font-semibold"style={{ color: "#1a1a1a" }}>Do Not Share Unauthorized Content:</span>Only share deals or information you are authorized to post. </li>
+          <li><span className="font-semibold"style={{ color: "#1a1a1a" }}>Do Not Violate Privacy: </span>Avoid sharing private information about businesses, members, or third parties without consent.</li>
+          <li><span className="font-semibold"style={{ color: "#1a1a1a" }}>Do Not Use the Platform for Illegal Activities:</span> The Beehive Widget must not be used for any unlawful purposes.</li>
+        </ul>
+                </div>
               </div>
             </div>
           </div>

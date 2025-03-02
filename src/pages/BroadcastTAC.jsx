@@ -13,7 +13,7 @@ const RewardsTerms = () => {
     <section className="my-8 border border-gray-300 rounded p-6">
       <div className="flex flex-col items-center text-center mb-6">
         <img src={broadcast} alt="Enroll Rewards" className="w-24 h-24 object-contain mb-4" />
-        <h1 className="text-3xl font-bold"> Broadcast Terms and Conditions</h1>
+        <h1 className="text-3xl font-bold"style={{ color: "#1a1a1a" }}> Broadcast Widget Terms & Conditions</h1>
       </div>
 
       <div className="relative flex my-2 items-center mx-4">
@@ -32,7 +32,7 @@ const RewardsTerms = () => {
         </p>
         
         <h2 className="text-2xl font-semibold mt-6 text-green-600">Purpose:</h2>
-        <p className="mt-2  text-gray-600">The LM Broadcast Rewards program is designed to:</p>
+        <p className="mt-2  text-gray-600 font-semibold"style={{ color: "#1a1a1a" }}>The LM Broadcast Rewards program is designed to:</p>
         <ul className="list-disc list-inside ml-6 mt-2  text-gray-600">
           <li>Reward members for sharing promotions from local businesses on their social media platforms.</li>
           <li>Help promote and support local businesses within the LM Club community.</li>
@@ -44,23 +44,23 @@ const RewardsTerms = () => {
         <h3 className="text-xl font-semibold mt-4 text-green-600">Do’s</h3>
         <p className="mt-2"></p>
         <ul className="list-decimal list-inside ml-6 mt-2  text-gray-600">
-          <li><span className="font-semibold">Share Authorized Promotions:</span> Only share broadcast URLs provided through the LM Club platform.</li>
-          <li><span className="font-semibold">Use Social Media Responsibly: </span>Post promotions on your social media accounts in accordance with the platform’s terms of service.</li>
-          <li><span className="font-semibold">Ensure Visibility:</span>Verify that your social media posts are public or visible to your intended audience for proper tracking.</li>
-          <li><span className="font-semibold">Track Your Progress:</span>Monitor your shared promotions and earned points in the LM Broadcast Rewards dashboard.</li>
-          <li><span className="font-semibold">Redeem Points Promptly:</span>Use accumulated points to redeem rewards through the designated Rewards Store in your account.</li>
-          <li><span className="font-semibold">Engage Positively:</span> Promote local businesses in a manner that reflects positively on LM Club and its partners.</li>
+          <li><span className="font-semibold"style={{ color: "#1a1a1a" }}>Share Authorized Promotions:</span> Only share broadcast URLs provided through the LM Club platform.</li>
+          <li><span className="font-semibold"style={{ color: "#1a1a1a" }}>Use Social Media Responsibly: </span>Post promotions on your social media accounts in accordance with the platform’s terms of service.</li>
+          <li><span className="font-semibold"style={{ color: "#1a1a1a" }}>Ensure Visibility:</span>Verify that your social media posts are public or visible to your intended audience for proper tracking.</li>
+          <li><span className="font-semibold"style={{ color: "#1a1a1a" }}>Track Your Progress:</span>Monitor your shared promotions and earned points in the LM Broadcast Rewards dashboard.</li>
+          <li><span className="font-semibold"style={{ color: "#1a1a1a" }}>Redeem Points Promptly:</span>Use accumulated points to redeem rewards through the designated Rewards Store in your account.</li>
+          <li><span className="font-semibold"style={{ color: "#1a1a1a" }}>Engage Positively:</span> Promote local businesses in a manner that reflects positively on LM Club and its partners.</li>
         </ul>
         
         <h3 className="text-xl font-semibold mt-4 text-green-600">Don’ts</h3>
         <p className="mt-2"></p>
         <ul className="list-decimal list-inside ml-6 mt-2  text-gray-600">
-          <li><span className="font-semibold">Do Not Share Unauthorized Links:</span>Avoid sharing non-validated links or promotions that have not been provided by LM Club.</li>
-          <li><span className="font-semibold">Do Not Misrepresent Promotions:</span>Ensure the accuracy and authenticity of the promotional information you share.</li>
-          <li><span className="font-semibold">Do Not Spam:</span>Avoid spamming promotional URLs on social media, including repeated postings or sending unsolicited messages.</li>
-          <li><span className="font-semibold">Do Not Manipulate Points:</span> Fraudulent activities, such as creating fake social media accounts or posts, are strictly prohibited.</li>
-          <li><span className="font-semibold">Do Not Use Offensive Content:</span>Ensure your social media posts are free from offensive language, imagery, or behavior.</li>
-          <li><span className="font-semibold">Do Not Exploit Rewards: </span> Points must be earned and redeemed according to program rules and cannot be exchanged for cash or transferred to others.</li>
+          <li><span className="font-semibold"style={{ color: "#1a1a1a" }}>Do Not Share Unauthorized Links:</span>Avoid sharing non-validated links or promotions that have not been provided by LM Club.</li>
+          <li><span className="font-semibold"style={{ color: "#1a1a1a" }}>Do Not Misrepresent Promotions:</span>Ensure the accuracy and authenticity of the promotional information you share.</li>
+          <li><span className="font-semibold"style={{ color: "#1a1a1a" }}>Do Not Spam:</span>Avoid spamming promotional URLs on social media, including repeated postings or sending unsolicited messages.</li>
+          <li><span className="font-semibold"style={{ color: "#1a1a1a" }}>Do Not Manipulate Points:</span> Fraudulent activities, such as creating fake social media accounts or posts, are strictly prohibited.</li>
+          <li><span className="font-semibold"style={{ color: "#1a1a1a" }}>Do Not Use Offensive Content:</span>Ensure your social media posts are free from offensive language, imagery, or behavior.</li>
+          <li><span className="font-semibold"style={{ color: "#1a1a1a" }}>Do Not Exploit Rewards: </span> Points must be earned and redeemed according to program rules and cannot be exchanged for cash or transferred to others.</li>
       </ul>
         <h2 className="text-2xl font-semibold mt-6 text-green-600">Eligibility</h2>
         <div className=" ml-10 mt-2  text-gray-600">
@@ -71,14 +71,14 @@ const RewardsTerms = () => {
         <h2 className="text-2xl font-bold mt-4 text-green-600 pb-3">Earning Points</h2>
           <ol className="list-decimal ml-6 space-y-4">
             <li>
-              <span className="font-semibold">How to Earn Points:</span>
+              <span className="font-semibold"style={{ color: "#1a1a1a" }}>How to Earn Points:</span>
               <ul className="list-disc ml-6 mt-1 text-gray-700">
                 <li> Points are awarded for each valid promotion you share on your social media platforms using a broadcast URL.</li>
                 <li>Points may vary based on specific campaigns or promotions.</li>
               </ul>
             </li>
             <li>
-              <span className="font-semibold">Sharing Rules:</span>
+              <span className="font-semibold"style={{ color: "#1a1a1a" }}>Sharing Rules:</span>
               <ul className="list-disc ml-6 mt-1 text-gray-700">
                 <li> Broadcast URLs must be shared through the social media platforms linked to your LM Club account.</li>
                 <li>Each promotion must meet visibility and validity requirements to earn points.</li>
@@ -106,7 +106,7 @@ const RewardsTerms = () => {
         </div>
 
         <h2 className="text-2xl font-semibold mt-4 text-green-600">Termination</h2>
-        <p className="mt-2">LM Club reserves the right to terminate participation in the LM Broadcast Rewards program for:</p>
+        <p className="mt-2 font-semibold"style={{ color: "#1a1a1a" }}>LM Club reserves the right to terminate participation in the LM Broadcast Rewards program for:</p>
         <div className="ml-10 mt-2  text-gray-600">
           <li>Violation of these Terms and Conditions.</li>
           <li>Fraudulent or suspicious activity.</li>
