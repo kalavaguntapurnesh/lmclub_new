@@ -56,6 +56,7 @@ import ECommerceCart from "./pages/ECommerceCart";
 import ECommerceCartProvider from "./context/ECommerceCartContext";
 import HandlePaymentEcommerce from "./pages/HandlePaymentEcommerce";
 import ECommercePaymentMethods from "./pages/ECommercePaymentMethods";
+import AllWidgetTsAndCs from "./pages/AllWidgetTsAndCs.jsx";
 function App() {
   const { token } = useContext(AppContext);
 
@@ -102,7 +103,10 @@ function App() {
             path="/broadcast-terms-and-conditions"
             element={<BroadcastTAC />}
           ></Route>
-
+          <Route
+            path="/widget-terms-and-conditions/:widget"
+            element={< AllWidgetTsAndCs/>}
+          />
           <Route path="/contact-us" element={<Contact />}></Route>
           <Route path="/estore" element={<Estore />}></Route>
           <Route path="/beehive" element={<Beehive />}></Route>

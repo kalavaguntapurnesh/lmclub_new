@@ -48,7 +48,7 @@ const Estore = () => {
                       <p>
                         Activate E-Store and we will share a percentage of our
                         profits with you. Why? Because you are helping our brand
-                        to grow. And in return we present you the profits.{" "} <a className="text-blue-500 underline cursor-pointer hover:font-bold" href="/e-store-terms-and-conditions">Please read Terms and conditions. </a>
+                        to grow. And in return we present you the profits.{" "} <a className="text-blue-500 underline cursor-pointer  hover:font-bold"  href={`/widget-terms-and-conditions/estore`}>Please read Terms and conditions.</a>
                       </p>
                     </div>
 

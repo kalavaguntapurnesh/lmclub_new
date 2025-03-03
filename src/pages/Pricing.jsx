@@ -130,12 +130,30 @@ const Pricing = () => {
             <div className="w-full mx-auto max-w-[1400px] ">
               <div className="p-4">
                 <motion.div
-                  variants={fadeIn("down", 0.1)} // Fade in from top to bottom
+                  variants={fadeIn("down", 0.1)} 
                   initial="hidden"
                   whileInView="show"
                   viewport={{ once: true, amount: 0.5 }}
                   className="space-y-3"
                 >
+
+                <div className="flex flex-col items-center justify-center space-y-3 mb-6">
+                  <h1 className="ml-2 font-bold text-gray-800 lg:uppercase">
+                    Do you have Coupons? Then JOIN FREE TRAIL
+                  </h1>
+                  <div className="relative w-full max-w-xs">
+                    <input
+                      className="p-3 pr-20 border border-gray-300 rounded-md w-full"
+                      placeholder="Enter Code"
+                    />
+                    <button className="absolute top-1/2 right-2 transform -translate-y-1/2 bg-green-500 text-white font-bold px-3 py-1 rounded-md hover:bg-green-600">
+                      Apply Now
+                    </button>
+                  </div>
+                </div>
+
+
+
                   <div className="flex items-center justify-center ">
                     <div className="h-4 w-1 bg-green-500"></div>
                     <h1 className="ml-2 font-bold text-green-500 lg:uppercase">

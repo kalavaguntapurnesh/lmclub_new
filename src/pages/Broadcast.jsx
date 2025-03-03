@@ -47,7 +47,7 @@ const Broadcast = () => {
                       <p>
                         Easily enroll businesses with a marketing fillable
                         template that generates a custom URL for their
-                        promotions.{" "}<a className="text-blue-500 underline cursor-pointer  hover:font-bold" href="/broadcast-terms-and-conditions">Please read Terms and conditions. </a>
+                        promotions.{" "}<a className="text-blue-500 underline cursor-pointer  hover:font-bold"  href={`/widget-terms-and-conditions/broadcast`}>Please read Terms and conditions.</a>
                       </p>
                     </div>
 

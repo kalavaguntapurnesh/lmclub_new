@@ -779,7 +779,7 @@ const Homebar = () => {
           <div className="flex flex-col">
             <h1 className="text-[#1a1a1a] font-semibold">About LM Club</h1>
             <p className="text-gray-800 text-sm">
-              Get to know more about our mision, vision and value.
+              Get to know more about our mission, vision and value.
             </p>
           </div>
         </div>
@@ -860,7 +860,7 @@ const Membership = () => {
           <div className="flex flex-col">
             <h1 className="text-[#1a1a1a] font-semibold">Platinum</h1>
             <p className="text-gray-800 text-sm">
-              Get to know more about our mision, vision and value.
+              Get to know more about our mission, vision and value.
             </p>
           </div>
         </div>
@@ -875,7 +875,7 @@ const Membership = () => {
           <div className="flex flex-col">
             <h1 className="text-[#1a1a1a] font-semibold">Gold</h1>
             <p className="text-gray-800 text-sm">
-              Get to know more about our mision, vision and value.
+              Get to know more about our mission, vision and value.
             </p>
           </div>
         </div>
@@ -890,7 +890,7 @@ const Membership = () => {
           <div className="flex flex-col">
             <h1 className="text-[#1a1a1a] font-semibold">Silver</h1>
             <p className="text-gray-800 text-sm">
-              Get to know more about our mision, vision and value.
+              Get to know more about our mission, vision and value.
             </p>
           </div>
         </div>
@@ -905,7 +905,7 @@ const Membership = () => {
           <div className="flex flex-col">
             <h1 className="text-[#1a1a1a] font-semibold">Bronze</h1>
             <p className="text-gray-800 text-sm">
-              Get to know more about our mision, vision and value.
+              Get to know more about our mission, vision and value.
             </p>
           </div>
         </div>
@@ -919,7 +919,7 @@ const Membership = () => {
           <div className="flex flex-col">
             <h1 className="text-[#1a1a1a] font-semibold">Free</h1>
             <p className="text-gray-800 text-sm">
-              Get to know more about our mision, vision and value.
+              Get to know more about our mission, vision and value.
             </p>
           </div>
         </div>
