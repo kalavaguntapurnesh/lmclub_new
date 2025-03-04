@@ -69,6 +69,10 @@ function App() {
           <Route path="/my-subscription" element={<MySubscriptions />}></Route>
           <Route path="/my-membership" element={<MyMembership />}></Route>
           <Route path="/my-payments" element={<MyPayments />}></Route>
+          <Route path="/payment" element={<HandlePayment />} />
+          <Route path="/select-payment-method" element={<PaymentMethods />} />
+          <Route path="/api/paypal/complete-order" element={<PayPalSuccessPage />}/>
+          <Route path="/api/paypal/cancel-order/:token" element={<Failure />} />
         </Routes>
       </div>
     </div>
@@ -124,6 +128,7 @@ function App() {
           <Route path="/pricing" element={<Pricing />}></Route>
           <Route path="/selected-plan" element={<SelectedPlan />}></Route>
           <Route path="/selected-plan/cart" element={<Cart />} />
+          {/* <Route path="/payment" element={<HandlePayment />} /> */}
           <Route path="/payment" element={<HandlePayment />} />
           <Route path="/payment-success" element={<Success />} />
           <Route path="/payment-failed" element={<Failure />} />

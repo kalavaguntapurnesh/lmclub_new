@@ -11,25 +11,27 @@ import Logo from "../assets/LMDark.webp";
 const public_stripe_key =
   "pk_test_51QMcn82NPQsjFaoTZ90xF9ORG1Gj4EdmGPiQAmSGbvVomOdnWBrwJV3BR9mCFbmQPFZPEsOZgqOglMvKR1Bff5ju00HjRNjRhp";
 import { AppContext } from "../context/AppContext";
-
+import { useLocation } from "react-router-dom";
 const PaymentMethods = () => {
-  const { items, getProductQuantity, getTotalCost } = useContext(CartContext);
+  const location = useLocation();
   const { backendUrl } = useContext(AppContext);
   const navigate = useNavigate();
-  console.log("handle payment page : ", items);
+  const { userData, selectedPlan, isYearly } = location.state || {};
 
-  const cartItems = items.map((item) => {
-    const registrationFee = parseFloat(
-      item.description.match(/\$\d+(\.\d{2})?/)?.[0].replace("$", "") || "0"
-    );
-    return {
-      id: item.id,
-      name: item.name,
-      description: item.description || "No description available",
-      quantity: item.quantity || 1,
-      price: item.price + registrationFee,
-    };
-  });
+    console.log(userData, selectedPlan);
+    // console.log(isYearly);
+    
+const registrationFee = parseFloat(
+  selectedPlan.planDescription.match(/\$\d+(\.\d{2})?/)?.[0].replace("$", "") || "0"
+);
+
+const cartItem = {
+  id: selectedPlan._id,
+  name: selectedPlan.planName,
+  description: selectedPlan.planDescription || "No description available",
+  quantity: 1, 
+  price:  (parseFloat(selectedPlan.planAmount) + registrationFee).toFixed(2),
+};
 
   const style = document.createElement("style");
   style.innerHTML = `
@@ -52,7 +54,7 @@ const PaymentMethods = () => {
     try {
       const stripe = await loadStripe(public_stripe_key);
 
-      console.log("Sending cart items:", JSON.stringify(cartItems, null, 2));
+      console.log("Sending cart items:", JSON.stringify(cartItem, null, 2));
       const response = await fetch(
         backendUrl + "/api/user/create-stripe-session",
         {
@@ -60,7 +62,7 @@ const PaymentMethods = () => {
           // const response = await fetch("https://lmclub-backend.onrender.com/create-stripe-session", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(cartItems),
+          body: JSON.stringify(cartItem),
         }
       );
 
@@ -76,23 +78,21 @@ const PaymentMethods = () => {
     }
   };
 
-  // extracting registration fee from description
 
-  const registrationFee =
-    items.length > 0
-      ? items[0].description.match(/\$\d+(\.\d{2})?/)?.[0] || "$0"
-      : "$0";
 
   const handlePaypalCheckout = async () => {
     try {
-      console.log("Sending cartItems:", cartItems);
+      console.log("Sending cartItem:", cartItem);
 
+      localStorage.setItem("userData", JSON.stringify(userData));
+      localStorage.setItem("selectedPlan", JSON.stringify(selectedPlan));
+      localStorage.setItem("isYearly", JSON.stringify(isYearly));
       const response = await fetch(backendUrl + "/api/user/create-order", {
         // const response = await fetch("http://localhost:9090/pay", {
         // const response = await fetch("https://lmclub-backend.onrender.com/pay", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ line_items: cartItems }),
+        body: JSON.stringify({ line_items: cartItem }),
       });
 
       const data = await response.json();
@@ -101,6 +101,7 @@ const PaymentMethods = () => {
       if (data?.approval_url) {
         console.log("Redirecting to PayPal:", data.approval_url);
         window.location.href = data.approval_url;
+
       } else {
         console.error("PayPal Error: No approval URL found", data);
       }
@@ -110,8 +111,8 @@ const PaymentMethods = () => {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen px-4 p-6">
-      <div className="w-full max-w-3xl md:w-[50%] h-auto flex flex-col items-center justify-center shadow-xl text-center gap-4 bg-gray-300 p-8 rounded-lg">
+    <div className="w-full flex items-center justify-center min-h-screen px-4 p-6">
+      <div className="max-w-[1000px] mx-auto h-auto flex flex-col items-center justify-center shadow-xl text-center gap-4 bg-gray-300 p-8 rounded-lg">
         <h1 className="lg:text-4xl text-3xl font-semibold space-y-8 mb-12">
           Select Payment Method
         </h1>

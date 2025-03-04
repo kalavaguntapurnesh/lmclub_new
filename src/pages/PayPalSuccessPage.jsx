@@ -20,7 +20,11 @@ const PayPalSuccessPage = () => {
     clearCart,
   } = useContext(CartContext);
 
-  const { backendUrl, userData } = useContext(AppContext);
+  const { backendUrl } = useContext(AppContext);
+
+  const userData = JSON.parse(localStorage.getItem("userData"));
+  const selectedPlan = JSON.parse(localStorage.getItem("selectedPlan"));
+  const isYearly = JSON.parse(localStorage.getItem("isYearly"));
 
   const { EcommerceClearCart } = useECommerceCart();
 
@@ -31,14 +35,15 @@ const PayPalSuccessPage = () => {
   const [loading, setLoading] = useState(true);
   const [flag, setFlag] = useState(false);
 
+  // fetching payment details from paypal
+
   useEffect(() => {
     if (!token || !payerID) return;
-
+  
     const fetchPaymentDetails = async () => {
       try {
         const response = await axios.get(
-          backendUrl +
-            `/api/user/complete-order?token=${token}&PayerID=${payerID}`
+          backendUrl + `/api/user/complete-order?token=${token}&PayerID=${payerID}`
         );
         setPaymentDetails(response.data);
       } catch (error) {
@@ -47,100 +52,86 @@ const PayPalSuccessPage = () => {
         setLoading(false);
       }
     };
-
+  
     fetchPaymentDetails();
   }, [token, payerID]);
-
-  // EcommerceClearCart();
-
- 
-  // Call handleStoringPaymentDetails only once when paymentDetails is available
+  
   useEffect(() => {
-    if (paymentDetails && !flag && items?.length > 0) {
+    if (paymentDetails && !flag) {
       handleStoringPaymentDetails();
-      handleSubscriptionDetails();
     }
-  }, [paymentDetails, flag, items]); 
+  }, [paymentDetails, flag]);
+  
+ // storing payment details in DB
 
   const handleStoringPaymentDetails = async () => {
     try {
-      if (!items || items.length === 0) {
-        console.error("Error: Items are undefined or empty");
-        return; 
-      }
-
-      console.log(items[0]?.name);
-      console.log(items[0]?.price);
-      console.log(items[0]?.isYearly)
-      console.log(items[0]?.description);
-      console.log(paymentDetails?.data?.id);
-      console.log(paymentDetails?.data?.status);
-      console.log(paymentDetails?.data?.payer?.email_address);
-      console.log(paymentDetails?.data?.payer?.name?.given_name);
-      console.log(
-        paymentDetails?.data?.purchase_units?.[0]?.payments?.captures?.[0]
-          ?.amount?.value
-      );
-      console.log(paymentDetails?.data?.payment_source?.paypal?.account_id);
-
       const response = await axios.post(
-        backendUrl + "/api/user/payment-details",
+        backendUrl + "/api/user/storing-payment-details",
         {
-          MembershipName: items?.[0]?.name || "N/A",
-          MembershipPrice: items?.[0]?.price || "N/A",
-          MembershipDescription: items?.[0]?.description || "N/A",
-          paymentOrderID: paymentDetails?.data?.id || "N/A",
+          userId: userData._id,
+          paymentMethod: "PayPal",
+          transactionId: paymentDetails?.data?.id || "N/A",
           paymentStatus: paymentDetails?.data?.status || "N/A",
-          paymentEmail: paymentDetails?.data?.payer?.email_address || "N/A",
-          paymentName: paymentDetails?.data?.payer?.name?.given_name || "N/A",
-          paymentAmount:
+          amount:
             paymentDetails?.data?.purchase_units?.[0]?.payments?.captures?.[0]
               ?.amount?.value || "0",
-          paymentAccountID:
-            paymentDetails?.data?.payment_source?.paypal?.account_id || "N/A",
+          subscriptionType: isYearly ? "Yearly" : "Monthly",
         }
       );
-
+  
       console.log("Payment details saved successfully:", response.data);
-
       setFlag(true);
-      clearCart();
-      // EcommerceClearCart();
+      fetchPaymentId(); // Call fetchPaymentId after storing payment details
+  
     } catch (error) {
       console.error("Error while storing payment details into DB:", error);
     }
   };
+  
+
+  const [payments, setPayments] = useState([]);
+
+  // Fetch Payment ID after storing payment details
+  
+  const fetchPaymentId = async () => {
+    try {
+      const response = await axios.get(backendUrl + `/api/user/get-payment/${userData._id}`);
+      setPayments(response.data);
+    } catch (error) {
+      setError(error.response?.data?.error || "Error fetching payment details");
+    }
+  };
+  
+  useEffect(() => {
+    if (payments.length > 0) {
+      handleSubscriptionDetails();
+    }
+  }, [payments]);
+  
+
+   // storing subscription details in DB 
 
   const handleSubscriptionDetails = async () => {
     try {
-      if (!items || items.length === 0) {
-        console.error("Error: Items are undefined or empty");
-        return; 
-      }
-
-      console.log(items[0]?.name);
-      console.log(items[0]?.price);
-      console.log(items[0]?.isYearly)
-  
       const response = await axios.post(
-        backendUrl + "/api/user/subscription-details",
+        backendUrl + "/api/user/storing-subscription-details",
         {
-          planName: items?.[0]?.name || "N/A",
-          planType: items[0]?.isYearly|| "N/A",
-          price: items[0]?.isYearly || "N/A",
-         
+          userId: userData._id,
+          planId: selectedPlan._id,
+          paymentId: payments[0]._id,
+          subscriptionType: isYearly ? "Yearly" : "Monthly",
+          subscriptionStatus: selectedPlan.isActive ? "active" : "expired",
         }
       );
-
+  
       console.log("Subscription details saved successfully:", response.data);
-
-      setFlag(true);
       clearCart();
-      // EcommerceClearCart();
     } catch (error) {
-      console.error("Error while storing payment details into DB:", error);
+      console.error("Error while storing subscription details into DB:", error);
     }
   };
+  
 
 
   return (
@@ -240,7 +231,7 @@ const PayPalSuccessPage = () => {
           // onClick={() => navigate(-1)}
           className="px-6 py-3 bg-gray-600 text-white rounded-lg cursor-pointer hover:bg-gray-700 transition mt-3"
         >
-          <Link to="/">Go Back</Link>
+          <Link to="/my-subscription">Go Back</Link>
         </button>
       </div>
     </div>

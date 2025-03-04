@@ -9,25 +9,30 @@ import { Link } from "react-router-dom";
 const public_stripe_key =
   "pk_test_51QMcn82NPQsjFaoTZ90xF9ORG1Gj4EdmGPiQAmSGbvVomOdnWBrwJV3BR9mCFbmQPFZPEsOZgqOglMvKR1Bff5ju00HjRNjRhp";
 import { AppContext } from "../context/AppContext";
-
+import { useLocation } from "react-router-dom";
 const HandlePayment = () => {
-  const { items, getProductQuantity, getTotalCost } = useContext(CartContext);
+  
   const { backendUrl } = useContext(AppContext);
   const navigate = useNavigate();
-  console.log("handle payment page : ", items);
+  const location = useLocation();
+    const { userData, selectedPlan, isYearly } = location.state || {};
 
-  const cartItems = items.map((item) => {
-    const registrationFee = parseFloat(
-      item.description.match(/\$\d+(\.\d{2})?/)?.[0].replace("$", "") || "0"
-    );
-    return {
-      id: item.id,
-      name: item.name,
-      description: item.description || "No description available",
-      quantity: item.quantity || 1,
-      price: item.price + registrationFee,
-    };
-  });
+    console.log(userData, selectedPlan);
+    // console.log(isYearly);
+    
+const registrationFee = parseFloat(
+  selectedPlan.planDescription.match(/\$\d+(\.\d{2})?/)?.[0].replace("$", "") || "0"
+);
+
+const cartItem = {
+  id: selectedPlan._id,
+  name: selectedPlan.planName,
+  description: selectedPlan.planDescription || "No description available",
+  quantity: 1, 
+  price: selectedPlan.planAmount, 
+};
+
+console.log("cart items: ",cartItem);
 
   const [isChecked, setIsChecked] = useState(false);
   const style = document.createElement("style");
@@ -126,19 +131,20 @@ const HandlePayment = () => {
       return;
     }
 
-    navigate("/select-payment-method");
+    navigate("/select-payment-method", { state: { userData, selectedPlan, isYearly } });
   };
 
   // extracting registration fee from description
 
-  const registrationFee =
-    items.length > 0
-      ? items[0].description.match(/\$\d+(\.\d{2})?/)?.[0] || "$0"
-      : "$0";
+  // const registrationFee =
+  //   items.length > 0
+  //     ? items[0].description.match(/\$\d+(\.\d{2})?/)?.[0] || "$0"
+  //     : "$0";
 
   return (
-    <div className="flex items-center justify-center min-h-screen px-4">
-      <div className="w-full max-w-3xl md:w-[50%] h-auto flex flex-col items-center justify-center shadow-xl text-center gap-4 bg-gray-300 p-6 rounded-lg">
+    <div className="w-full flex items-center justify-center min-h-screen px-4 bg-gray-100">
+    <div className="max-w-[1000px] w-full mx-auto h-auto flex flex-col items-center justify-center shadow-xl text-center gap-4 bg-gray-300 p-6 rounded-lg">
+  
         <h1 className="lg:text-4xl text-3xl font-semibold">
           Your Payment Details
         </h1>
@@ -153,17 +159,15 @@ const HandlePayment = () => {
               </tr>
             </thead>
             <tbody>
-              {/* Mapping Through Plan Items */}
-              {items.map((item) => (
+            
                 <tr
-                  key={item.id}
                   className="border border-gray-300 text-center bg-blue-200"
                 >
-                  <td className="p-3 text-left">{item.name} Membership</td>
-                  <td className="p-3 text-left">{item.isYearly? "Year": "Month"}</td>
-                  <td className="p-3 text-left">${item.price.toFixed(2)}</td>
+                  <td className="p-3 text-left">{selectedPlan.planName} Membership</td>
+                  <td className="p-3 text-left">{isYearly? "Year": "Month"}</td>
+                  <td className="p-3 text-left">${selectedPlan.planAmount}</td>
                 </tr>
-              ))}
+              
 
               {/* Registration Fee Row */}
               <tr className="border border-gray-300 text-center bg-gray-200">
@@ -171,10 +175,7 @@ const HandlePayment = () => {
                 <td className="p-3 text-left">Annual</td>
 
                 <td className="p-3 text-left font-semibold text-red-600 font-semibold">
-                  $
-                  {items[0].description
-                    .match(/\$\d+(\.\d{2})?/)[0]
-                    .replace("$", "")}
+                  ${registrationFee}
                 </td>
               </tr>
 
@@ -184,23 +185,15 @@ const HandlePayment = () => {
                 <td className="p-3"></td>
 
                 <td className="p-3 text-left text-green-700 font-bold">
-                  $
-                  {(
-                    getTotalCost() +
-                    parseFloat(
-                      items[0].description
-                        .match(/\$\d+(\.\d{2})?/)[0]
-                        .replace("$", "")
-                    )
-                  ).toFixed(2)}
+                  ${(parseFloat(selectedPlan.planAmount) + registrationFee).toFixed(2)}
+                 
                 </td>
               </tr>
             </tbody>
           </table>
         </div>
 
-        {items.length > 0 && (
-          <div className="cart-summary mt-4 text-center">
+        <div className="cart-summary mt-4 text-center">
             <div className="flex items-start items-center mb-3">
               <div className="flex items-center h-5">
                 <input
@@ -235,21 +228,10 @@ const HandlePayment = () => {
                 </label>
               </div>
             </div>
-
             <p className="text-2xl  font-semibold text-gray-800">
-              Total Payable Amount: $
-              {(
-                getTotalCost() +
-                parseFloat(
-                  items[0].description
-                    .match(/\$\d+(\.\d{2})?/)[0]
-                    .replace("$", "")
-                )
-              ).toFixed(2)}
+              Total Payable Amount: ${(parseFloat(selectedPlan.planAmount) + registrationFee).toFixed(2)}
             </p>
           </div>
-        )}
-
         <div className="flex justify-between w-full mt-6">
           <button
             onClick={() => navigate(-1)}

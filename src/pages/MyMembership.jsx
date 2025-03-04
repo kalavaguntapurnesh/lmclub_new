@@ -3,11 +3,18 @@ import { AppContext } from "./../context/AppContext";
 import axios from "axios";
 import Logo from "../assets/LMDarkLogo.webp";
 import { IoIosClose } from "react-icons/io";
-
+import { Navigate, useNavigate } from "react-router-dom";
 const MyMembership = () => {
   const { userData, setUserData, token, backendUrl, loadUserProfileData } =
     useContext(AppContext);
+  const navigate = useNavigate();
+  const [isYearly, setYearly] = useState(false);
+  const handleToggle = () => {
+    setYearly((prev) => !prev);   
+ }  
 
+ console.log(isYearly);
+ 
   const [plans, setPlans] = useState([]);
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
@@ -90,6 +97,9 @@ const MyMembership = () => {
                           Widgets Provided
                         </th>
                         <th className="border font-bold border-gray-300 px-4 py-2">
+                          Yearly
+                        </th>
+                        <th className="border font-bold border-gray-300 px-4 py-2">
                           More Actions
                         </th>
                       </tr>
@@ -118,7 +128,20 @@ const MyMembership = () => {
                           <td className="border border-gray-300 px-4 py-2 text-zinc-600 text-sm">
                             Beehive Broadcast Grow
                           </td>
-
+                          <td className="border border-gray-300 px-4 py-2 text-zinc-600 text-sm">
+                            <div
+                            className={`relative w-16 h-8 bg-gray-300 rounded-full p-1 cursor-pointer flex items-center ${
+                              isYearly ? "bg-green-500" : "bg-gray-300"
+                            }`}
+                            onClick={handleToggle}
+                          >
+                            <div
+                              className={`w-6 h-6 bg-white rounded-full shadow-md transform duration-300 ease-in-out ${
+                                isYearly ? "translate-x-8" : "translate-x-0"
+                              }`}
+                            ></div>
+                          </div>
+                        </td>
                           <td className="border text-center border-gray-300 px-4 py-2 text-zinc-600 text-sm align-middle h-full">
                             <button
                               onClick={() => openPlanModal(plan)}
@@ -173,7 +196,8 @@ const MyMembership = () => {
                 <p className="font-light">{selectedPlan.planDescription}</p>
                 <p>Widgets Provided:</p>
                 <p className="font-light">Beehive Broadcast Grow</p>
-
+                <p>Plan Type:</p>
+                <p className="font-light">{isYearly ? "Yearly" : "Monthly"}</p>
                 {/* <p>Status:</p>
 
                 <div>
@@ -185,7 +209,8 @@ const MyMembership = () => {
 
               <div className="flex items-center justify-center mt-8 mb-4">
                 <button
-                  onClick={closePlanModal}
+                  // onClick={closePlanModal}
+                  onClick={() => navigate('/payment', { state: { userData, selectedPlan, isYearly } })}
                   className="bg-green-400 transition ease-in-out duration-1000 cursor-pointer text-white md:px-16 px-12 md:py-2 py-[6px] hover:bg-green-600"
                 >
                   Subscribe Now
