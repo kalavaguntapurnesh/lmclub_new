@@ -34,7 +34,7 @@ const TermsAndConditions = () => {
                       1. Legally Binding Terms
                     </h1>
                     <div className="ml-4">
-                      <h1 className="mx-3  text-gray-600">
+                      <h1 className="mx-3  text-base text-gray-600">
                         By accessing the APP / Website, you agree to be bound by
                         and comply with these Terms of Use (and all documents
                         incorporated by reference in these Terms of Use), which
@@ -44,13 +44,13 @@ const TermsAndConditions = () => {
                         apply regarding your access and use of the APP /
                         Website, the Content, and the Services.
                       </h1>
-                      <h1 className="mx-3  text-gray-600">
+                      <h1 className="mx-3 text-base text-gray-600">
                         You acknowledge and understand that certain Content
                         and/or Services may be subject to additional terms and
                         conditions which will be available for viewing prior to
                         access to or receipt of such Content or Services.
                       </h1>
-                      <h1 className="mx-3  text-gray-600">
+                      <h1 className="mx-3 text-base  text-gray-600">
                         Please take the time to carefully review these Terms of
                         Use before proceeding. If you do not understand or agree
                         to be bound by any of these terms, do not use the APP /
@@ -66,7 +66,7 @@ const TermsAndConditions = () => {
                         not a person barred by any laws from accessing or using
                         the APP / Website.
                       </h1>
-                      <h1 className="mx-3  text-gray-600">
+                      <h1 className="mx-3 text-base text-gray-600">
                         These Terms of Use contain provisions that may limit
                         your rights and remedies and also include provisions
                         that exclude or limit LM CLUB’s liability. Please review
@@ -81,7 +81,7 @@ const TermsAndConditions = () => {
                   <div className="flex flex-col gap-2 mb-4">
                     <h1 className="mx-3 text-xl font-medium">2. Amendments</h1>
                     <div className="ml-4">
-                      <h1 className="mx-3  text-gray-600">
+                      <h1 className="mx-3  text-gray-600 text-base">
                         The Laoe Maom Group / LM CLUB may amend these Terms of
                         Use from time to time in its sole discretion and may do
                         so without notice to you. Any such amendments will take
@@ -106,7 +106,7 @@ const TermsAndConditions = () => {
                       3. U.S. APP / Website
                     </h1>
                     <div className="ml-4">
-                      <h1 className="mx-3  text-gray-600">
+                      <h1 className="mx-3  text-gray-600 text-base">
                         Access to the APP / Website is for the benefit of
                         persons residing in the United States. If you are a
                         resident of a country other than the United States, you
@@ -123,18 +123,18 @@ const TermsAndConditions = () => {
                   <div className="flex flex-col gap-2 mb-4">
                     <h1 className="mx-3 text-xl font-medium">4. Account</h1>
                     <div className="ml-4">
-                      <h1 className="mx-3  text-gray-600">
+                      <h1 className="mx-3  text-gray-600 text-base">
                         Access to certain features of the APP / Website requires
                         the creation of an account (“Account”).
                       </h1>
-                      <h1 className="mx-3  text-gray-600">
+                      <h1 className="mx-3  text-gray-600 text-base">
                         You hereby represent and warrant that all information
                         you provide for your Account will be accurate, current,
                         and complete. Further, you agree to update such
                         information to the extent it becomes outdated or is
                         otherwise no longer accurate or complete.
                       </h1>
-                      <h1 className="mx-3  text-gray-600">
+                      <h1 className="mx-3  text-gray-600 text-base">
                         At all times, you must only use your Account in a legal
                         manner in compliance with the letter and spirit of these
                         Terms of Use. You are solely responsible for the
@@ -157,7 +157,7 @@ const TermsAndConditions = () => {
                           Visit Contact us page.
                         </a>
                       </h1>
-                      <h1 className="mx-3  text-gray-600">
+                      <h1 className="mx-3  text-gray-600 text-base">
                         All user IDs and passwords remain the sole property of
                         The Laoe Maom Group/ LM CLUB, and your Account may be
                         cancelled or suspended at any time by Laoe Maom Group/
@@ -169,7 +169,7 @@ const TermsAndConditions = () => {
                         LM CLUB may cancel the password and/or your Account, as
                         applicable.
                       </h1>
-                      <h1 className="mx-3  text-gray-600">
+                      <h1 className="mx-3  text-gray-600 text-base">
                         You agree to promptly respond to all e-mail and other
                         correspondence from The Laoe Maom Group/ LM CLUB which
                         requests or requires a response from you, including
@@ -177,7 +177,7 @@ const TermsAndConditions = () => {
                         or concerns regarding your use of the APP / Website
                         and/or the use of your Account.
                       </h1>
-                      <h1 className="mx-3  text-gray-600">
+                      <h1 className="mx-3  text-gray-600 text-base">
                         You hereby agree that by creating an Account or
                         otherwise providing your contact information to The Laoe
                         Maom Group/ LM CLUB, you consent that The Laoe Maom
@@ -200,7 +200,7 @@ const TermsAndConditions = () => {
                       Similar Relationship
                     </h1>
                     <div className="ml-4">
-                      <h1 className="mx-3  text-gray-600">
+                      <h1 className="mx-3  text-gray-600 text-base">
                         No agency, partnership, joint venture, employment,
                         franchise, distribution, or similar relationship is
                         intended or created by your agreement to these Terms of
@@ -215,7 +215,7 @@ const TermsAndConditions = () => {
                       6. Ownership and Copyright
                     </h1>
                     <div className="ml-4">
-                      <h1 className="mx-3  text-gray-600">
+                      <h1 className="mx-3  text-gray-600 text-base">
                         All Content including, without limitation, images,
                         pictures, illustrations, drawings, product descriptions,
                         product brochures, instruction manuals, logos, videos,
@@ -236,7 +236,7 @@ const TermsAndConditions = () => {
                         environment. Any rights to the Content not expressly
                         granted herein are reserved.
                       </h1>
-                      <h1 className="mx-3  text-gray-600">
+                      <h1 className="mx-3  text-gray-600 text-base">
                         The Laoe Maom Group/ LM CLUB’s names, logos, and all
                         related product names, tradenames, service marks,
                         trademarks, design marks, and slogans are the property
@@ -250,7 +250,7 @@ const TermsAndConditions = () => {
                   <div className="flex flex-col gap-2 mb-4">
                     <h1 className="mx-3 text-xl font-medium">7. License</h1>
                     <div className="ml-4">
-                      <h1 className="mx-3  text-gray-600">
+                      <h1 className="mx-3  text-gray-600 text-base">
                         Under these Terms of Use, The Laoe Maom Group/ LM CLUB
                         grants you permission to temporarily download one copy
                         of the Content solely for your personal, non-commercial
@@ -261,7 +261,7 @@ const TermsAndConditions = () => {
                         and that this license is subject to the following
                         restrictions:
                       </h1>
-                      <h1 className="mx-3  text-gray-600">
+                      <h1 className="mx-3  text-gray-600 text-base">
                         <ul className="list-disc pl-7 p-2">
                           <li>You shall not modify the Content.</li>
                           <li>
@@ -301,11 +301,11 @@ const TermsAndConditions = () => {
                           </li>
                         </ul>
                       </h1>
-                      <h1 className="mx-3  text-gray-600">
+                      <h1 className="mx-3  text-gray-600 text-base">
                         This license shall automatically terminate if you
                         violate any of these restrictions.
                       </h1>
-                      <h1 className="mx-3  text-gray-600">
+                      <h1 className="mx-3  text-gray-600 text-base">
                         Upon completion of your personal viewing and
                         consultation of the Content, or on the termination of
                         this license, you must destroy any downloaded Content in
@@ -320,7 +320,7 @@ const TermsAndConditions = () => {
                       8. Personal Information
                     </h1>
                     <div className="ml-4">
-                      <h1 className="mx-3  text-gray-600">
+                      <h1 className="mx-3  text-gray-600 text-base">
                         Personal information collected through the APP / Website
                         is subject to The Laoe Maom Group/ LM CLUB’s online
                         privacy policy (the “Online Privacy Policy”), accessible
@@ -346,7 +346,7 @@ const TermsAndConditions = () => {
                       9. User Generated or Supplied Comments and Content
                     </h1>
                     <div className="ml-4">
-                      <h1 className="mx-3  text-gray-600">
+                      <h1 className="mx-3  text-gray-600 text-base">
                         When you submit ideas, concepts, inventions, know-how,
                         techniques, comments, suggestions, and/or feedback
                         (collectively, “User Comments”) to the APP / Website,
@@ -358,7 +358,7 @@ const TermsAndConditions = () => {
                         restriction or obligation to pay any royalty or provide
                         other consideration.
                       </h1>
-                      <h1 className="mx-3  text-gray-600">
+                      <h1 className="mx-3  text-gray-600 text-base">
                         You hereby grant to The Laoe Maom Group / LM CLUB a
                         perpetual, unrestricted, unlimited, royalty-free,
                         worldwide, non-exclusive, irrevocable, transferable
@@ -382,7 +382,7 @@ const TermsAndConditions = () => {
                         / LM CLUB the right to use your name and likeness in
                         connection with any User Content that you provide.
                       </h1>
-                      <h1 className="mx-3  text-gray-600">
+                      <h1 className="mx-3  text-gray-600 text-base">
                         You represent and warrant that you: (i) exclusively own
                         any User Comments immediately prior to their submission
                         through the APP / Website; and (ii) have the
@@ -397,7 +397,7 @@ const TermsAndConditions = () => {
                       10. Access Restrictions
                     </h1>
                     <div className="ml-4">
-                      <h1 className="mx-3  text-gray-600">
+                      <h1 className="mx-3  text-gray-600 text-base">
                         The APP / Website contains sections and areas that are
                         restricted to The Laoe Maom Group / LM CLUB personnel,
                         consumers, affiliates, service providers, distributors,
@@ -424,7 +424,7 @@ const TermsAndConditions = () => {
                       11. Linked APP / Websites
                     </h1>
                     <div className="ml-4">
-                      <h1 className="mx-3  text-gray-600">
+                      <h1 className="mx-3  text-gray-600 text-base">
                         The APP / Website contains hyperlinks to third party APP
                         / Websites which are subject to their own respective
                         terms and conditions of use and privacy policies. These
@@ -448,13 +448,13 @@ const TermsAndConditions = () => {
                       12. Inappropriate Conduct
                     </h1>
                     <div className="ml-4">
-                      <h1 className="mx-3  text-gray-600">
+                      <h1 className="mx-3  text-gray-600 text-base">
                         You agree not to undertake any conduct that is illegal,
                         abusive, or otherwise inappropriate including, without
                         limitation, any of the following:
                       </h1>
-                      <h1 className="mx-3  text-gray-600">
-                        <h1 className="mx-3  text-gray-600">
+                      <h1 className="mx-3  text-gray-600 text-base">
+                        <h1 className="mx-3  text-gray-600 text-base">
                           <ul className="list-disc pl-5">
                             <li>
                               Posting material that is libellous, defamatory,
@@ -585,7 +585,7 @@ const TermsAndConditions = () => {
                           </ul>
                         </h1>
                       </h1>
-                      <h1 className="mx-3  text-gray-600">
+                      <h1 className="mx-3  text-gray-600 text-base">
                         Violation of the foregoing obligations may result in
                         immediate suspension or termination of your Account
                         without notice to you as well as criminal and civil
@@ -593,7 +593,7 @@ const TermsAndConditions = () => {
                         / LM CLUB of any remedies or recourses available to it
                         under applicable laws.
                       </h1>
-                      <h1 className="mx-3  text-gray-600">
+                      <h1 className="mx-3  text-gray-600 text-base">
                         You agree that upon becoming aware of any inappropriate
                         conduct or content on the APP / Website, you shall
                         report such conduct and/or content to The Laoe Maom
@@ -607,7 +607,7 @@ const TermsAndConditions = () => {
                       13. Disclaimers
                     </h1>
                     <div className="ml-4">
-                      <h1 className="mx-3  text-gray-600">
+                      <h1 className="mx-3  text-gray-600 text-base">
                         The APP / Website, Content and Services are provided on
                         an “as is”, “as available” basis without warranties or
                         conditions of any kind and access to and use of any of
@@ -630,7 +630,7 @@ const TermsAndConditions = () => {
                         Website, and the color of products, as shown on the APP
                         / Website.
                       </h1>
-                      <h1 className="mx-3  text-gray-600">
+                      <h1 className="mx-3  text-gray-600 text-base">
                         The Laoe Maom Group / LM CLUB is under no obligation to
                         monitor or update the Content. The Content may be
                         changed or removed by The Laoe Maom Group / LM CLUB
@@ -640,7 +640,7 @@ const TermsAndConditions = () => {
                         Content from states or territories where it may be
                         illegal to do so is a violation of these Terms of Use
                       </h1>
-                      <h1 className="mx-3  text-gray-600">
+                      <h1 className="mx-3  text-gray-600 text-base">
                         you acknowledge and understand that certain procedures,
                         processes, practices, methods, methodologies,
                         approaches, techniques and inventions forming part of
@@ -661,7 +661,7 @@ const TermsAndConditions = () => {
                         consistent with any requirements under applicable laws
                         and regulations, and is current and up-to-date.
                       </h1>
-                      <h1 className="mx-3  text-gray-600">
+                      <h1 className="mx-3  text-gray-600 text-base">
                         The information and opinions expressed in any forum on
                         the APP / Website (including those for product reviews)
                         are those of their respective authors and are not made,
@@ -674,7 +674,7 @@ const TermsAndConditions = () => {
                         any person or entity whatsoever with respect to use or
                         reliance on such Content.
                       </h1>
-                      <h1 className="mx-3  text-gray-600">
+                      <h1 className="mx-3  text-gray-600 text-base">
                         The Laoe Maom Group / LM CLUB is not required to assess
                         or otherwise determine the validity or legitimacy of any
                         complaints or demands that it may receive regarding any
@@ -694,7 +694,7 @@ const TermsAndConditions = () => {
                         to any such transactions and disclaims any and all
                         liability regarding all such transactions.
                       </h1>
-                      <h1 className="mx-3  text-gray-600">
+                      <h1 className="mx-3  text-gray-600 text-base">
                         You are solely responsible for implementing safeguards
                         to protect your computer system and data and you are
                         solely responsible for the entire cost of any service,
@@ -732,7 +732,7 @@ const TermsAndConditions = () => {
                       14. Exclusions; Limitation of Liability
                     </h1>
                     <div className="ml-4">
-                      <h1 className="mx-3  text-gray-600">
+                      <h1 className="mx-3  text-gray-600 text-base">
                         The Laoe Maom Group / LM CLUB, its parent, its
                         affiliates, its distributors and its authorized dealers
                         together with each of their respective directors,
@@ -756,13 +756,13 @@ const TermsAndConditions = () => {
                         to the APP / Website, Content, and/or Services will not
                         exceed ten dollars ($10) in the aggregate.
                       </h1>
-                      <h1 className="mx-3  text-gray-600">
+                      <h1 className="mx-3  text-gray-600 text-base">
                         The foregoing exclusions and limitations will apply
                         notwithstanding any failure of essential purpose of any
                         remedy and are fundamental elements of the bargain
                         between The Laoe Maom Group / LM CLUB and you.
                       </h1>
-                      <h1 className="mx-3  text-gray-600">
+                      <h1 className="mx-3  text-gray-600 text-base">
                         You acknowledge and confirm that this section 14
                         constitutes an essential and material provision of the
                         agreement between you and The Laoe Maom Group / LM CLUB
@@ -773,7 +773,7 @@ const TermsAndConditions = () => {
                         to the APP / Website, Content, Services, and/or
                         Products.
                       </h1>
-                      <h1 className="mx-3  text-gray-600">
+                      <h1 className="mx-3  text-gray-600 text-base">
                         Please note that applicable laws in the state in which
                         you reside may exclude or limit the application of the
                         foregoing exclusion and limitation of liability and that
@@ -790,7 +790,7 @@ const TermsAndConditions = () => {
                       15. Indemnification
                     </h1>
                     <div className="ml-4">
-                      <h1 className="mx-3  text-gray-600">
+                      <h1 className="mx-3  text-gray-600 text-base">
                         You agree to defend, indemnify, and hold harmless the
                         The Laoe Maom Group / LM CLUB Released Parties from and
                         against any and all losses, actions, claims, damages,
@@ -808,7 +808,7 @@ const TermsAndConditions = () => {
                         any information you have provided to The Laoe Maom Group
                         / LM CLUB (including any information in your Account).
                       </h1>
-                      <h1 className="mx-3  text-gray-600">
+                      <h1 className="mx-3  text-gray-600 text-base">
                         You represent and warrant that you hold the account
                         corresponding to any telephone number and any email
                         address that you provide to The Laoe Maom Group / LM
@@ -826,7 +826,7 @@ const TermsAndConditions = () => {
                         CLUB if you change your telephone number or email
                         address.
                       </h1>
-                      <h1 className="mx-3  text-gray-600">
+                      <h1 className="mx-3  text-gray-600 text-base">
                         The Laoe Maom Group / LM CLUB reserves the right, in its
                         sole discretion, to assume the exclusive defense and
                         control of any matter subject to indemnification by you.
@@ -841,7 +841,7 @@ const TermsAndConditions = () => {
                       16. Termination
                     </h1>
                     <div className="ml-4">
-                      <h1 className="mx-3  text-gray-600">
+                      <h1 className="mx-3  text-gray-600 text-base">
                         The Laoe Maom Group / LM CLUB may, in its sole
                         discretion, terminate your rights under these Terms of
                         Use with or without cause. The Laoe Maom Group / LM CLUB
@@ -853,7 +853,7 @@ const TermsAndConditions = () => {
                         available to The Laoe Maom Group / LM CLUB, including
                         injunctive relief and other equitable remedies.
                       </h1>
-                      <h1 className="mx-3  text-gray-600">
+                      <h1 className="mx-3  text-gray-600 text-base">
                         You may terminate your Account by providing written
                         notice of such termination to The Laoe Maom Group / LM
                         CLUB. Termination of your Account may take up to five
@@ -868,7 +868,7 @@ const TermsAndConditions = () => {
                         comply with its obligations under applicable laws or to
                         the extent otherwise permitted under applicable laws.
                       </h1>
-                      <h1 className="mx-3  text-gray-600">
+                      <h1 className="mx-3  text-gray-600 text-base">
                         Upon termination of your rights under these Terms of
                         Use, all licenses granted to you under these Terms of
                         Use will forthwith terminate and you must securely and
@@ -888,7 +888,7 @@ const TermsAndConditions = () => {
                   <div className="flex flex-col gap-2 mb-4">
                     <h1 className="mx-3 text-xl font-medium">17. Notices</h1>
                     <div className="ml-4">
-                      <h1 className="mx-3  text-gray-600">
+                      <h1 className="mx-3  text-gray-600 text-base">
                         You may communicate with The Laoe Maom Group / LM CLUB
                         via e-mail, postal mail, telephone, and/or the APP /
                         Website. The Laoe Maom Group / LM CLUB may issue notices
@@ -924,13 +924,13 @@ const TermsAndConditions = () => {
                       18. Governing Law
                     </h1>
                     <div className="ml-4">
-                      <h1 className="mx-3  text-gray-600">
+                      <h1 className="mx-3  text-gray-600 text-base">
                         Any claim relating to the APP / Website, Services,
                         Content, or Products will be governed by the laws of the
                         State of New York without regard to its conflict of law
                         provisions.
                       </h1>
-                      <h1 className="mx-3  text-gray-600">
+                      <h1 className="mx-3  text-gray-600 text-base">
                         In the event of a dispute between you and The Laoe Maom
                         Group / LM CLUB, you agree to submit to the
                         non-exclusive jurisdiction of the United States District
@@ -939,7 +939,7 @@ const TermsAndConditions = () => {
                         only in a New York state court sitting in the Borough of
                         Manhattan, City of New York.
                       </h1>
-                      <h1 className="mx-3  text-gray-600">
+                      <h1 className="mx-3  text-gray-600 text-base">
                         You hereby waive any right you may have to: (i) a trial
                         by jury; and (ii) the commencement of or participation
                         in any class action against any The Laoe Maom Group / LM
@@ -960,7 +960,7 @@ const TermsAndConditions = () => {
                       19. Interpretation
                     </h1>
                     <div className="ml-4">
-                      <h1 className="mx-3  text-gray-600">
+                      <h1 className="mx-3  text-gray-600 text-base">
                         The division of these Terms of Use into sections and the
                         insertion of headings are for convenience of reference
                         only and shall not affect the construction or
@@ -980,7 +980,7 @@ const TermsAndConditions = () => {
                       20. Entire Agreement
                     </h1>
                     <div className="ml-4">
-                      <h1 className="mx-3  text-gray-600">
+                      <h1 className="mx-3  text-gray-600 text-base">
                         The agreement formed by these Terms of Use, as these may
                         be amended from time to time (and supplemented by any
                         document incorporated by reference in these Terms of
@@ -999,7 +999,7 @@ const TermsAndConditions = () => {
                   <div className="flex flex-col gap-2 mb-4">
                     <h1 className="mx-3 text-xl font-medium">21. Waiver</h1>
                     <div className="ml-4">
-                      <h1 className="mx-3  text-gray-600">
+                      <h1 className="mx-3  text-gray-600 text-base">
                         No waiver of any provision of these Terms of Use will be
                         binding on The Laoe Maom Group / LM CLUB unless executed
                         by The Laoe Maom Group / LM CLUB in writing. No waiver
@@ -1017,7 +1017,7 @@ const TermsAndConditions = () => {
                       22. Severability
                     </h1>
                     <div className="ml-4">
-                      <h1 className="mx-3  text-gray-600">
+                      <h1 className="mx-3  text-gray-600 text-base">
                         Any provision of these Terms of Use (or portion of a
                         provision) which is held by a court of competent
                         jurisdiction to be illegal, invalid, or unenforceable in
@@ -1037,7 +1037,7 @@ const TermsAndConditions = () => {
                   <div className="flex flex-col gap-2 mb-4">
                     <h1 className="mx-3 text-xl font-medium">23. Enurement</h1>
                     <div className="ml-4">
-                      <h1 className="mx-3  text-gray-600">
+                      <h1 className="mx-3  text-gray-600 text-base">
                         These Terms of Use shall enure to the benefit of The
                         Laoe Maom Group / LM CLUB’s successors and assigns.
                       </h1>
@@ -1049,7 +1049,7 @@ const TermsAndConditions = () => {
                       24. Confirmation
                     </h1>
                     <div className="ml-4">
-                      <h1 className="mx-3  text-gray-600">
+                      <h1 className="mx-3  text-gray-600 text-base">
                         You acknowledge having read these Terms of Use before
                         accepting them, having the authority to accept these
                         Terms of Use and having had the opportunity to save or
