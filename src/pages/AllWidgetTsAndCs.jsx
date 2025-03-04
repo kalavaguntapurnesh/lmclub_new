@@ -610,7 +610,7 @@ const AllWidgetTsAndCs = () => {
     <div className="lg:pt-28 pt-16">
       <Navbar />
       {selectedWidget ? (
-        <div className="max-w-6xl mx-auto p-6 text-gray-600">
+        <div className="max-w-[1400px] mx-auto p-6 text-gray-600">
           <section className="my-8 border border-gray-300 rounded p-6">
             <div className="flex flex-col items-center text-center mb-6">
               <img
