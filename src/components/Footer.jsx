@@ -68,7 +68,7 @@ const Footer = () => {
           <div className="w-full px-4 mx-auto max-w-[1400px] ">
             <div className="pb-8 mb-8 border-b border-gray-400">
               <div className="w-full p-4">
-                <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-7 mt-8">
+                <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-5 xl:grid-cols-7 mt-8">
                   <div className="mb-12 md:mb-0 col-span-2">
                     <div className="flex items-center md:justify-start justify-center w-[100%]">
                       <div className="w-[100%] flex flex-col lg:justify-start justify-center ">

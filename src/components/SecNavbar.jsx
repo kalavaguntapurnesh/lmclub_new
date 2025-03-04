@@ -87,7 +87,7 @@ const SecNavbar = () => {
           <Tabs />
           <a
             href="/ecommerce"
-            className={` ${isScrolled ? " font-medium" : "text-white"}`}
+            className={` ${isScrolled ? "text-gray-700" : "text-white"}`}
           >
             LMClub Merchandise
           </a>
@@ -396,46 +396,48 @@ const SecNavbar = () => {
                 )}
               </AnimatePresence>
             </li>
-               <li className="px-4 py-3">
-                            <div
-                              onClick={() => toggleMobileDropdown("technologies")}
-                              className="flex items-center justify-between cursor-pointer text-[#1a1a1a] font-medium"
-                            >
-                              Mobile App
-                              <FaAngleDown
-                                className={`transition-transform ${
-                                  openDropdownMobile === "technologies"
-                                    ? "rotate-180 text-mainColor"
-                                    : ""
-                                }`}
-                              />
-                            </div>
-                            <AnimatePresence>
-                              {openDropdownMobile === "technologies" && (
-                                <motion.ul
-                                  initial={{ opacity: 0, height: 0 }}
-                                  animate={{ opacity: 1, height: "auto" }}
-                                  exit={{ opacity: 0, height: 0 }}
-                                  className="mt-6 grid grid-cols-2 gap-4"
-                                >
-                                  <li className="text-navGray p-2 rounded bg-[#e6e6e6] text-center">
-                                    <a
-                                      href="https://play.google.com/store/apps/details?id=com.lm.lmclub&hl=en_US"
-                                      className="block text-sm text-gray-700"
-                                    >
-                                      Android App
-                                    </a>
-                                  </li>
-                                  <li className="text-navGray p-2 rounded bg-[#e6e6e6] text-center">
-                                    <a href="https://apps.apple.com/us/app/lm-club/id6469708246" className="block text-sm text-gray-700">
-                                      Apple App
-                                    </a>
-                                  </li>
-                                  </motion.ul>
+            <li className="px-4 py-3">
+              <div
+                onClick={() => toggleMobileDropdown("technologies")}
+                className="flex items-center justify-between cursor-pointer text-[#1a1a1a] font-medium"
+              >
+                Mobile App
+                <FaAngleDown
+                  className={`transition-transform ${
+                    openDropdownMobile === "technologies"
+                      ? "rotate-180 text-mainColor"
+                      : ""
+                  }`}
+                />
+              </div>
+              <AnimatePresence>
+                {openDropdownMobile === "technologies" && (
+                  <motion.ul
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: "auto" }}
+                    exit={{ opacity: 0, height: 0 }}
+                    className="mt-6 grid grid-cols-2 gap-4"
+                  >
+                    <li className="text-navGray p-2 rounded bg-[#e6e6e6] text-center">
+                      <a
+                        href="https://play.google.com/store/apps/details?id=com.lm.lmclub&hl=en_US"
+                        className="block text-sm text-gray-700"
+                      >
+                        Android App
+                      </a>
+                    </li>
+                    <li className="text-navGray p-2 rounded bg-[#e6e6e6] text-center">
+                      <a
+                        href="https://apps.apple.com/us/app/lm-club/id6469708246"
+                        className="block text-sm text-gray-700"
+                      >
+                        Apple App
+                      </a>
+                    </li>
+                  </motion.ul>
                 )}
               </AnimatePresence>
             </li>
-            
 
             <div className="h-[200px] flex flex-row items-center justify-center">
               <img src={phone} alt="phone" className="h-full" />
@@ -536,7 +538,7 @@ const Tab = ({ children, tab, handleSetSelected, selected }) => {
       onMouseEnter={() => handleSetSelected(tab)}
       onClick={() => handleSetSelected(tab)}
       className={`flex items-center gap-1 rounded-full md:text-sm lg:text-base px-3 py-1.5 transition-colors  ${
-        isScrolled ? "text-trumpTwo font-medium" : ""
+        isScrolled ? "text-gray-700" : ""
       } ${selected === tab ? "  text-trumpOne" : "text-trumpTwo"}`}
     >
       <span>{children}</span>
@@ -860,7 +862,8 @@ const Membership = () => {
           <div className="flex flex-col">
             <h1 className="text-[#1a1a1a] font-semibold">Platinum</h1>
             <p className="text-gray-800 text-sm">
-              Get to know more about our mission, vision and value.
+              Exclusive perks, priority support, maximum rewards, ultimate
+              networking experience.
             </p>
           </div>
         </div>
@@ -875,7 +878,8 @@ const Membership = () => {
           <div className="flex flex-col">
             <h1 className="text-[#1a1a1a] font-semibold">Gold</h1>
             <p className="text-gray-800 text-sm">
-              Get to know more about our mission, vision and value.
+              Premium benefits, high rewards, enhanced support, excellent
+              community access.
             </p>
           </div>
         </div>
@@ -890,7 +894,8 @@ const Membership = () => {
           <div className="flex flex-col">
             <h1 className="text-[#1a1a1a] font-semibold">Silver</h1>
             <p className="text-gray-800 text-sm">
-              Get to know more about our mission, vision and value.
+              Valuable features, good rewards, reliable support, strong
+              networking opportunities.
             </p>
           </div>
         </div>
@@ -905,7 +910,8 @@ const Membership = () => {
           <div className="flex flex-col">
             <h1 className="text-[#1a1a1a] font-semibold">Bronze</h1>
             <p className="text-gray-800 text-sm">
-              Get to know more about our mission, vision and value.
+              Basic benefits, moderate rewards, essential support, community
+              engagement included.
             </p>
           </div>
         </div>
@@ -919,7 +925,8 @@ const Membership = () => {
           <div className="flex flex-col">
             <h1 className="text-[#1a1a1a] font-semibold">Free</h1>
             <p className="text-gray-800 text-sm">
-              Get to know more about our mission, vision and value.
+              Limited access, minimal rewards, standard support, entry-level
+              experience only.
             </p>
           </div>
         </div>

@@ -390,7 +390,7 @@ const NavBar = () => {
                 )}
               </AnimatePresence>
             </li>
-            
+
             <li className="px-4 py-3">
               <div
                 onClick={() => toggleMobileDropdown("technologies")}
@@ -422,11 +422,13 @@ const NavBar = () => {
                       </a>
                     </li>
                     <li className="text-navGray p-2 rounded bg-[#e6e6e6] text-center">
-                      <a href="https://apps.apple.com/us/app/lm-club/id6469708246" className="block text-sm text-gray-700">
+                      <a
+                        href="https://apps.apple.com/us/app/lm-club/id6469708246"
+                        className="block text-sm text-gray-700"
+                      >
                         Apple App
                       </a>
                     </li>
-                  
                   </motion.ul>
                 )}
               </AnimatePresence>
@@ -824,7 +826,8 @@ const Membership = () => {
           <div className="flex flex-col">
             <h1 className="text-[#1a1a1a] font-semibold">Platinum</h1>
             <p className="text-gray-800 text-sm">
-              Get to know more about our mission, vision and value.
+              Exclusive perks, priority support, maximum rewards, ultimate
+              networking experience.
             </p>
           </div>
         </div>
@@ -839,7 +842,8 @@ const Membership = () => {
           <div className="flex flex-col">
             <h1 className="text-[#1a1a1a] font-semibold">Gold</h1>
             <p className="text-gray-800 text-sm">
-              Get to know more about our mission, vision and value.
+              Premium benefits, high rewards, enhanced support, excellent
+              community access.
             </p>
           </div>
         </div>
@@ -854,7 +858,8 @@ const Membership = () => {
           <div className="flex flex-col">
             <h1 className="text-[#1a1a1a] font-semibold">Silver</h1>
             <p className="text-gray-800 text-sm">
-              Get to know more about our mission, vision and value.
+              Valuable features, good rewards, reliable support, strong
+              networking opportunities.
             </p>
           </div>
         </div>
@@ -869,7 +874,8 @@ const Membership = () => {
           <div className="flex flex-col">
             <h1 className="text-[#1a1a1a] font-semibold">Bronze</h1>
             <p className="text-gray-800 text-sm">
-              Get to know more about our mission, vision and value.
+              Basic benefits, moderate rewards, essential support, community
+              engagement included.
             </p>
           </div>
         </div>
@@ -883,7 +889,8 @@ const Membership = () => {
           <div className="flex flex-col">
             <h1 className="text-[#1a1a1a] font-semibold">Free</h1>
             <p className="text-gray-800 text-sm">
-              Get to know more about our mission, vision and value.
+              Limited access, minimal rewards, standard support, entry-level
+              experience only.
             </p>
           </div>
         </div>
