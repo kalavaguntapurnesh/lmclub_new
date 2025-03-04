@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { AppContext } from "../context/AppContext";
 
-const Orders = () => {
+const MyOrders = () => {
   const { userData, setUserData, token, backendUrl, loadUserProfileData } =
     useContext(AppContext);
 
@@ -30,4 +30,4 @@ const Orders = () => {
   );
 };
 
-export default Orders;
+export default MyOrders;

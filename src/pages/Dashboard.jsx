@@ -1,9 +1,8 @@
 import React, { useContext } from "react";
 import { AppContext } from "./../context/AppContext";
-import CountryStateCitySelector from "./../components/CountryStateCitySelector";
 
 const Dashboard = () => {
-  const { userData, setUserData, token, backendUrl, loadUserProfileData } =
+  const { userData, token, backendUrl, loadUserProfileData } =
     useContext(AppContext);
 
   return (
@@ -18,14 +17,10 @@ const Dashboard = () => {
                     <div className="space-y-2">
                       <p className="lg:text-3xl text-2xl font-bold">
                         <span className="text-green-500">Hello, </span>{" "}
-                        {userData.name}
+                        {userData.firstName}
                       </p>
                     </div>
                   </div>
-                </div>
-
-                <div>
-                  <CountryStateCitySelector />
                 </div>
               </div>
             </div>

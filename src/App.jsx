@@ -35,8 +35,7 @@ import { AppContext } from "./context/AppContext";
 import AuthNavbar from "./components/AuthNavbar";
 import Sidebar from "./components/Sidebar";
 import Addresses from "./pages/Addresses";
-import Orders from "./pages/Orders";
-import UserSubscription from "./pages/UserSubscription";
+import MyOrders from "./pages/MyOrders.jsx";
 import ECommerce from "./pages/ECommerce";
 import TermsAndConditions from "./pages/TermsAndConditions";
 import RefundAndReturnPolicy from "./pages/RefundAndReturnPolicy";
@@ -50,6 +49,9 @@ import ECommerceCartProvider from "./context/ECommerceCartContext";
 import HandlePaymentEcommerce from "./pages/HandlePaymentEcommerce";
 import ECommercePaymentMethods from "./pages/ECommercePaymentMethods";
 import AllWidgetTsAndCs from "./pages/AllWidgetTsAndCs.jsx";
+import MySubscriptions from "./pages/MySubscriptions.jsx";
+import MyMembership from "./pages/MyMembership.jsx";
+import MyPayments from "./pages/MyPayments.jsx";
 function App() {
   const { token } = useContext(AppContext);
 
@@ -63,8 +65,10 @@ function App() {
           <Route path="/my-profile" element={<MyProfile />} />
           <Route path="/dashboard" element={<Dashboard />}></Route>
           <Route path="/my-addresses" element={<Addresses />}></Route>
-          <Route path="/my-orders" element={<Orders />}></Route>
-          <Route path="/my-subscription" element={<UserSubscription />}></Route>
+          <Route path="/my-orders" element={<MyOrders />}></Route>
+          <Route path="/my-subscription" element={<MySubscriptions />}></Route>
+          <Route path="/my-membership" element={<MyMembership />}></Route>
+          <Route path="/my-payments" element={<MyPayments />}></Route>
         </Routes>
       </div>
     </div>

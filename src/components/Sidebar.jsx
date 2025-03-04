@@ -61,7 +61,7 @@ const Sidebar = () => {
             >
               <FaUsers className="text-green-500 w-5 h-5" />
 
-              <p>Orders</p>
+              <p>Order History</p>
             </NavLink>
 
             <NavLink
@@ -73,7 +73,7 @@ const Sidebar = () => {
               to={"/my-subscription"}
             >
               <MdWidgets className="text-green-500 w-5 h-5" />
-              <p>Subscriptions</p>
+              <p>My Subscriptions</p>
             </NavLink>
 
             <NavLink
@@ -82,10 +82,34 @@ const Sidebar = () => {
                   isActive ? "bg-[#f2f2f3] border-r-4 border-green-400" : ""
                 }`
               }
-              to={"/plans"}
+              to={"/my-membership"}
             >
               <FaCalculator className="text-green-500 w-5 h-5" />
-              <p>Memberships</p>
+              <p>My Memberships</p>
+            </NavLink>
+
+            <NavLink
+              className={({ isActive }) =>
+                `flex  items-center gap-3 py-3.5 px-3 md:px-9 md:min-w-72 cursor-pointer shadow my-[12px] mx-4 ${
+                  isActive ? "bg-[#f2f2f3] border-r-4 border-green-400" : ""
+                }`
+              }
+              to={"/my-payments"}
+            >
+              <FaCalculator className="text-green-500 w-5 h-5" />
+              <p>Payment Methods</p>
+            </NavLink>
+
+            <NavLink
+              className={({ isActive }) =>
+                `flex  items-center gap-3 py-3.5 px-3 md:px-9 md:min-w-72 cursor-pointer shadow my-[12px] mx-4 ${
+                  isActive ? "bg-[#f2f2f3] border-r-4 border-green-400" : ""
+                }`
+              }
+              to={"/downloads"}
+            >
+              <FaCalculator className="text-green-500 w-5 h-5" />
+              <p>Downloads</p>
             </NavLink>
 
             <NavLink
@@ -140,13 +164,13 @@ const Sidebar = () => {
             <div className="border-b border-gray-200 pt-2"></div>
             <div className="flex justify-center gap-4 pt-6 pb-6">
               <button
-                className="bg-green-400 transition ease-in-out duration-1000 cursor-pointer text-white md:px-16 px-12 md:py-2 py-[6px] rounded hover:bg-green-600"
+                className="bg-green-500 transition ease-in-out duration-1000 cursor-pointer text-white md:px-16 px-12 md:py-2 py-[6px] rounded hover:bg-green-600"
                 onClick={() => setShowLogoutModal(false)}
               >
                 No
               </button>
               <button
-                className="bg-red-400 transition ease-in-out duration-1000 cursor-pointer text-white md:px-16 px-12 md:py-2 py-[6px] rounded hover:bg-red-600"
+                className="bg-red-500 transition ease-in-out duration-1000 cursor-pointer text-white md:px-16 px-12 md:py-2 py-[6px] rounded hover:bg-red-600"
                 onClick={handleLogout}
               >
                 Yes
