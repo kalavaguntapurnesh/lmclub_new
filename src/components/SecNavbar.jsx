@@ -49,14 +49,6 @@ const SecNavbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const toggleDropdown = (dropdown) => {
-    if (openDropdown === dropdown) {
-      setOpenDropdown(null);
-    } else {
-      setOpenDropdown(dropdown);
-    }
-  };
-
   const toggleMobileDropdown = (dropdown) => {
     setOpenDropdownMobile((prev) => (prev === dropdown ? null : dropdown));
   };
@@ -101,7 +93,7 @@ const SecNavbar = () => {
               }`}
             ></CiShoppingCart>
           </a>
-          <div className="absolute top-[-8px] right-[-8px] text-[10px] bg-red-500 text-white rounded-full px-2 py-1">
+          <div className="absolute top-[-8px] right-[-8px] text-[10px] bg-red-500 text-white rounded-full px-2 py-1 font-bold">
             <h1>{cartItemsCount}</h1>
           </div>
         </div>

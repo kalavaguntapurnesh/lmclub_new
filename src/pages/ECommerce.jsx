@@ -7,54 +7,51 @@ import WhatsApp from "../components/WhatsApp";
 import EOne from "../assets/ECommerceTwo.jpg";
 import ECommerceThree from "../assets/ECommerceThree.jpg";
 import ECommerceFour from "../assets/ECommerceFour.jpg";
-import Bottle from "../assets/Bottle.png";
-import Hoodie from "../assets/Hoodie.png";
-import Mug2 from "../assets/Mug2.png";
+// import Bottle from "../assets/Bottle.png";
+// import Hoodie from "../assets/Hoodie.png";
+// import Mug2 from "../assets/Mug2.png";
 import star from "../assets/star.svg";
 import ECommerceHero from "../assets/ECommerce.jpg";
 import { useNavigate } from "react-router-dom";
-import WaterBottle from "../assets/WaterBottle.png";
-import LMTshirt from "../assets/LMTshirt.png";
+// import WaterBottle from "../assets/WaterBottle.png";
+// import LMTshirt from "../assets/LMTshirt.png";
 import PS from "../assets/PS.svg";
 import AS from "../assets/AS.svg";
+// import Book from "../assets/Book.png";
+// import Watch from "../assets/Watch.png";
+// import Beanie from "../assets/Beanie.png";
+
+import p1 from "../assets/p1.png";
+import p2 from "../assets/p2.png";
+import p3 from "../assets/p3.png";
+import p5 from "../assets/p5.png";
+import p6 from "../assets/p6.png";
+import p7 from "../assets/p7.png";
+import p11 from "../assets/p11.png";
+import p12 from "../assets/p12.png";
+import p13 from "../assets/p13.png";
+import p14 from "../assets/p14.png";
+import p16 from "../assets/p16.png";
+// import p8 from "../assets/p8.png";
+import Hoodie from "../assets/Hoodie.png";
+import Beanie from "../assets/Beanie.png";
+import Bottle from "../assets/Bottle.png";
 import Book from "../assets/Book.png";
 import Watch from "../assets/Watch.png";
-import Beanie from "../assets/Beanie.png";
+import LMTshirt from "../assets/LMTshirt.png";
+import WaterBottle from "../assets/WaterBottle.png";
+import Mug from "../assets/Mug2.png";
 
 const ECommerce = () => {
   const products = [
     {
-      id: 2,
-      title: "LM Club Sipper: Thermo Steel",
+      _id: "aaaaa",
+      name: "LM Club Hoodie",
+      descriptionThree: "Lorem ipsum dolor sit amet consectetur adipisicing.",
       description:
-        "Stay hydrated in style with the LM Club Thermo Steel Sipper. Engineered with double-wall insulation, this bottle keeps your beverages hot for up to 12 hours or cold for 24 hours. Its sleek design and leak-proof lid make it the ideal companion for gym workouts, office hours, or outdoor adventures. Made from high-quality stainless steel, it’s durable, eco-friendly, and easy to carry.",
-      descriptionTwo: "Premium quality thermos steel sipper bottle.",
-      image: Bottle,
-      price: 14.99,
-      originalPrice: 43.99,
-      rating: 4.8,
-      reviews: 431,
-      brand: "CIVAGO",
-      specialFeature: "Leak Proof",
-      color: "Stainless Steel",
-      materialType: "Steel",
-      ageRange: "Adult",
-      capacity: "2 Pounds",
-      itemDimensions: "4.5 W x 9.84 H",
-      itemWeight: "12.8 ounces",
-      noOfItems: "1",
-      recommendedUse: "Travel, Workouts, Camping, Hiking",
-      theme: "Sport",
-      originCountry: "USA",
-      origin: "Local",
-    },
-    {
-      id: 3,
-      title: "LM Club Hoodie",
-      description:
+        "A lightweight, usually knitted, pullover shirt, close-fitting and with a round neckline and shorr, worn as an hoodie or outer garment.",
+      descriptionTwo:
         "Embrace warmth and style with our LM Club Hoodie, designed for ultimate coziness and functionality. Crafted from a high-quality cotton-polyester blend, this hoodie provides insulation without feeling bulky. Featuring a front pocket and adjustable drawstring hood, it’s perfect for layering during colder seasons. Whether you're lounging at home, heading to a casual meet-up, or braving the chilly weather, this hoodie has you covered.",
-      descriptionTwo: "Warm and stylish hoodie for LM Club members.",
-      image: Hoodie,
       price: 39.99,
       originalPrice: 69.99,
       rating: 4.9,
@@ -72,15 +69,55 @@ const ECommerce = () => {
       theme: "Sport",
       originCountry: "USA",
       origin: "Local",
+      image: [Hoodie, p13, p3, p6],
+      category: "Men",
+      subCategory: "Topwear",
+      sizes: ["S", "M", "L"],
+      date: 1716634345448,
+      bestseller: true,
     },
     {
-      id: 4,
-      title: "LM Club Coffee Mug",
+      _id: "aaaab",
+      name: "LM Club Sipper: Thermo Steel",
+      descriptionThree: "Lorem ipsum dolor sit amet consectetur adipisicing.",
       description:
+        "A lightweight, usually knitted, pullover shirt, close-fitting and with a round neckline and short sleeves, worn as an undershirt or outer garment.",
+      descriptionTwo:
+        "Stay hydrated in style with the LM Club Thermo Steel Sipper. Engineered with double-wall insulation, this bottle keeps your beverages hot for up to 12 hours or cold for 24 hours. Its sleek design and leak-proof lid make it the ideal companion for gym workouts, office hours, or outdoor adventures. Made from high-quality stainless steel, it’s durable, eco-friendly, and easy to carry.",
+      price: 14.99,
+      originalPrice: 43.99,
+      rating: 4.8,
+      reviews: 431,
+      brand: "CIVAGO",
+      specialFeature: "Leak Proof",
+      color: "Stainless Steel",
+      materialType: "Steel",
+      ageRange: "Adult",
+      capacity: "2 Pounds",
+      itemDimensions: "4.5 W x 9.84 H",
+      itemWeight: "12.8 ounces",
+      noOfItems: "1",
+      recommendedUse: "Travel, Workouts, Camping, Hiking",
+      theme: "Sport",
+      originCountry: "USA",
+      origin: "Local",
+      image: [Bottle, p1, p5],
+      category: "Men",
+      subCategory: "Topwear",
+      sizes: ["M", "L", "XL"],
+      date: 1716621345448,
+      bestseller: true,
+    },
+    {
+      _id: "aaaac",
+      name: "LM Club Coffee Mug",
+      descriptionThree: "Lorem ipsum dolor sit amet consectetur adipisicing.",
+      description:
+        "A lightweight, usually knitted, pullover shirt, close-fitting and with a round neckline and short sleeves, worn as an undershirt or outer garment.",
+      descriptionTwo:
         "Start your mornings with the LM Club Coffee Mug, an elegant ceramic mug designed for coffee lovers. With a comfortable grip and a sturdy build, it’s perfect for enjoying hot coffee, tea, or any beverage of your choice. The high-gloss finish and LM Club branding add a touch of sophistication to your drinkware collection. Microwave and dishwasher safe, this mug is both stylish and practical for everyday use.",
-      descriptionTwo: "Elegant ceramic coffee mug with LM Club logo.",
-      image: Mug2,
-      price: 9.99,
+      price: 220,
+      image: [Mug, p11, p14],
       originalPrice: 19.99,
       rating: 4.9,
       reviews: 249,
@@ -98,14 +135,15 @@ const ECommerce = () => {
       originCountry: "USA",
       origin: "Local",
     },
-
     {
-      id: 5,
-      title: "LM Club Water Bottle",
+      _id: "aaaad",
+      name: "LM Club Water Bottle",
+      descriptionThree: "Lorem ipsum dolor sit amet consectetur adipisicing.",
       description:
+        "A lightweight, usually knitted, pullover shirt, close-fitting and with a round neckline and short sleeves, worn as an undershirt or outer garment.",
+      descriptionTwo:
         "Start your mornings with the LM Club Coffee Mug, an elegant ceramic mug designed for coffee lovers. With a comfortable grip and a sturdy build, it’s perfect for enjoying hot coffee, tea, or any beverage of your choice. The high-gloss finish and LM Club branding add a touch of sophistication to your drinkware collection. Microwave and dishwasher safe, this mug is both stylish and practical for everyday use.",
-      descriptionTwo: "Elegant ceramic coffee mug with LM Club logo.",
-      image: WaterBottle,
+      image: [WaterBottle, WaterBottle, WaterBottle, WaterBottle],
       price: 9.99,
       originalPrice: 19.99,
       rating: 4.9,
@@ -125,12 +163,14 @@ const ECommerce = () => {
       origin: "Imported",
     },
     {
-      id: 6,
-      title: "LM Club T-Shirt: White",
+      _id: "aaaae",
+      name: "LM Club T-Shirt: White",
+      descriptionThree: "Lorem ipsum dolor sit amet consectetur adipisicing.",
       description:
+        "A lightweight, usually knitted, pullover shirt, close-fitting and with a round neckline and short sleeves, worn as an undershirt or outer garment.",
+      descriptionTwo:
         "Experience ultimate comfort with our LM Club T-Shirt, crafted from premium cotton for a soft and breathable feel. Designed with a stylish fit and the exclusive LM Club logo, this T-shirt is perfect for casual wear, workouts, or everyday outings. Show your club pride while staying effortlessly cool and comfortable.",
-      descriptionTwo: "Comfortable cotton T-shirt with LM Club branding.",
-      image: LMTshirt,
+      image: [LMTshirt, p16, p7],
       price: 7.99,
       originalPrice: 15.99,
       rating: 4.9,
@@ -150,12 +190,14 @@ const ECommerce = () => {
       origin: "Local",
     },
     {
-      id: 7,
-      title: "LM Club Spiral: Book",
+      _id: "aaaaf",
+      name: "LM Club Spiral: Book",
+      descriptionThree: "Lorem ipsum dolor sit amet consectetur adipisicing.",
       description:
+        "A lightweight, usually knitted, pullover shirt, close-fitting and with a round neckline and short sleeves, worn as an undershirt or outer garment.",
+      descriptionTwo:
         "Experience ultimate comfort with our LM Club T-Shirt, crafted from premium cotton for a soft and breathable feel. Designed with a stylish fit and the exclusive LM Club logo, this T-shirt is perfect for casual wear, workouts, or everyday outings. Show your club pride while staying effortlessly cool and comfortable.",
-      descriptionTwo: "Comfortable cotton T-shirt with LM Club branding.",
-      image: Book,
+      image: [Book, Book, Book, Book],
       price: 4.99,
       originalPrice: 9.99,
       rating: 4.9,
@@ -174,14 +216,15 @@ const ECommerce = () => {
       originCountry: "India",
       origin: "Imported",
     },
-
     {
-      id: 8,
-      title: "LM Club Beanie: Woolen Cloth",
+      _id: "aaaag",
+      name: "LM Club Beanie: Woolen Cloth",
+      descriptionThree: "Lorem ipsum dolor sit amet consectetur adipisicing.",
       description:
+        "A lightweight, usually knitted, pullover shirt, close-fitting and with a round neckline and short sleeves, worn as an undershirt or outer garment.",
+      descriptionTwo:
         "Stay hydrated in style with the LM Club Thermo Steel Sipper. Engineered with double-wall insulation, this bottle keeps your beverages hot for up to 12 hours or cold for 24 hours. Its sleek design and leak-proof lid make it the ideal companion for gym workouts, office hours, or outdoor adventures. Made from high-quality stainless steel, it’s durable, eco-friendly, and easy to carry.",
-      descriptionTwo: "Premium quality thermos steel sipper bottle.",
-      image: Beanie,
+      image: [Beanie, Beanie, Beanie, Beanie],
       price: 3.99,
       originalPrice: 10.99,
       rating: 4.8,
@@ -201,12 +244,14 @@ const ECommerce = () => {
       origin: "Imported",
     },
     {
-      id: 2,
-      title: "LM Club Sipper: Thermo Steel",
+      _id: "aaaah",
+      name: "LM Club : Smart Watch",
+      descriptionThree: "Lorem ipsum dolor sit amet consectetur adipisicing.",
       description:
+        "A lightweight, usually knitted, pullover shirt, close-fitting and with a round neckline and short sleeves, worn as an undershirt or outer garment.",
+      descriptionTwo:
         "Stay hydrated in style with the LM Club Thermo Steel Sipper. Engineered with double-wall insulation, this bottle keeps your beverages hot for up to 12 hours or cold for 24 hours. Its sleek design and leak-proof lid make it the ideal companion for gym workouts, office hours, or outdoor adventures. Made from high-quality stainless steel, it’s durable, eco-friendly, and easy to carry.",
-      descriptionTwo: "Premium quality thermos steel sipper bottle.",
-      image: Watch,
+      image: [Watch, p2, p12],
       price: 60.99,
       originalPrice: 107.99,
       rating: 4.8,
@@ -415,7 +460,7 @@ const ECommerce = () => {
                       <div className="space-y-2 w-[100%] rounded">
                         <div className="w-[100%]">
                           <img
-                            src={product.image}
+                            src={product.image[0]}
                             alt="about_one"
                             className={`w-[100%] h-[240px] ${
                               product.id === 1 ? "" : "object-contain"
@@ -429,7 +474,7 @@ const ECommerce = () => {
                           </h1>
                         </div>
                         <div className="px-3 flex md:justify-start justify-center  items-center text-gray-600 lg:text-start text-center text-[14px] leading-[22px]">
-                          <p>{product.descriptionTwo}</p>
+                          <p>{product.descriptionThree}</p>
                         </div>
 
                         <div className="px-3 flex flex-row items-center gap-2">

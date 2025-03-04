@@ -271,7 +271,7 @@ const AboutTwo = () => {
                   >
                     <div className="h-4 w-1 bg-green-500"></div>
                     <h1 className="ml-2 font-bold text-green-500 lg:uppercase">
-                      Our Founders Team
+                      Our Founders
                     </h1>
                   </motion.div>
 
@@ -305,7 +305,7 @@ const AboutTwo = () => {
                       initial="hidden"
                       whileInView="show"
                       viewport={{ once: true, amount: 0.5 }}
-                      className="relative inset-0 z-0 overflow-hidden rounded aspect-[16/9]"
+                      className="relative inset-0 z-0 overflow-hidden rounded aspect-[4/3]"
                     >
                       {/* Image with full overlay */}
                       <div className="absolute inset-0 bg-black bg-opacity-10"></div>
@@ -350,7 +350,7 @@ const AboutTwo = () => {
                       initial="hidden"
                       whileInView="show"
                       viewport={{ once: true, amount: 0.5 }}
-                      className="relative inset-0 z-0 overflow-hidden rounded aspect-[16/9]"
+                      className="relative inset-0 z-0 overflow-hidden rounded aspect-[4/3]"
                     >
                       {/* Image with full overlay */}
                       <div className="absolute inset-0 bg-black bg-opacity-10"></div>
@@ -404,7 +404,7 @@ const AboutTwo = () => {
               <div className="w-full mx-auto max-w-[1400px] ">
                 <div className="p-4">
                   <div className="grid md:grid-cols-2 grid-cols-1 lg:gap-4 gap-8">
-                  <div className="flex justify-center items-center">
+                    <div className="flex justify-center items-center">
                       <div className="w-full">
                         <img
                           src={Founder}
@@ -463,8 +463,6 @@ const AboutTwo = () => {
                         </a>
                       </div>
                     </div>
-                   
-                   
                   </div>
                 </div>
               </div>
@@ -480,7 +478,7 @@ const AboutTwo = () => {
               <div className="w-full mx-auto max-w-[1400px] ">
                 <div className="p-4">
                   <div className="grid md:grid-cols-2 grid-cols-1 lg:gap-4 gap-8">
-                  <div className="flex justify-center items-center">
+                    <div className="flex justify-center items-center">
                       <div className="w-full">
                         <img
                           src={Founder22}

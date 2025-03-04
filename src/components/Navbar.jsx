@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { RiMenu3Fill } from "react-icons/ri";
 import { AiOutlineClose } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
-import logo from "../assets/LMDark.webp";
 import { FaAngleDown } from "react-icons/fa";
 import { FiChevronDown } from "react-icons/fi";
 import { AnimatePresence, motion } from "framer-motion";
@@ -98,7 +97,7 @@ const NavBar = () => {
           <a href="/selected-plan/cart" className="cursor-pointer">
             <CiShoppingCart className="w-9 h-9"></CiShoppingCart>
           </a>
-          <div className="absolute top-[-8px] right-[-8px] text-[10px] bg-red-500 text-white rounded-full px-2 py-1">
+          <div className="absolute top-[-8px] right-[-8px] text-[10px] bg-red-500 text-white rounded-full px-2 py-1 font-bold">
             <h1>{cartItemsCount}</h1>
           </div>
         </div>

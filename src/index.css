@@ -9,6 +9,10 @@
   font-style: normal;
 }
 
+::-webkit-scrollbar {
+  display: none;
+}
+
 @keyframes infiniteScroll {
   from {
     transform: translateX(0);
@@ -78,8 +82,8 @@
 .pin {
   background: #22c55e;
   position: absolute;
-  width: 1.0em;
-  height: 1.0em;
+  width: 1em;
+  height: 1em;
   border-radius: 50%;
   font-size: 14px;
 }
@@ -120,16 +124,14 @@
   .world-map {
     font-size: 12px;
   }
-
   .pin {
     background: #22c55e;
     position: absolute;
-    width: 2.0em;
-    height: 2.0em;
+    width: 1em;
+    height: 1em;
     border-radius: 50%;
     font-size: 14px;
   }
-
   .pin::before {
     content: "";
     background: #22c55e;
@@ -159,8 +161,8 @@
   }
 
   .china {
-    top: 52%;
-    left: 29%;
+    top: 53%;
+    left: 28%;
   }
 }
 
