@@ -38,17 +38,10 @@ import Addresses from "./pages/Addresses";
 import Orders from "./pages/Orders";
 import UserSubscription from "./pages/UserSubscription";
 import ECommerce from "./pages/ECommerce";
-import GrowTAC from "./pages/GrowTAC";
-import NetworkTAC from "./pages/NetworkTAC";
-import BeehiveTAC from "./pages/BeehiveTAC";
-import EstoreTAC from "./pages/EstoreTAC";
-import BroadcastTAC from "./pages/BroadcastTAC";
 import TermsAndConditions from "./pages/TermsAndConditions";
 import RefundAndReturnPolicy from "./pages/RefundAndReturnPolicy";
 import PaymentMethods from "./pages/PaymentMethods";
 import PayPalSuccessPage from "./pages/PayPalSuccessPage";
-// import OrganisationRegister from "./pages/OrganisationRegister";
-// import OrganisationLogin from "./pages/OrganisationLogin";
 import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
 import ProductOverview from "./pages/ProductOverview";
@@ -79,33 +72,13 @@ function App() {
     <ECommerceCartProvider>
       <CartProvider>
         <ToastContainer />
-        {/* <SecNavbar /> */}
 
         <Routes>
           <Route path="/" element={<Home />}></Route>
-          <Route
-            path="/grow-terms-and-conditions"
-            element={<GrowTAC />}
-          ></Route>
-          <Route
-            path="/network-terms-and-conditions"
-            element={<NetworkTAC />}
-          ></Route>
-          <Route
-            path="/beehive-terms-and-conditions"
-            element={<BeehiveTAC />}
-          ></Route>
-          <Route
-            path="/e-store-terms-and-conditions"
-            element={<EstoreTAC />}
-          ></Route>
-          <Route
-            path="/broadcast-terms-and-conditions"
-            element={<BroadcastTAC />}
-          ></Route>
+
           <Route
             path="/widget-terms-and-conditions/:widget"
-            element={< AllWidgetTsAndCs/>}
+            element={<AllWidgetTsAndCs />}
           />
           <Route path="/contact-us" element={<Contact />}></Route>
           <Route path="/estore" element={<Estore />}></Route>
@@ -139,13 +112,11 @@ function App() {
           <Route path="/register" element={<Register />}></Route>
           <Route path="/events" element={<Events />}></Route>
 
-          <Route path="/privacy-policy" element={<Privacy />}></Route>
           <Route path="/ecommerce" element={<ECommerce />}></Route>
 
           <Route path="/enroll-rewards" element={<Enroll_Rewards />}></Route>
           <Route path="/rewards" element={<Rewards />}></Route>
           <Route path="*" element={<PageNotFound />}></Route>
-          {/* <Route path="/products" element={<Products />}></Route> */}
           <Route path="/pricing" element={<Pricing />}></Route>
           <Route path="/selected-plan" element={<SelectedPlan />}></Route>
           <Route path="/selected-plan/cart" element={<Cart />} />
@@ -169,11 +140,6 @@ function App() {
             path="/api/paypal/complete-order"
             element={<PayPalSuccessPage />}
           />
-          {/* <Route
-          path="/organisation-register"
-          element={<OrganisationRegister />}
-        />
-        <Route path="/organisation-login" element={<OrganisationLogin />} /> */}
           <Route path="/api/paypal/cancel-order/:token" element={<Failure />} />
 
           <Route path="/cancel-order/:token" element={<Failure />} />
@@ -189,8 +155,6 @@ function App() {
             element={<ECommercePaymentMethods />}
           />
         </Routes>
-
-        {/* <Footer /> */}
       </CartProvider>
     </ECommerceCartProvider>
   );
