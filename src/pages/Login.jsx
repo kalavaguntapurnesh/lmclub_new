@@ -95,7 +95,7 @@ const Login = () => {
               localStorage.setItem("token", data.token);
               toast.success("Registered Successfully!");
               setToken(data.token);
-              navigate("/my-profile");
+              navigate("/dashboard");
               scrollTo(0, 0);
             } else {
               toast.warning("Please verify your email before logging in.");

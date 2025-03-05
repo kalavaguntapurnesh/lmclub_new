@@ -17,7 +17,7 @@ const MyPayments = () => {
       try {
         setLoading(true);
         const response = await axios.get(
-          backendUrl + "/api/user/get-user-payments",
+          backendUrl + "/api/user/get-user-payment-details-user",
           {
             headers: { token },
           }
