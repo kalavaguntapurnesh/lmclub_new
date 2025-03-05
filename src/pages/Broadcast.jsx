@@ -1,4 +1,3 @@
-
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import ScrollToTop from "../components/ScrollToTop";
@@ -9,7 +8,6 @@ import moneyTwo from "../assets/moneyTwo.svg";
 import Business from "../assets/Business.svg";
 import Reward from "../assets/Reward.svg";
 import WhatsApp from "../components/WhatsApp";
-
 
 const Broadcast = () => {
   return (
@@ -47,7 +45,13 @@ const Broadcast = () => {
                       <p>
                         Easily enroll businesses with a marketing fillable
                         template that generates a custom URL for their
-                        promotions.{" "}<a className="text-blue-500 underline cursor-pointer  hover:font-bold"  href={`/widget-terms-and-conditions/broadcast`}>Please read Terms and conditions.</a>
+                        promotions.{" "}
+                        <a
+                          className="text-blue-500 underline cursor-pointer  hover:font-bold"
+                          href={`/widget-terms-and-conditions/broadcast`}
+                        >
+                          Please read Terms and conditions.
+                        </a>
                       </p>
                     </div>
 
@@ -226,29 +230,130 @@ const Broadcast = () => {
                   </div>
                 </div>
                 <div>
-                <h2 className="text-2xl font-semibold mt-6 text-green-600">Do's and Don’ts</h2>
-        
-        <h3 className="text-xl font-semibold mt-4 text-green-600">Do’s</h3>
-        <p className="mt-2"></p>
-        <ul className="list-decimal list-inside ml-6 mt-2  text-gray-600">
-          <li><span className="font-semibold"style={{ color: "#1a1a1a" }}>Share Authorized Promotions:</span> Only share broadcast URLs provided through the LM Club platform.</li>
-          <li><span className="font-semibold"style={{ color: "#1a1a1a" }}>Use Social Media Responsibly: </span>Post promotions on your social media accounts in accordance with the platform’s terms of service.</li>
-          <li><span className="font-semibold"style={{ color: "#1a1a1a" }}>Ensure Visibility:</span>Verify that your social media posts are public or visible to your intended audience for proper tracking.</li>
-          <li><span className="font-semibold"style={{ color: "#1a1a1a" }}>Track Your Progress:</span>Monitor your shared promotions and earned points in the LM Broadcast Rewards dashboard.</li>
-          <li><span className="font-semibold"style={{ color: "#1a1a1a" }}>Redeem Points Promptly:</span>Use accumulated points to redeem rewards through the designated Rewards Store in your account.</li>
-          <li><span className="font-semibold"style={{ color: "#1a1a1a" }}>Engage Positively:</span> Promote local businesses in a manner that reflects positively on LM Club and its partners.</li>
-        </ul>
-        
-        <h3 className="text-xl font-semibold mt-4 text-green-600">Don’ts</h3>
-        <p className="mt-2"></p>
-        <ul className="list-decimal list-inside ml-6 mt-2  text-gray-600">
-          <li><span className="font-semibold"style={{ color: "#1a1a1a" }}>Do Not Share Unauthorized Links:</span>Avoid sharing non-validated links or promotions that have not been provided by LM Club.</li>
-          <li><span className="font-semibold"style={{ color: "#1a1a1a" }}>Do Not Misrepresent Promotions:</span>Ensure the accuracy and authenticity of the promotional information you share.</li>
-          <li><span className="font-semibold"style={{ color: "#1a1a1a" }}>Do Not Spam:</span>Avoid spamming promotional URLs on social media, including repeated postings or sending unsolicited messages.</li>
-          <li><span className="font-semibold"style={{ color: "#1a1a1a" }}>Do Not Manipulate Points:</span> Fraudulent activities, such as creating fake social media accounts or posts, are strictly prohibited.</li>
-          <li><span className="font-semibold"style={{ color: "#1a1a1a" }}>Do Not Use Offensive Content:</span>Ensure your social media posts are free from offensive language, imagery, or behavior.</li>
-          <li><span className="font-semibold"style={{ color: "#1a1a1a" }}>Do Not Exploit Rewards: </span> Points must be earned and redeemed according to program rules and cannot be exchanged for cash or transferred to others.</li>
-      </ul>
+                  <h3 className="text-3xl text-center font-semibold mt-4 text-green-600 p-6">
+                    Do’s and Don’ts
+                  </h3>
+
+                  <div className="overflow-x-auto">
+                    <table className="min-w-full border border-gray-300 mt-4">
+                      <thead>
+                        <tr className="bg-green-100">
+                          <th className="border border-gray-300 px-4 py-2 text-left text-green-600 text-xl">
+                            Do’s
+                          </th>
+                          <th className="border border-gray-300 px-4 py-2 text-left text-green-600 text-xl">
+                            Don’ts
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody className="text-gray-600">
+                        <tr className="border border-gray-300">
+                          <td className="p-3 border border-gray-300">
+                            <span className="font-semibold text-gray-900">
+                              Share Authorized Promotions:
+                            </span>{" "}
+                            Only share broadcast URLs provided through the LM
+                            Club platform.
+                          </td>
+                          <td className="p-3 border border-gray-300">
+                            <span className="font-semibold text-gray-900">
+                              Do Not Share Unauthorized Links:
+                            </span>{" "}
+                            Avoid sharing non-validated links or promotions that
+                            have not been provided by LM Club.
+                          </td>
+                        </tr>
+
+                        <tr className="border border-gray-300">
+                          <td className="p-3 border border-gray-300">
+                            <span className="font-semibold text-gray-900">
+                              Use Social Media Responsibly:
+                            </span>{" "}
+                            Post promotions on your social media accounts in
+                            accordance with the platform’s terms of service.
+                          </td>
+                          <td className="p-3 border border-gray-300">
+                            <span className="font-semibold text-gray-900">
+                              Do Not Misrepresent Promotions:
+                            </span>{" "}
+                            Ensure the accuracy and authenticity of the
+                            promotional information you share.
+                          </td>
+                        </tr>
+
+                        <tr className="border border-gray-300">
+                          <td className="p-3 border border-gray-300">
+                            <span className="font-semibold text-gray-900">
+                              Ensure Visibility:
+                            </span>{" "}
+                            Verify that your social media posts are public or
+                            visible to your intended audience for proper
+                            tracking.
+                          </td>
+                          <td className="p-3 border border-gray-300">
+                            <span className="font-semibold text-gray-900">
+                              Do Not Spam:
+                            </span>{" "}
+                            Avoid spamming promotional URLs on social media,
+                            including repeated postings or sending unsolicited
+                            messages.
+                          </td>
+                        </tr>
+
+                        <tr className="border border-gray-300">
+                          <td className="p-3 border border-gray-300">
+                            <span className="font-semibold text-gray-900">
+                              Track Your Progress:
+                            </span>{" "}
+                            Monitor your shared promotions and earned points in
+                            the LM Broadcast Rewards dashboard.
+                          </td>
+                          <td className="p-3 border border-gray-300">
+                            <span className="font-semibold text-gray-900">
+                              Do Not Manipulate Points:
+                            </span>{" "}
+                            Fraudulent activities, such as creating fake social
+                            media accounts or posts, are strictly prohibited.
+                          </td>
+                        </tr>
+
+                        <tr className="border border-gray-300">
+                          <td className="p-3 border border-gray-300">
+                            <span className="font-semibold text-gray-900">
+                              Redeem Points Promptly:
+                            </span>{" "}
+                            Use accumulated points to redeem rewards through the
+                            designated Rewards Store in your account.
+                          </td>
+                          <td className="p-3 border border-gray-300">
+                            <span className="font-semibold text-gray-900">
+                              Do Not Use Offensive Content:
+                            </span>{" "}
+                            Ensure your social media posts are free from
+                            offensive language, imagery, or behavior.
+                          </td>
+                        </tr>
+
+                        <tr className="border border-gray-300">
+                          <td className="p-3 border border-gray-300">
+                            <span className="font-semibold text-gray-900">
+                              Engage Positively:
+                            </span>{" "}
+                            Promote local businesses in a manner that reflects
+                            positively on LM Club and its partners.
+                          </td>
+                          <td className="p-3 border border-gray-300">
+                            <span className="font-semibold text-gray-900">
+                              Do Not Exploit Rewards:
+                            </span>{" "}
+                            Points must be earned and redeemed according to
+                            program rules and cannot be exchanged for cash or
+                            transferred to others.
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
                 </div>
               </div>
             </div>

@@ -9,7 +9,6 @@ import Business from "../assets/Business.svg";
 import Reward from "../assets/Reward.svg";
 import WhatsApp from "../components/WhatsApp";
 
-
 const Estore = () => {
   return (
     <div>
@@ -42,10 +41,16 @@ const Estore = () => {
                         discovered. Plus, receive exclusive offers and updates
                         shared by other members. Connect with your community and
                         enjoy unique deals from local restaurants, hotels,
-                        retailers, and more!{" "}. <a className="text-blue-500 underline cursor-pointer  hover:font-bold"  href={`/widget-terms-and-conditions/beehive`}>Please read Terms and conditions.</a>
+                        retailers, and more! .{" "}
+                        <a
+                          className="text-blue-500 underline cursor-pointer  hover:font-bold"
+                          href={`/widget-terms-and-conditions/beehive`}
+                        >
+                          Please read Terms and conditions.
+                        </a>
                       </p>
                     </div>
- 
+
                     <div className="pt-4 flex lg:justify-start justify-center flex-row gap-4">
                       <a
                         href="/pricing"
@@ -168,29 +173,119 @@ const Estore = () => {
                   </div>
                 </div>
                 <div>
-                <h2 className="text-2xl font-semibold mt-6 text-green-600">Do's and Don’ts</h2>
-        
-        <h3 className="text-xl font-semibold mt-4 text-green-600">Do’s</h3>
-        <p className="mt-2"></p>
-        <ul className="list-decimal list-inside ml-6 mt-2  text-gray-600">
-          <li><span className="font-semibold"style={{ color: "#1a1a1a" }}>Share Authentic Information:</span> Ensure that the deals, coupons, or information you share are accurate and valid.</li>
-          <li><span className="font-semibold"style={{ color: "#1a1a1a" }}>Respect Community Guidelines: </span>  Engage respectfully with other members, maintaining a positive and constructive tone. </li>
-          <li><span className="font-semibold"style={{ color: "#1a1a1a" }}>Redeem Points Responsibly:</span> Redeem accumulated points for rewards such as gift cards or discounts through authorized channels. </li>
-          <li><span className="font-semibold"style={{ color: "#1a1a1a" }}>Keep Contact Information Updated: </span>  Ensure your phone number or email address is current for receiving updates and notifications.</li>
-          <li><span className="font-semibold"style={{ color: "#1a1a1a" }}>Report Issues:</span>Notify LM Club support if you encounter invalid deals, inappropriate content, or technical issues. </li>
-          <li><span className="font-semibold"style={{ color: "#1a1a1a" }}>Follow Activation Steps:</span>Complete all onboarding steps, including reviewing and accepting these Terms and Conditions. </li>
-        </ul>
-        
-        <h3 className="text-xl font-semibold mt-4 text-green-600">Don’ts</h3>
-        <p className="mt-2"></p>
-        <ul className="list-decimal list-inside ml-6 mt-2  text-gray-600">
-          <li><span className="font-semibold"style={{ color: "#1a1a1a" }}>Do Not Share Misleading Content:</span>  Refrain from posting false or outdated deals, coupons, or offers.</li>
-          <li><span className="font-semibold"style={{ color: "#1a1a1a" }}>Do Not Engage in Inappropriate Behavior: </span> Avoid offensive language, spamming, or harassing other members.</li>
-          <li><span className="font-semibold"style={{ color: "#1a1a1a" }}>Do Not Exploit the System: </span>   Attempting to manipulate or exploit the points system is strictly prohibited.</li>
-          <li><span className="font-semibold"style={{ color: "#1a1a1a" }}>Do Not Share Unauthorized Content:</span>Only share deals or information you are authorized to post. </li>
-          <li><span className="font-semibold"style={{ color: "#1a1a1a" }}>Do Not Violate Privacy: </span>Avoid sharing private information about businesses, members, or third parties without consent.</li>
-          <li><span className="font-semibold"style={{ color: "#1a1a1a" }}>Do Not Use the Platform for Illegal Activities:</span> The Beehive Widget must not be used for any unlawful purposes.</li>
-        </ul>
+                  <h2 className="text-3xl text-center font-semibold mt-6 text-green-600">
+                    Do's and Don’ts
+                  </h2>
+                  <table className="w-full border-collapse border border-gray-300 mt-6">
+                    <thead>
+                      <tr className="bg-green-100">
+                        <th className="border border-gray-300 px-4 py-2 text-left text-green-600 text-xl">
+                          Do’s
+                        </th>
+                        <th className="border border-gray-300 px-4 py-2 text-left text-green-600 text-xl">
+                          Don’ts
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody className="text-gray-600">
+                      <tr>
+                        <td className="border border-gray-300 px-4 py-2">
+                          <span className="font-semibold text-black">
+                            Share Authentic Information:
+                          </span>{" "}
+                          Ensure that the deals, coupons, or information you
+                          share are accurate and valid.
+                        </td>
+                        <td className="border border-gray-300 px-4 py-2">
+                          <span className="font-semibold text-black">
+                            Do Not Share Misleading Content:
+                          </span>{" "}
+                          Refrain from posting false or outdated deals, coupons,
+                          or offers.
+                        </td>
+                      </tr>
+                      <tr>
+                        <td className="border border-gray-300 px-4 py-2">
+                          <span className="font-semibold text-black">
+                            Respect Community Guidelines:
+                          </span>{" "}
+                          Engage respectfully with other members, maintaining a
+                          positive and constructive tone.
+                        </td>
+                        <td className="border border-gray-300 px-4 py-2">
+                          <span className="font-semibold text-black">
+                            Do Not Engage in Inappropriate Behavior:
+                          </span>{" "}
+                          Avoid offensive language, spamming, or harassing other
+                          members.
+                        </td>
+                      </tr>
+                      <tr>
+                        <td className="border border-gray-300 px-4 py-2">
+                          <span className="font-semibold text-black">
+                            Redeem Points Responsibly:
+                          </span>{" "}
+                          Redeem accumulated points for rewards such as gift
+                          cards or discounts through authorized channels.
+                        </td>
+                        <td className="border border-gray-300 px-4 py-2">
+                          <span className="font-semibold text-black">
+                            Do Not Exploit the System:
+                          </span>{" "}
+                          Attempting to manipulate or exploit the points system
+                          is strictly prohibited.
+                        </td>
+                      </tr>
+                      <tr>
+                        <td className="border border-gray-300 px-4 py-2">
+                          <span className="font-semibold text-black">
+                            Keep Contact Information Updated:
+                          </span>{" "}
+                          Ensure your phone number or email address is current
+                          for receiving updates and notifications.
+                        </td>
+                        <td className="border border-gray-300 px-4 py-2">
+                          <span className="font-semibold text-black">
+                            Do Not Share Unauthorized Content:
+                          </span>{" "}
+                          Only share deals or information you are authorized to
+                          post.
+                        </td>
+                      </tr>
+                      <tr>
+                        <td className="border border-gray-300 px-4 py-2">
+                          <span className="font-semibold text-black">
+                            Report Issues:
+                          </span>{" "}
+                          Notify LM Club support if you encounter invalid deals,
+                          inappropriate content, or technical issues.
+                        </td>
+                        <td className="border border-gray-300 px-4 py-2">
+                          <span className="font-semibold text-black">
+                            Do Not Violate Privacy:
+                          </span>{" "}
+                          Avoid sharing private information about businesses,
+                          members, or third parties without consent.
+                        </td>
+                      </tr>
+                      <tr>
+                        <td className="border border-gray-300 px-4 py-2">
+                          <span className="font-semibold text-black">
+                            Follow Activation Steps:
+                          </span>{" "}
+                          Complete all onboarding steps, including reviewing and
+                          accepting these Terms and Conditions.
+                        </td>
+                        <td className="border border-gray-300 px-4 py-2">
+                          <span className="font-semibold text-black">
+                            Do Not Use the Platform for Illegal Activities:
+                          </span>{" "}
+                          The Beehive Widget must not be used for any unlawful
+                          purposes.
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
                 </div>
               </div>
             </div>

@@ -8,7 +8,6 @@ import profit from "../assets/Profits.svg";
 import RewardTwo from "../assets/RewardTwo.svg";
 import WhatsApp from "../components/WhatsApp";
 
-
 const Grow = () => {
   return (
     <div>
@@ -45,12 +44,15 @@ const Grow = () => {
                         Keep track of your referrals in the LM Grow Rewards
                         dashboard. Each time you reach ten referrals, you’ll
                         earn extra points and a trophy to celebrate your
-                        achievement. <a className="text-blue-500 underline cursor-pointer  hover:font-bold"  href={`/widget-terms-and-conditions/enroll`}>Please read Terms and conditions.</a>
+                        achievement.{" "}
+                        <a
+                          className="text-blue-500 underline cursor-pointer  hover:font-bold"
+                          href={`/widget-terms-and-conditions/enroll`}
+                        >
+                          Please read Terms and conditions.
+                        </a>
                       </p>
-
                     </div>
-
-
 
                     <div className="pt-4 flex lg:justify-start justify-center flex-row gap-4">
                       <a
@@ -172,29 +174,128 @@ const Grow = () => {
                     </div>
                   </div>
                 </div>
-                <h2 className="text-2xl font-semibold mt-6  text-green-600">Do's and Don’ts</h2>
-        
-        <h3 className="font-semibold mt-4  text-green-600">Do’s</h3>
-        <p className="mt-2"></p>
-        <ul className="list-decimal list-inside ml-6 mt-2  text-gray-600">
-          <li><span className="font-semibold"style={{ color: "#1a1a1a" }}>Use Your Unique Referral Code:</span> Share your personal referral link or code with others to ensure your referrals are tracked accurately.</li>
-          <li><span className="font-semibold"style={{ color: "#1a1a1a" }}>Promote Authentically:</span> Share your genuine experiences and benefits of the LM Club to inspire others to join.</li>
-          <li><span className="font-semibold"style={{ color: "#1a1a1a" }}>Track Your Progress:</span> Regularly monitor your referral count and milestones in the LM Grow Rewards dashboard.</li>
-          <li><span className="font-semibold"style={{ color: "#1a1a1a" }}>Redeem Points Promptly:</span> Redeem accumulated points for rewards through the designated Rewards Store in your account.</li>
-          <li><span className="font-semibold"style={{ color: "#1a1a1a" }}>Engage Respectfully:</span> Maintain respectful communication with potential referrals and avoid pressure tactics.</li>
-          <li><span className="font-semibold"style={{ color: "#1a1a1a" }}>Follow All Program Guidelines:</span> Adhere to the program rules and ensure your referrals are genuine members.</li>
-        </ul>
-        
-        <h3 className="font-semibold mt-4  text-green-600">Don’ts</h3>
-        <p className="mt-2"></p>
-        <ul className="list-decimal list-inside ml-6 mt-2  text-gray-600">
-          <li><span className="font-semibold"style={{ color: "#1a1a1a" }}>Do Not Misrepresent LM Club:</span> Avoid providing false or misleading information about LM Club or its benefits.</li>
-          <li><span className="font-semibold"style={{ color: "#1a1a1a" }}>Do Not Use Spam Tactics:</span> Refrain from mass emailing, unsolicited messaging, or any form of spamming to share your referral link.</li>
-          <li><span className="font-semibold"style={{ color: "#1a1a1a" }}>Do Not Manipulate the System:</span> Fraudulent activities, such as creating fake accounts or falsifying referrals, are strictly prohibited.</li>
-          <li><span className="font-semibold"style={{ color: "#1a1a1a" }}>Do Not Share Unauthorized Content:</span> Avoid using copyrighted or unauthorized materials when promoting LM Club.</li>
-          <li><span className="font-semibold"style={{ color: "#1a1a1a" }}>Do Not Engage in Harassment:</span> Refrain from aggressive or inappropriate behavior when communicating with potential referrals.</li>
-          <li><span className="font-semibold"style={{ color: "#1a1a1a" }}>Do Not Exploit Points:</span> Points must be earned and redeemed according to program rules and cannot be exchanged for cash or transferred to others.</li>
-        </ul>
+                <h2 className="text-3xl text-center font-semibold mt-6 text-green-600">
+                  Do's and Don’ts
+                </h2>
+
+                <div className="overflow-x-auto mt-4">
+                  <table className="min-w-full border border-gray-300">
+                    <thead>
+                      <tr className="bg-green-100">
+                        <th className="border border-gray-300 px-4 py-2 text-left text-green-600 text-xl">
+                          Do’s
+                        </th>
+                        <th className="border border-gray-300 px-4 py-2 text-left text-green-600 text-xl">
+                          Don’ts
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody className="text-gray-600">
+                      <tr className="border border-gray-300">
+                        <td className="p-3 border border-gray-300">
+                          <span className="font-semibold text-gray-900">
+                            Use Your Unique Referral Code:
+                          </span>{" "}
+                          Share your personal referral link or code with others
+                          to ensure your referrals are tracked accurately.
+                        </td>
+                        <td className="p-3 border border-gray-300">
+                          <span className="font-semibold text-gray-900">
+                            Do Not Misrepresent LM Club:
+                          </span>{" "}
+                          Avoid providing false or misleading information about
+                          LM Club or its benefits.
+                        </td>
+                      </tr>
+
+                      <tr className="border border-gray-300">
+                        <td className="p-3 border border-gray-300">
+                          <span className="font-semibold text-gray-900">
+                            Promote Authentically:
+                          </span>{" "}
+                          Share your genuine experiences and benefits of the LM
+                          Club to inspire others to join.
+                        </td>
+                        <td className="p-3 border border-gray-300">
+                          <span className="font-semibold text-gray-900">
+                            Do Not Use Spam Tactics:
+                          </span>{" "}
+                          Refrain from mass emailing, unsolicited messaging, or
+                          any form of spamming to share your referral link.
+                        </td>
+                      </tr>
+
+                      <tr className="border border-gray-300">
+                        <td className="p-3 border border-gray-300">
+                          <span className="font-semibold text-gray-900">
+                            Track Your Progress:
+                          </span>{" "}
+                          Regularly monitor your referral count and milestones
+                          in the LM Grow Rewards dashboard.
+                        </td>
+                        <td className="p-3 border border-gray-300">
+                          <span className="font-semibold text-gray-900">
+                            Do Not Manipulate the System:
+                          </span>{" "}
+                          Fraudulent activities, such as creating fake accounts
+                          or falsifying referrals, are strictly prohibited.
+                        </td>
+                      </tr>
+
+                      <tr className="border border-gray-300">
+                        <td className="p-3 border border-gray-300">
+                          <span className="font-semibold text-gray-900">
+                            Redeem Points Promptly:
+                          </span>{" "}
+                          Redeem accumulated points for rewards through the
+                          designated Rewards Store in your account.
+                        </td>
+                        <td className="p-3 border border-gray-300">
+                          <span className="font-semibold text-gray-900">
+                            Do Not Share Unauthorized Content:
+                          </span>{" "}
+                          Avoid using copyrighted or unauthorized materials when
+                          promoting LM Club.
+                        </td>
+                      </tr>
+
+                      <tr className="border border-gray-300">
+                        <td className="p-3 border border-gray-300">
+                          <span className="font-semibold text-gray-900">
+                            Engage Respectfully:
+                          </span>{" "}
+                          Maintain respectful communication with potential
+                          referrals and avoid pressure tactics.
+                        </td>
+                        <td className="p-3 border border-gray-300">
+                          <span className="font-semibold text-gray-900">
+                            Do Not Engage in Harassment:
+                          </span>{" "}
+                          Refrain from aggressive or inappropriate behavior when
+                          communicating with potential referrals.
+                        </td>
+                      </tr>
+
+                      <tr className="border border-gray-300">
+                        <td className="p-3 border border-gray-300">
+                          <span className="font-semibold text-gray-900">
+                            Follow All Program Guidelines:
+                          </span>{" "}
+                          Adhere to the program rules and ensure your referrals
+                          are genuine members.
+                        </td>
+                        <td className="p-3 border border-gray-300">
+                          <span className="font-semibold text-gray-900">
+                            Do Not Exploit Points:
+                          </span>{" "}
+                          Points must be earned and redeemed according to
+                          program rules and cannot be exchanged for cash or
+                          transferred to others.
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
               </div>
             </div>
           </div>

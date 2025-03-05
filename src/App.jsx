@@ -52,6 +52,7 @@ import AllWidgetTsAndCs from "./pages/AllWidgetTsAndCs.jsx";
 import MySubscriptions from "./pages/MySubscriptions.jsx";
 import MyMembership from "./pages/MyMembership.jsx";
 import MyPayments from "./pages/MyPayments.jsx";
+import AllMembershipPackage from "./pages/AllMembershipPackage";
 function App() {
   const { token } = useContext(AppContext);
 
@@ -71,10 +72,12 @@ function App() {
           <Route path="/my-payments" element={<MyPayments />}></Route>
           <Route path="/payment" element={<HandlePayment />} />
           <Route path="/select-payment-method" element={<PaymentMethods />} />
-          <Route path="/api/paypal/complete-order" element={<PayPalSuccessPage />}/>
+          <Route
+            path="/api/paypal/complete-order"
+            element={<PayPalSuccessPage />}
+          />
           <Route path="/api/paypal/cancel-order/:token" element={<Failure />} />
           <Route path="/payment-success" element={<Success />} />
-
         </Routes>
       </div>
     </div>
@@ -89,6 +92,10 @@ function App() {
           <Route
             path="/widget-terms-and-conditions/:widget"
             element={<AllWidgetTsAndCs />}
+          />
+          <Route
+            path="/AllMembershipPackage/:membership"
+            element={<AllMembershipPackage />}
           />
           <Route path="/contact-us" element={<Contact />}></Route>
           <Route path="/estore" element={<Estore />}></Route>
@@ -171,4 +178,4 @@ function App() {
   );
 }
 
-export default App;
+export default App;

@@ -2,15 +2,14 @@ import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import ScrollToTop from "../components/ScrollToTop";
 import { TiArrowRight } from "react-icons/ti";
-import LaptopNetwork from "../assets/LaptopNetwork.png";
-import Directory from "../assets/Directory.svg";
-import SupportTwo from "../assets/SupportTwo.svg";
-import Events from "../assets/Events.svg";
+import LaptopBeehive from "../assets/LaptopBeehive.png";
+import lity from "../assets/lity.svg";
+import moneyTwo from "../assets/moneyTwo.svg";
+import Business from "../assets/Business.svg";
+import Reward from "../assets/Reward.svg";
 import WhatsApp from "../components/WhatsApp";
 
-import connection from "../assets/connection.svg";
-
-const Network = () => {
+const Estore = () => {
   return (
     <div>
       <Navbar />
@@ -27,22 +26,28 @@ const Network = () => {
                     <div className="flex items-center md:justify-start justify-center ">
                       <div className="h-4 w-1 bg-green-500"></div>
                       <h1 className="ml-2 font-bold text-green-500 lg:uppercase">
-                        LM CLUB Network
+                        LM CLUB Beehive
                       </h1>
                     </div>
 
                     <div className="lg:text-4xl text-2xl md:text-start text-center font-bold text-headingColor">
-                      <h1>Welcome to the LM Club Network Widget!</h1>
+                      <h1>LM Club Beehive Widget Onboarding Guide</h1>
                     </div>
 
                     <div className="text-gray-600 space-y-2 md:text-start text-center">
                       <p>
-                        This widget guides your journey and connects you to
-                        fellow club members, events, and exclusive resources
-                        right from your dashboard. Provides interest-based
-                        groups where members can collaborate and discuss
-                        specific topics. Join groups that match your interests
-                        to share resources, insights, and event updates.{" "}<a className="text-blue-500 underline cursor-pointer  hover:font-bold"  href={`/widget-terms-and-conditions/network`}>Please read Terms and conditions.</a>
+                        Beehive allows you to start earning redeemable points by
+                        sharing deals, coupons, and information you've
+                        discovered. Plus, receive exclusive offers and updates
+                        shared by other members. Connect with your community and
+                        enjoy unique deals from local restaurants, hotels,
+                        retailers, and more! .{" "}
+                        <a
+                          className="text-blue-500 underline cursor-pointer  hover:font-bold"
+                          href={`/widget-terms-and-conditions/beehive`}
+                        >
+                          Please read Terms and conditions.
+                        </a>
                       </p>
                     </div>
 
@@ -64,7 +69,7 @@ const Network = () => {
                   <div className="flex justify-center items-center lg:pt-0 pt-4">
                     <div>
                       <img
-                        src={LaptopNetwork}
+                        src={LaptopBeehive}
                         className="rounded w-auto h-auto"
                       />
                     </div>
@@ -75,37 +80,40 @@ const Network = () => {
                   <div>
                     <h2 className="lg:text-4xl text-2xl font-bold text-trumpTwo">
                       Key Features of the LM Club
-                      <br className="lg:block hidden" /> Network
+                      <br className="lg:block hidden" /> Beehive
                     </h2>
                   </div>
                   <div className="space-y-3">
                     <p className="text-gray-600">
-                      Browse the member directory to find connections and start
-                      building your LM Club network. RSVP to Events Check out
-                      the upcoming events and add them to your calendar.
+                      Unlock Broadcast to start earning points by sharing
+                      promotions from local businesses on your social media.
+                      Each time you share, you’ll earn points redeemable in our
+                      rewards center.
                     </p>
                   </div>
                 </div>
 
-                <div className="grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-4 pt-8">
+                <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-4 pt-8">
                   <div className="flex md:justify-start justify-center">
                     <div className="w-full bg-white rounded p-6">
                       <div className="space-y-3">
                         <div className="flex justify-start items-center">
                           <img
-                            src={Directory}
+                            src={Business}
                             className="flex justify-center items-center w-12 h-12  "
                           ></img>
                         </div>
 
                         <div className="flex justify-start items-center">
                           <h1 className="text-2xl text-trumpTwo font-bold text-start">
-                            Member Directory
+                            Promote a Business
                           </h1>
                         </div>
                         <div className="flex justify-start items-center text-gray-600 ">
                           <p>
-                            Lists all LM Club members available for networking.
+                            Easily enroll businesses with a marketing fillable
+                            template that generates a custom URL for their
+                            promotions.
                           </p>
                         </div>
                       </div>
@@ -117,66 +125,47 @@ const Network = () => {
                       <div className="space-y-3">
                         <div className="flex justify-start items-center">
                           <img
-                            src={Events}
+                            src={Reward}
                             className="flex justify-center items-center w-12 h-12  "
                           ></img>
                         </div>
 
                         <div className="flex justify-start items-center">
                           <h1 className="text-2xl text-trumpTwo font-bold text-start">
-                            Events Section
-                          </h1>
-                        </div>
-                        <div className="flex justify-start items-center text-gray-600 ">
-                          <p>Shows upcoming club events and RSVP options.</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="flex md:justify-start justify-center">
-                    <div className="w-full bg-white rounded p-6">
-                      <div className="space-y-3">
-                        <div className="flex justify-start items-center">
-                          <img
-                            src={SupportTwo}
-                            className="flex justify-center items-center w-12 h-12  "
-                          ></img>
-                        </div>
-
-                        <div className="flex justify-start items-center">
-                          <h1 className="text-2xl text-trumpTwo font-bold text-start">
-                            Messaging and Chats
+                            Redeeming Reward Points
                           </h1>
                         </div>
                         <div className="flex justify-start items-center text-gray-600 ">
                           <p>
-                            Enables direct messaging and group chats within the
-                            club.
+                            Accumulate points and redeem them for rewards such
+                            as gift cards, discounts, or exclusive offers. Once
+                            points have been redeemed the accumulated points
+                            reset to Zero.
                           </p>
                         </div>
                       </div>
                     </div>
                   </div>
+
                   <div className="flex md:justify-start justify-center">
                     <div className="w-full bg-white rounded p-6">
                       <div className="space-y-3">
                         <div className="flex justify-start items-center">
                           <img
-                            src={connection}
+                            src={moneyTwo}
                             className="flex justify-center items-center w-12 h-12  "
                           ></img>
                         </div>
 
                         <div className="flex justify-start items-center">
                           <h1 className="text-2xl text-trumpTwo font-bold text-start">
-                            Community Groups
+                            Exclusive Perks from Local Businesses
                           </h1>
                         </div>
                         <div className="flex justify-start items-center text-gray-600 ">
                           <p>
-                            Provides interest-based groups where members can
-                            collaborate and discuss specific topics.
+                            Some participating businesses offer additional perks
+                            to members who help promote their brand.
                           </p>
                         </div>
                       </div>
@@ -184,33 +173,120 @@ const Network = () => {
                   </div>
                 </div>
                 <div>
-  <h2 className="text-xl font-semibold mt-6" style={{ color: "#1a1a1a" }}>Do's and Don’ts</h2>
-
-  <h3 className="font-semibold mt-4" style={{ color: "#1a1a1a" }}>Do’s</h3>
-  <p className="mt-2"></p>
-  <ul className="list-decimal list-inside ml-6 mt-2 text-gray-600">
-    <li><span className="font-semibold" style={{ color: "#1a1a1a" }}>Complete Your Profile:</span> Add a profile picture, interests, and professional background to help others connect with you meaningfully.</li>
-    <li><span className="font-semibold" style={{ color: "#1a1a1a" }}>Engage Respectfully:</span> Maintain a professional and courteous tone when interacting with other members.</li>
-    <li><span className="font-semibold" style={{ color: "#1a1a1a" }}>Join Community Groups:</span> Participate in discussions and share resources in groups that align with your interests and goals.</li>
-    <li><span className="font-semibold" style={{ color: "#1a1a1a" }}>RSVP to Events:</span> Take advantage of the events section to engage with club activities and build connections.</li>
-    <li><span className="font-semibold" style={{ color: "#1a1a1a" }}>Use Messaging Responsibly:</span> Use the messaging feature for productive and respectful communication with other members.</li>
-    <li><span className="font-semibold" style={{ color: "#1a1a1a" }}>Stay Updated:</span> Regularly check the network for updates on events, discussions, and resources.</li>
-  </ul>
-
-  <h3 className="font-semibold mt-4" style={{ color: "#1a1a1a" }}>Don’ts</h3>
-  <p className="mt-2"></p>
-  <ul className="list-decimal list-inside ml-6 mt-2 text-gray-600">
-    <li><span className="font-semibold" style={{ color: "#1a1a1a" }}>Do Not Spam:</span> Avoid sending unsolicited or irrelevant messages to other members.</li>
-    <li><span className="font-semibold" style={{ color: "#1a1a1a" }}>Do Not Share Inappropriate Content:</span> Refrain from posting offensive, discriminatory, or harmful content in any section of the widget.</li>
-    <li><span className="font-semibold" style={{ color: "#1a1a1a" }}>Do Not Misuse Information:</span> Respect the privacy of other members and do not use their contact details for purposes outside the LM Club network.</li>
-    <li><span className="font-semibold" style={{ color: "#1a1a1a" }}>Do Not Advertise Without Permission:</span> Avoid promoting external businesses or services unless explicitly permitted by LM Club policies.</li>
-    <li><span className="font-semibold" style={{ color: "#1a1a1a" }}>Do Not Engage in Harassment:</span> Harassing, bullying, or threatening behavior towards other members is strictly prohibited.</li>
-    <li><span className="font-semibold" style={{ color: "#1a1a1a" }}>Do Not Share False Information:</span> Ensure that the information you share is accurate and truthful.</li>
-  </ul>
-</div>
-
-
-               
+                  <h2 className="text-3xl text-center font-semibold mt-6 text-green-600">
+                    Do's and Don’ts
+                  </h2>
+                  <table className="w-full border-collapse border border-gray-300 mt-6">
+                    <thead>
+                      <tr className="bg-green-100">
+                        <th className="border border-gray-300 px-4 py-2 text-left text-green-600 text-xl">
+                          Do’s
+                        </th>
+                        <th className="border border-gray-300 px-4 py-2 text-left text-green-600 text-xl">
+                          Don’ts
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody className="text-gray-600">
+                      <tr>
+                        <td className="border border-gray-300 px-4 py-2">
+                          <span className="font-semibold text-black">
+                            Share Authentic Information:
+                          </span>{" "}
+                          Ensure that the deals, coupons, or information you
+                          share are accurate and valid.
+                        </td>
+                        <td className="border border-gray-300 px-4 py-2">
+                          <span className="font-semibold text-black">
+                            Do Not Share Misleading Content:
+                          </span>{" "}
+                          Refrain from posting false or outdated deals, coupons,
+                          or offers.
+                        </td>
+                      </tr>
+                      <tr>
+                        <td className="border border-gray-300 px-4 py-2">
+                          <span className="font-semibold text-black">
+                            Respect Community Guidelines:
+                          </span>{" "}
+                          Engage respectfully with other members, maintaining a
+                          positive and constructive tone.
+                        </td>
+                        <td className="border border-gray-300 px-4 py-2">
+                          <span className="font-semibold text-black">
+                            Do Not Engage in Inappropriate Behavior:
+                          </span>{" "}
+                          Avoid offensive language, spamming, or harassing other
+                          members.
+                        </td>
+                      </tr>
+                      <tr>
+                        <td className="border border-gray-300 px-4 py-2">
+                          <span className="font-semibold text-black">
+                            Redeem Points Responsibly:
+                          </span>{" "}
+                          Redeem accumulated points for rewards such as gift
+                          cards or discounts through authorized channels.
+                        </td>
+                        <td className="border border-gray-300 px-4 py-2">
+                          <span className="font-semibold text-black">
+                            Do Not Exploit the System:
+                          </span>{" "}
+                          Attempting to manipulate or exploit the points system
+                          is strictly prohibited.
+                        </td>
+                      </tr>
+                      <tr>
+                        <td className="border border-gray-300 px-4 py-2">
+                          <span className="font-semibold text-black">
+                            Keep Contact Information Updated:
+                          </span>{" "}
+                          Ensure your phone number or email address is current
+                          for receiving updates and notifications.
+                        </td>
+                        <td className="border border-gray-300 px-4 py-2">
+                          <span className="font-semibold text-black">
+                            Do Not Share Unauthorized Content:
+                          </span>{" "}
+                          Only share deals or information you are authorized to
+                          post.
+                        </td>
+                      </tr>
+                      <tr>
+                        <td className="border border-gray-300 px-4 py-2">
+                          <span className="font-semibold text-black">
+                            Report Issues:
+                          </span>{" "}
+                          Notify LM Club support if you encounter invalid deals,
+                          inappropriate content, or technical issues.
+                        </td>
+                        <td className="border border-gray-300 px-4 py-2">
+                          <span className="font-semibold text-black">
+                            Do Not Violate Privacy:
+                          </span>{" "}
+                          Avoid sharing private information about businesses,
+                          members, or third parties without consent.
+                        </td>
+                      </tr>
+                      <tr>
+                        <td className="border border-gray-300 px-4 py-2">
+                          <span className="font-semibold text-black">
+                            Follow Activation Steps:
+                          </span>{" "}
+                          Complete all onboarding steps, including reviewing and
+                          accepting these Terms and Conditions.
+                        </td>
+                        <td className="border border-gray-300 px-4 py-2">
+                          <span className="font-semibold text-black">
+                            Do Not Use the Platform for Illegal Activities:
+                          </span>{" "}
+                          The Beehive Widget must not be used for any unlawful
+                          purposes.
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
               </div>
             </div>
           </div>
@@ -222,4 +298,4 @@ const Network = () => {
   );
 };
 
-export default Network;
+export default Estore;
