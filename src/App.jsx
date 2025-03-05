@@ -73,6 +73,8 @@ function App() {
           <Route path="/select-payment-method" element={<PaymentMethods />} />
           <Route path="/api/paypal/complete-order" element={<PayPalSuccessPage />}/>
           <Route path="/api/paypal/cancel-order/:token" element={<Failure />} />
+          <Route path="/payment-success" element={<Success />} />
+
         </Routes>
       </div>
     </div>
@@ -169,4 +171,4 @@ function App() {
   );
 }
 
-export default App;
+export default App;

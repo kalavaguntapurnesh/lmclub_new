@@ -18,20 +18,28 @@ const PaymentMethods = () => {
   const navigate = useNavigate();
   const { userData, selectedPlan, isYearly } = location.state || {};
 
-    console.log(userData, selectedPlan);
-    // console.log(isYearly);
-    
-const registrationFee = parseFloat(
-  selectedPlan.planDescription.match(/\$\d+(\.\d{2})?/)?.[0].replace("$", "") || "0"
-);
+  console.log(userData, selectedPlan);
+  // console.log(isYearly);
 
-const cartItem = {
-  id: selectedPlan._id,
-  name: selectedPlan.planName,
-  description: selectedPlan.planDescription || "No description available",
-  quantity: 1, 
-  price:  (parseFloat(selectedPlan.planAmount) + registrationFee).toFixed(2),
-};
+  const registrationFee = parseFloat(
+    selectedPlan.planDescription
+      .match(/\$\d+(\.\d{2})?/)?.[0]
+      .replace("$", "") || "0"
+  );
+
+  const cartItem = {
+    id: selectedPlan._id,
+    name: selectedPlan.planName,
+    description: selectedPlan.planDescription || "No description available",
+    quantity: 1,
+    price: (
+      parseFloat(
+        isYearly ? 12 * selectedPlan.planAmount : selectedPlan.planAmount
+      ) + registrationFee
+    ).toFixed(2),
+    plan: isYearly ? "Yearly" : "Monthly",
+    userMail: userData.email,
+  };
 
   const style = document.createElement("style");
   style.innerHTML = `
@@ -78,8 +86,6 @@ const cartItem = {
     }
   };
 
-
-
   const handlePaypalCheckout = async () => {
     try {
       console.log("Sending cartItem:", cartItem);
@@ -101,7 +107,6 @@ const cartItem = {
       if (data?.approval_url) {
         console.log("Redirecting to PayPal:", data.approval_url);
         window.location.href = data.approval_url;
-
       } else {
         console.error("PayPal Error: No approval URL found", data);
       }

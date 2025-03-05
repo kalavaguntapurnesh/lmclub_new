@@ -305,7 +305,7 @@ const AboutTwo = () => {
                       initial="hidden"
                       whileInView="show"
                       viewport={{ once: true, amount: 0.5 }}
-                      className="relative inset-0 z-0 overflow-hidden rounded aspect-[4/3]"
+                      className="relative inset-0 z-0 overflow-hidden rounded md:w-[480px] md:h-[480px] h-auto w-auto"
                     >
                       {/* Image with full overlay */}
                       <div className="absolute inset-0 bg-black bg-opacity-10"></div>
@@ -350,7 +350,7 @@ const AboutTwo = () => {
                       initial="hidden"
                       whileInView="show"
                       viewport={{ once: true, amount: 0.5 }}
-                      className="relative inset-0 z-0 overflow-hidden rounded aspect-[4/3]"
+                      className="relative inset-0 z-0 overflow-hidden rounded md:w-[480px] md:h-[480px] h-auto w-auto"
                     >
                       {/* Image with full overlay */}
                       <div className="absolute inset-0 bg-black bg-opacity-10"></div>

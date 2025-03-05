@@ -176,13 +176,13 @@ const Contact = () => {
                   </div>
                 </div>
 
-                <div className="w-[100%]">
+                <div id="world_component" className="w-[100%] relative">
                   <div className="pt-2">
-                    <div className="w-full">
+                    <div className="w-full relative">
                       <a
                         href="https://www.bing.com/maps?where=7778%20McGinnis%20Ferry%20Rd%2C%20PMB%20162%2C%20Suwanee%2C%20Georgia%2030024%2C%20US"
                         id="world-map"
-                        className="relative"
+                        className="relative block"
                       >
                         <img
                           src={World}

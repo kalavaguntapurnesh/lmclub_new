@@ -231,7 +231,7 @@ const PayPalSuccessPage = () => {
           // onClick={() => navigate(-1)}
           className="px-6 py-3 bg-gray-600 text-white rounded-lg cursor-pointer hover:bg-gray-700 transition mt-3"
         >
-          <Link to="/my-subscription">Go Back</Link>
+          <Link to="/dashboard">Go To Dashboard</Link> 
         </button>
       </div>
     </div>

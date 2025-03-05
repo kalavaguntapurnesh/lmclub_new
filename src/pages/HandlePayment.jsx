@@ -11,28 +11,29 @@ const public_stripe_key =
 import { AppContext } from "../context/AppContext";
 import { useLocation } from "react-router-dom";
 const HandlePayment = () => {
-  
   const { backendUrl } = useContext(AppContext);
   const navigate = useNavigate();
   const location = useLocation();
-    const { userData, selectedPlan, isYearly } = location.state || {};
+  const { userData, selectedPlan, isYearly } = location.state || {};
 
-    console.log(userData, selectedPlan);
-    // console.log(isYearly);
-    
-const registrationFee = parseFloat(
-  selectedPlan.planDescription.match(/\$\d+(\.\d{2})?/)?.[0].replace("$", "") || "0"
-);
+  console.log(userData, selectedPlan);
+  // console.log(isYearly);
 
-const cartItem = {
-  id: selectedPlan._id,
-  name: selectedPlan.planName,
-  description: selectedPlan.planDescription || "No description available",
-  quantity: 1, 
-  price: selectedPlan.planAmount, 
-};
+  const registrationFee = parseFloat(
+    selectedPlan.planDescription
+      .match(/\$\d+(\.\d{2})?/)?.[0]
+      .replace("$", "") || "0"
+  );
 
-console.log("cart items: ",cartItem);
+  const cartItem = {
+    id: selectedPlan._id,
+    name: selectedPlan.planName,
+    description: selectedPlan.planDescription || "No description available",
+    quantity: 1,
+    price: isYearly ? 12 * selectedPlan.planAmount : selectedPlan.planAmount,
+  };
+
+  console.log("cart items: ", cartItem);
 
   const [isChecked, setIsChecked] = useState(false);
   const style = document.createElement("style");
@@ -131,7 +132,9 @@ console.log("cart items: ",cartItem);
       return;
     }
 
-    navigate("/select-payment-method", { state: { userData, selectedPlan, isYearly } });
+    navigate("/select-payment-method", {
+      state: { userData, selectedPlan, isYearly },
+    });
   };
 
   // extracting registration fee from description
@@ -143,8 +146,7 @@ console.log("cart items: ",cartItem);
 
   return (
     <div className="w-full flex items-center justify-center min-h-screen px-4 bg-gray-100">
-    <div className="max-w-[1000px] w-full mx-auto h-auto flex flex-col items-center justify-center shadow-xl text-center gap-4 bg-gray-300 p-6 rounded-lg">
-  
+      <div className="max-w-[1000px] w-full mx-auto h-auto flex flex-col items-center justify-center shadow-xl text-center gap-4 bg-gray-300 p-6 rounded-lg">
         <h1 className="lg:text-4xl text-3xl font-semibold">
           Your Payment Details
         </h1>
@@ -159,22 +161,25 @@ console.log("cart items: ",cartItem);
               </tr>
             </thead>
             <tbody>
-            
-                <tr
-                  className="border border-gray-300 text-center bg-blue-200"
-                >
-                  <td className="p-3 text-left">{selectedPlan.planName} Membership</td>
-                  <td className="p-3 text-left">{isYearly? "Year": "Month"}</td>
-                  <td className="p-3 text-left">${selectedPlan.planAmount}</td>
-                </tr>
-              
+              <tr className="border border-gray-300 text-center bg-blue-200">
+                <td className="p-3 text-left">
+                  {selectedPlan.planName} Membership
+                </td>
+                <td className="p-3 text-left">{isYearly ? "Year" : "Month"}</td>
+                <td className="p-3 text-left">
+                  $
+                  {isYearly
+                    ? 12 * selectedPlan.planAmount
+                    : selectedPlan.planAmount}
+                </td>
+              </tr>
 
               {/* Registration Fee Row */}
               <tr className="border border-gray-300 text-center bg-gray-200">
                 <td className="p-3 text-left ">Registration Fee</td>
                 <td className="p-3 text-left">Annual</td>
 
-                <td className="p-3 text-left font-semibold text-red-600 font-semibold">
+                <td className="p-3 text-left font-semibold text-red-600 ">
                   ${registrationFee}
                 </td>
               </tr>
@@ -185,8 +190,14 @@ console.log("cart items: ",cartItem);
                 <td className="p-3"></td>
 
                 <td className="p-3 text-left text-green-700 font-bold">
-                  ${(parseFloat(selectedPlan.planAmount) + registrationFee).toFixed(2)}
-                 
+                  $
+                  {(
+                    parseFloat(
+                      isYearly
+                        ? 12 * selectedPlan.planAmount
+                        : selectedPlan.planAmount
+                    ) + registrationFee
+                  ).toFixed(2)}
                 </td>
               </tr>
             </tbody>
@@ -194,44 +205,51 @@ console.log("cart items: ",cartItem);
         </div>
 
         <div className="cart-summary mt-4 text-center">
-            <div className="flex items-start items-center mb-3">
-              <div className="flex items-center h-5">
-                <input
-                  id="terms"
-                  aria-describedby="terms"
-                  type="checkbox"
-                  checked={isChecked}
-                  onChange={() => setIsChecked(!isChecked)}
-                  className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300  cursor-pointer"
-                  required
-                ></input>
-              </div>
-              <div className="ml-3 text-sm">
-                <label
-                  htmlFor="terms"
-                  className="font-light text-gray-500 text-lg"
-                >
-                  I accept the payment{" "}
-                  <a
-                    className="font-medium text-gray-600 hover:underline hover:text-green-600 dark:text-primary-500"
-                    href="/terms-and-conditions"
-                  >
-                    Terms and Conditions
-                  </a>{" "}
-                  and{" "}
-                  <a
-                    className="font-medium text-gray-600 hover:underline hover:text-green-600 dark:text-primary-500"
-                    href="/refund-and-return-policy"
-                  >
-                    Refund and Returns Policy
-                  </a>
-                </label>
-              </div>
+          <div className="flex items-start items-center mb-3">
+            <div className="flex items-center h-5">
+              <input
+                id="terms"
+                aria-describedby="terms"
+                type="checkbox"
+                checked={isChecked}
+                onChange={() => setIsChecked(!isChecked)}
+                className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300  cursor-pointer"
+                required
+              ></input>
             </div>
-            <p className="text-2xl  font-semibold text-gray-800">
-              Total Payable Amount: ${(parseFloat(selectedPlan.planAmount) + registrationFee).toFixed(2)}
-            </p>
+            <div className="ml-3 text-sm">
+              <label
+                htmlFor="terms"
+                className="font-light text-gray-500 text-lg"
+              >
+                I accept the payment{" "}
+                <a
+                  className="font-medium text-gray-600 hover:underline hover:text-green-600 dark:text-primary-500"
+                  href="/terms-and-conditions"
+                >
+                  Terms and Conditions
+                </a>{" "}
+                and{" "}
+                <a
+                  className="font-medium text-gray-600 hover:underline hover:text-green-600 dark:text-primary-500"
+                  href="/refund-and-return-policy"
+                >
+                  Refund and Returns Policy
+                </a>
+              </label>
+            </div>
           </div>
+          <p className="text-2xl  font-semibold text-gray-800">
+            Total Payable Amount: $
+            {(
+              parseFloat(
+                isYearly
+                  ? 12 * selectedPlan.planAmount
+                  : selectedPlan.planAmount
+              ) + registrationFee
+            ).toFixed(2)}
+          </p>
+        </div>
         <div className="flex justify-between w-full mt-6">
           <button
             onClick={() => navigate(-1)}
