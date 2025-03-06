@@ -22,9 +22,14 @@ const MyPayments = () => {
             headers: { token },
           }
         );
-        setSubscriptions(response.data.payments);
+
+        if (response.data.payments && response.data.payments.length > 0) {
+          setSubscriptions(response.data.payments);
+        } else {
+          setSubscriptions([]);
+        }
+        setError(null);
       } catch (error) {
-        setError("Failed to fetch plans");
         console.log(error);
       } finally {
         setLoading(false);
@@ -108,7 +113,10 @@ const MyPayments = () => {
                             </td>
 
                             <td className="border text-center font-medium border-gray-300 px-4 py-2 text-gray-700">
-                            {subscription.paymentMethod !== "PayPal" ? subscription.transactionId.substring(0, 18) + "****" : subscription.transactionId}
+                              {subscription.paymentMethod !== "PayPal"
+                                ? subscription.transactionId.substring(0, 18) +
+                                  "****"
+                                : subscription.transactionId}
                             </td>
 
                             <td className="border text-center font-medium border-gray-300 px-4 py-2 text-gray-700">
@@ -147,7 +155,7 @@ const MyPayments = () => {
                         {subscriptions.length === 0 && (
                           <tr>
                             <td colSpan={6} className="text-center py-4">
-                              No Subscriptions Found
+                              Your Payment History is Empty.
                             </td>
                           </tr>
                         )}

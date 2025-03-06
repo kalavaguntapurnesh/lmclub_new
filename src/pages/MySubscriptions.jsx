@@ -5,7 +5,7 @@ import axios from "axios";
 const MySubscriptions = () => {
   const { userData, token, backendUrl } = useContext(AppContext);
 
-  const [subscriptions, setSubscriptions] = useState(null);
+  const [subscription, setSubscription] = useState(null);
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -20,9 +20,17 @@ const MySubscriptions = () => {
             headers: { token },
           }
         );
-        setSubscriptions(response.data.combinedData);
+
+        if (response.data.combinedData) {
+          setSubscription(response.data.combinedData);
+          // console.log(
+          //   "The subscription of user is : ",
+          //   response.data.combinedData
+          // );
+        } else {
+          setSubscription(null);
+        }
       } catch (error) {
-        setError("Failed to fetch plans");
         console.log(error);
       } finally {
         setLoading(false);
@@ -78,35 +86,35 @@ const MySubscriptions = () => {
                         </tr>
                       </thead>
                       <tbody>
-                        {subscriptions ? (
+                        {subscription ? (
                           <tr
-                            key={subscriptions._id}
+                            key={subscription._id}
                             className="hover:bg-gray-100"
                           >
                             <td className="border text-center font-medium border-gray-300 px-4 py-2 text-gray-700">
                               <div className="flex flex-row items-center justify-center gap-2 w-[100%]">
                                 <img
-                                  src={subscriptions.image}
-                                  alt={subscriptions.image}
+                                  src={subscription.image}
+                                  alt={subscription.image}
                                   className="w-[48px] h-[48px] rounded-full"
                                 />
-                                <div>{subscriptions.planName}</div>
+                                <div>{subscription.planName}</div>
                               </div>
                             </td>
 
                             <td className="border text-center font-medium border-gray-300 px-4 py-2 text-gray-700">
-                              {subscriptions.widgets.map((item, index) => (
+                              {subscription.widgets.map((item, index) => (
                                 <p key={index}>{item}</p>
                               ))}
                             </td>
 
                             <td className="border text-center font-medium uppercase border-gray-300 px-4 py-2 text-gray-700">
-                              {subscriptions.subscriptionType}
+                              {subscription.subscriptionType}
                             </td>
 
                             <td className="border text-center font-medium border-gray-300 px-4 py-2 text-gray-700">
                               {new Date(
-                                subscriptions.startDate
+                                subscription.startDate
                               ).toLocaleDateString("en-DB", {
                                 day: "numeric",
                                 month: "long",
@@ -116,7 +124,7 @@ const MySubscriptions = () => {
 
                             <td className="border text-center font-medium border-gray-300 px-4 py-2 text-gray-700">
                               {new Date(
-                                subscriptions.endDate
+                                subscription.endDate
                               ).toLocaleDateString("en-DB", {
                                 day: "numeric",
                                 month: "long",
@@ -125,13 +133,13 @@ const MySubscriptions = () => {
                             </td>
 
                             <td className="border text-center font-medium border-gray-300 px-4 py-2 text-gray-700">
-                              {subscriptions.autoRenew ? "Yes" : "No"}
+                              {subscription.autoRenew ? "Yes" : "No"}
                             </td>
 
                             <td className="border text-center font-medium border-gray-300 px-4 py-2 text-gray-700 uppercase">
                               <div className="flex flex-row items-center w-[100%] justify-center gap-2">
                                 <div className="h-2 w-2 rounded-full bg-green-500"></div>
-                                <div>{subscriptions.subscriptionStatus}</div>
+                                <div>{subscription.subscriptionStatus}</div>
                               </div>
                             </td>
                           </tr>
