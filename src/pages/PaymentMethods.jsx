@@ -61,7 +61,9 @@ const PaymentMethods = () => {
   const handleCheckout = async () => {
     try {
       const stripe = await loadStripe(public_stripe_key);
-
+      localStorage.setItem("userData", JSON.stringify(userData));
+      localStorage.setItem("selectedPlan", JSON.stringify(selectedPlan));
+      localStorage.setItem("isYearly", JSON.stringify(isYearly));
       console.log("Sending cart items:", JSON.stringify(cartItem, null, 2));
       const response = await fetch(
         backendUrl + "/api/user/create-stripe-session",

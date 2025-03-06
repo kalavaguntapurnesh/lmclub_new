@@ -264,7 +264,7 @@ const Pricing = () => {
                               </li>
                             ))}
                           </ul>
-                          <div className="flex space-x-4">
+                          <div className="flex justify-between">
                             <a
                               onClick={() =>
                                 navigate(`/AllMembershipPackage/${plan.name}`)

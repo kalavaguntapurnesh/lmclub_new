@@ -59,6 +59,7 @@ const PayPalSuccessPage = () => {
   useEffect(() => {
     if (paymentDetails && !flag) {
       handleStoringPaymentDetails();
+
     }
   }, [paymentDetails, flag]);
   
@@ -106,6 +107,9 @@ const PayPalSuccessPage = () => {
   useEffect(() => {
     if (payments.length > 0) {
       handleSubscriptionDetails();
+      localStorage.removeItem("userData");
+      localStorage.removeItem("selectedPlan");
+      localStorage.removeItem("isYearly");
     }
   }, [payments]);
   

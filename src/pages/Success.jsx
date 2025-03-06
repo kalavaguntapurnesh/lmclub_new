@@ -17,10 +17,11 @@ const Success = () => {
   const [payments, setPayments] = useState([]);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
+
   const userData = JSON.parse(localStorage.getItem("userData"));
   const selectedPlan = JSON.parse(localStorage.getItem("selectedPlan"));
   const isYearly = JSON.parse(localStorage.getItem("isYearly"));
-
+console.log(userData);
   //  Fetch Transaction Details
 
   const fetchTransactionDetails = async () => {
@@ -103,6 +104,9 @@ const Success = () => {
 
       console.log("Subscription details saved successfully:", response.data);
       clearCart();
+      localStorage.removeItem("userData");
+      localStorage.removeItem("selectedPlan");
+      localStorage.removeItem("isYearly");
     } catch (error) {
       console.error("Error while storing subscription details into DB:", error);
     }
@@ -111,6 +115,8 @@ const Success = () => {
   useEffect(() => {
     fetchTransactionDetails();
   }, []);
+
+
 
 
   return (

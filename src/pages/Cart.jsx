@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import Logo from "../assets/LMDark.webp";
 import { useNavigate } from "react-router-dom";
-
+import Swal from "sweetalert2";
 const Cart = () => {
   const {
     items,
@@ -19,7 +19,51 @@ const Cart = () => {
   console.log("Cart items:", items);
   console.log(items.name);
   const [flag, setFlag] = useState(false);
+  const style = document.createElement("style");
+  style.innerHTML = `
+    .swal-custom-ok-button {
+      background-color:rgb(27, 202, 103); /* Custom color */
+      color:white;
+      border: none;
+      padding: 10px 20px;
+      font-size: 16px;
+      border-radius: 5px;
+    }
+
+    .swal-custom-ok-button:hover {
+      background-color:rgb(18, 91, 25); /* Hover color */
+    }
+  `;
+  document.head.appendChild(style);
   const handlePaymentClick = () => {
+        Swal.fire({
+              html: `
+                    <div style="display: flex; flex-direction: column; align-items: center;">
+                         <div style="width: 100%; display: flex; align-items: center; justify-content: center; position: relative; margin-bottom: 20px;">
+                             <img src="${Logo}" alt="Logo" 
+                                  style="position: absolute; top: 0; left: 0; width: 50px; height: 50px; margin: 10px;" />
+                                                
+                                   <h4 style="margin: 0; font-size: 30px; font-weight: bold;">
+                                       <span style="color: black;">LM</span>
+                                       <span style="color: rgb(37, 218, 73);">Club</span>
+                                   </h4>
+                         </div>
+                  
+                        <div style="text-align: center; font-size: 22px;  color: #333; margin-bottom: 20px;">
+                         <p>You haven't logged in. </p>
+                       </div> 
+                       <div style=" ;">
+                          <a href="https://www.lmclub.club/login" style="display: inline-block; padding: 14px 20px; background-color: green; color: white; text-decoration: none; border-radius: 5px; font-size: 16px; font-weight: bold; text-align: center;">Please Login</a>
+                        </div>
+                    </div>
+                   `,
+                   showConfirmButton: false,
+              // customClass: {
+              //   confirmButton: "swal-custom-ok-button",
+                
+              // },
+            });
+    
     setFlag(!flag);
   };
   const location = useLocation();
@@ -148,11 +192,12 @@ const Cart = () => {
                   Would you like to explore more Plans
                 </button>
                 <button
-                  // onClick={handlePaymentClick}
+                  onClick={handlePaymentClick}
 
                   className="pay-button mt-4 lg:w-1/3 bg-blue-500 text-white py-2 rounded-md hover:bg-blue-400 transition-colors"
                 >
-                  <Link to="/payment">Proceed to Payment</Link>
+                  Proceed to Payment
+                  {/* <Link to="/payment">Proceed to Payment</Link> */}
                 </button>
               </div>
             </div>
