@@ -108,7 +108,7 @@ const MyPayments = () => {
                             </td>
 
                             <td className="border text-center font-medium border-gray-300 px-4 py-2 text-gray-700">
-                              {subscription.transactionId}
+                            {subscription.paymentMethod !== "PayPal" ? subscription.transactionId.substring(0, 18) + "****" : subscription.transactionId}
                             </td>
 
                             <td className="border text-center font-medium border-gray-300 px-4 py-2 text-gray-700">

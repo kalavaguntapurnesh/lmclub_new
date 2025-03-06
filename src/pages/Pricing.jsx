@@ -41,6 +41,7 @@ const Pricing = () => {
       description: "Registration fee is $20.00 / Yearly",
       renewalFee: "Yearly renewal fee $20.00 / Yearly",
       price: isYearly ? 12 * 5.99 : 5.99,
+      originalPrice : isYearly ? 12 * 7.99 : 7.99,
       points: [
         "Make a post get 25 likes and earn 5 points",
         "Promote a business earn 5 points",
@@ -55,6 +56,7 @@ const Pricing = () => {
       description: "Registration fee is $25.00 / Yearly",
       renewalFee: "Yearly renewal fee $25.00 / Yearly",
       price: isYearly ? 12 * 8.99 : 8.99,
+      originalPrice : isYearly ? 12 * 10.99 : 10.99,
       points: [
         "Make a post get 25 likes earn 10 points",
         "Promote a business earn 10 points",
@@ -69,6 +71,7 @@ const Pricing = () => {
       description: "Registration fee is $30.00 / Yearly",
       renewalFee: "Yearly renewal fee $30.00 / Yearly",
       price: isYearly ? 12 * 11.99 : 11.99,
+      originalPrice : isYearly ? 12 * 14.99 : 14.99,
       points: [
         "Make a post get 25 likes earn 15 points",
         "Promote a business earn 15 points",
@@ -83,6 +86,7 @@ const Pricing = () => {
       description: "Registration fee is $35.00 / Yearly",
       renewalFee: "Yearly renewal fee $35.00 / Yearly",
       price: isYearly ? 12 * 14.99 : 14.99,
+      originalPrice : isYearly ? 12 * 19.99 : 19.99,
       points: [
         "Make a post get 25 likes earn 20 points",
         "Promote a business earn 20 points",
@@ -233,14 +237,27 @@ const Pricing = () => {
                           </h3>
                           <p className="text-gray-600">{plan.description}</p>
                           <div className="flex justify-center items-baseline my-8">
-                            <span className="mr-2 text-4xl font-bold">
+                          <span className="mr-2 text-3xl font-bold">
                               {/* ${isYearly ? plan.price * 12 : plan.price} */}
-                              {plan.price}
+                              $ {plan.price}
+                            </span>
+                            <span className="mr-2 text-2xl font-bold line-through ">
+                              {/* ${isYearly ? plan.price * 12 : plan.price} */}
+                              {plan.originalPrice}
                             </span>
                             <span className="text-gray-500 ">
                               / {isYearly ? "year" : "month"}
                             </span>
                           </div>
+
+                          {/* <div className="flex justify-center items-baseline mb-8 mt-2">
+                            <span className="mr-2 text-4xl font-bold">
+                              {plan.price}
+                            </span>
+                            <span className="text-gray-500 ">
+                              / {isYearly ? "year" : "month"}
+                            </span>
+                          </div> */}
 
                           <ul role="list" className="mb-8 space-y-4 text-left">
                             {plan.points.map((point, index) => (

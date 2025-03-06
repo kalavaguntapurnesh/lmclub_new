@@ -469,11 +469,17 @@ const MyMembership = () => {
   const { userData, setUserData, token, backendUrl, loadUserProfileData } =
     useContext(AppContext);
   const navigate = useNavigate();
-  const [isYearly, setYearly] = useState(false);
-  const handleToggle = () => {
-    setYearly((prev) => !prev);
-  };
+  // const [isYearly, setYearly] = useState(false);
 
+  const [toggleStates, setToggleStates] = useState({});
+
+  const handleToggle = (planId) => {
+    setToggleStates((prev) => ({
+      ...prev,
+      [planId]: !prev[planId],
+    }))
+  };
+  const isYearly = Object.values(toggleStates).some((state) => state);
   console.log(isYearly);
 
   const [plans, setPlans] = useState([]);
@@ -549,7 +555,7 @@ const MyMembership = () => {
                           Name
                         </th>
                         <th className="border font-bold border-gray-300 px-4 py-2">
-                          Monthly Price
+                        Monthly Price
                         </th>
                         <th className="border font-bold border-gray-300 px-4 py-2">
                           Description
@@ -579,7 +585,8 @@ const MyMembership = () => {
                             {plan.planName}
                           </td>
                           <td className="border text-center  border-gray-300 px-4 py-2 text-zinc-600 text-sm">
-                            ${plan.planAmount}
+                          {/* ${toggleStates[plan._id] ? 12 * plan.planAmount : plan.planAmount} */}
+                          {plan.planAmount}
                           </td>
 
                           <td className="border border-gray-300 px-4 py-2 text-zinc-600 text-sm">
@@ -592,13 +599,13 @@ const MyMembership = () => {
                           <td className="border border-gray-300 px-4 py-2 text-zinc-600 text-sm">
                             <div
                               className={`relative w-16 h-8 bg-gray-300 rounded-full p-1 cursor-pointer flex items-center ${
-                                isYearly ? "bg-green-500" : "bg-gray-300"
+                                toggleStates[plan._id] ? "bg-green-500" : "bg-gray-300"
                               }`}
-                              onClick={handleToggle}
+                              onClick={() => handleToggle(plan._id)}
                             >
                               <div
                                 className={`w-6 h-6 bg-white rounded-full shadow-md transform duration-300 ease-in-out ${
-                                  isYearly ? "translate-x-8" : "translate-x-0"
+                                  toggleStates[plan._id] ? "translate-x-8" : "translate-x-0"
                                 }`}
                               ></div>
                             </div>
