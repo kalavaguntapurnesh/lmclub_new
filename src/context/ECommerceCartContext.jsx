@@ -28,7 +28,7 @@ export function ECommerceCartProvider({ children }) {
     return product ? product.quantity : 0;
   }
 
-  function addOneToCart(id, name, price, description, quantity = 1) {
+  function addOneToCart(id, name, price, description, quantity = 1, image) {
     setCartProducts((prevCartProducts) => {
       const existingProductIndex = prevCartProducts.findIndex(
         (product) => product.id === id
@@ -44,7 +44,7 @@ export function ECommerceCartProvider({ children }) {
       } else {
         return [
           ...prevCartProducts,
-          { id, name, price, description, quantity },
+          { id, name, price, description, quantity, image },
         ];
       }
     });

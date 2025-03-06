@@ -5,7 +5,6 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import Swal from "sweetalert2";
 import Logo from "../assets/LMDark.webp";
-import { Link } from "react-router-dom";
 const public_stripe_key =
   "pk_test_51QMcn82NPQsjFaoTZ90xF9ORG1Gj4EdmGPiQAmSGbvVomOdnWBrwJV3BR9mCFbmQPFZPEsOZgqOglMvKR1Bff5ju00HjRNjRhp";
 import { AppContext } from "../context/AppContext";
@@ -128,116 +127,129 @@ const HandlePaymentEcommerce = () => {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen px-4">
-      <div className="w-full max-w-3xl md:w-[50%] h-auto flex flex-col items-center justify-center shadow-xl text-center gap-4 bg-gray-300 p-6 rounded-lg">
-        <h1 className="lg:text-4xl text-3xl font-semibold">
-          Your Payment Details
-        </h1>
-
-        <div className="w-full overflow-x-auto mt-6">
-          <table className="w-full border-collapse border border-gray-300 min-w-[600px]">
-            <thead>
-              <tr className="bg-gray-800 text-white text-center">
-                <th className="p-3 text-left">Item name</th>
-                <th className="p-3 text-left">Price</th>
-                <th className="p-3 text-left">Quantity</th>
-                <th className="p-3 text-left">Payable Amount</th>
-              </tr>
-            </thead>
-            <tbody>
-              {/* Mapping Through Plan Items */}
-              {items.map((item) => (
-                <tr
-                  key={item.id}
-                  className="border border-gray-300 text-center bg-blue-200"
-                >
-                  <td className="p-3 text-left">{item.name} </td>
-                  <td className="p-3 text-left">${item.price}</td>
-                  <td className="p-3 text-left">${item.quantity}</td>
-                  <td className="p-3 text-left">
-                    ${(item.price * item.quantity).toFixed(2)}
-                  </td>
-                </tr>
-              ))}
-
-              <tr className="border border-gray-300 text-center bg-blue-200 ">
-                <td className="p-3 text-left"> Tax Amount</td>
-                <td className="p-3"></td>
-                <td className="p-3"></td>
-                <td className="p-3 text-left text-green-700 font-bold"></td>
-              </tr>
-
-              {/* Net Amount Row */}
-              <tr className="border border-gray-300 text-center bg-blue-200 ">
-                <td className="p-3 text-left">Total Amount</td>
-                <td className="p-3"></td>
-                <td className="p-3"></td>
-                <td className="p-3 text-left text-green-700 font-bold">
-                  ${getTotalCost().toFixed(2)}
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
-        {items.length > 0 && (
-          <div className="cart-summary mt-4 text-center">
-            <div className="flex items-start items-center mb-3">
-              <div className="flex items-center h-5">
-                <input
-                  id="terms"
-                  aria-describedby="terms"
-                  type="checkbox"
-                  checked={isChecked}
-                  onChange={() => setIsChecked(!isChecked)}
-                  className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300  cursor-pointer"
-                  required
-                ></input>
+    <div className="lg:pb-12 lg:pt-0 pt-8">
+      <div className="relative">
+        <div className="w-full">
+          <div className="flex items-center justify-center min-h-screen px-4">
+            <div className="w-full max-w-3xl md:w-[50%] h-auto flex flex-col items-center justify-center shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)] text-center gap-4 p-6">
+              <div className="flex flex-wrap flex-col items-center pb-3">
+                <div className="text-center mt-4">
+                  <h3 className="lg:text-3xl text-2xl font-bold text-headingColor">
+                    Your Payment Details
+                  </h3>
+                </div>
+                <div className="md:w-40 w-36 h-1 border-b-2 border-green-500 mt-[1px]"></div>
               </div>
-              <div className="ml-3 text-sm">
-                <label
-                  htmlFor="terms"
-                  className="font-light text-gray-500 text-lg"
+
+              <div className="w-full overflow-x-auto mt-4">
+                <table className="w-full border-collapse border border-gray-300 min-w-[600px]">
+                  <thead>
+                    <tr className="bg-gray-300 text-black text-center ">
+                      <th className="p-3 text-left">Item name</th>
+                      <th className="p-3 text-left">Price</th>
+                      <th className="p-3 text-left">Quantity</th>
+                      <th className="p-3 text-left">Payable Amount</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {/* Mapping Through Plan Items */}
+                    {items.map((item) => (
+                      <tr
+                        key={item.id}
+                        className="border border-gray-300 text-center font-medium "
+                      >
+                        <td className="p-3 text-left">{item.name} </td>
+                        <td className="p-3 text-left">${item.price}</td>
+                        <td className="p-3 text-left">${item.quantity}</td>
+                        <td className="p-3 text-left">
+                          ${(item.price * item.quantity).toFixed(2)}
+                        </td>
+                      </tr>
+                    ))}
+
+                    <tr className="border border-gray-300 text-center font-medium ">
+                      <td className="p-3 text-left"> Tax Amount</td>
+                      <td className="p-3"></td>
+                      <td className="p-3"></td>
+                      <td className="p-3 text-left text-green-700 font-bold"></td>
+                    </tr>
+
+                    {/* Net Amount Row */}
+                    <tr className="border border-gray-300 text-center font-medium ">
+                      <td className="p-3 text-left">Total Amount</td>
+                      <td className="p-3"></td>
+                      <td className="p-3"></td>
+                      <td className="p-3 text-left text-green-700 font-bold">
+                        ${getTotalCost().toFixed(2)}
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              {items.length > 0 && (
+                <div className="cart-summary mt-4 text-center">
+                  <div className="flex items-center mb-3">
+                    <div className="flex items-center h-5">
+                      <input
+                        id="terms"
+                        aria-describedby="terms"
+                        type="checkbox"
+                        checked={isChecked}
+                        required
+                        onChange={() => setIsChecked(!isChecked)}
+                        className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300  cursor-pointer"
+                      ></input>
+                    </div>
+                    <div className="ml-3 text-sm">
+                      <label
+                        htmlFor="terms"
+                        className="font-light text-gray-500"
+                      >
+                        I accept the payment{" "}
+                        <a
+                          className="font-medium text-gray-500 hover:underline hover:text-green-600 dark:text-primary-500"
+                          href="/terms-and-conditions"
+                        >
+                          Terms and Conditions
+                        </a>{" "}
+                        and{" "}
+                        <a
+                          className="font-medium text-gray-500 hover:underline hover:text-green-600 dark:text-primary-500"
+                          href="/refund-and-return-policy"
+                        >
+                          Refund and Returns Policy
+                        </a>
+                      </label>
+                    </div>
+                  </div>
+
+                  <p className="text-2xl font-bold text-gray-800">
+                    Total Payable Amount: ${getTotalCost().toFixed(2)}
+                  </p>
+                </div>
+              )}
+
+              <div className="flex justify-between w-full mt-6 gap-4">
+                <button
+                  onClick={() => {
+                    navigate(-1);
+                    scrollTo(0, 0);
+                  }}
+                  className="px-12 w-[200px] py-1.5 bg-gray-500 text-white   cursor-pointer hover:bg-gray-700 duration-1000 ease-in-out  transition"
                 >
-                  I accept the payment{" "}
-                  <a
-                    className="font-medium text-gray-600 hover:underline hover:text-green-600 dark:text-primary-500"
-                    href="/terms-and-conditions"
-                  >
-                    Terms and Conditions
-                  </a>{" "}
-                  and{" "}
-                  <a
-                    className="font-medium text-gray-600 hover:underline hover:text-green-600 dark:text-primary-500"
-                    href="/refund-and-return-policy"
-                  >
-                    Refund and Returns Policy
-                  </a>
-                </label>
+                  Back
+                </button>
+
+                <button
+                  onClick={() => handleNavigateToSelectPaymentMethod()}
+                  className="px-12 w-[200px] py-1.5 bg-green-500 text-white   cursor-pointer hover:bg-green-700 duration-1000 ease-in-out  transition"
+                >
+                  Pay
+                </button>
               </div>
             </div>
-
-            <p className="text-2xl  font-semibold text-gray-800">
-              Total Payable Amount: ${getTotalCost().toFixed(2)}
-            </p>
           </div>
-        )}
-
-        <div className="flex justify-between w-full mt-6">
-          <button
-            onClick={() => navigate(-1)}
-            className="px-6 py-3 bg-gray-600 text-white rounded-lg cursor-pointer hover:bg-gray-700 transition"
-          >
-            Back
-          </button>
-
-          <button
-            onClick={() => handleNavigateToSelectPaymentMethod()}
-            className="px-6 py-3 bg-green-600 text-white rounded-lg cursor-pointer hover:bg-green-700 transition"
-          >
-            {/* <Link to='/select-payment-method'>Pay</Link>  */}
-            Pay
-          </button>
         </div>
       </div>
     </div>

@@ -14,12 +14,13 @@ const ProductOverview = () => {
   const location = useLocation();
 
   const [quantity, setQuantity] = useState(1);
-  console.log(quantity);
 
   const navigate = useNavigate();
 
   const [product, setProduct] = useState(location.state?.product || {});
   // const product = location.state.product;
+
+  console.log("The product is : ", product);
 
   const [image, setImage] = useState(product.image[0]);
 
@@ -29,21 +30,18 @@ const ProductOverview = () => {
     }
   }, [location.state?.product]);
 
-  console.log(product);
-
   const handleAddToCart = () => {
     const id = product.id || `${product.title}-${product.price}`;
-    console.log(id);
+
     addOneToCart(
       id,
-      product.title,
+      product.name,
       product.price,
       product.description,
-      product.quantity
+      product.quantity,
+      product.image[0]
     );
-    console.log("Adding item:", product.title);
-    console.log("Adding item:", product.price);
-    console.log("Adding item:", product.description);
+
     navigate("/ecommerce-cart", { state: { product, quantity } });
   };
 
@@ -90,7 +88,11 @@ const ProductOverview = () => {
                     </div>
 
                     <div className="w-full sm:w-[80%] lg:ml-6 rounded">
-                      <img src={image} alt="image" className="w-full h-auto rounded" />
+                      <img
+                        src={image}
+                        alt="image"
+                        className="w-full h-auto rounded"
+                      />
                     </div>
                   </div>
 
@@ -98,8 +100,8 @@ const ProductOverview = () => {
 
                   <div className="flex-1">
                     <div className="mt-6 sm:mt-8 lg:mt-0">
-                      <h1 className="text-xl font-semibold text-gray-900 sm:text-2xl dark:text-white">
-                        {product.title}
+                      <h1 className="text-2xl font-bold text-gray-900 sm:text-2xl dark:text-white">
+                        {product.name}
                       </h1>
                       <div className="mt-4 md:items-start items-center sm:gap-4 sm:flex flex-col">
                         <p className="text-2xl font-extrabold text-gray-900 sm:text-3xl dark:text-white">

@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import NavBar from "../components/Navbar";
 import { useLocation } from "react-router-dom";
 import Footer from "../components/Footer";
-import { TiArrowRight } from "react-icons/ti";
-import LaptopEStore from "../assets/LaptopEStore.png";
 import estore from "../assets/estore.webp";
 import beehive from "../assets/beehive.webp";
 import enroll from "../assets/enroll.webp";

@@ -75,9 +75,9 @@ const Events = () => {
         </div>
       </div>
       <div className="max-w-[1100px] mx-auto p-4">
-        <div className="flex items-center border-2 border-gray-500 rounded-lg overflow-hidden shadow-lg bg-gray-100">
-          <div className="p-4 bg-green-600 flex items-center justify-center min-w-[60px]">
-            <FaSearch className="text-white text-xl" />
+        <div className="flex items-center border-2 border-gray-500   overflow-hidden shadow-lg bg-gray-100">
+          <div className="bg-white m-4 flex items-center justify-center">
+            <FaSearch className="text-green-500" />
           </div>
           <input
             type="text"
@@ -87,10 +87,10 @@ const Events = () => {
             onChange={(e) => setSearch(e.target.value)}
           />
           <div className="flex items-center border-l pl-3 space-x-2">
-            <button className="relative bg-green-600 hover:bg-green-700 text-white font-semibold px-6 py-[12px] rounded-full flex items-center justify-center whitespace-nowrap overflow-hidden shine-effect">
+            <button className="relative bg-green-500 hover:bg-green-700 text-white font-semibold text-sm px-8 py-1.5 rounded  flex items-center justify-center whitespace-nowrap overflow-hidden shine-effect">
               Find Events
             </button>
-            <button className="relative px-4 py-3 border border-gray-500 rounded-lg hover:bg-gray-300">
+            <button className="relative px-4 py-1.5 border border-gray-500   hover:bg-gray-300 text-sm">
               List
             </button>
             <div className="relative">
@@ -102,7 +102,7 @@ const Events = () => {
               />
               <button
                 onClick={handleMonthClick}
-                className="relative px-4 py-3 border border-gray-500 rounded-lg hover:bg-gray-300"
+                className="relative px-4 py-1.5 border border-gray-500   hover:bg-gray-300 text-sm"
               >
                 Month
               </button>
@@ -116,7 +116,7 @@ const Events = () => {
               />
               <button
                 onClick={handleDayClick}
-                className="relative px-4 py-3 border border-gray-500 rounded-lg hover:bg-gray-300"
+                className="relative px-4 mr-2 py-1.5 border border-gray-500   hover:bg-gray-300 text-sm"
               >
                 Day
               </button>
@@ -126,7 +126,7 @@ const Events = () => {
         <h2 className="mt-6 text-lg font-bold text-gray-700">
           Upcoming Events
         </h2>
-        <div className="mt-2 border rounded-lg shadow-md overflow-hidden bg-white divide-y">
+        <div className="mt-2 border shadow-md overflow-hidden bg-white divide-y">
           {filteredEvents.length > 0 ? (
             filteredEvents.map((event) => (
               <div
@@ -142,7 +142,7 @@ const Events = () => {
                 <img
                   src={event.image}
                   alt={event.name}
-                  className="w-16 h-16 rounded-md object-cover border border-gray-300"
+                  className="w-16 h-16   object-cover"
                 />
               </div>
             ))
@@ -151,12 +151,12 @@ const Events = () => {
           )}
         </div>
         <h2 className="mt-6 text-lg font-bold text-gray-700">Past Events</h2>
-        <div className="mt-2 border rounded-lg shadow-md overflow-hidden bg-gray-100 divide-y">
+        <div className="mt-2 border   shadow-md overflow-hidden bg-gray-100 divide-y">
           {pastEvents.length > 0 ? (
             pastEvents.map((event) => (
               <div
                 key={event.id}
-                className="p-5 flex items-center justify-between bg-gray-100 hover:bg-gray-200 transition-all"
+                className="p-5 flex items-center justify-between bg-gray-50 hover:bg-gray-200 transition-all"
               >
                 <span className="w-1/4 text-lg font-semibold text-gray-700">
                   {dayjs(event.date).format("MMM D, YYYY")}
@@ -167,7 +167,7 @@ const Events = () => {
                 <img
                   src={event.image}
                   alt={event.name}
-                  className="w-16 h-16 rounded-md object-cover border border-gray-400"
+                  className="w-16 h-16   object-cover"
                 />
               </div>
             ))
