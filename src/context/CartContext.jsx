@@ -48,7 +48,7 @@ export function CartProvider({ children }) {
   // function addOneToCart(id, name, price, description, quantity, image) {
   //     console.log("addOneToCart triggered with id:", id);
   // id, plan.name, plan.price, plan.description
-  const addOneToCart = (id, name, price, description, isYearly) => {
+  const addOneToCart = (id, name, price, description, isYearly, image) => {
     setCartProducts((prevCartProducts) => {
       // Check if there is already a membership in the cart
       if (prevCartProducts.length > 0) {
@@ -111,7 +111,8 @@ export function CartProvider({ children }) {
               name,
               price,
               description,
-              isYearly
+              isYearly,
+              image
             },
           ];
         }
@@ -146,7 +147,8 @@ export function CartProvider({ children }) {
             name,
             price,
             description,
-            isYearly
+            isYearly,
+            image
           },
         ];
       }

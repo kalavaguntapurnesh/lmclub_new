@@ -39,11 +39,12 @@ const SelectedPlan = () => {
   const handleAddToCart = () => {
     const id = plan.id || `${plan.name}-${plan.price}`;
     console.log(id);
-    addOneToCart(id, plan.name, plan.price, plan.description, plan.isyearly);
+    addOneToCart(id, plan.name, plan.price, plan.description, plan.isyearly, plan.image);
     console.log("Adding item:", plan.name);
     console.log("Adding item:", plan.price);
     console.log("Adding item:", plan.description);
     console.log("adding item:", plan.isyearly);
+    console.log("adding image:", plan.image);
     navigate("/selected-plan/cart", { state: { plan, quantity } });
   };
 

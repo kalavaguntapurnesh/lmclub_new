@@ -22,10 +22,6 @@ const Footer = () => {
     message
   )}`;
 
-  const onSubmitHandler = (e) => {
-    e.preventDefault();
-  };
-
   useEffect(() => {
     if (location.hash) {
       const element = document.querySelector(location.hash);
@@ -83,13 +79,13 @@ const Footer = () => {
                           <img
                             src={Logo}
                             alt="footer"
-                            className="h-auto w-[40%] md:w-[40%] lg:w-[30%]"
+                            className="h-auto w-[50%] lg:w-[30%]"
                           />
                         </a>
 
                         <div className="lg:w-[90%] w-[100%] mt-6">
                           <div className="w-[100%]">
-                            <div className="grid grid-cols-1 lg:gap-4 gap-8  w-full">
+                            <div className="grid grid-cols-1 lg:gap-4 gap-8 lg:gap-4 w-full">
                               <div className="grid grid-cols-6">
                                 <a
                                   href="https://www.linkedin.com/company/laoe-maom"
@@ -368,10 +364,34 @@ const Footer = () => {
                     <ul className="pl-0 mt-4 space-y-3 list-none">
                       <li className=" flex items-start md:justify-start justify-center">
                         <a
-                          href="/pricing"
+                          href="/AllMembershipPackage/Platinum"
                           className="hover:text-footerHeading font-[400] text-secondaryColor no-underline text-[14px] leading-6 text-footerLinks text-center transition duration-300 ease-in-out"
                         >
-                          Platinum Membership
+                          Platinum Membership 
+                        </a>
+                      </li>
+                      <li className=" flex items-start md:justify-start justify-center">
+                        <a
+                          href="/AllMembershipPackage/Silver"
+                          className="hover:text-footerHeading font-[400] text-secondaryColor no-underline text-[14px] leading-6 text-footerLinks text-center transition duration-300 ease-in-out"
+                        >
+                          Silver Membership 
+                        </a>
+                      </li>
+                      <li className=" flex items-start md:justify-start justify-center">
+                        <a
+                          href="/AllMembershipPackage/Gold"
+                          className="hover:text-footerHeading font-[400] text-secondaryColor no-underline text-[14px] leading-6 text-footerLinks text-center transition duration-300 ease-in-out"
+                        >
+                          Gold Membership 
+                        </a>
+                      </li>
+                      <li className=" flex items-start md:justify-start justify-center">
+                        <a
+                          href="/AllMembershipPackage/Bronze"
+                          className="hover:text-footerHeading font-[400] text-secondaryColor no-underline text-[14px] leading-6 text-footerLinks text-center transition duration-300 ease-in-out"
+                        >
+                          Bronze Membership 
                         </a>
                       </li>
                       <li className=" flex items-start md:justify-start justify-center">
@@ -379,58 +399,36 @@ const Footer = () => {
                           href="/pricing"
                           className="hover:text-footerHeading font-[400] text-secondaryColor no-underline text-[14px] leading-6 text-footerLinks text-center transition duration-300 ease-in-out"
                         >
-                          Silver Membership
-                        </a>
-                      </li>
-                      <li className=" flex items-start md:justify-start justify-center">
-                        <a
-                          href="/pricing"
-                          className="hover:text-footerHeading font-[400] text-secondaryColor no-underline text-[14px] leading-6 text-footerLinks text-center transition duration-300 ease-in-out"
-                        >
-                          Gold Membership
-                        </a>
-                      </li>
-                      <li className=" flex items-start md:justify-start justify-center">
-                        <a
-                          href="pricing"
-                          className="hover:text-footerHeading font-[400] text-secondaryColor no-underline text-[14px] leading-6 text-footerLinks text-center transition duration-300 ease-in-out"
-                        >
-                          Bronze Membership
-                        </a>
-                      </li>
-                      <li className=" flex items-start md:justify-start justify-center">
-                        <a
-                          href="/pricing"
-                          className="hover:text-footerHeading font-[400] text-secondaryColor no-underline text-[14px] leading-6 text-footerLinks text-center transition duration-300 ease-in-out"
-                        >
-                          Free Membership
+                          Free Membership 
                         </a>
                       </li>
                     </ul>
                   </div>
                 </div>
 
-                <div className="flex items-center justify-center pt-12">
-                  <form
-                    onScroll={onSubmitHandler}
-                    className="w-full sm:w-1/2 flex items-center gap-3 mx-auto border border-gray-600 pl-3"
-                  >
+                <div className="flex flex-col items-center md:items-start md:justify-start justify-center mt-8">
+                  <h1 className="text-xl leading-5 font-bold tracking-wider uppercase text-footerLinks">
+                    Join Our Mailing List
+                  </h1>
+                  <div className="mt-3 flex flex-col md:flex-row w-full max-w-sm space-y-2 md:space-y-0 md:space-x-2">
                     <input
                       type="email"
-                      name=""
                       placeholder="Enter your email"
-                      className="w-full sm:flex-1 outline-none"
-                      required
-                      id=""
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      className={`w-full md:w-auto px-3 py-2 text-sm border rounded focus:outline-none focus:ring-2 ${
+                        error
+                          ? "border-red-500 focus:ring-red-500"
+                          : "border-green-500 focus:ring-green-500"
+                      }`}
                     />
                     <button
                       onClick={handleSubscribe}
-                      type="submit"
-                      className="bg-green-500 hover:bg-green-700 transition ease-in-out duration-1000 text-white text-sm font-medium  lg:px-10 px-6 lg:py-4 py-3 "
+                      className="w-full md:w-auto px-4 py-2 text-sm font-medium text-white bg-green-600 rounded hover:bg-green-700"
                     >
-                      SUBSCRIBE
+                      Subscribe
                     </button>
-                  </form>
+                  </div>
                   {error && (
                     <p className="text-red-500 text-xs mt-1">{error}</p>
                   )}

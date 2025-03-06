@@ -8,6 +8,8 @@ import { useLocation } from "react-router-dom";
 import Logo from "../assets/LMDark.webp";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import sad from "../assets/sad.svg";
+
 const Cart = () => {
   const {
     items,
@@ -19,6 +21,7 @@ const Cart = () => {
   console.log("Cart items:", items);
   console.log(items.name);
   const [flag, setFlag] = useState(false);
+
   const style = document.createElement("style");
   style.innerHTML = `
     .swal-custom-ok-button {
@@ -89,70 +92,101 @@ const Cart = () => {
   return (
     <div>
       <Navbar />
-      <div className="pt-28 pb-10">
-        <div className="cart-items bg-white p-4 rounded-lg shadow-lg transition-transform transform hover:translate-y-2 h-auto lg:w-[60%] w-[80%] mx-auto bg-gray-200">
-          <h2 className="text-3xl font-bold mb-4 text-center text-gray-800">
-            Your Cart
-          </h2>
-          <div className="w-full border border-2 border-black   items-center p-6">
-            <div className="lg:text-xl font-semibold mr-[70px] text-center">
-              <p>
-                {items.length > 0
-                  ? `${items[0].name} Membership - in Now & Enjoy All 5 Widgets! has been added to your cart.`
-                  : "Your cart is empty. Add any membership to continue!"}
-              </p>
-            </div>
-            {/* <button className="p-3 text-white font-bold rounded-full bg-green-600 hover:bg-green-800">
-                    <Link to='/pricing'>Continue Shopping</Link>
-                </button> */}
-          </div>
-
-          {items.length > 0 ? (
-            items.map((item) => (
-              <div
-                key={item.id}
-                className="cart-item flex items-center justify-between border-b border-gray-300 py-4"
-              >
-                <img
-                  src={Logo}
-                  alt={item.name}
-                  className="w-16 h-16 object-cover "
-                />
-                <div className="flex-1 ml-4">
-                  <h3 className="text-lg font-semibold text-gray-800">
-                    {item.name} Membership
-                  </h3>
-                  <p className="text-gray-500 text-sm">
-                    Price: ${item.price} / {item.isYearly ? "Year" : "Month"}
-                  </p>
-                  <p className="text-gray-500 text-sm">
-                    Registration Fee: {registrationFee}
-                  </p>
-                  {/* <p className="text-gray-500 text-sm">Quantity: {item.quantity}</p> */}
-                  {/* <div className="flex justify-between gap-1 w-1/6">
-                      <button
-                        onClick={() => removeOneFromCart(item.id)}
-                        className="mt-4 w-1/4 bg-green-400 text-white py-1 rounded-md  transition-colors hover:bg-green-600"
-                      >
-                        -
-                      </button>
-                      <button
-                        className="mt-4 w-1/4 bg-green-400 text-white py-1 rounded-md  transition-colors"
-                      >
-                        {item.quantity}
-                      </button>
-                      <button
-                        onClick={()=>addOneToCart(item.id,item.image, item.name, item.price,item.quantity+1)}
-                        className="mt-4 w-1/4 bg-green-400 text-white py-1 rounded-md  transition-colors hover:bg-green-600"
-                      >
-                        +
-                      </button>
-                    </div> */}
+       <div className="pt-24 lg:pb-12">
+        <div className="relative">
+          <div className="w-full">
+            <div className="w-full mx-auto max-w-[1400px] ">
+              <div className="p-4">
+                <div className="p-4 space-y-3">
+                  <div className="flex items-center justify-center">
+                    <div className="h-4 w-1 bg-green-500"></div>
+                    <h1 className="ml-2 font-bold text-green-500 lg:uppercase">
+                      Your Cart
+                    </h1>
+                  </div>
+                  <h1 className="lg:text-3xl text-2xl text-center font-bold text-headingColor">
+                    {items.length > 0
+                      ? "Proceed to Secure Checkout"
+                      : "Oops! It seems like your cart is empty"}
+                  </h1>
                 </div>
+                {items.length > 0 ? (
+                  <div className="cart-items bg-white p-4   shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)] transition-transform transform hover:translate-y-2 h-auto  mx-auto ">
+                    {items.length > 0 ? (
+                      items.map((item) => (
+                        <div
+                          key={item.id}
+                          className="cart-item flex items-center justify-between border-b border-gray-300 py-4"
+                        >
+                          <div className="flex-1 ml-4">
+                            <div className="grid lg:grid-cols-3 grid-cols-1 gap-6">
+                              <div className="flex flex-row items-center justify-center gap-4">
+                                <img
+                                  src={item.image}
+                                  alt="imga"
+                                  className="w-[72px]"
+                                />
+                               <div className="flex flex-col">
+                                  <p className="text-gray-800 text-xl font-bold text-center ">
+                                    Plan Name
+                                    </p>
+                                    <h3 className="text-md font-semibold">
+                                      {item.name} Membership
+                                    </h3>
+                                </div>
+                              </div>
 
-                <div className="text-lg font-semibold text-gray-800 flex flex-col gap-2">
-                  <p className="text-gray-500 text-md">
-                    Total Price: $
+                            
+                              <div className="flex flex-col items-center justify-center gap-1">
+                                <p className="text-gray-800 text-md font-bold">
+                                  Membership Details
+                                </p>
+
+                                <p className="text-gray-800 text-md">
+                                  Price: ${item.price} / {item.isYearly ? "Year" : "Month"}
+                                </p>
+                                <p className="text-gray-800 text-md">
+                                  Registration Fee: {registrationFee}
+                                </p>
+                              </div>
+
+                              <div className="flex flex-col items-center lg:items-end justify-center lg:mr-4">
+                                {/* <p className="text-[#1a1a1a] text-sm">
+                                  Price: ${item.price}
+                                </p> */}
+                                <div className="text-lg font-semibold flex flex-col gap-2">
+                                  <p className="text-[#1a1a1a]">
+                                  Total Price: $
+                                  {(
+                                    getTotalCost() +
+                                    parseFloat(
+                                      items[0].description
+                                        .match(/\$\d+(\.\d{2})?/)[0]
+                                        .replace("$", "")
+                                    )
+                                  ).toFixed(2)}
+                                  </p>
+                                  <button
+                                    onClick={() => deleteFromCart(item.id)}
+                                    className="bg-red-400 text-center text-white py-1.5 px-3 font-medium text-sm"
+                                  >
+                                    Delete
+                                  </button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      ))
+                    ) : (
+                      <p className="text-gray-600 text-center py-4"></p>
+                    )}
+
+                    {items.length > 0 && (
+                      <div className="cart-summary mt-6 text-end">
+                        <div className="py-4">
+                          <p className="text-xl font-bold text-gray-800">
+                          Total Price: $
                     {(
                       getTotalCost() +
                       parseFloat(
@@ -161,50 +195,42 @@ const Cart = () => {
                           .replace("$", "")
                       )
                     ).toFixed(2)}
-                  </p>
-                  <button
-                    onClick={() => deleteFromCart(item.id)}
-                    className="bg-red-500 w-2/3 text-center text-white py-1 px-3 rounded-md hover:bg-red-400 transition-colors"
-                  >
-                    Delete
-                  </button>
-                </div>
-              </div>
-            ))
-          ) : (
-            <p className="text-gray-600 text-center py-4"></p>
-          )}
+                          </p>
+                        </div>
 
-          {items.length > 0 && (
-            <div className="cart-summary mt-6 text-center">
-              {/* <div>
-                  <p className="text-lg font-semibold text-gray-800">
-                    Total: ${getTotalCost()}
-                  </p>
-                  
-                </div> */}
-
-              <div className="flex flex-col lg:flex-row justify-between w-full">
-                <button
-                  onClick={handleGoToAgainSelectedPage}
-                  className="pay-button mt-4 lg:w-1/3 bg-green-700 text-white py-2 rounded-md hover:bg-green-400 transition-colors"
-                >
-                  Would you like to explore more Plans
-                </button>
-                <button
-                  onClick={handlePaymentClick}
-
-                  className="pay-button mt-4 lg:w-1/3 bg-blue-500 text-white py-2 rounded-md hover:bg-blue-400 transition-colors"
-                >
-                  Proceed to Payment
-                  {/* <Link to="/payment">Proceed to Payment</Link> */}
-                </button>
+                        <div className="flex flex-col lg:flex-row justify-between w-full">
+                        <button
+                          onClick={handleGoToAgainSelectedPage}
+                          className="pay-button mt-4 lg:w-1/3 bg-green-700 text-white py-2 rounded-md hover:bg-green-400 transition-colors"
+                        >
+                          Would you like to explore more Plans
+                        </button>
+                          <button 
+                          onClick={handlePaymentClick}
+                          className="pay-button mt-4 lg:w-1/3 bg-green-500 text-white py-2 font-medium transition duration-1000 ease-in-out hover:bg-green-700">
+                            
+                              Proceed to Checkout
+                            
+                          </button>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                ) : (
+                  <div className="flex flex-col justify-center items-center">
+                    <div className="flex flex-col mt-4 space-y-2">
+                      <img src={sad} alt="sad" className="w-56 h-56" />
+                    </div>
+                    <button className="pay-button mt-4 w-[200px] lg:w-[240px] bg-green-500 text-white py-2 font-medium transition duration-1000 ease-in-out hover:bg-green-700">
+                      <Link to="/pricing">Would you like to explore more Plans</Link>
+                    </button>
+                  </div>
+                )}
               </div>
             </div>
-          )}
+          </div>
         </div>
       </div>
-
       {/* <Footer/> */}
     </div>
   );

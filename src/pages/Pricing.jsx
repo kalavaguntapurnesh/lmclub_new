@@ -13,6 +13,10 @@ import enroll from "../assets/enroll.webp";
 import WhatsApp from "../components/WhatsApp";
 import { motion } from "framer-motion";
 import { fadeIn } from "../variants.js";
+import bronze from "../assets/bronze.jpg"
+import gold from "../assets/gold.jpg"
+import silver from "../assets/silver.jpg"
+import platinum from "../assets/platinum.jpg"
 
 import { useNavigate } from "react-router-dom";
 
@@ -42,6 +46,7 @@ const Pricing = () => {
       renewalFee: "Yearly renewal fee $20.00 / Yearly",
       price: isYearly ? 12 * 5.99 : 5.99,
       originalPrice : isYearly ? 12 * 7.99 : 7.99,
+      image: bronze,
       points: [
         "Make a post get 25 likes and earn 5 points",
         "Promote a business earn 5 points",
@@ -57,6 +62,7 @@ const Pricing = () => {
       renewalFee: "Yearly renewal fee $25.00 / Yearly",
       price: isYearly ? 12 * 8.99 : 8.99,
       originalPrice : isYearly ? 12 * 10.99 : 10.99,
+      image: silver,
       points: [
         "Make a post get 25 likes earn 10 points",
         "Promote a business earn 10 points",
@@ -72,6 +78,7 @@ const Pricing = () => {
       renewalFee: "Yearly renewal fee $30.00 / Yearly",
       price: isYearly ? 12 * 11.99 : 11.99,
       originalPrice : isYearly ? 12 * 14.99 : 14.99,
+      image: gold,
       points: [
         "Make a post get 25 likes earn 15 points",
         "Promote a business earn 15 points",
@@ -87,6 +94,7 @@ const Pricing = () => {
       renewalFee: "Yearly renewal fee $35.00 / Yearly",
       price: isYearly ? 12 * 14.99 : 14.99,
       originalPrice : isYearly ? 12 * 19.99 : 19.99,
+      image: platinum,
       points: [
         "Make a post get 25 likes earn 20 points",
         "Promote a business earn 20 points",

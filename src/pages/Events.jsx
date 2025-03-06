@@ -47,6 +47,12 @@ const Events = () => {
     dayjs(event.date).isBefore(dayjs())
   );
 
+  const removeFilters = () => {
+    setSearch("");
+    setSelectedMonth("");
+    setSelectedDay("");
+  };
+
   return (
     <>
       <Navbar />
@@ -74,9 +80,9 @@ const Events = () => {
           </div>
         </div>
       </div>
-      <div className="max-w-[1100px] mx-auto p-4">
-        <div className="flex items-center border-2 border-gray-500   overflow-hidden shadow-lg bg-gray-100">
-          <div className="bg-white m-4 flex items-center justify-center">
+      <div className="max-w-[1100px] mx-auto p-4  ">
+        <div className=" hidden sm:flex items-center border-2 border-gray-500 overflow-hidden shadow-lg bg-gray-100 ">
+          <div className="bg-white m-4 flex items-center justify-center ">
             <FaSearch className="text-green-500" />
           </div>
           <input
@@ -87,10 +93,10 @@ const Events = () => {
             onChange={(e) => setSearch(e.target.value)}
           />
           <div className="flex items-center border-l pl-3 space-x-2">
-            <button className="relative bg-green-500 hover:bg-green-700 text-white font-semibold text-sm px-8 py-1.5 rounded  flex items-center justify-center whitespace-nowrap overflow-hidden shine-effect">
+            <button className="relative bg-green-500 hover:bg-green-700 text-white font-semibold text-sm px-8 py-1.5 rounded flex items-center justify-center whitespace-nowrap overflow-hidden shine-effect">
               Find Events
             </button>
-            <button className="relative px-4 py-1.5 border border-gray-500   hover:bg-gray-300 text-sm">
+            <button className="relative px-4 py-1.5 border border-gray-500 hover:bg-gray-300 text-sm">
               List
             </button>
             <div className="relative">
@@ -102,7 +108,7 @@ const Events = () => {
               />
               <button
                 onClick={handleMonthClick}
-                className="relative px-4 py-1.5 border border-gray-500   hover:bg-gray-300 text-sm"
+                className="relative px-4 py-1.5 border border-gray-500 hover:bg-gray-300 text-sm"
               >
                 Month
               </button>
@@ -116,12 +122,69 @@ const Events = () => {
               />
               <button
                 onClick={handleDayClick}
-                className="relative px-4 mr-2 py-1.5 border border-gray-500   hover:bg-gray-300 text-sm"
+                className="relative px-4 mr-2 py-1.5 border border-gray-500 hover:bg-gray-300 text-sm"
               >
                 Day
               </button>
             </div>
           </div>
+        </div>
+        <div className="max-[640px]:block hidden bg-gray-100 p-3 rounded-lg shadow-md">
+          <div className="flex items-center border border-gray-400 bg-white rounded-lg p-2">
+            <FaSearch className="text-green-500 mr-2" />
+            <input
+              type="text"
+              placeholder="Search Events"
+              className="flex-1 p-2 outline-none"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+            />
+          </div>
+          <div className="flex justify-between mt-3">
+            <button className="bg-green-500 text-white px-4 py-2 rounded-lg">
+              Find Events
+            </button>
+            <button className="border border-gray-400 px-4 py-2 rounded-lg">
+              List
+            </button>
+            <div className="relative">
+              <input
+                type="month"
+                ref={monthInputRef}
+                className="hidden"
+                onChange={(e) => setSelectedMonth(e.target.value)}
+              />
+              <button
+                onClick={handleMonthClick}
+                className="border border-gray-400 px-4 py-2 rounded-lg"
+              >
+                Month
+              </button>
+            </div>
+            <div className="relative">
+              <input
+                type="date"
+                ref={dayInputRef}
+                className="hidden"
+                onChange={(e) => setSelectedDay(e.target.value)}
+              />
+              <button
+                onClick={handleDayClick}
+                className="border border-gray-400 px-4 py-2 rounded-lg"
+              >
+                Day
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div className="mt-4 flex justify-end">
+          <button
+            onClick={removeFilters}
+            className="relative px-4 py-1.5 border border-green-500 text-sm font-semibold text-green-500 bg-green-50 hover:bg-green-100 rounded"
+          >
+            Remove Filter
+          </button>
         </div>
         <h2 className="mt-6 text-lg font-bold text-gray-700">
           Upcoming Events
@@ -142,7 +205,7 @@ const Events = () => {
                 <img
                   src={event.image}
                   alt={event.name}
-                  className="w-16 h-16   object-cover"
+                  className="w-16 h-16 object-cover"
                 />
               </div>
             ))
@@ -151,7 +214,7 @@ const Events = () => {
           )}
         </div>
         <h2 className="mt-6 text-lg font-bold text-gray-700">Past Events</h2>
-        <div className="mt-2 border   shadow-md overflow-hidden bg-gray-100 divide-y">
+        <div className="mt-2 border shadow-md overflow-hidden bg-gray-100 divide-y">
           {pastEvents.length > 0 ? (
             pastEvents.map((event) => (
               <div
@@ -167,7 +230,7 @@ const Events = () => {
                 <img
                   src={event.image}
                   alt={event.name}
-                  className="w-16 h-16   object-cover"
+                  className="w-16 h-16 object-cover"
                 />
               </div>
             ))
@@ -182,4 +245,5 @@ const Events = () => {
     </>
   );
 };
+
 export default Events;
