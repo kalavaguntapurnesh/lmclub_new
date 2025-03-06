@@ -1,17 +1,27 @@
-
-import React, { useState } from 'react'
-import success from "../assets/success.png";
-import Logo from "../assets/LMDark.webp";
-import { Link } from 'react-router-dom';
-import { useContext } from 'react';
+import React, { useState } from "react";
+import Logo from "../assets/LMDarkLogo.webp";
+import Lottie from "lottie-react";
+import SuccessLottie from "../assets/Success.json";
+import { Link, useNavigate } from "react-router-dom";
+import { useContext } from "react";
 import { CartContext } from "../context/CartContext";
-import { useEffect } from 'react';
+import { useEffect } from "react";
 import { AppContext } from "../context/AppContext";
- import axios from 'axios';
+import axios from "axios";
+import { IoIosClose } from "react-icons/io";
 
 const Success = () => {
-  const { items, getProductQuantity, getTotalCost, addOneToCart,deleteFromCart, clearCart} = useContext(CartContext);
+  const {
+    items,
+    getProductQuantity,
+    getTotalCost,
+    addOneToCart,
+    deleteFromCart,
+    clearCart,
+  } = useContext(CartContext);
   const { backendUrl } = useContext(AppContext);
+
+  const navigate = useNavigate("");
 
   const [transaction, setTransaction] = useState(null);
   const [payments, setPayments] = useState([]);
@@ -21,7 +31,7 @@ const Success = () => {
   const userData = JSON.parse(localStorage.getItem("userData"));
   const selectedPlan = JSON.parse(localStorage.getItem("selectedPlan"));
   const isYearly = JSON.parse(localStorage.getItem("isYearly"));
-console.log(userData);
+  console.log(userData);
   //  Fetch Transaction Details
 
   const fetchTransactionDetails = async () => {
@@ -56,7 +66,8 @@ console.log(userData);
           userId: userData._id,
           paymentMethod: "Stripe",
           transactionId: transactionData.transactionId || "N/A",
-          paymentStatus: transactionData.status === "paid" ? "COMPLETED" : "Failed",
+          paymentStatus:
+            transactionData.status === "paid" ? "COMPLETED" : "Failed",
           amount: transactionData.amount || "0",
           subscriptionType: isYearly ? "Yearly" : "Monthly",
         }
@@ -73,10 +84,11 @@ console.log(userData);
 
   // Fetch Payment ID
 
-
   const fetchPaymentId = async () => {
     try {
-      const response = await axios.get(backendUrl + `/api/user/get-payment/${userData._id}`);
+      const response = await axios.get(
+        backendUrl + `/api/user/get-payment/${userData._id}`
+      );
       setPayments(response.data);
       console.log("Payment ID fetched:", response.data);
 
@@ -116,95 +128,91 @@ console.log(userData);
     fetchTransactionDetails();
   }, []);
 
-
-
-
   return (
     <div>
-        <div className="fixed inset-0 flex justify-center items-center bg-gray-800 bg-opacity-50">
-          <div className="bg-white w-[500px] p-6 rounded-lg shadow-lg">
-       
-            <div className="flex items-center justify-between mb-2">
-              <img src={Logo} alt="Logo" className="w-12 h-12" />
-              <h4 className="text-3xl font-bold text-center flex-1">
-                <span className="text-black">LM</span>
-                <span className="text-green-500">Club</span>
-              </h4>
+      <div className="fixed inset-0 flex justify-center items-center bg-gray-800 bg-opacity-50">
+        <div className="bg-white w-[500px] p-6 rounded-lg shadow-lg">
+          <div className="flex flex-row justify-between items-center">
+            <img src={Logo} alt="logo" className="w-[52px] h-auto" />
+
+            <h2 className="md:text-lg text-base font-bold text-center">
+              Payment Successful
+            </h2>
+
+            <IoIosClose
+              onClick={() => {
+                navigate("/dashboard");
+                scrollTo(0, 0);
+              }}
+              className="md:w-8 md:h-8 w-6 h-6 cursor-pointer"
+            />
+          </div>
+
+          <div className="border-b border-gray-200 pt-2"></div>
+
+          <div className="space-y-0">
+            <div className="w-[90%] mx-auto  p-5 flex flex-col justify-center items-center gap-6 text-center">
+              <Lottie
+                animationData={SuccessLottie}
+                loop={true}
+                className="w-full h-[140px]"
+              />
             </div>
-    
-    
-            <div className="space-y-0">
-    
-              <div className='w-[90%] mx-auto  p-5 flex flex-col justify-center items-center gap-6 text-center'>
-                <img src={success} alt="Logo" className="w-12 h-12 text-center" />
-              
-              </div>
-    
-              {transaction && (
-          <div className="text-gray-700">
-            <p className="font-semibold text-3xl text-center text-green-500 mb-2">
-              {" "}
-              Thank You!
-            </p>
-            <p className=" text-xl text-center mb-3">
-              {" "}
-              Payment Done Successfully
-            </p>
-            <p className="border-b border-1 border-gray-800"></p>
-            <p className=" text-xl text-center mt-3"> Your Order Details</p>
-            <div className="mt-4">
-              <table className="w-full border border-gray-300 w-[80%]">
-                <tbody>
-                  <tr className="bg-gray-100">
-                    <td className="border px-4 py-2 font-semibold">
-                      Order ID:
-                    </td>
-                    <td className="border px-4 py-2">
-                      {transaction.orderId|| "N/A"}
-                    </td>
-                  </tr>
-                  <tr className="bg-gray-100">
-                    <td className="border px-4 py-2 font-semibold">Status:</td>
-                    <td className="border px-4 py-2">
-                      {transaction.status || "N/A"}
-                    </td>
-                  </tr>
-                  <tr className="bg-gray-100">
-                    <td className="border px-4 py-2 font-semibold">Email:</td>
-                    <td className="border px-4 py-2">
-                      {transaction.customerEmail || "N/A"}
-                    </td>
-                  </tr>
-                  
-                  <tr className="bg-gray-100">
-                    <td className="border px-4 py-2 font-semibold">Amount:</td>
-                    <td className="border px-4 py-2">
-                      $
-                      {transaction.amount || "N/A"}
-                    </td>
-                  </tr>
 
-                  <tr className="bg-gray-100">
-                    <td className="border px-4 py-2 font-semibold">Plan Type:</td>
-                    <td className="border px-4 py-2">
-                     
-                      {transaction.planType ? "Yearly" : "Monthly" || "N/A"}
-                    </td>
-                  </tr>
+            {transaction && (
+              <div className="text-gray-700">
+                <p className="text-base font-bold text-center">
+                  {" "}
+                  Your Order Details
+                </p>
+                <div className="mt-4">
+                  <table className=" border border-gray-300 w-[100%]">
+                    <tbody>
+                      <tr className="bg-gray-100">
+                        <td className="border px-4 py-2 ">Order ID:</td>
+                        <td className="border px-4 py-2">
+                          {transaction.orderId || "N/A"}
+                        </td>
+                      </tr>
+                      <tr className="bg-gray-100">
+                        <td className="border px-4 py-2">Status:</td>
+                        <td className="border px-4 py-2">
+                          {transaction.status ? "PAID" : "N/A"}
+                        </td>
+                      </tr>
+                      <tr className="bg-gray-100">
+                        <td className="border px-4 py-2">Email:</td>
+                        <td className="border px-4 py-2">
+                          {transaction.customerEmail || "N/A"}
+                        </td>
+                      </tr>
 
-                  {/* <tr className="bg-gray-100">
+                      <tr className="bg-gray-100">
+                        <td className="border px-4 py-2">Amount:</td>
+                        <td className="border px-4 py-2">
+                          ${transaction.amount || "N/A"}
+                        </td>
+                      </tr>
+
+                      <tr className="bg-gray-100">
+                        <td className="border px-4 py-2">Plan Type:</td>
+                        <td className="border px-4 py-2">
+                          {transaction.planType ? "Yearly" : "Monthly" || "N/A"}
+                        </td>
+                      </tr>
+
+                      {/* <tr className="bg-gray-100">
                     <td className="border px-4 py-2 font-semibold">Transaction Id:</td>
                     <td className="border px-4 py-2">
                      
                       {transaction.transactionId|| "N/A"}
                     </td>
                   </tr> */}
-                 
-                </tbody>
-              </table>
-            </div>
-          </div>
-        )}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            )}
 
             {/* Error State */}
             {!loading && !paymentDetails && (
@@ -212,21 +220,19 @@ console.log(userData);
                 Payment failed or details not found.
               </p>
             )}
-              {/* Login Button */}
-              <div className="mt-6 text-center p-3">
-                <button
-                
-                  className={`w-1/3 py-3 bg-green-500 text-white rounded-lg hover:bg-green-600`}
-                   
-                >
-                <Link to="/dashboard">Go To Dashboard</Link> 
-                </button>
-              </div>
+            {/* Login Button */}
+            <div className="pt-6 text-center p-3">
+              <button
+                className={`px-12 w-2/3 text-center py-2 bg-green-500 text-white cursor-pointer font-medium hover:bg-green-700 duration-1000 ease-in-out  transition text-sm`}
+              >
+                <Link to="/dashboard">Go To Dashboard</Link>
+              </button>
             </div>
           </div>
         </div>
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default Success
+export default Success;

@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import axios from "axios";
-import Swal from "sweetalert2";
-import Logo from "../assets/LMDark.webp";
-import success from "../assets/success.png";
-import { Link } from "react-router-dom";
+import Logo from "../assets/LMDarkLogo.webp";
+import Lottie from "lottie-react";
+import SuccessLottie from "../assets/Success.json";
+import { IoIosClose } from "react-icons/io";
+import { Link, useNavigate } from "react-router-dom";
 import { CartContext } from "../context/CartContext";
 import { useContext } from "react";
 import { AppContext } from "../context/AppContext";
@@ -19,6 +20,8 @@ const PayPalSuccessPage = () => {
     deleteFromCart,
     clearCart,
   } = useContext(CartContext);
+
+  const navigate = useNavigate("");
 
   const { backendUrl } = useContext(AppContext);
 
@@ -39,11 +42,12 @@ const PayPalSuccessPage = () => {
 
   useEffect(() => {
     if (!token || !payerID) return;
-  
+
     const fetchPaymentDetails = async () => {
       try {
         const response = await axios.get(
-          backendUrl + `/api/user/complete-order?token=${token}&PayerID=${payerID}`
+          backendUrl +
+            `/api/user/complete-order?token=${token}&PayerID=${payerID}`
         );
         setPaymentDetails(response.data);
       } catch (error) {
@@ -52,18 +56,17 @@ const PayPalSuccessPage = () => {
         setLoading(false);
       }
     };
-  
+
     fetchPaymentDetails();
   }, [token, payerID]);
-  
+
   useEffect(() => {
     if (paymentDetails && !flag) {
       handleStoringPaymentDetails();
-
     }
   }, [paymentDetails, flag]);
-  
- // storing payment details in DB
+
+  // storing payment details in DB
 
   const handleStoringPaymentDetails = async () => {
     try {
@@ -80,30 +83,30 @@ const PayPalSuccessPage = () => {
           subscriptionType: isYearly ? "Yearly" : "Monthly",
         }
       );
-  
+
       console.log("Payment details saved successfully:", response.data);
       setFlag(true);
       fetchPaymentId(); // Call fetchPaymentId after storing payment details
-  
     } catch (error) {
       console.error("Error while storing payment details into DB:", error);
     }
   };
-  
 
   const [payments, setPayments] = useState([]);
 
   // Fetch Payment ID after storing payment details
-  
+
   const fetchPaymentId = async () => {
     try {
-      const response = await axios.get(backendUrl + `/api/user/get-payment/${userData._id}`);
+      const response = await axios.get(
+        backendUrl + `/api/user/get-payment/${userData._id}`
+      );
       setPayments(response.data);
     } catch (error) {
       setError(error.response?.data?.error || "Error fetching payment details");
     }
   };
-  
+
   useEffect(() => {
     if (payments.length > 0) {
       handleSubscriptionDetails();
@@ -112,9 +115,8 @@ const PayPalSuccessPage = () => {
       localStorage.removeItem("isYearly");
     }
   }, [payments]);
-  
 
-   // storing subscription details in DB 
+  // storing subscription details in DB
 
   const handleSubscriptionDetails = async () => {
     try {
@@ -128,30 +130,42 @@ const PayPalSuccessPage = () => {
           subscriptionStatus: selectedPlan.isActive ? "active" : "expired",
         }
       );
-  
+
       console.log("Subscription details saved successfully:", response.data);
       clearCart();
     } catch (error) {
       console.error("Error while storing subscription details into DB:", error);
     }
   };
-  
-
 
   return (
     <div className="fixed inset-0 flex justify-center items-center bg-gray-800 bg-opacity-50">
       <div className="bg-white w-[600px] p-6 rounded-lg shadow-lg ">
         {/* Header */}
-        <div className="flex items-center justify-between mb-6">
-          <img src={Logo} alt="Logo" className="w-12 h-12" />
-          <h4 className="text-3xl font-bold text-center flex-1">
-            <span className="text-black">LM</span>
-            <span className="text-green-500">Club</span>
-          </h4>
+        <div className="flex flex-row justify-between items-center">
+          <img src={Logo} alt="logo" className="w-[52px] h-auto" />
+
+          <h2 className="md:text-lg text-base font-bold text-center">
+            Payment Successful
+          </h2>
+
+          <IoIosClose
+            onClick={() => {
+              navigate("/dashboard");
+              scrollTo(0, 0);
+            }}
+            className="md:w-8 md:h-8 w-6 h-6 cursor-pointer"
+          />
         </div>
 
-        <div className="mb-6 flex justify-center">
-          <img src={success} alt="Success" className="w-[50px] h-[50px]" />
+        <div className="border-b border-gray-200 pt-2"></div>
+
+        <div className="w-[90%] mx-auto  p-5 flex flex-col justify-center items-center gap-6 text-center">
+          <Lottie
+            animationData={SuccessLottie}
+            loop={true}
+            className="w-full h-[140px]"
+          />
         </div>
 
         {/* Loading State */}
@@ -162,57 +176,47 @@ const PayPalSuccessPage = () => {
         {/* Display Payment Details */}
         {paymentDetails && (
           <div className="text-gray-700">
-            <p className="font-semibold text-3xl text-center text-green-500 mb-2">
+            <p className="text-base font-bold text-center">
               {" "}
-              Thank You!
+              Your Order Details
             </p>
-            <p className=" text-xl text-center mb-3">
-              {" "}
-              Payment Done Successfully
-            </p>
-            <p className="border-b border-1 border-gray-800"></p>
-            <p className=" text-xl text-center mt-3"> Your Order Details</p>
             <div className="mt-4">
-              <table className="w-full border border-gray-300 w-[80%]">
+              <table className="w-full border border-gray-300">
                 <tbody>
                   <tr className="bg-gray-100">
-                    <td className="border px-4 py-2 font-semibold">
-                      Order ID:
-                    </td>
+                    <td className="border px-4 py-2">Order ID:</td>
                     <td className="border px-4 py-2">
                       {paymentDetails?.data?.id || "N/A"}
                     </td>
                   </tr>
-                  <tr className="bg-gray-300">
-                    <td className="border px-4 py-2 font-semibold">Status:</td>
+                  <tr className="bg-gray-100">
+                    <td className="border px-4 py-2 ">Status:</td>
                     <td className="border px-4 py-2">
                       {paymentDetails?.data?.status || "N/A"}
                     </td>
                   </tr>
                   <tr className="bg-gray-100">
-                    <td className="border px-4 py-2 font-semibold">Email:</td>
+                    <td className="border px-4 py-2">Email:</td>
                     <td className="border px-4 py-2">
                       {paymentDetails?.data?.payer?.email_address || "N/A"}
                     </td>
                   </tr>
-                  <tr className="bg-gray-300">
-                    <td className="border px-4 py-2 font-semibold">Name:</td>
+                  <tr className="bg-gray-100">
+                    <td className="border px-4 py-2 ">Name:</td>
                     <td className="border px-4 py-2">
                       {paymentDetails?.data?.payer?.name?.given_name || "N/A"}
                     </td>
                   </tr>
                   <tr className="bg-gray-100">
-                    <td className="border px-4 py-2 font-semibold">Amount:</td>
+                    <td className="border px-4 py-2 ">Amount:</td>
                     <td className="border px-4 py-2">
                       $
                       {paymentDetails?.data?.purchase_units?.[0]?.payments
                         ?.captures?.[0]?.amount?.value || "N/A"}
                     </td>
                   </tr>
-                  <tr className="bg-gray-300">
-                    <td className="border px-4 py-2 font-semibold">
-                      Account ID:
-                    </td>
+                  <tr className="bg-gray-100">
+                    <td className="border px-4 py-2 ">Account ID:</td>
                     <td className="border px-4 py-2">
                       {paymentDetails?.data?.payment_source?.paypal
                         ?.account_id || "N/A"}
@@ -231,12 +235,13 @@ const PayPalSuccessPage = () => {
           </p>
         )}
 
-        <button
-          // onClick={() => navigate(-1)}
-          className="px-6 py-3 bg-gray-600 text-white rounded-lg cursor-pointer hover:bg-gray-700 transition mt-3"
-        >
-          <Link to="/dashboard">Go To Dashboard</Link> 
-        </button>
+        <div className="pt-6 text-center p-3">
+          <button
+            className={`px-12 w-2/3 text-center py-2 bg-green-500 text-white cursor-pointer font-medium hover:bg-green-700 duration-1000 ease-in-out  transition text-sm`}
+          >
+            <Link to="/dashboard">Go To Dashboard</Link>
+          </button>
+        </div>
       </div>
     </div>
   );

@@ -5,7 +5,6 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import Swal from "sweetalert2";
 import Logo from "../assets/LMDark.webp";
-import { Link } from "react-router-dom";
 const public_stripe_key =
   "pk_test_51QMcn82NPQsjFaoTZ90xF9ORG1Gj4EdmGPiQAmSGbvVomOdnWBrwJV3BR9mCFbmQPFZPEsOZgqOglMvKR1Bff5ju00HjRNjRhp";
 import { AppContext } from "../context/AppContext";
@@ -145,23 +144,28 @@ const HandlePayment = () => {
   //     : "$0";
 
   return (
-    <div className="w-full flex items-center justify-center min-h-screen px-4 bg-gray-100">
-      <div className="max-w-[1000px] w-full mx-auto h-auto flex flex-col items-center justify-center shadow-xl text-center gap-4 bg-gray-300 p-6 rounded-lg">
-        <h1 className="lg:text-4xl text-3xl font-semibold">
-          Your Payment Details
-        </h1>
+    <div className="w-full flex items-center justify-center pt-8 px-4 bg-gray-100">
+      <div className="max-w-[1000px] w-full mx-auto h-auto flex flex-col items-center justify-center shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)] text-center gap-4 bg-white p-6 rounded-lg">
+        <div className="flex flex-wrap flex-col items-center pb-3">
+          <div className="text-center mt-4">
+            <h3 className="lg:text-3xl text-2xl font-bold text-headingColor">
+              Your Payment Details
+            </h3>
+          </div>
+          <div className="md:w-40 w-36 h-1 border-b-2 border-green-500 mt-[1px]"></div>
+        </div>
 
         <div className="w-full overflow-x-auto mt-6">
           <table className="w-full border-collapse border border-gray-300 min-w-[600px]">
             <thead>
-              <tr className="bg-gray-800 text-white text-center">
+              <tr className="bg-gray-300 text-black text-center ">
                 <th className="p-3 text-left">Plan</th>
                 <th className="p-3 text-left">Plan Type</th>
                 <th className="p-3 text-left">Payable Amount</th>
               </tr>
             </thead>
             <tbody>
-              <tr className="border border-gray-300 text-center bg-blue-200">
+              <tr className="border border-gray-300 text-center font-medium ">
                 <td className="p-3 text-left">
                   {selectedPlan.planName} Membership
                 </td>
@@ -175,7 +179,7 @@ const HandlePayment = () => {
               </tr>
 
               {/* Registration Fee Row */}
-              <tr className="border border-gray-300 text-center bg-gray-200">
+              <tr className="border border-gray-300 text-center font-medium ">
                 <td className="p-3 text-left ">Registration Fee</td>
                 <td className="p-3 text-left">Annual</td>
 
@@ -185,7 +189,7 @@ const HandlePayment = () => {
               </tr>
 
               {/* Net Amount Row */}
-              <tr className="border border-gray-300 text-center bg-blue-200 ">
+              <tr className="border border-gray-300 text-center font-medium ">
                 <td className="p-3 text-left">Total Amount</td>
                 <td className="p-3"></td>
 
@@ -205,7 +209,7 @@ const HandlePayment = () => {
         </div>
 
         <div className="cart-summary mt-4 text-center">
-          <div className="flex items-start items-center mb-3">
+          <div className="flex items-center mb-3">
             <div className="flex items-center h-5">
               <input
                 id="terms"
@@ -218,20 +222,17 @@ const HandlePayment = () => {
               ></input>
             </div>
             <div className="ml-3 text-sm">
-              <label
-                htmlFor="terms"
-                className="font-light text-gray-500 text-lg"
-              >
+              <label htmlFor="terms" className="font-light text-gray-500">
                 I accept the payment{" "}
                 <a
-                  className="font-medium text-gray-600 hover:underline hover:text-green-600 dark:text-primary-500"
+                  className="font-medium text-gray-500 hover:underline hover:text-green-600 dark:text-primary-500"
                   href="/terms-and-conditions"
                 >
                   Terms and Conditions
                 </a>{" "}
                 and{" "}
                 <a
-                  className="font-medium text-gray-600 hover:underline hover:text-green-600 dark:text-primary-500"
+                  className="font-medium text-gray-500 hover:underline hover:text-green-600 dark:text-primary-500"
                   href="/refund-and-return-policy"
                 >
                   Refund and Returns Policy
@@ -239,7 +240,7 @@ const HandlePayment = () => {
               </label>
             </div>
           </div>
-          <p className="text-2xl  font-semibold text-gray-800">
+          <p className="text-2xl pt-4 font-bold text-gray-800">
             Total Payable Amount: $
             {(
               parseFloat(
@@ -250,17 +251,17 @@ const HandlePayment = () => {
             ).toFixed(2)}
           </p>
         </div>
-        <div className="flex justify-between w-full mt-6">
+        <div className="flex justify-between w-full mt-6 gap-4">
           <button
             onClick={() => navigate(-1)}
-            className="px-6 py-3 bg-gray-600 text-white rounded-lg cursor-pointer hover:bg-gray-700 transition"
+            className="px-12 w-[200px] py-1.5 bg-gray-500 text-white   cursor-pointer hover:bg-gray-700 duration-1000 ease-in-out  transition"
           >
             Back
           </button>
 
           <button
             onClick={() => handleNavigateToSelectPaymentMethod()}
-            className="px-6 py-3 bg-green-600 text-white rounded-lg cursor-pointer hover:bg-green-700 transition"
+            className="px-12 w-[200px] py-1.5 bg-green-500 text-white   cursor-pointer hover:bg-green-700 duration-1000 ease-in-out  transition"
           >
             {/* <Link to='/select-payment-method'>Pay</Link>  */}
             Pay

@@ -96,7 +96,7 @@ const ECommercePaymentMethods = () => {
 
   return (
     <div className="flex items-center justify-center min-h-screen px-4">
-      <div className="w-full max-w-3xl md:w-[50%] h-auto flex flex-col items-center justify-center shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)] text-center gap-4 p-6  ">
+      <div className="w-full max-w-3xl md:w-[50%] h-auto flex flex-col items-center justify-center shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)] text-center gap-4 p-6 ">
         <div className="flex flex-wrap flex-col items-center pb-3">
           <div className="text-center mt-4">
             <h3 className="lg:text-3xl text-2xl font-bold text-headingColor">
