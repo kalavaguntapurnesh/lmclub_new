@@ -70,13 +70,17 @@ export function CartProvider({ children }) {
                                     <img src="${success}" alt="Success" style="width: 50px; height: 50px; margin: 0 10px;" />
                                 </div>
                                 <div style="display: flex; flex-direction: column; align-items: center; gap:20px">     
-                                    <h1 style="font-size: 25px;"> This membership is already added to your cart! </h1>
+                                    <h1 style="font-size: 25px;"> you selected the subscription already! </h1>
                                 </div>
                             </div>
                         `,
             customClass: {
               confirmButton: "swal-custom-ok-button",
             },
+            
+          footer: `
+          <p style="font-size: 12px; text-align: center; width: 100%;">© 2025, Laoe Maom. All Rights Reserved.</p>
+        `,
           });
 
           return prevCartProducts; // Do not change cart
@@ -96,13 +100,16 @@ export function CartProvider({ children }) {
                                     <img src="${success}" alt="Success" style="width: 50px; height: 50px; margin: 0 10px;" />
                                 </div>
                                 <div style="display: flex; flex-direction: column; align-items: center; gap:20px">     
-                                    <h1 style="font-size: 25px;"> Membership updated successfully! Check your cart! </h1>
+                                    <h1 style="font-size: 25px;"> Membership updated successfully! </h1>
                                 </div>
                             </div>
                         `,
             customClass: {
               confirmButton: "swal-custom-ok-button",
             },
+          footer: `
+          <p style="font-size: 12px; text-align: center; width: 100%;">© 2025, Laoe Maom. All Rights Reserved.</p>
+        `,
           });
 
           return [
@@ -120,25 +127,29 @@ export function CartProvider({ children }) {
         // If cart is empty, add the new membership
         Swal.fire({
           html: `
-                        <div style="display: flex; flex-direction: column; align-items: center;">
-                            <div style="width: 100%; display: flex; align-items: center; justify-content: center; position: relative; margin-bottom: 20px;">
-                                <img src="${Logo}" alt="Logo" style="position: absolute; top: 0; left: 0; width: 50px; height: 50px; margin: 10px;" />
-                                <h4 style="margin: 0; font-size: 30px; font-weight: bold;">
-                                    <span style="color: black;">LM</span>
-                                    <span style="color: rgb(37, 218, 73);">Club</span>
-                                </h4>
-                            </div>
-                            <div style="margin-bottom: 20px;">
-                                <img src="${success}" alt="Success" style="width: 50px; height: 50px; margin: 0 10px;" />
-                            </div>
-                            <div style="display: flex; flex-direction: column; align-items: center; gap:20px">     
-                                <h1 style="font-size: 25px;"> Membership added successfully! </h1>
-                            </div>
-                        </div>
-                    `,
+                <div style="display: flex; flex-direction: column; align-items: center;">
+                    <div style="width: 100%; display: flex; align-items: center; justify-content: center; position: relative; margin-bottom: 20px;">
+                        <img src="${Logo}" alt="Logo" style="position: absolute; top: 0; left: 0; width: 50px; height: 50px; margin: 10px;" />
+                        <h4 style="margin: 0; font-size: 30px; font-weight: bold;">
+                            <span style="color: black;">LM</span>
+                            <span style="color: rgb(37, 218, 73);">Club</span>
+                        </h4>
+                    </div>
+                    <div style="margin-bottom: 20px;">
+                        <img src="${success}" alt="Success" style="width: 50px; height: 50px; margin: 0 10px;" />
+                    </div>
+                    <div style="display: flex; flex-direction: column; align-items: center; gap:20px">     
+                        <h1 style="font-size: 25px;"> Membership added successfully! </h1>
+                    </div>
+                </div>
+              `,
           customClass: {
             confirmButton: "swal-custom-ok-button",
           },
+          footer: `
+            <p style="font-size: 12px; text-align: center; width: 100%;">© 2025, Laoe Maom. All Rights Reserved.</p>
+          `,
+                  
         });
 
         return [
@@ -146,7 +157,7 @@ export function CartProvider({ children }) {
             id,
             name,
             price,
-            description,
+            description,    
             isYearly,
             image
           },
@@ -216,6 +227,9 @@ export function CartProvider({ children }) {
       customClass: {
         confirmButton: "swal-custom-ok-button",
       },
+      footer: `
+      <p style="font-size: 12px; text-align: center; width: 100%;">© 2025, Laoe Maom. All Rights Reserved.</p>
+    `,
     });
 
     setCartProducts((prevCartProducts) => {

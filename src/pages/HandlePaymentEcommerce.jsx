@@ -5,8 +5,11 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import Swal from "sweetalert2";
 import Logo from "../assets/LMDark.webp";
-const public_stripe_key =
-  "pk_test_51QMcn82NPQsjFaoTZ90xF9ORG1Gj4EdmGPiQAmSGbvVomOdnWBrwJV3BR9mCFbmQPFZPEsOZgqOglMvKR1Bff5ju00HjRNjRhp";
+// const public_stripe_key =
+//   "pk_test_51QMcn82NPQsjFaoTZ90xF9ORG1Gj4EdmGPiQAmSGbvVomOdnWBrwJV3BR9mCFbmQPFZPEsOZgqOglMvKR1Bff5ju00HjRNjRhp";
+
+const public_stripe_key = "pk_test_51QtAt2GOhtfuEWGy6f6jmGAus5F0S0NNqbO4EIM9p3POn8kO9K734BmwkMx5tlSOGWsNwQhusOrT5UncYCDpENiK00dmg6bEBI"
+
 import { AppContext } from "../context/AppContext";
 
 const HandlePaymentEcommerce = () => {
@@ -68,6 +71,9 @@ const HandlePaymentEcommerce = () => {
         customClass: {
           confirmButton: "swal-custom-ok-button",
         },
+        footer: `
+                    <p style="font-size: 12px; text-align: center; width: 100%;">© 2025, Laoe Maom. All Rights Reserved.</p>
+                  `,
       });
       return;
     }
@@ -119,6 +125,9 @@ const HandlePaymentEcommerce = () => {
         customClass: {
           confirmButton: "swal-custom-ok-button",
         },
+        footer: `
+          <p style="font-size: 12px; text-align: center; width: 100%;">© 2025, Laoe Maom. All Rights Reserved.</p>
+          `,
       });
       return;
     }

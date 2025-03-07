@@ -70,6 +70,9 @@ export function ECommerceCartProvider({ children }) {
       customClass: {
         confirmButton: "swal-custom-ok-button",
       },
+      footer: `
+        <p style="font-size: 12px; text-align: center; width: 100%;">© 2025, Laoe Maom. All Rights Reserved.</p>
+      `,
     });
   }
 

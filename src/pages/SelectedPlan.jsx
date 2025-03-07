@@ -14,6 +14,8 @@ import { useContext } from "react";
 import { useEffect } from "react";
 import Swal from "sweetalert2";
 import Logo from "../assets/LMDark.webp";
+import WhatsApp from "../components/WhatsApp";
+
 const SelectedPlan = () => {
   const location = useLocation();
   const [plan, setPlan] = useState(location.state?.plan || {});
@@ -100,6 +102,10 @@ const SelectedPlan = () => {
           customClass: {
             confirmButton: "swal-custom-ok-button",
           },
+          
+          footer: `
+            <p style="font-size: 12px; text-align: center; width: 100%;">© 2025, Laoe Maom. All Rights Reserved.</p>
+          `,
         });
       }
     }
@@ -223,7 +229,7 @@ const SelectedPlan = () => {
   return (
     <div>
       <NavBar />
-
+      <WhatsApp />
       {/* <h2 className="text-3xl font-bold">{plan.name} Plan</h2>
             <p className="text-gray-600">{plan.description}</p>
             <p className="text-gray-600">{plan.renewalFee}</p>
@@ -411,14 +417,32 @@ const SelectedPlan = () => {
                               </li>
                             ))}
                           </ul>
-                          <a
+                          {/* <a
                             onClick={() =>
                               updatePlanDetailsInSelectedPage(plan)
                             }
                             className="text-white bg-mainColor font-medium rounded-full text-sm px-5 py-3 my-3 text-center cursor-pointer"
                           >
                             Get started
-                          </a>
+                          </a> */}
+
+                          <div className="flex justify-between">
+                            <a
+                              onClick={() =>
+                                navigate(`/AllMembershipPackage/${plan.name}`)
+                              }
+                              className="text-white bg-mainColor font-medium rounded-full text-sm px-5 py-3 my-3 text-center cursor-pointer"
+                            >
+                              Know More
+                            </a>
+                            <a
+                              onClick={() => handleSelectedPlan(plan)}
+                              className="text-white bg-mainColor font-medium rounded-full text-sm px-5 py-3 my-3 text-center cursor-pointer"
+                            >
+                              Get started
+                            </a>
+                          </div>
+
                         </div>
                       ))}
                     </div>

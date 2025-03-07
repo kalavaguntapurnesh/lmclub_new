@@ -9,7 +9,7 @@ import Logo from "../assets/LMDark.webp";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import sad from "../assets/sad.svg";
-
+import WhatsApp from "../components/WhatsApp";
 const Cart = () => {
   const {
     items,
@@ -61,7 +61,11 @@ const Cart = () => {
                     </div>
                    `,
                    showConfirmButton: false,
-              // customClass: {
+                   
+                    footer: `
+                    <p style="font-size: 12px; text-align: center; width: 100%;">© 2025, Laoe Maom. All Rights Reserved.</p>
+                  `,
+              // customClass: { 
               //   confirmButton: "swal-custom-ok-button",
                 
               // },
@@ -92,6 +96,7 @@ const Cart = () => {
   return (
     <div>
       <Navbar />
+      <WhatsApp />
        <div className="pt-24 lg:pb-12">
         <div className="relative">
           <div className="w-full">
@@ -104,10 +109,18 @@ const Cart = () => {
                       Your Cart
                     </h1>
                   </div>
-                  <h1 className="lg:text-3xl text-2xl text-center font-bold text-headingColor">
-                    {items.length > 0
-                      ? "Proceed to Secure Checkout"
-                      : "Oops! It seems like your cart is empty"}
+                  <h1 className="lg:text-xl  text-center font-bold text-headingColor">
+                    {items.length > 0 ? (
+                      "Proceed to Secure Checkout"
+                    ) : (
+                      <>
+                        <span className="text-xl">Your LMCLUB Cart is empty.</span> <br />
+                        <span className="font-bold text-md ">
+                          Your Shopping Cart lives to serve. Give it purpose by
+                          adding Subscription or LMCLUB Merchandise.
+                        </span>
+                      </>
+                    )}
                   </h1>
                 </div>
                 {items.length > 0 ? (
@@ -213,6 +226,9 @@ const Cart = () => {
                             
                           </button>
                         </div>
+                        <div className="text-center text-xs mt-3 mb-4">
+                          <p>© 2025, Laoe Maom. All Rights Reserved.</p>
+                        </div>
                       </div>
                     )}
                   </div>
@@ -224,7 +240,11 @@ const Cart = () => {
                     <button className="pay-button mt-4 w-[200px] lg:w-[240px] bg-green-500 text-white py-2 font-medium transition duration-1000 ease-in-out hover:bg-green-700">
                       <Link to="/pricing">Would you like to explore more Plans</Link>
                     </button>
+                    <div className="text-center text-xs mt-3 mb-4">
+                      <p>© 2025, Laoe Maom. All Rights Reserved.</p>
+                    </div>
                   </div>
+                  
                 )}
               </div>
             </div>

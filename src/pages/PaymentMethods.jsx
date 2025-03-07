@@ -4,8 +4,11 @@ import stripe from "../assets/stripe.svg";
 import { useNavigate } from "react-router-dom";
 import { loadStripe } from "@stripe/stripe-js";
 import { useContext } from "react";
-const public_stripe_key =
-  "pk_test_51QMcn82NPQsjFaoTZ90xF9ORG1Gj4EdmGPiQAmSGbvVomOdnWBrwJV3BR9mCFbmQPFZPEsOZgqOglMvKR1Bff5ju00HjRNjRhp";
+// cdn sandbox stripe public key
+// const public_stripe_key = "pk_test_51QMcn82NPQsjFaoTZ90xF9ORG1Gj4EdmGPiQAmSGbvVomOdnWBrwJV3BR9mCFbmQPFZPEsOZgqOglMvKR1Bff5ju00HjRNjRhp";
+// lmclub sandbox stripe public key
+const public_stripe_key = "pk_test_51QtAt2GOhtfuEWGy6f6jmGAus5F0S0NNqbO4EIM9p3POn8kO9K734BmwkMx5tlSOGWsNwQhusOrT5UncYCDpENiK00dmg6bEBI";
+
 import { AppContext } from "../context/AppContext";
 import { useLocation } from "react-router-dom";
 const PaymentMethods = () => {

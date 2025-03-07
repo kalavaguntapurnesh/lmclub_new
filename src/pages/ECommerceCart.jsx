@@ -7,7 +7,8 @@ import { Link } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import sad from "../assets/sad.svg";
-
+import Swal from "sweetalert2";
+import Logo from "../assets/LMDark.webp";
 const ECommerceCart = () => {
   const {
     items,
@@ -19,15 +20,66 @@ const ECommerceCart = () => {
   console.log("Cart items:", items);
   console.log(items.descriptionTwo);
   const [flag, setFlag] = useState(false);
-  const handlePaymentClick = () => {
-    setFlag(!flag);
-  };
+  // const handlePaymentClick = () => {
+  //   setFlag(!flag);
+  // };
   const location = useLocation();
   const navigate = useNavigate();
 
   const handleGoToAgainSelectedPage = () => {
     navigate("/pricing");
   };
+  
+    const style = document.createElement("style");
+    style.innerHTML = `
+      .swal-custom-ok-button {
+        background-color:rgb(27, 202, 103); /* Custom color */
+        color:white;
+        border: none;
+        padding: 10px 20px;
+        font-size: 16px;
+        border-radius: 5px;
+      }
+  
+      .swal-custom-ok-button:hover {
+        background-color:rgb(18, 91, 25); /* Hover color */
+      }
+    `;
+    document.head.appendChild(style);
+    const handlePaymentClick = () => {
+          Swal.fire({
+                html: `
+                      <div style="display: flex; flex-direction: column; align-items: center;">
+                           <div style="width: 100%; display: flex; align-items: center; justify-content: center; position: relative; margin-bottom: 20px;">
+                               <img src="${Logo}" alt="Logo" 
+                                    style="position: absolute; top: 0; left: 0; width: 50px; height: 50px; margin: 10px;" />
+                                                  
+                                     <h4 style="margin: 0; font-size: 30px; font-weight: bold;">
+                                         <span style="color: black;">LM</span>
+                                         <span style="color: rgb(37, 218, 73);">Club</span>
+                                     </h4>
+                           </div>
+                    
+                          <div style="text-align: center; font-size: 22px;  color: #333; margin-bottom: 20px;">
+                           <p>You haven't logged in. </p>
+                         </div> 
+                         <div style=" ;">
+                            <a href="https://www.lmclub.club/login" style="display: inline-block; padding: 14px 20px; background-color: green; color: white; text-decoration: none; border-radius: 5px; font-size: 16px; font-weight: bold; text-align: center;">Please Login</a>
+                          </div>
+                      </div>
+                     `,
+                     showConfirmButton: false,
+                     
+                      footer: `
+                      <p style="font-size: 12px; text-align: center; width: 100%;">© 2025, Laoe Maom. All Rights Reserved.</p>
+                    `,
+                // customClass: {
+                //   confirmButton: "swal-custom-ok-button",
+                  
+                // },
+              });
+    };
+
 
   return (
     <div>
@@ -45,10 +97,18 @@ const ECommerceCart = () => {
                       Your Cart
                     </h1>
                   </div>
-                  <h1 className="lg:text-3xl text-2xl text-center font-bold text-headingColor">
-                    {items.length > 0
-                      ? "Proceed to Secure Checkout"
-                      : "Oops! It seems like your cart is empty"}
+                  <h1 className="lg:text-xs text-xs text-center font-bold text-headingColor">
+                    {items.length > 0 ? (
+                      "Proceed to Secure Checkout"
+                    ) : (
+                      <>
+                        <span className="text-xl">Your LMCLUB Cart is empty.</span> <br />
+                        <span className="font-bold text-md ">
+                          Your Shopping Cart lives to serve. Give it purpose by
+                          adding Subscription or LMCLUB Merchandise.
+                        </span>
+                      </>
+                    )}
                   </h1>
                 </div>
                 {items.length > 0 ? (
@@ -133,12 +193,19 @@ const ECommerceCart = () => {
                           <button className="pay-button mt-4 lg:w-1/3 bg-green-500 text-white py-2 font-medium transition duration-1000 ease-in-out hover:bg-green-700">
                             <Link to="/ecommerce">Continue Shopping</Link>
                           </button>
-                          <button className="pay-button mt-4 lg:w-1/3 bg-green-500 text-white py-2 font-medium transition duration-1000 ease-in-out hover:bg-green-700">
-                            <Link to="/ecommerce-payment">
+                          <button
+                            onClick={handlePaymentClick}
+                          className="pay-button mt-4 lg:w-1/3 bg-green-500 text-white py-2 font-medium transition duration-1000 ease-in-out hover:bg-green-700">
+                             Proceed to Checkout
+                            {/* <Link to="/ecommerce-payment">
                               Proceed to Checkout
-                            </Link>
+                            </Link> */}
                           </button>
                         </div>
+                        <div>
+                          <p className="text-xs text-center text-gray-400 m-2">© 2025, Laoe Maom. All Rights Reserved.</p>
+                        </div>
+
                       </div>
                     )}
                   </div>
@@ -150,6 +217,9 @@ const ECommerceCart = () => {
                     <button className="pay-button mt-4 w-[200px] lg:w-[240px] bg-green-500 text-white py-2 font-medium transition duration-1000 ease-in-out hover:bg-green-700">
                       <Link to="/ecommerce">Continue Shopping</Link>
                     </button>
+                    <div className="text-center text-xs mt-3 mb-4">
+                      <p>© 2025, Laoe Maom. All Rights Reserved.</p>
+                    </div>
                   </div>
                 )}
               </div>

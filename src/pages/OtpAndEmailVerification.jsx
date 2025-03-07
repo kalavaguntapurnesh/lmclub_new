@@ -123,7 +123,10 @@ const OtpAndEmailVerification = () => {
                 `,
                 customClass: {
                   confirmButton: 'swal-custom-ok-button',
-                }
+                },
+                footer: `
+                    <p style="font-size: 12px; text-align: center; width: 100%;">© 2025, Laoe Maom. All Rights Reserved.</p>
+                  `,
               })
         .then(() => {
           setSmsVerified(true);
@@ -159,7 +162,10 @@ const OtpAndEmailVerification = () => {
             `,
             customClass: {
               confirmButton: 'swal-custom-ok-button',
-            }
+            },
+            footer: `
+                    <p style="font-size: 12px; text-align: center; width: 100%;">© 2025, Laoe Maom. All Rights Reserved.</p>
+                  `,
           })
       }
     } catch (error) {
@@ -192,7 +198,10 @@ const OtpAndEmailVerification = () => {
         `,
         customClass: {
           confirmButton: 'swal-custom-ok-button',
-        }
+        },
+        footer: `
+                    <p style="font-size: 12px; text-align: center; width: 100%;">© 2025, Laoe Maom. All Rights Reserved.</p>
+                  `,
       })
     }
   };
@@ -235,6 +244,9 @@ const OtpAndEmailVerification = () => {
         customClass: {
           confirmButton: 'swal-custom-ok-button',
         }
+        ,footer: `
+        <p style="font-size: 12px; text-align: center; width: 100%;">© 2025, Laoe Maom. All Rights Reserved.</p>
+      `,
       })
 
 
@@ -264,7 +276,10 @@ const OtpAndEmailVerification = () => {
         `,
         customClass: {
           confirmButton: 'swal-custom-ok-button',
-        }
+        },
+        footer: `
+            <p style="font-size: 12px; text-align: center; width: 100%;">© 2025, Laoe Maom. All Rights Reserved.</p>
+        `,
       })
 
     }

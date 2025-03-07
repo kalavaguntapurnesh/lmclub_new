@@ -228,6 +228,10 @@ const Success = () => {
                 <Link to="/dashboard">Go To Dashboard</Link>
               </button>
             </div>
+            <div>
+            <p className="text-xs text-center text-gray-400">© 2025, Laoe Maom. All Rights Reserved.</p>
+          </div>
+          
           </div>
         </div>
       </div>

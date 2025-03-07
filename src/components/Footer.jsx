@@ -9,6 +9,8 @@ import { FaTiktok } from "react-icons/fa";
 import { FaYoutube } from "react-icons/fa";
 import { FaCheckCircle, FaExclamationCircle } from "react-icons/fa";
 import axios from "axios";
+import { AppContext } from "../context/AppContext";
+import { useContext } from "react";
 const Footer = () => {
   const location = useLocation();
   const [email, setEmail] = useState("");
@@ -16,6 +18,8 @@ const Footer = () => {
   const [popupMessage, setPopupMessage] = useState("");
   const [showPopup, setShowPopup] = useState(false);
   const phoneNumber = "16782004524";
+  const { backendUrl } = useContext(AppContext);
+
   const message =
     "Hello LM Club, I need your guidance on professional technicians...";
   const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(
@@ -39,7 +43,7 @@ const Footer = () => {
     }
 
     try {
-      const response = await axios.post("http://localhost:9090/api/subscribe", {
+      const response = await axios.post(backendUrl + `/api/user/subscribe`, {
         email,
       });
 
