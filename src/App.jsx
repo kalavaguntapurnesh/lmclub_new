@@ -62,23 +62,36 @@ function App() {
       <AuthNavbar />
       <div className="flex items-start">
         <Sidebar />
-        <Routes>
-          <Route path="/my-profile" element={<MyProfile />} />
-          <Route path="/dashboard" element={<Dashboard />}></Route>
-          <Route path="/my-addresses" element={<Addresses />}></Route>
-          <Route path="/my-orders" element={<MyOrders />}></Route>
-          <Route path="/my-subscription" element={<MySubscriptions />}></Route>
-          <Route path="/my-membership" element={<MyMembership />}></Route>
-          <Route path="/my-payments" element={<MyPayments />}></Route>
-          <Route path="/payment" element={<HandlePayment />} />
-          <Route path="/select-payment-method" element={<PaymentMethods />} />
-          <Route
-            path="/api/paypal/complete-order"
-            element={<PayPalSuccessPage />}
-          />
-          <Route path="/api/paypal/cancel-order/:token" element={<Failure />} />
-          <Route path="/payment-success" element={<Success />} />
-        </Routes>
+        <ECommerceCartProvider>
+            <Routes>
+              <Route path="/my-profile" element={<MyProfile />} />
+              <Route path="/dashboard" element={<Dashboard />}></Route>
+              <Route path="/my-addresses" element={<Addresses />}></Route>
+              <Route path="/my-orders" element={<MyOrders />}></Route>
+              <Route path="/my-subscription" element={<MySubscriptions />}></Route>
+              <Route path="/my-membership" element={<MyMembership />}></Route>
+              <Route path="/my-payments" element={<MyPayments />}></Route>
+              <Route path="/payment" element={<HandlePayment />} />
+              <Route path="/select-payment-method" element={<PaymentMethods />} />
+              <Route
+                path="/api/paypal/complete-order"
+                element={<PayPalSuccessPage />}
+              />
+              <Route path="/api/paypal/cancel-order/:token" element={<Failure />} />
+              <Route path="/payment-success" element={<Success />} />
+              <Route path="/ecommerce" element={<ECommerce />}></Route>
+              <Route path="/product-overview/:id" element={<ProductOverview />} />
+              <Route path="/ecommerce-cart" element={<ECommerceCart />} />
+              <Route
+                path="/ecommerce-payment"
+                element={<HandlePaymentEcommerce />}
+              />
+              <Route
+                path="/ecommerce-select-payment-methods"
+                element={<ECommercePaymentMethods />}
+              />
+            </Routes>
+        </ECommerceCartProvider>
       </div>
     </div>
   ) : (

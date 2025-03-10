@@ -15,7 +15,8 @@ import { IoMdLogOut } from "react-icons/io";
 import axios from "axios";
 import { IoIosClose } from "react-icons/io";
 import LMDarkLogo from "../assets/LMDarkLogo.webp";
-
+import { CiShoppingCart } from "react-icons/ci";
+import { useEffect } from "react";
 const AuthNavbar = () => {
   const { token, setToken, userData, backendUrl, setUserData } =
     useContext(AppContext);
@@ -59,6 +60,14 @@ const AuthNavbar = () => {
     }
   };
 
+   const [cartItemsCount, setCartItemsCount] = useState(0);
+  
+    useEffect(() => {
+      const storedCartItems = JSON.parse(localStorage.getItem("ecommerce-cart")) || [];
+      const totalItems = storedCartItems.reduce((total,item)=> total+item.quantity, 0);
+      setCartItemsCount(storedCartItems.length > 0 ? totalItems : 0);
+    }, []);
+  
   return (
     <div>
       <div className="flex justify-between items-center px-4 bg-white sm:px-10 pt-4 pb-4 ">
@@ -85,6 +94,18 @@ const AuthNavbar = () => {
       </div> */}
 
         <div className="flex flex-row items-center gap-4">
+            <div className="hidden lg:flex relative mr-5">
+              <a href="/ecommerce-cart" className="cursor-pointer">
+                <CiShoppingCart
+                  className={`w-9 h-9 text-2xl text-black`}
+                ></CiShoppingCart>
+              </a>
+              <div className="absolute top-[-8px] right-[-8px] text-[10px] bg-red-500 text-white rounded-full px-2 py-1 font-bold">
+                <h1>{cartItemsCount}</h1>
+                {/* <h1>0</h1> */}
+
+              </div>
+            </div>
           <div className="relative inline-flex w-fit">
             <div className="absolute bottom-auto left-auto right-0 top-0 z-10 inline-block -translate-y-1/2 translate-x-2/4 rotate-0 skew-x-0 skew-y-0 scale-x-100 scale-y-100 rounded-full bg-red-500 p-1.5 text-xs"></div>
             <div className="flex items-center justify-center rounded-lg bg-green-400 px-2 py-2 text-center text-white shadow-lg dark:text-gray-200">

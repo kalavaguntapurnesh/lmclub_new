@@ -6,20 +6,22 @@ import { loadStripe } from "@stripe/stripe-js";
 import { useContext } from "react";
 import { useECommerceCart } from "../context/ECommerceCartContext";
 const public_stripe_key =
-  "pk_test_51QMcn82NPQsjFaoTZ90xF9ORG1Gj4EdmGPiQAmSGbvVomOdnWBrwJV3BR9mCFbmQPFZPEsOZgqOglMvKR1Bff5ju00HjRNjRhp";
+  "pk_test_51QtAt2GOhtfuEWGy6f6jmGAus5F0S0NNqbO4EIM9p3POn8kO9K734BmwkMx5tlSOGWsNwQhusOrT5UncYCDpENiK00dmg6bEBI";
 import { AppContext } from "../context/AppContext";
 
 const ECommercePaymentMethods = () => {
   const { items, getProductQuantity, getTotalCost } = useECommerceCart();
-  const { backendUrl } = useContext(AppContext);
+  const { backendUrl, userData } = useContext(AppContext);
+  localStorage.setItem("userData", JSON.stringify(userData));
   const navigate = useNavigate();
   console.log("handle payment page : ", items);
 
   const [method, setMethod] = useState("cod");
 
+
   const cartItems = items.map((item) => {
     return {
-      id: item.id,
+      id: item.id,  
       name: item.name,
       description: item.description || "No description available",
       quantity: item.quantity || 1,
@@ -50,7 +52,7 @@ const ECommercePaymentMethods = () => {
 
       console.log("Sending cart items:", JSON.stringify(cartItems, null, 2));
       const response = await fetch(
-        backendUrl + "/api/user/create-stripe-session",
+        backendUrl + "/api/user/create-stripe-session-ecommerce",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -74,7 +76,7 @@ const ECommercePaymentMethods = () => {
     try {
       console.log("Sending cartItems:", cartItems);
 
-      const response = await fetch(backendUrl + "/api/user/create-order", {
+      const response = await fetch(backendUrl + "/api/user/create-ecommerce-order", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ line_items: cartItems }),
@@ -95,52 +97,99 @@ const ECommercePaymentMethods = () => {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen px-4">
-      <div className="w-full max-w-3xl md:w-[50%] h-auto flex flex-col items-center justify-center shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)] text-center gap-4 p-6 ">
-        <div className="flex flex-wrap flex-col items-center pb-3">
-          <div className="text-center mt-4">
-            <h3 className="lg:text-3xl text-2xl font-bold text-headingColor">
-              Select Payment Method
-            </h3>
+    // <div className="flex items-center justify-center min-h-screen px-4">
+    //   <div className="w-full max-w-[1400px] mx-auto md:w-[50%] h-auto flex flex-col items-center justify-center shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)] text-center gap-4 p-6 ">
+    //     <div className="flex flex-wrap flex-col items-center pb-3">
+    //       <div className="text-center mt-4">
+    //         <h3 className="lg:text-3xl text-2xl font-bold text-headingColor">
+    //           Select Payment Method
+    //         </h3>
+    //       </div>
+    //       <div className="md:w-40 w-36 h-1 border-b-2 border-green-500 mt-[1px]"></div>
+    //     </div>
+
+    //     {/* Payment Methods */}
+    //     <div className="lg:flex-row flex flex-col w-full gap-4">
+    //       {/* PayPal Option */}
+    //       <button onClick={handlePaypalCheckout} className="p-4 w-full">
+    //         <div className="flex flex-col items-center justify-center border border-gray-400 cursor-pointer hover:border-green-600 hover:border-2 text-center gap-4 w-full">
+    //           <img src={paypal} alt="paypal" className="lg:w-24 lg:h-24" />
+    //         </div>
+    //       </button>
+
+    //       {/* Credit/Debit Card Option */}
+    //       <button onClick={handleCheckout} className="p-4 w-full">
+    //         <div className="flex flex-col items-center justify-center border border-gray-400 cursor-pointer hover:border-green-600 hover:border-2 text-center gap-4 w-full">
+    //           <img
+    //             src={stripe}
+    //             alt="cards"
+    //             className="w-24 h-24 bg-transparent"
+    //           />
+    //         </div>
+    //       </button>
+    //     </div>
+
+    //     {/* Back Button */}
+    //     <div className="flex justify-center items-center w-full mt-6">
+    //       <button
+    //         onClick={() => {
+    //           navigate(-1);
+    //           scrollTo(0, 0);
+    //         }}
+    //         className="px-12 w-[200px] py-1.5 bg-gray-500 text-white   cursor-pointer hover:bg-gray-700 duration-1000 ease-in-out  transition"
+    //       >
+    //         Back
+    //       </button>
+    //     </div>
+    //   </div>
+    // </div>
+
+    <div className="w-full flex items-center justify-center pt-16 px-4 bg-gray-100">
+          <div className="max-w-[800px] w-full mx-auto h-auto flex flex-col items-center justify-center shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)] text-center gap-4 bg-white p-6 rounded-lg">
+            <div className="flex flex-wrap flex-col items-center pb-3">
+              <div className="text-center mt-4">
+                <h3 className="lg:text-3xl text-2xl font-bold text-headingColor">
+                  Select Payment Method
+                </h3>
+              </div>
+              <div className="md:w-40 w-36 h-1 border-b-2 border-green-500 mt-[1px]"></div>
+            </div>
+    
+            {/* Payment Methods */}
+            <div className="lg:flex-row flex flex-col w-full gap-4">
+              {/* PayPal Option */}
+              <button onClick={handlePaypalCheckout} className="p-4 w-full">
+                <div className="flex flex-col items-center justify-center border border-gray-400 cursor-pointer hover:border-green-600 hover:border-2 text-center gap-4 w-full">
+                  <img src={paypal} alt="paypal" className="lg:w-24 lg:h-24" />
+                </div>
+              </button>
+    
+              {/* Credit/Debit Card Option */}
+              <button onClick={handleCheckout} className="p-4 w-full">
+                <div className="flex flex-col items-center justify-center border border-gray-400 cursor-pointer hover:border-green-600 hover:border-2 text-center gap-4 w-full">
+                  <img
+                    src={stripe}
+                    alt="cards"
+                    className="w-24 h-24 bg-transparent"
+                  />
+                </div>
+              </button>
+            </div>
+    
+            {/* Back Button */}
+            <div className="flex justify-between w-full mt-6">
+              <button
+                onClick={() => {
+                  navigate(-1);
+                  scrollTo(0, 0);
+                }}
+                className="px-12 w-[200px] py-1.5 bg-gray-500 text-white   cursor-pointer hover:bg-gray-700 duration-1000 ease-in-out  transition"
+              >
+                Back
+              </button>
+            </div>
           </div>
-          <div className="md:w-40 w-36 h-1 border-b-2 border-green-500 mt-[1px]"></div>
         </div>
-
-        {/* Payment Methods */}
-        <div className="lg:flex-row flex flex-col w-full gap-4">
-          {/* PayPal Option */}
-          <button onClick={handlePaypalCheckout} className="p-4 w-full">
-            <div className="flex flex-col items-center justify-center border border-gray-400 cursor-pointer hover:border-green-600 hover:border-2 text-center gap-4 w-full">
-              <img src={paypal} alt="paypal" className="lg:w-24 lg:h-24" />
-            </div>
-          </button>
-
-          {/* Credit/Debit Card Option */}
-          <button onClick={handleCheckout} className="p-4 w-full">
-            <div className="flex flex-col items-center justify-center border border-gray-400 cursor-pointer hover:border-green-600 hover:border-2 text-center gap-4 w-full">
-              <img
-                src={stripe}
-                alt="cards"
-                className="w-24 h-24 bg-transparent"
-              />
-            </div>
-          </button>
-        </div>
-
-        {/* Back Button */}
-        <div className="flex justify-center items-center w-full mt-6">
-          <button
-            onClick={() => {
-              navigate(-1);
-              scrollTo(0, 0);
-            }}
-            className="px-12 w-[200px] py-1.5 bg-gray-500 text-white   cursor-pointer hover:bg-gray-700 duration-1000 ease-in-out  transition"
-          >
-            Back
-          </button>
-        </div>
-      </div>
-    </div>
   );
 };
 

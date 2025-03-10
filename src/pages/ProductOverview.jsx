@@ -7,8 +7,11 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useECommerceCart } from "../context/ECommerceCartContext";
 import { useContext } from "react";
 import { useEffect } from "react";
-
+import { AppContext } from "../context/AppContext";
+ 
 const ProductOverview = () => {
+  const { userData, backendUrl } = useContext(AppContext);
+
   const { items, getProductQuantity, getTotalCost, addOneToCart } =
     useECommerceCart();
   const location = useLocation();
@@ -67,7 +70,9 @@ const ProductOverview = () => {
 
   return (
     <>
-      <Navbar />
+      {
+        userData ? "": <Navbar />
+      }
       <ScrollToTop />
       <div className="pt-20 lg:pb-8">
         <div className="relative">
@@ -413,7 +418,9 @@ const ProductOverview = () => {
         </div>
       </div>
 
-      <Footer />
+      {
+        userData ? "": <Footer />
+      }
     </>
   );
 };

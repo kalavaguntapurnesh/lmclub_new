@@ -9,7 +9,12 @@ import { useNavigate } from "react-router-dom";
 import sad from "../assets/sad.svg";
 import Swal from "sweetalert2";
 import Logo from "../assets/LMDark.webp";
+import { AppContext } from "../context/AppContext";
+
 const ECommerceCart = () => {
+  
+  const { userData, backendUrl } = useContext(AppContext);
+
   const {
     items,
     getTotalCost,
@@ -47,6 +52,7 @@ const ECommerceCart = () => {
     `;
     document.head.appendChild(style);
     const handlePaymentClick = () => {
+    if(!userData){
           Swal.fire({
                 html: `
                       <div style="display: flex; flex-direction: column; align-items: center;">
@@ -78,17 +84,24 @@ const ECommerceCart = () => {
                   
                 // },
               });
+    }
+    else{
+      console.log("its working!")
+      navigate('/ecommerce-payment')
+    }
     };
 
 
   return (
     <div>
-      <Navbar />
-
+      
+      {
+        userData ? "" : <Navbar />
+      }
       <div className="pt-24 lg:pb-12">
         <div className="relative">
           <div className="w-full">
-            <div className="w-full mx-auto max-w-[1400px] ">
+            <div className="w-full mx-auto max-w-[1400px] lg:px-40 px-20">
               <div className="p-4">
                 <div className="p-4 space-y-3">
                   <div className="flex items-center justify-center">
@@ -228,7 +241,9 @@ const ECommerceCart = () => {
         </div>
       </div>
 
-      <Footer />
+      {
+        userData ? "" : <Footer />
+      }
     </div>
   );
 };

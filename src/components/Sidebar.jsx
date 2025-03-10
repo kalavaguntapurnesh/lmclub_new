@@ -11,6 +11,8 @@ import { IoMdLogOut } from "react-icons/io";
 import { toast } from "react-toastify";
 import LMDarkLogo from "../assets/LMDarkLogo.webp";
 import { IoIosClose } from "react-icons/io";
+import { FaCartShopping } from "react-icons/fa6";
+import { CiShoppingCart } from "react-icons/ci";
 
 const Sidebar = () => {
   const {
@@ -85,6 +87,18 @@ const Sidebar = () => {
             >
               <FaCalculator className="text-green-500 w-5 h-5" />
               <p>Payment Methods</p>
+            </NavLink>
+
+            <NavLink
+              className={({ isActive }) =>
+                `flex  items-center gap-3 py-3.5 px-3 md:px-9 md:min-w-72 cursor-pointer shadow my-[12px] mx-4 ${
+                  isActive ? "bg-[#f2f2f3] border-r-4 border-green-400" : ""
+                }`
+              }
+              to={"/ecommerce"}
+            >
+              <FaCartShopping className="text-green-500 w-5 h-5" />
+              <p>LMClub Merchandise</p>
             </NavLink>
 
             <NavLink

@@ -36,7 +36,13 @@ import support_img from "../assets/support_img.png";
 import { useEffect, useState } from "react";
 import dropdown_icon from "../assets/dropdown_icon.png";
 
+import { AppContext } from "../context/AppContext";
+import { useLocation } from "react-router-dom";
+import { useContext } from "react";
 const ECommerce = () => {
+  const { userData, backendUrl } = useContext(AppContext);
+  // const { userData, setUserData, token, backendUrl, loadUserProfileData } =
+  //     useContext(AppContext);
   const products = [
     {
       _id: "aaaaa",
@@ -109,7 +115,7 @@ const ECommerce = () => {
         "A lightweight, usually knitted, pullover shirt, close-fitting and with a round neckline and short sleeves, worn as an undershirt or outer garment.",
       descriptionTwo:
         "Start your mornings with the LM Club Coffee Mug, an elegant ceramic mug designed for coffee lovers. With a comfortable grip and a sturdy build, it’s perfect for enjoying hot coffee, tea, or any beverage of your choice. The high-gloss finish and LM Club branding add a touch of sophistication to your drinkware collection. Microwave and dishwasher safe, this mug is both stylish and practical for everyday use.",
-      price: 220,
+      price: 11.99,
       image: [Mug, p11, p14],
       originalPrice: 19.99,
       rating: 4.9,
@@ -366,7 +372,9 @@ const ECommerce = () => {
 
   return (
     <div>
-      <Navbar />
+      {
+        userData ? "": <Navbar />
+      }
       <ScrollToTop />
       <WhatsApp />
       <div className="lg:pt-36 pt-28">
@@ -858,8 +866,10 @@ const ECommerce = () => {
           </div>
         </div>
       </div>
-
-      <Footer />
+      {
+        userData ? "": <Footer />
+      }
+      
     </div>
   );
 };
