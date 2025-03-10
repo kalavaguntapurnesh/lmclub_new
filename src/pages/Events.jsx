@@ -1,14 +1,14 @@
 import { useState, useRef } from "react";
 import { FaSearch } from "react-icons/fa";
 import dayjs from "dayjs";
-import platinum from "../assets/platinum.jpg";
-import bronze from "../assets/bronze.jpg";
-import silver from "../assets/silver.jpg";
-import gold from "../assets/gold.jpg";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import ScrollToTop from "../components/ScrollToTop";
 import WhatsApp from "../components/WhatsApp";
+import NewYear from "../assets/newyear.jpg";
+import Musicfest from "../assets/musicfest.jpg";
+import Meetup from "../assets/meetup.jpg";
+import Conferencemeeting from "../assets/conferencemeeting.jpg";
 
 const Events = () => {
   const [search, setSearch] = useState("");
@@ -18,10 +18,10 @@ const Events = () => {
   const dayInputRef = useRef(null);
 
   const events = [
-    { id: 1, name: "New Year Party", date: "2025-01-05", image: platinum },
-    { id: 2, name: "Tech Conference", date: "2025-03-20", image: silver },
-    { id: 3, name: "Startup Meetup", date: "2025-04-15", image: bronze },
-    { id: 4, name: "Music Fest", date: "2024-12-10", image: gold },
+    { id: 1, name: "New Year Party", date: "2025-01-05", image: NewYear },
+    { id: 2, name: "Tech Conference", date: "2025-03-20", image: Conferencemeeting  },
+    { id: 3, name: "Startup Meetup", date: "2025-04-15", image: Meetup },
+    { id: 4, name: "Music Fest", date: "2024-12-10", image: Musicfest },
   ];
 
   const handleMonthClick = () => {
@@ -205,7 +205,7 @@ const Events = () => {
                 <img
                   src={event.image}
                   alt={event.name}
-                  className="w-16 h-16 object-cover"
+                  className="w-24 h-24 object-cover"
                 />
               </div>
             ))
@@ -230,7 +230,7 @@ const Events = () => {
                 <img
                   src={event.image}
                   alt={event.name}
-                  className="w-16 h-16 object-cover"
+                  className="w-24 h-24 object-cover"
                 />
               </div>
             ))

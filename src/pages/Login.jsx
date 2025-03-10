@@ -165,201 +165,104 @@ const Login = () => {
     <div>
       <Navbar />
       <div className="pt-16">
-        <div className="relative ">
+        <div className="relative">
           <div className="w-full">
-            <div className="w-full mx-auto max-w-[1400px] ">
+            <div className="w-full mx-auto max-w-[1400px]">
               <div className="p-4">
                 <div className="grid lg:grid-cols-2 grid-cols-1 lg:gap-0 gap-4 mt-8">
                   <div className="flex justify-center items-start">
-                    <div className="w-[100%] bg-white rounded shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)] max-w-md">
-                      <div className="p-6 space-y-4 md:space-y-4">
-                        <h1 className="text-xl text-center font-bold leading-tight tracking-tight text-footerLinks md:text-2xl ">
-                          {state === "Sign Up"
-                            ? "Sign up to your account"
-                            : "Log in to LM Club"}
+                    <div className="w-[100%] bg-white rounded shadow max-w-md">
+                      <div className="p-6 space-y-4">
+                        <h1 className="text-xl text-center font-bold tracking-tight text-footerLinks md:text-2xl">
+                          {state === "Sign Up" ? "Sign up to your account" : "Log in to LM Club"}
                         </h1>
-                        <form
-                          className="space-y-4 md:space-y-6"
-                          onSubmit={onSubmitHandler}
-                        >
+                        <form className="space-y-4" onSubmit={onSubmitHandler}>
                           <div>
-                            <label
-                              htmlFor="email"
-                              className="block mb-2 text-sm font-bold text-colorThree "
-                            >
-                              Email
-                            </label>
-                            <input
-                              type="email"
-                              name="email"
-                              id="email"
-                              className=" border border-gray-300 text-gray-900 sm:text-sm rounded focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-gray-500  block w-full p-2.5 "
-                              placeholder="name@domain.com"
-                              required="true"
-                              onChange={(e) => setEmail(e.target.value)}
-                              value={email}
-                            ></input>
+                            <label className="block mb-1 text-sm font-bold text-colorThree">Email</label>
+                            <input type="email" className="border border-gray-300 text-gray-900 rounded block w-full p-2.5" placeholder="name@domain.com" required onChange={(e) => setEmail(e.target.value)} value={email} />
                           </div>
-
+  
                           {state === "Sign Up" && (
-                            <div className="flex gap-5">
-                              <div className="w-full">
-                                <label
-                                  htmlFor="firstName"
-                                  className="block mb-2 text-sm font-bold text-colorThree "
-                                >
-                                  First Name
-                                </label>
-                                <input
-                                  type="text"
-                                  name="firstName"
-                                  id="firstName"
-                                  className=" border border-gray-300 text-gray-900 sm:text-sm rounded focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-gray-500  block w-full p-2.5"
-                                  placeholder="Joe Root"
-                                  required="true"
-                                  onChange={(e) => setFirstName(e.target.value)}
-                                ></input>
+                            <div className="grid grid-cols-2 gap-2">
+                              <div>
+                                <label className="block mb-1 text-sm font-bold text-colorThree">First Name</label>
+                                <input type="text" className="border border-gray-300 text-gray-900 rounded block w-full p-2.5" placeholder="Joe" required onChange={(e) => setFirstName(e.target.value)} />
                               </div>
-
-                              <div className="w-full">
-                                <label
-                                  htmlFor="lastName"
-                                  className="block mb-2 text-sm font-bold text-colorThree "
-                                >
-                                  Last Name
-                                </label>
-                                <input
-                                  type="text"
-                                  name="lastName"
-                                  id="lastName"
-                                  className=" border border-gray-300 text-gray-900 sm:text-sm rounded focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-gray-500  block w-full p-2.5"
-                                  placeholder="Joe Root"
-                                  required="true"
-                                  onChange={(e) => setLastName(e.target.value)}
-                                ></input>
+                              <div>
+                                <label className="block mb-1 text-sm font-bold text-colorThree">Last Name</label>
+                                <input type="text" className="border border-gray-300 text-gray-900 rounded block w-full p-2.5" placeholder="Root" required onChange={(e) => setLastName(e.target.value)} />
                               </div>
-
-                              {/* <div className="w-full">
-                                <label
-                                  htmlFor="phoneNumber"
-                                  className="block mb-2 text-sm font-bold text-colorThree "
-                                >
-                                  Phone Number
-                                </label>
-                                <input
-                                  type="text"
-                                  name="phoneNumber"
-                                  id="phoneNumber"
-                                  className=" border border-gray-300 text-gray-900 sm:text-sm rounded focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
-                                  placeholder="+910976444563"
-                                  required="true"
-                                  onChange={(e) =>
-                                    setPhoneNumber(e.target.value)
-                                  }
-                                ></input>
-                              </div> */}
                             </div>
                           )}
-
+  
                           {state === "Sign Up" && (
                             <div>
                               <label className="block mb-2 text-sm font-bold text-colorThree ">
                                 User Type
                               </label>
                               <select
-                                className="w-full mb-4 p-[10px] border border-gray-300 rounded shadow bg-white text-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-gray-500 appearance-none "
-                                // onChange={(e) =>
-                                //   setUserData((prev) => ({
-                                //     ...prev,
-                                //     gender: e.target.value,
-                                //   }))
-                                // }
-
-                                onChange={(e) =>
-                                  setSelectedRole(e.target.value)
-                                }
+                                className="w-full p-[10px] border border-gray-300 rounded bg-white text-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-gray-500 appearance-none "
+                                onChange={(e) => setSelectedRole(e.target.value)}
                                 value={selectedRole}
                               >
-                                <option value="Not Selected">
-                                  Not Selected
-                                </option>
-                                <option value="Business User">
-                                  Business User
-                                </option>
-                                <option value="General User">
-                                  General User
-                                </option>
+                                <option value="Not Selected">Not Selected</option>
+                                <option value="Business User">Business User</option>
+                                <option value="General User">General User</option>
                               </select>
                             </div>
                           )}
 
-                          {state === "Sign Up" && (
+                         {state === "Sign Up" && (
                             <div>
                               <label className="block mb-2 text-sm font-bold text-colorThree ">
                                 Country
                               </label>
                               <select
-                                className="w-full mb-4 p-[10px] border border-gray-300 sm:text-sm rounded bg-white text-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-gray-500 appearance-none pr-8"
-                                onChange={(e) =>
-                                  setSelectedCountry(e.target.value)
-                                }
+                                className="w-full p-3 border border-gray-300 sm:text-base rounded bg-white text-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-gray-500 appearance-none"
+                                onChange={(e) => setSelectedCountry(e.target.value)}
                                 value={selectedCountry}
                               >
                                 <option value="">Select Country</option>
                                 {countriesData.map((country) => (
-                                  <option
-                                    key={country.iso2}
-                                    value={country.name}
-                                  >
+                                  <option key={country.iso2} value={country.name}>
                                     {country.name}
                                   </option>
                                 ))}
                               </select>
 
-                              {/* State Dropdown */}
                               {selectedCountry && (
                                 <div className="mt-2">
                                   <label className="block mb-2 text-sm font-bold text-colorThree ">
                                     State
                                   </label>
                                   <select
-                                    className="w-full mb-4 p-[10px] border border-gray-300 sm:text-sm  rounded bg-white text-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-gray-500 appearance-none pr-8"
-                                    onChange={(e) =>
-                                      setSelectedState(e.target.value)
-                                    }
+                                    className="w-full p-[10px] border border-gray-300 sm:text-sm rounded bg-white text-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-gray-500 appearance-none"
+                                    onChange={(e) => setSelectedState(e.target.value)}
                                     value={selectedState}
                                   >
                                     <option value="">Select State</option>
                                     {states.length > 0 ? (
                                       states.map((state) => (
-                                        <option
-                                          key={state.state_code}
-                                          value={state.name}
-                                        >
+                                        <option key={state.state_code} value={state.name}>
                                           {state.name}
                                         </option>
                                       ))
                                     ) : (
-                                      <option disabled>
-                                        No states available
-                                      </option>
+                                      <option disabled>No states available</option>
                                     )}
                                   </select>
                                 </div>
                               )}
 
-                              {/* City Dropdown */}
                               {selectedState && cities.length > 0 && (
                                 <div className="mt-2">
                                   <label className="block mb-2 text-sm font-bold text-colorThree ">
                                     City
                                   </label>
                                   <select
-                                    onChange={(e) =>
-                                      setSelectedCity(e.target.value)
-                                    }
+                                    onChange={(e) => setSelectedCity(e.target.value)}
                                     value={selectedCity}
-                                    className="w-full mb-4 p-[10px] border border-gray-300 sm:text-sm  rounded bg-white text-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-gray-500 appearance-none pr-8"
+                                    className="w-full p-[10px] border border-gray-300 sm:text-sm rounded bg-white text-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-gray-500 appearance-none"
                                   >
                                     <option value="">Select City</option>
                                     {cities.map((city) => (
@@ -483,60 +386,32 @@ const Login = () => {
                       </div>
                     </div>
                   </div>
-
-                  <div className="relative h-full w-full">
-                    <motion.div
-                      key={currentImage}
-                      // initial={{ opacity: 0, x: 50 }}
-                      // animate={{ opacity: 1, x: 0 }}
-                      // exit={{ opacity: 0, x: -50 }}
-                      // transition={{ duration: 1 }}
-                      className="relative h-full w-full rounded-lg overflow-hidden"
-                    >
+                  <div className="relative w-full max-w-[450px] md:max-w-[600px] lg:max-w-[800px] mx-auto h-[350px] md:h-[450px] lg:h-full lg:min-h-screen flex items-center"> 
+                    <motion.div key={currentImage} className="relative h-full w-full rounded-lg overflow-hidden">
                       <img
                         src={images[currentImage].src}
                         alt="login"
-                        className="w-full md:h-[100%] h-auto object-cover"
+                        className="w-full h-full object-cover"
                       />
-                      <div className="absolute bottom-4 px-4 text-white rounded w-[100%]">
-                        <div className="border-navColor backdrop-blur-md p-4 rounded text-gray-50  bg-white/20 w-[100%] ">
-                          <h1 className="md:text-xl text-sm font-semibold">
-                            “{images[currentImage].review}”
-                          </h1>
 
-                          <p className="font-semibold md:text-lg text-xs mt-3">
-                            {images[currentImage].name}
-                          </p>
-                          <p className="md:text-sm text-xs">
-                            {images[currentImage].role}
-                          </p>
-                          <div className="mt-2 flex flex-row gap-1">
-                            <img
-                              src={star}
-                              alt="start"
-                              className="md:w-4 md:h-4 w-3 h-3"
-                            />
-                            <img
-                              src={star}
-                              alt="start"
-                              className="md:w-4 md:h-4 w-3 h-3"
-                            />
-                            <img
-                              src={star}
-                              alt="start"
-                              className="md:w-4 md:h-4 w-3 h-3"
-                            />
-                            <img
-                              src={star}
-                              alt="start"
-                              className="md:w-4 md:h-4 w-3 h-3"
-                            />
-                            <img
-                              src={star}
-                              alt="start"
-                              className="md:w-4 md:h-4 w-3 h-3"
-                            />
-                          </div>
+                     {/* Gradient Background + Text Inside Image */}
+                     <div className="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/80 via-black/50 to-transparent p-3 md:p-5 lg:p-8 text-white">
+                        <h1 className="text-sm md:text-lg lg:text-2xl font-medium">
+                         “{images[currentImage].review}”
+                        </h1>
+
+                        <p className="font-medium text-xs md:text-base lg:text-xl mt-2">
+                         {images[currentImage].name}
+                        </p>
+                        <p className="text-xs md:text-sm lg:text-lg">
+                          {images[currentImage].role}
+                        </p>
+
+                        {/* Star Rating */}
+                        <div className="mt-2 flex flex-row gap-1">
+                          {[...Array(5)].map((_, index) => (
+                            <img key={index} src={star} alt="star" className="w-3 h-3 md:w-4 md:h-4 lg:w-5 lg:h-5" />
+                          ))}
                         </div>
                       </div>
                     </motion.div>
@@ -550,6 +425,7 @@ const Login = () => {
       <Footer />
     </div>
   );
+  
 };
 
 export default Login;

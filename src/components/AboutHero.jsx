@@ -80,29 +80,6 @@ const AboutHero = () => {
                       </span>
                     </a>
                   </div>
-
-                  {/* <div className="grid md:grid-cols-2 pt-4 grid-cols-1 md:gap-4 gap-2">
-                    <div className="bg-[#f8f9fa] rounded flex flex-col justify-center items-center p-4">
-                      <div className="text-sideHeading font-semibold">
-                        <p>World wide Accessibility</p>
-                      </div>
-                    </div>
-                    <div className="bg-[#f8f9fa] rounded flex flex-col justify-center items-center p-4">
-                      <div className="text-sideHeading font-semibold">
-                        <p>Promote Entrepreneurship</p>
-                      </div>
-                    </div>
-                    <div className="bg-[#f8f9fa] rounded flex flex-col justify-center items-center p-4">
-                      <div className="text-sideHeading font-semibold">
-                        <p>Expand the Horizons</p>
-                      </div>
-                    </div>
-                    <div className="bg-[#f8f9fa] rounded flex flex-col justify-center items-center p-4">
-                      <div className="text-sideHeading font-semibold">
-                        <p>Engage the Members</p>
-                      </div>
-                    </div>
-                  </div> */}
                 </motion.div>
 
                 <motion.div

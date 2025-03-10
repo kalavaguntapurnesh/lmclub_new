@@ -391,48 +391,52 @@ const NavBar = () => {
             </li>
 
             <li className="px-4 py-3">
-              <div
-                onClick={() => toggleMobileDropdown("technologies")}
-                className="flex items-center justify-between cursor-pointer text-[#1a1a1a] font-medium"
-              >
-                Mobile App
-                <FaAngleDown
-                  className={`transition-transform ${
-                    openDropdownMobile === "technologies"
-                      ? "rotate-180 text-mainColor"
-                      : ""
-                  }`}
-                />
-              </div>
-              <AnimatePresence>
-                {openDropdownMobile === "technologies" && (
-                  <motion.ul
-                    initial={{ opacity: 0, height: 0 }}
-                    animate={{ opacity: 1, height: "auto" }}
-                    exit={{ opacity: 0, height: 0 }}
-                    className="mt-6 grid grid-cols-2 gap-4"
-                  >
-                    <li className="text-navGray p-2 rounded bg-[#e6e6e6] text-center">
-                      <a
-                        href="https://play.google.com/store/apps/details?id=com.lm.lmclub&hl=en_US"
-                        className="block text-sm text-gray-700"
-                      >
-                        Android App
-                      </a>
-                    </li>
-                    <li className="text-navGray p-2 rounded bg-[#e6e6e6] text-center">
-                      <a
-                        href="https://apps.apple.com/us/app/lm-club/id6469708246"
-                        className="block text-sm text-gray-700"
-                      >
-                        Apple App
-                      </a>
-                    </li>
-                  </motion.ul>
-                )}
-              </AnimatePresence>
-            </li>
+  <div
+    onClick={() => toggleMobileDropdown("mobile-app")}
+    className="flex items-center justify-between cursor-pointer text-[#1a1a1a] font-medium"
+  >
+    Mobile App
+    <FaAngleDown
+      className={`transition-transform ${
+        openDropdownMobile === "mobile-app" ? "rotate-180 text-mainColor" : ""
+      }`}
+    />
+  </div>
+  <AnimatePresence>
+    {openDropdownMobile === "mobile-app" && (
+      <motion.ul
+        initial={{ opacity: 0, height: 0 }}
+        animate={{ opacity: 1, height: "auto" }}
+        exit={{ opacity: 0, height: 0 }}
+        className="mt-6 grid grid-cols-2 gap-4"
+      >
+        <li className="text-navGray p-2 rounded bg-[#e6e6e6] text-center">
+          <a
+            href="https://play.google.com/store/apps/details?id=com.lm.lmclub&hl=en_US"
+            className="block text-sm text-gray-700"
+          >
+            Android App
+          </a>
+        </li>
 
+        <li className="text-navGray p-2 rounded bg-[#e6e6e6] text-center">
+          <a
+            href="https://apps.apple.com/app/idyourappleappid"
+            className="block text-sm text-gray-700"
+          >
+            Apple App
+          </a>
+        </li>
+      </motion.ul>
+    )}
+  </AnimatePresence>
+</li>
+
+
+            
+
+
+            
             <div className="h-[200px] flex flex-row items-center justify-center">
               <img src={phone} alt="phone" className="h-full" />
               <img src={phoneTwo} alt="phone" className="h-full" />

@@ -173,7 +173,7 @@ const Estore = () => {
                   </div>
                 </div>
                 <div>
-                  <h2 className="text-3xl text-center font-semibold mt-6 text-green-600">
+                  <h2 className="text-3xl text-center font-semibold mt-6 text-green-600 pt-6">
                     Do's and Don’ts
                   </h2>
                   <table className="w-full border-collapse border border-gray-300 mt-6">
