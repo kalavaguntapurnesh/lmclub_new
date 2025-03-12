@@ -13,6 +13,8 @@ import Logo from "../assets/LMDarkLogo.webp";
 import { IoIosClose } from "react-icons/io";
 import Lottie from "lottie-react";
 import SadLottie from "../assets/SadLottie.json";
+import Swal from "sweetalert2";
+// const public_stripe_key =
 
 const Dashboard = () => {
   const { userData, token, backendUrl } = useContext(AppContext);
@@ -125,7 +127,59 @@ const Dashboard = () => {
     };
     fetchMySubscriptions();
   }, []);
+   
+  const style = document.createElement("style");
+   style.innerHTML = `
+      .swal-custom-ok-button {
+        background-color:rgb(27, 202, 103); /* Custom color */
+        color:white;
+        border: none;
+        padding: 10px 20px;
+        font-size: 16px;
+        border-radius: 5px;
+      }
+  
+      .swal-custom-ok-button:hover {
+        background-color:rgb(18, 91, 25); /* Hover color */
+      }
+    `;
+    document.head.appendChild(style);
 
+  const [isChecked, setIsChecked] = useState(false);
+
+  const handleContinueClick = ()=>{
+    if(isChecked){
+    navigate("/beehive-workflow");
+    // setIsChecked(!isChecked);
+    }
+    else{
+      Swal.fire({
+              html: `
+                   <div style="display: flex; flex-direction: column; align-items: center;">
+                        <div style="width: 100%; display: flex; align-items: center; justify-content: center; position: relative; margin-bottom: 20px;">
+                            <img src="${Logo}" alt="Logo" 
+                                 style="position: absolute; top: 0; left: 0; width: 50px; height: 50px; margin: 10px;" />
+                                               
+                                  <h4 style="margin: 0; font-size: 30px; font-weight: bold;">
+                                      <span style="color: black;">LM</span>
+                                      <span style="color: rgb(37, 218, 73);">Club</span>
+                                  </h4>
+                        </div>
+                  
+                       <div style="text-align: center; font-size: 22px; font-weight: bold; color: #333; margin: 20px;">
+                        <p>Please accept the terms before proceeding.</p>
+                      </div> 
+                   </div>
+                `,
+              customClass: {
+                confirmButton: "swal-custom-ok-button",
+              },
+              footer: `
+                  <p style="font-size: 12px; text-align: center; width: 100%;">© 2025, Laoe Maom. All Rights Reserved.</p>
+              `,
+            });
+    }
+  }
   return (
     userData && (
       <div className="w-[100%]">
@@ -150,7 +204,7 @@ const Dashboard = () => {
                       onClick={() => setShowWidgetModal(true)}
                       className="flex justify-center"
                     >
-                      <div className="w-full bg-white border border-gray-200 rounded p-4">
+                      <div className="w-full bg-white border border-gray-200 rounded p-4  cursor-pointer">
                         <div className="space-y-2">
                           <div className="flex justify-center items-center">
                             <img
@@ -185,7 +239,7 @@ const Dashboard = () => {
                       onClick={() => setShowWidgetModalTwo(true)}
                       className="flex justify-center"
                     >
-                      <div className="w-full bg-white border border-gray-200 rounded p-4">
+                      <div className="w-full bg-white border border-gray-200 rounded p-4  cursor-pointer">
                         <div className="space-y-2">
                           <div className="flex justify-center items-center">
                             <img
@@ -208,7 +262,7 @@ const Dashboard = () => {
                       onClick={() => setShowWidgetModalThree(true)}
                       className="flex justify-center"
                     >
-                      <div className="w-full bg-white border border-gray-200 rounded p-4">
+                      <div className="w-full bg-white border border-gray-200 rounded p-4  cursor-pointer">
                         <div className="space-y-2">
                           <div className="flex justify-center items-center">
                             <img
@@ -243,7 +297,7 @@ const Dashboard = () => {
                       onClick={() => setShowWidgetModalFour(true)}
                       className="flex justify-center"
                     >
-                      <div className="w-full bg-white border border-gray-200 rounded p-4">
+                      <div className="w-full bg-white border border-gray-200 rounded p-4  cursor-pointer">
                         <div className="space-y-2">
                           <div className="flex justify-center items-center">
                             <img
@@ -278,7 +332,7 @@ const Dashboard = () => {
                       onClick={() => setShowWidgetModalFive(true)}
                       className="flex justify-center"
                     >
-                      <div className="w-full bg-white border border-gray-200 rounded p-4">
+                      <div className="w-full bg-white border border-gray-200 rounded p-4  cursor-pointer">
                         <div className="space-y-2">
                           <div className="flex justify-center items-center">
                             <img
@@ -563,7 +617,7 @@ const Dashboard = () => {
                 <img src={Logo} alt="logo" className="w-[52px] h-auto" />
 
                 <h2 className="md:text-lg text-lg font-bold text-center">
-                  Widget Access
+                Beehive Widget Access
                 </h2>
 
                 <IoIosClose
@@ -590,9 +644,9 @@ const Dashboard = () => {
                     id="terms"
                     aria-describedby="terms"
                     type="checkbox"
-                    // checked={isChecked}
+                    checked={isChecked}
                     required
-                    // onChange={() => setIsChecked(!isChecked)}
+                    onChange={() => setIsChecked(!isChecked)}
                     className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300  cursor-pointer"
                   ></input>
                   <label htmlFor="terms" className="font-light text-gray-500">
@@ -608,11 +662,14 @@ const Dashboard = () => {
                 </div>
 
                 <button
-                  onClick={() => navigate("/my-membership")}
+                  onClick={handleContinueClick}
                   className="bg-green-400 transition ease-in-out duration-1000 cursor-pointer text-white md:px-16 px-12 md:py-2 py-[6px] rounded hover:bg-green-600 my-8"
                 >
                   Continue Beehive
                 </button>
+                <div className="text-center text-xs mt-1 mb-4">
+                    <p>© 2025, Laoe Maom. All Rights Reserved.</p>
+                </div>
               </div>
             </div>
           </div>
@@ -625,7 +682,7 @@ const Dashboard = () => {
                 <img src={Logo} alt="logo" className="w-[52px] h-auto" />
 
                 <h2 className="md:text-lg text-lg font-bold text-center">
-                  Widget Access
+                Enroll Widget Access
                 </h2>
 
                 <IoIosClose
@@ -651,9 +708,9 @@ const Dashboard = () => {
                     id="terms"
                     aria-describedby="terms"
                     type="checkbox"
-                    // checked={isChecked}
+                    checked={isChecked}
                     required
-                    // onChange={() => setIsChecked(!isChecked)}
+                    onChange={() => setIsChecked(!isChecked)}
                     className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300  cursor-pointer"
                   ></input>
                   <label htmlFor="terms" className="font-light text-gray-500">
@@ -668,11 +725,14 @@ const Dashboard = () => {
                   </label>
                 </div>
                 <button
-                  onClick={() => navigate("/my-membership")}
+                  onClick={handleContinueClick}
                   className="bg-green-400 transition ease-in-out duration-1000 cursor-pointer text-white md:px-16 px-12 md:py-2 py-[6px] rounded hover:bg-green-600 my-8"
                 >
                   Continue Enroll
                 </button>
+                <div className="text-center text-xs mt-1 mb-4">
+                    <p>© 2025, Laoe Maom. All Rights Reserved.</p>
+                </div>
               </div>
             </div>
           </div>
@@ -685,7 +745,7 @@ const Dashboard = () => {
                 <img src={Logo} alt="logo" className="w-[52px] h-auto" />
 
                 <h2 className="md:text-lg text-lg font-bold text-center">
-                  Widget Access
+                Broadcast Widget Access
                 </h2>
 
                 <IoIosClose
@@ -712,9 +772,9 @@ const Dashboard = () => {
                     id="terms"
                     aria-describedby="terms"
                     type="checkbox"
-                    // checked={isChecked}
+                    checked={isChecked}
                     required
-                    // onChange={() => setIsChecked(!isChecked)}
+                    onChange={() => setIsChecked(!isChecked)}
                     className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300  cursor-pointer"
                   ></input>
                   <label htmlFor="terms" className="font-light text-gray-500">
@@ -730,11 +790,14 @@ const Dashboard = () => {
                 </div>
 
                 <button
-                  onClick={() => navigate("/my-membership")}
+                  onClick={handleContinueClick}
                   className="bg-green-400 transition ease-in-out duration-1000 cursor-pointer text-white md:px-16 px-12 md:py-2 py-[6px] rounded hover:bg-green-600 my-8"
                 >
                   Continue Broadcast
                 </button>
+                <div className="text-center text-xs mt-1 mb-4">
+                    <p>© 2025, Laoe Maom. All Rights Reserved.</p>
+                </div>
               </div>
             </div>
           </div>
@@ -747,7 +810,7 @@ const Dashboard = () => {
                 <img src={Logo} alt="logo" className="w-[52px] h-auto" />
 
                 <h2 className="md:text-lg text-lg font-bold text-center">
-                  Widget Access
+                E-Store Widget Access
                 </h2>
 
                 <IoIosClose
@@ -774,9 +837,9 @@ const Dashboard = () => {
                     id="terms"
                     aria-describedby="terms"
                     type="checkbox"
-                    // checked={isChecked}
+                    checked={isChecked}
                     required
-                    // onChange={() => setIsChecked(!isChecked)}
+                    onChange={() => setIsChecked(!isChecked)}
                     className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300  cursor-pointer"
                   ></input>
                   <label htmlFor="terms" className="font-light text-gray-500">
@@ -792,11 +855,14 @@ const Dashboard = () => {
                 </div>
 
                 <button
-                  onClick={() => navigate("/my-membership")}
+                  onClick={handleContinueClick}
                   className="bg-green-400 transition ease-in-out duration-1000 cursor-pointer text-white md:px-16 px-12 md:py-2 py-[6px] rounded hover:bg-green-600 my-8"
                 >
                   Continue E-Store
                 </button>
+                <div className="text-center text-xs mt-1 mb-4">
+                    <p>© 2025, Laoe Maom. All Rights Reserved.</p>
+                </div>
               </div>
             </div>
           </div>
@@ -809,7 +875,7 @@ const Dashboard = () => {
                 <img src={Logo} alt="logo" className="w-[52px] h-auto" />
 
                 <h2 className="md:text-lg text-lg font-bold text-center">
-                  Widget Access
+                Network Widget Access
                 </h2>
 
                 <IoIosClose
@@ -830,9 +896,9 @@ const Dashboard = () => {
                     id="terms"
                     aria-describedby="terms"
                     type="checkbox"
-                    // checked={isChecked}
+                    checked={isChecked}
                     required
-                    // onChange={() => setIsChecked(!isChecked)}
+                    onChange={() => setIsChecked(!isChecked)}
                     className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300  cursor-pointer"
                   ></input>
                   <label htmlFor="terms" className="font-light text-gray-500">
@@ -853,15 +919,25 @@ const Dashboard = () => {
                   hotels and more.
                 </p>
                 <button
-                  onClick={() => navigate("/my-membership")}
+                  onClick={handleContinueClick}
                   className="bg-green-400 transition ease-in-out duration-1000 cursor-pointer text-white md:px-16 px-12 md:py-2 py-[6px] rounded hover:bg-green-600 my-8"
                 >
                   Continue Network
                 </button>
+                <div className="text-center text-xs mt-1 mb-4">
+                    <p>© 2025, Laoe Maom. All Rights Reserved.</p>
+                </div>
               </div>
             </div>
           </div>
         )}
+        <div className="flex flex-col min-h-screen">
+          <div className="flex-grow "></div> 
+          <div className="text-center text-xs mb-[370px]"> {/* Adjust mb-2 for some bottom margin */}
+            <p>© 2025, Laoe Maom. All Rights Reserved.</p>
+          </div>
+        </div>
+
       </div>
     )
   );

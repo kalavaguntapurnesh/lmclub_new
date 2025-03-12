@@ -7,7 +7,8 @@ import network from "../assets/network.webp";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { useParams } from "react-router-dom";
-
+import WhatsApp from "../components/WhatsApp.jsx";
+import ScrollToTop from "../components/ScrollToTop.jsx";
 const AllWidgetTsAndCs = () => {
   const { widget } = useParams();
 
@@ -609,6 +610,8 @@ const AllWidgetTsAndCs = () => {
   return (
     <div className="lg:pt-28 pt-16">
       <Navbar />
+      <WhatsApp/>
+      <ScrollToTop/>
       {selectedWidget ? (
         <div className="max-w-[1400px] mx-auto p-6 text-gray-600">
           <section className="my-8 border border-gray-300 rounded p-6">

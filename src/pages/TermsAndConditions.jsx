@@ -1,10 +1,15 @@
 import React from "react";
 import NavBar from "../components/Navbar";
 import Footer from "../components/Footer";
+import { useContext } from "react";
+import { AppContext } from "../context/AppContext";
 const TermsAndConditions = () => {
+  const { backendUrl, userData } = useContext(AppContext);
   return (
     <>
-      <NavBar />
+      {
+          userData?  "" :<NavBar />
+      }
       <div className="pt-24 pb-8">
         <div className="relative">
           <div className="w-full">
@@ -1063,7 +1068,9 @@ const TermsAndConditions = () => {
           </div>
         </div>
       </div>
-      <Footer />
+      {
+          userData?  "" :<Footer />
+      }
     </>
   );
 };

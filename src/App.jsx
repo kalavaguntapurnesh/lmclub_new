@@ -53,6 +53,11 @@ import MySubscriptions from "./pages/MySubscriptions.jsx";
 import MyMembership from "./pages/MyMembership.jsx";
 import MyPayments from "./pages/MyPayments.jsx";
 import AllMembershipPackage from "./pages/AllMembershipPackage";
+import BeehiveFunctionality from "./pages/BeehiveFunctionality.jsx";
+import BeehiveViewPosts from "./pages/BeehiveViewPosts.jsx";
+import BeehiveAddPosts from "./pages/BeehiveAddPosts.jsx";
+import Redeem from "./pages/ReedemNow.jsx"
+
 function App() {
   const { token } = useContext(AppContext);
 
@@ -89,6 +94,22 @@ function App() {
               <Route
                 path="/ecommerce-select-payment-methods"
                 element={<ECommercePaymentMethods />}
+              />
+              <Route
+                path="/beehive-workflow"
+                element={<BeehiveFunctionality />}
+              />
+              <Route
+                path="/beehive-workflow/view-posts"
+                element={<BeehiveViewPosts />}
+              />
+              <Route
+                path="/beehive-workflow/add-posts"
+                element={<BeehiveAddPosts />}
+              />
+              <Route
+                path="/terms-and-conditions"
+                element={<TermsAndConditions />}
               />
             </Routes>
         </ECommerceCartProvider>
@@ -185,6 +206,7 @@ function App() {
             path="/ecommerce-select-payment-methods"
             element={<ECommercePaymentMethods />}
           />
+          <Route path="/redeem-now" element={<Redeem />} />
         </Routes>
       </CartProvider>
     </ECommerceCartProvider>

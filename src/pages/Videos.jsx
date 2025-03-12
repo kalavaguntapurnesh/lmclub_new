@@ -7,7 +7,8 @@ import Demo from "../assets/Demo.mp4";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { fadeIn } from "../variants.js";
-
+import WhatsApp from "../components/WhatsApp.jsx";
+import ScrollToTop from "../components/ScrollToTop.jsx";
 const VideoPlayer = () => {
   const videoSections = [
     {
@@ -47,6 +48,8 @@ const VideoPlayer = () => {
   return (
     <div className="lg:pt-28 pt-16">
       <Navbar />
+      <WhatsApp/>
+      <ScrollToTop/>
       {videoSections.map((section, index) => (
         <div key={index} className="h-auto flex flex-col justify-center items-center py-12">
           <div className="grid md:grid-cols-2 grid-cols-1 gap-6 w-full mx-auto max-w-[1400px] p-6 items-center">

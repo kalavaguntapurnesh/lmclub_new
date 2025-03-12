@@ -6,7 +6,8 @@ import Silver from "../assets/silver.jpg";
 import { useParams } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-
+import WhatsApp from "../components/WhatsApp.jsx";
+import ScrollToTop from "../components/ScrollToTop.jsx";
 const AllMembershipPackage = () => {
   const { membership } = useParams();
   console.log(membership);
@@ -165,6 +166,8 @@ const AllMembershipPackage = () => {
   return (
     <div className="lg:pt-28 pt-16">
       <Navbar />
+      <WhatsApp/>
+      <ScrollToTop/>
       {selectedMembership ? (
         <div className="mx-auto p-6 text-gray-600 max-w-[1400px]">
           <section className="my-8 border border-gray-300 rounded p-6">
