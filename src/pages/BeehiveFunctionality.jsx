@@ -79,24 +79,16 @@ const BeehiveFunctionality = () => {
           <div className="max-w-[800px] w-full mx-auto h-auto flex flex-col items-center justify-center shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)] text-center gap-4 bg-white p-6 rounded-lg">
             <div className="flex flex-wrap flex-col items-center pb-3">
               <div className="flex justify-center gap-8 text-center mt-4">
-                <img src={Logo} alt="logo" className="w-[52px] h-auto" />
+                <img src={Logo} alt="logo" className="lg:w-[52px] lg:h-auto w-[35px] h-[35px]" />
                 <h3 className="lg:text-3xl text-2xl font-bold text-headingColor">
                   Choose Your Preference and Proceed
+                  <div className="md:w-[480px] mx-auto w-[250px] h-2 border-b-2 border-green-500 mt-[2px]"></div>
                 </h3>
               </div>
-              <div className="md:w-40 w-36 h-1 border-b-2 border-green-500 mt-[1px]"></div>
+              
             </div>
             <div className="lg:flex-row flex flex-col w-full gap-4">
-              <button
-                className="p-4 w-full"
-                onClick={() => handleButtonClick('viewPosts')}
-              >
-                <div className="flex flex-col items-center bg-gray-300 justify-center border border-gray-400 cursor-pointer hover:border-green-600 hover:border-2 text-center gap-2 w-full pb-2 pt-2">
-                  <BsEye className="lg:w-20 lg:h-20 w-10 h-10 text-gray-700" />
-                  <h1 className="p-2 lg:text-3xl text-xl">View Posts</h1>
-                </div>
-              </button>
-    
+            
               <button
                 className="p-4 w-full"
                 onClick={() => handleButtonClick('addPosts')}
@@ -106,6 +98,17 @@ const BeehiveFunctionality = () => {
                   <h1 className="p-2 lg:text-3xl text-xl">Add Posts</h1>
                 </div>
               </button>
+
+              <button
+                className="p-4 w-full"
+                onClick={() => handleButtonClick('viewPosts')}
+              >
+                <div className="flex flex-col items-center bg-gray-300 justify-center border border-gray-400 cursor-pointer hover:border-green-600 hover:border-2 text-center gap-2 w-full pb-2 pt-2">
+                  <BsEye className="lg:w-20 lg:h-20 w-10 h-10 text-gray-700" />
+                  <h1 className="p-2 lg:text-3xl text-xl">View Posts</h1>
+                </div>
+              </button>
+              
             </div>
     
             {selectedOption && (

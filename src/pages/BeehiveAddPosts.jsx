@@ -22,6 +22,7 @@ const { userData, token, backendUrl } = useContext(AppContext);
     eventEndTime: "",
     couponCode: "",
     validUpto: "",
+    location:""
   });
 
   const handleCategoryChange = (event) => {
@@ -200,7 +201,7 @@ const [image, setImages] = useState(null);
             eventEndTime: '',
             couponCode: '',
             validUpto: '',
-            image: null,
+            location:''
           });
 
           setImages(null);
@@ -385,6 +386,7 @@ const [image, setImages] = useState(null);
                         required
                     />
                     </div>
+
                 </div>
               </>
             )}
@@ -454,6 +456,21 @@ const [image, setImages] = useState(null);
               </>
             )}
 
+            
+              <div className="w-full">
+                    <label className="block mb-1 text-sm font-bold text-colorThree text-left">
+                        Location
+                    </label>
+                    <input
+                        type="text"
+                        name="location"
+                        value={formData.location}
+                        onChange={handleInputChange}
+                        className="border border-gray-300 text-gray-900 rounded block w-full p-2.5"
+                        placeholder="USA, GA, Alpharetta, Park Woods Circle, 30005"
+                        required
+                    />
+                    </div>
             {/* Image Section with Two Buttons */}
             <label
                   htmlFor="username"

@@ -1,13 +1,13 @@
-import React, { useState, useEffect, useRef, useContext } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import { FaSearch } from 'react-icons/fa';
-import dayjs from 'dayjs';
 import { IoIosClose } from 'react-icons/io';
 import eye from "../assets/Eye.svg";
 import { FaArrowLeftLong } from "react-icons/fa6";
 import { useNavigate } from 'react-router-dom';
 import Logo from "../assets/LMDarkLogo.webp";
 import { AppContext } from "./../context/AppContext";
+import dayjs from 'dayjs';
 
 const BeehiveViewPosts = () => {
   const [search, setSearch] = useState('');
@@ -19,12 +19,14 @@ const BeehiveViewPosts = () => {
   const { userData, token, backendUrl } = useContext(AppContext);
   const navigate = useNavigate();
   const categories = ['Coupons/Discount', 'Events', 'Dining', 'Emergency Information', 'Product'];
-  
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
+
   // Fetch data from API
   const fetchPosts = async () => {
-
     try {
-      const response = await axios.get( backendUrl + '/api/beehive/fetching-post');
+      const response = await axios.get(backendUrl + '/api/beehive/fetching-post');
       setPosts(response.data);
     } catch (error) {
       console.error('Error fetching posts:', error);
@@ -36,24 +38,28 @@ const BeehiveViewPosts = () => {
   }, []);
 
   // Filter posts based on search, category, and date
-const filteredPosts = posts.filter((post) => {
-  const postName = post.postName ? post.postName.toLowerCase() : '';
-  const eventName = post.eventName ? post.eventName.toLowerCase() : '';
-  const category = post.category ? post.category.toLowerCase() : '';
-  const query = search.toLowerCase();  
+  const filteredPosts = posts.filter((post) => {
+    const postName = post.postName ? post.postName.toLowerCase() : '';
+    const eventName = post.eventName ? post.eventName.toLowerCase() : '';
+    const category = post.category ? post.category.toLowerCase() : '';
+    const query = search.toLowerCase();  
 
-  // Date filtering (if selectedDate is provided)
-  const postDate = post.createdAt ? dayjs(post.eventStartDate).format('YYYY-MM-DD') : '';
-  const isDateMatch = selectedDate ? postDate === selectedDate : true;
+    const postDate = post.createdAt ? dayjs(post.eventStartDate).format('YYYY-MM-DD') : '';
+    const isDateMatch = selectedDate ? postDate === selectedDate : true;
 
-  return (
-    (postName.includes(query) || eventName.includes(query) || category.includes(query)) &&
-    (category.includes(selectedCategory.toLowerCase()) || !selectedCategory) &&
-    isDateMatch
-  );
-});
+    return (
+      (postName.includes(query) || eventName.includes(query) || category.includes(query)) &&
+      (category.includes(selectedCategory.toLowerCase()) || !selectedCategory) &&
+      isDateMatch
+    );
+  });
 
+  // Pagination logic: slice the filteredPosts array
+  const indexOfLastPost = currentPage * rowsPerPage;
+  const indexOfFirstPost = indexOfLastPost - rowsPerPage;
+  const currentPosts = filteredPosts.slice(indexOfFirstPost, indexOfLastPost);
 
+  // Handle modal open and close
   const openModal = (post) => {
     setSelectedPost(post);
     setShowModal(true);
@@ -64,6 +70,10 @@ const filteredPosts = posts.filter((post) => {
     setSelectedPost(null);
   };
 
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+  const totalPages = Math.ceil(filteredPosts.length / rowsPerPage);
+
   return (
     <div className="pt-2">
       <div className="relative">
@@ -72,16 +82,11 @@ const filteredPosts = posts.filter((post) => {
             <div className="p-4">
               <div className="space-y-2 w-full px-4 flex items-center justify-center">
 
-                {/* <p className="lg:text-3xl text-2xl font-bold lg:text-start text-center">
-                  <span className="text-green-500">Beehive</span> Posts
-                </p> */}
-
                 <div className="flex justify-between lg:gap-[300px] gap-[50px] text-center mt-4 items-center">
-                    <FaArrowLeftLong onClick={()=>{navigate('/beehive-workflow')}} className='text-2xl cursor-pointer text-green-500'/>
+                    <FaArrowLeftLong onClick={() => {navigate('/beehive-workflow')}} className='text-2xl cursor-pointer text-green-500'/>
                     <p className="lg:text-3xl text-2xl font-bold lg:text-start text-center">
                       <span className="text-green-500">Beehive</span> Posts
                     </p>
-                    <h1> </h1>
                 </div>
 
               </div>
@@ -94,12 +99,30 @@ const filteredPosts = posts.filter((post) => {
                     name="search bar"
                     placeholder="Search by post name or event name"
                     value={search}
-                    onChange={(e) => setSearch(e.target.value)}
+                    onChange={(e) => {setSearch(e.target.value); setCurrentPage(1)}}
                     className="flex px-4 pl-12 w-full md:w-[500px] py-3 rounded border border-green-500 overflow-hidden max-w-md focus:outline-[#1a1a1a]"
                   />
                     <FaSearch className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-500" />
                 </div>
 
+                {/* Rows per page */}
+                <div>
+                  {/* <label className="text-gray-700 text-sm font-medium">
+                    Users per page:{" "}
+                  </label> */}
+                  <select
+                    className="border px-4 py-3 rounded"
+                    value={rowsPerPage}
+                    onChange={(e) => {
+                      setRowsPerPage(parseInt(e.target.value));
+                      setCurrentPage(1);
+                    }}
+                  >
+                    <option value={10}>10</option>
+                    <option value={20}>20</option>
+                    <option value={40}>40</option>
+                  </select>
+                </div>
 
                 {/* Category Filter */}
                 <select
@@ -124,6 +147,7 @@ const filteredPosts = posts.filter((post) => {
                 />
               </div>
 
+              {/* Table to display posts */}
               <div className="overflow-x-auto mt-5">
                 <table className="w-full border border-gray-100">
                   <thead>
@@ -135,8 +159,8 @@ const filteredPosts = posts.filter((post) => {
                     </tr>
                   </thead>
                   <tbody>
-                    {filteredPosts.length > 0 ? (
-                      filteredPosts.map((post, index) => (
+                    {currentPosts.length > 0 ? (
+                      currentPosts.map((post, index) => (
                         <tr key={index} className="hover:bg-gray-100">
                           <td className="border text-center border-gray-300 px-4 py-2 text-neutral-800 text-sm">
                             {post.category}
@@ -171,13 +195,40 @@ const filteredPosts = posts.filter((post) => {
                   </tbody>
                 </table>
               </div>
+
+              {/* Pagination */}
+              <div className="flex justify-center mt-6 gap-1.5">
+                <button
+                  onClick={() => paginate(currentPage - 1)}
+                  disabled={currentPage === 1}
+                  className="px-4 py-2 bg-green-500 text-white rounded disabled:bg-gray-400"
+                >
+                  Prev
+                </button>
+                {Array.from({ length: totalPages }, (_, index) => (
+                  <button
+                    key={index + 1}
+                    onClick={() => paginate(index + 1)}
+                    className={`px-4 py-2 mx-1 rounded ${currentPage === index + 1 ? 'bg-green-500 text-white' : 'bg-white text-gray-500'}`}
+                  >
+                    {index + 1}
+                  </button>
+                ))}
+                <button
+                  onClick={() => paginate(currentPage + 1)}
+                  disabled={currentPage === totalPages}
+                  className="px-4 py-2 bg-green-500 text-white rounded disabled:bg-gray-400"
+                >
+                  Next
+                </button>
+              </div>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Modal to show full details of selected post */}
-      {showModal && selectedPost && selectedPost.category === 'Events' && (
+    {/* Modal to show full details of selected post */}
+    {showModal && selectedPost && selectedPost.category === 'Events' && (
         <div className="fixed inset-0 bg-transparent bg-opacity-50 flex justify-center items-center">
           <div className="bg-white p-6 rounded shadow w-[90%] sm:w-[600px] z-20">
             <div className="flex flex-row justify-between items-center">
@@ -207,6 +258,8 @@ const filteredPosts = posts.filter((post) => {
               
               <p>Description:</p>
               <p className="font-light">{selectedPost.description}</p>
+              <p>Location:</p>
+              <p className="font-light">{selectedPost.location}</p>
               
             </div>
 
@@ -246,6 +299,9 @@ const filteredPosts = posts.filter((post) => {
               <p className="font-light">{selectedPost.couponCode || 'N/A'}</p>
               <p>Valid Upto:</p>
               <p className="font-light">{selectedPost.validUpto || 'N/A'}</p>
+              <p>Location:</p>
+              <p className="font-light">{selectedPost.location}</p>
+              
             </div>
 
             <div className="flex justify-center mt-6">
@@ -280,6 +336,9 @@ const filteredPosts = posts.filter((post) => {
               <p className="font-light">{selectedPost.category}</p>
               <p>Description:</p>
               <p className="font-light">{selectedPost.description}</p>
+              <p>Location:</p>
+              <p className="font-light">{selectedPost.location}</p>
+              
              </div>
 
             <div className="flex justify-center mt-6">
@@ -296,10 +355,9 @@ const filteredPosts = posts.filter((post) => {
           </div>
         </div>
       )}
-
-      <div className="text-center text-xs mt-6 mb-4">
-        <p>© 2025, Laoe Maom. All Rights Reserved.</p>
-      </div>
+    <div className="text-center text-xs mt-6 mb-4">
+              <p>© 2025, Laoe Maom. All Rights Reserved.</p>
+            </div>
     </div>
   );
 };

@@ -110,7 +110,7 @@ const ECommerceCart = () => {
                       Your Cart
                     </h1>
                   </div>
-                  <h1 className="lg:text-xs text-xs text-center font-bold text-headingColor">
+                  <h1 className="lg:text-lg text-xs text-center font-bold text-headingColor">
                     {items.length > 0 ? (
                       "Proceed to Secure Checkout"
                     ) : (
