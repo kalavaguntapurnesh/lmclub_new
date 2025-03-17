@@ -116,6 +116,7 @@ function App() {
                 path="/beehive-workflow/view-posts/my-posts"
                 element={<BeehiveMyPosts />}
               />
+          <Route path="/redeem-now" element={<Redeem />} />
 
             </Routes>
         </ECommerceCartProvider>

@@ -18,8 +18,8 @@ const { userData, token, backendUrl } = useContext(AppContext);
     companyName: "",
     eventStartDate: "",
     eventEndDate: "",
-    eventStartTime: "",
-    eventEndTime: "",
+    // eventStartTime: "",
+    // eventEndTime: "",
     couponCode: "",
     validUpto: "",
     location:""
@@ -177,7 +177,7 @@ const [image, setImages] = useState(null);
                     <span style="color: rgb(37, 218, 73);">Club</span>
                   </h4>
                 </div>
-                <div style="text-align: center; font-size: 22px; font-weight: bold; color: #333; margin: 10px;">
+                <div style="text-align: center; font-size: 22px; font-weight: bold; color: #333; margin-bottom: 10px;">
                   <p>Your Post added successfully</p>
                 </div>
               </div>
@@ -197,15 +197,15 @@ const [image, setImages] = useState(null);
             companyName: '',
             eventStartDate: '',
             eventEndDate: '',
-            eventStartTime: '',
-            eventEndTime: '',
+            // eventStartTime: '',
+            // eventEndTime: '',
             couponCode: '',
             validUpto: '',
             location:''
           });
 
           setImages(null);
-
+          navigate('/beehive-workflow/view-posts')
         } else {
           Swal.fire({
             html: `
@@ -360,7 +360,7 @@ const [image, setImages] = useState(null);
                     </div>
                 </div>
                 <div className="flex w-full gap-1">
-                    <div className="w-full">
+                    {/* <div className="w-full">
                     <label className="block mb-1 text-sm font-bold text-colorThree text-left">
                         Event Start Time
                     </label>
@@ -372,20 +372,20 @@ const [image, setImages] = useState(null);
                         className="border border-gray-300 text-gray-900 rounded block w-full p-2.5"
                         required
                     />
-                    </div>
-                    <div className="w-full">
-                    <label className="block mb-1 text-sm font-bold text-colorThree text-left">
-                        Event End Time
-                    </label>
-                    <input
-                        type="time"
-                        name="eventEndTime"
-                        value={formData.eventEndTime}
-                        onChange={handleInputChange}
-                        className="border border-gray-300 text-gray-900 rounded block w-full p-2.5"
-                        required
-                    />
-                    </div>
+                    </div> */}
+                    {/* <div className="w-full">
+                      <label className="block mb-1 text-sm font-bold text-colorThree text-left">
+                          Event End Time
+                      </label>
+                      <input
+                          type="time"
+                          name="eventEndTime"
+                          value={formData.eventEndTime}
+                          onChange={handleInputChange}
+                          className="border border-gray-300 text-gray-900 rounded block w-full p-2.5"
+                          required
+                      />
+                    </div> */}
 
                 </div>
               </>
@@ -495,6 +495,7 @@ const [image, setImages] = useState(null);
                   className="border-2 border-dotted border-gray-500 p-2 rounded-lg hover:bg-gray-100"
                   accept="image/*"
                   onChange={(e) => setImages(e.target.files[0])}
+                  required
                 />
               </div>
 

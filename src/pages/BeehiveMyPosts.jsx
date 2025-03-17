@@ -14,109 +14,99 @@ dayjs.extend(isBetween);
 import { CiMenuBurger } from "react-icons/ci";
 import beehive from "../assets/beehive.webp";
 
-const BeehiveViewPosts = () => {
+
+const BeehiveMyPosts = () => {
+
   const [search, setSearch] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState('');
-  const [selectedStartDate, setSelectedStartDate] = useState('');
-  const [selectedEndDate, setSelectedEndDate] = useState('');
-  const [posts, setPosts] = useState([]);
-  const [selectedPost, setSelectedPost] = useState(null);
-  const [showModal, setShowModal] = useState(false);
-  const { userData, token, backendUrl } = useContext(AppContext);
-  const navigate = useNavigate();
-  const categories = ['Coupons/Discount', 'Events', 'Dining', 'Emergency Information', 'Product'];
-
-  const [currentPage, setCurrentPage] = useState(1);
-  const [rowsPerPage, setRowsPerPage] = useState(10);
-
-  // Fetch data from API
-  const fetchPosts = async () => {
-    try {
-      const response = await axios.get(backendUrl + '/api/beehive/fetching-post');
-      setPosts(response.data);
-    } catch (error) {
-      console.error('Error fetching posts:', error);
-    }
-  };
-
-  useEffect(() => {
-    fetchPosts();
-  }, []);
-
-  // Filter posts based on search, category, and date
-  const filteredPosts = posts.filter((post) => {
-    const postName = post.postName ? post.postName.toLowerCase() : '';
-    const eventName = post.eventName ? post.eventName.toLowerCase() : '';
-    const category = post.category ? post.category.toLowerCase() : '';
-    const query = search.toLowerCase();
+    const [selectedCategory, setSelectedCategory] = useState('');
+    const [selectedStartDate, setSelectedStartDate] = useState('');
+    const [selectedEndDate, setSelectedEndDate] = useState('');
+    const [posts, setPosts] = useState([]);
+    const [selectedPost, setSelectedPost] = useState(null);
+    const [showModal, setShowModal] = useState(false);
+    const { userData, token, backendUrl } = useContext(AppContext);
+    const navigate = useNavigate();
+    const categories = ['Coupons/Discount', 'Events', 'Dining', 'Emergency Information', 'Product'];
   
-    const postDate = post.eventStartDate ? post.eventStartDate.slice(0, 10) : ''; 
+    const [currentPage, setCurrentPage] = useState(1);
+    const [rowsPerPage, setRowsPerPage] = useState(10);
+  
+    // Fetch data from API
+    const fetchPosts = async () => {
+      try {
+        const response = await axios.get(backendUrl + `/api/beehive/fetching-each-user-posts/${userData._id}`);
+        setPosts(response.data);
+      } catch (error) {
+        console.error('Error fetching posts:', error);
+      }
+    };
+  
+    useEffect(() => {
+      fetchPosts();
+    }, []);
+  
+    // Filter posts based on search, category, and date
+    const filteredPosts = posts.filter((post) => {
+      const postName = post.postName ? post.postName.toLowerCase() : '';
+      const eventName = post.eventName ? post.eventName.toLowerCase() : '';
+      const category = post.category ? post.category.toLowerCase() : '';
+      const query = search.toLowerCase();
     
-    console.log('Post Date:', postDate); // For debugging
+      const postDate = post.eventStartDate ? post.eventStartDate.slice(0, 10) : ''; 
+      
+      console.log('Post Date:', postDate); // For debugging
+    
+      // Normalize the frontend selected dates (strip time to only date)
+      const selectedStart = selectedStartDate ? selectedStartDate.slice(0, 10) : null;
+      const selectedEnd = selectedEndDate ? selectedEndDate.slice(0, 10) : null;
+    
+      // Check if postDate is within the selected date range
+      const isDateMatch = (selectedStart && selectedEnd)
+        ? (postDate >= selectedStart && postDate <= selectedEnd) 
+        : true; 
+    
+      return (
+        (postName.includes(query) || eventName.includes(query) || category.includes(query)) &&
+        (category.includes(selectedCategory.toLowerCase()) || !selectedCategory) &&
+        isDateMatch
+      );
+    });
+    
+    // Pagination logic: slice the filteredPosts array
+    const indexOfLastPost = currentPage * rowsPerPage;
+    const indexOfFirstPost = indexOfLastPost - rowsPerPage;
+    const currentPosts = filteredPosts.slice(indexOfFirstPost, indexOfLastPost);
   
-    // Normalize the frontend selected dates (strip time to only date)
-    const selectedStart = selectedStartDate ? selectedStartDate.slice(0, 10) : null;
-    const selectedEnd = selectedEndDate ? selectedEndDate.slice(0, 10) : null;
+    // Handle modal open and close
+    const openModal = (post) => {
+      setSelectedPost(post);
+      setShowModal(true);
+    };
   
-    // Check if postDate is within the selected date range
-    const isDateMatch = (selectedStart && selectedEnd)
-      ? (postDate >= selectedStart && postDate <= selectedEnd) 
-      : true; 
+    const closeModal = () => {
+      setShowModal(false);
+      setSelectedPost(null);
+    };
   
-    return (
-      (postName.includes(query) || eventName.includes(query) || category.includes(query)) &&
-      (category.includes(selectedCategory.toLowerCase()) || !selectedCategory) &&
-      isDateMatch
-    );
-  });
   
-  // Pagination logic: slice the filteredPosts array
-  const indexOfLastPost = currentPage * rowsPerPage;
-  const indexOfFirstPost = indexOfLastPost - rowsPerPage;
-  const currentPosts = filteredPosts.slice(indexOfFirstPost, indexOfLastPost);
-
-  // Handle modal open and close
-  const openModal = (post) => {
-    setSelectedPost(post);
-    setShowModal(true);
-  };
-
-  const closeModal = () => {
-    setShowModal(false);
-    setSelectedPost(null);
-  };
-
-
-  const paginate = (pageNumber) => setCurrentPage(pageNumber);
-  const totalPages = Math.ceil(filteredPosts.length / rowsPerPage);
-
-
-  const [hovered, setHovered] = useState(null); // State to track which icon is being hovered
-
-  const handleIconClick = (type) => {
-    // Navigate based on the clicked icon type
-    switch (type) {
-      case 'liked':
-        navigate('/liked-posts');
-        break;
-      case 'saved':
-        navigate('/liked-saved-posts');
-        break;
-      case 'myPosts':
-        navigate('/beehive-workflow/view-posts/my-posts');
-        break;
-      default:
-        break;
-    }
-  };
-
+    const paginate = (pageNumber) => setCurrentPage(pageNumber);
+    const totalPages = Math.ceil(filteredPosts.length / rowsPerPage);
+  
+  
   return (
-    <div className="pt-2">
+
+ <div className="pt-2">
       <div className="relative">
         <div className="w-full">
           <div className="max-w-[1200px] w-full mx-auto h-auto lg:px-35 px-4">
             <div className="p-4">
-              <div className="space-y-2 w-full px-4 flex items-center">
+              {/* <div className="space-y-2 w-full px-4 flex items-center">
+                    <div className="flex justify-center gap-3 text-center mt-4 items-center w-full ">
+                      <p className="lg:text-3xl text-2xl font-bold  text-center">
+                        <span className="text-green-500">My</span> Posts
+                      </p>
+                    </div>
+                </div> */}
 
                 <div className="flex justify-between gap-3 text-center mt-4 items-center w-full  shadow-lg p-4 bg-white">
                     <div className="flex justify-center items-center">
@@ -128,52 +118,22 @@ const BeehiveViewPosts = () => {
                      </div>
 
                       <p className="lg:text-3xl text-2xl font-bold lg:text-start text-center">
-                        <span className="text-green-500">Beehive</span> Posts
+                        <span className="text-green-500">My</span> Posts
                       </p>
                     
                     {/* Icons Section */}
-                    <div className="flex gap-4">
-                      <p
-                        className="text-2xl cursor-pointer"
-                        onClick={() => handleIconClick('myPosts')}
-                        onMouseEnter={() => setHovered('myPosts')}
-                        onMouseLeave={() => setHovered(null)}
-                      >
-                        {hovered === 'myPosts' ? (
-                          <h1 className="text-green-500"> My Posts </h1>
-                        ) : (
-                          <h1> My Posts </h1>
-                        )}
+                    <div className="flex flex-col gap-1 left-5 ">
+                      <p className="text-lg">
+                           Total Likes : <span>0</span>
                       </p>
-
-                      <p
-                        className="text-2xl cursor-pointer"
-                        onClick={() => handleIconClick('liked')}
-                        onMouseEnter={() => setHovered('liked')}
-                        onMouseLeave={() => setHovered(null)}
-                      >
-                        {hovered === 'liked' ? (
-                          <h1 className="text-green-500"> Liked Posts </h1>
-                        ) : (
-                          <h1> Liked Posts  </h1>
-                        )}
-                      </p>
-
-                      <p
-                        className="text-2xl cursor-pointer"
-                        onClick={() => handleIconClick('saved')}
-                        onMouseEnter={() => setHovered('saved')}
-                        onMouseLeave={() => setHovered(null)}
-                      >
-                        {hovered === 'saved' ? (
-                          <h1 className="text-green-500"> Saved Posts </h1>
-                        ) : (
-                          <h1> Saved Posts  </h1>
-                        )}
+                      <p className="text-lg">
+                           Total Views : <span>0</span>
                       </p>
                     </div>
-                  </div>
+
                 </div>
+                </div>
+                
               
 
               <div className="flex flex-col md:flex-row justify-between items-center mt-4 px-4 gap-3">
@@ -262,6 +222,8 @@ const BeehiveViewPosts = () => {
                       <th className="border border-gray-300 px-4 py-2">Post Name/Event Name</th>
                       <th className="border border-gray-300 px-4 py-2">Picture/Videos</th>
                       <th className="border border-gray-300 px-4 py-2">View More Details</th>
+                      <th className="border border-gray-300 px-4 py-2">Likes</th>
+                      <th className="border border-gray-300 px-4 py-2">Views</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -288,6 +250,12 @@ const BeehiveViewPosts = () => {
                             >
                               <img src={eye} alt="edit" className="w-10 h-10" />
                             </button>
+                          </td>
+                          <td className="border text-center border-gray-300 px-4 py-2 text-zinc-600 text-sm">
+                            0
+                          </td>
+                          <td className="border text-center border-gray-300 px-4 py-2 text-zinc-600 text-sm">
+                            0
                           </td>
                         </tr>
                       ))
@@ -331,7 +299,7 @@ const BeehiveViewPosts = () => {
             </div>
           </div>
         </div>
-      </div>
+      
 
     {/* Modal to show full details of selected post */}
     {showModal && selectedPost && selectedPost.category === 'Events' && (
@@ -355,10 +323,10 @@ const BeehiveViewPosts = () => {
               <p className="font-light">{selectedPost.eventStartDate.slice(0, 10) || 'N/A'}</p>
               <p>Event End Date:</p>
               <p className="font-light">{selectedPost.eventEndDate.slice(0, 10) || 'N/A'}</p>
-              {/* <p>Event Start Time:</p>
+              <p>Event Start Time:</p>
               <p className="font-light">{selectedPost.eventStartTime || 'N/A'}</p>
               <p>Event End Time:</p>
-              <p className="font-light">{selectedPost.eventEndTime || 'N/A'}</p> */}
+              <p className="font-light">{selectedPost.eventEndTime || 'N/A'}</p>
               <p>Company Name:</p>
               <p className="font-light">{selectedPost.companyName}</p>
               
@@ -468,4 +436,4 @@ const BeehiveViewPosts = () => {
   );
 };
 
-export default BeehiveViewPosts;
+export default BeehiveMyPosts
