@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { TiArrowRight } from "react-icons/ti";
 import { motion } from "framer-motion";
 import { fadeIn } from "../variants.js";
-import Logo from "../assets/LMDark.webp"
+import Logo from "../assets/LMDark.webp";
 import Amazon from "../assets/Amazon.jpg";
 import Card500 from "../assets/500.jpg";
 import ae from "../assets/ae.png";
@@ -27,8 +27,12 @@ const RewardSection = ({ title }) => {
     if (!isUserLoggedIn) {
       setShowModal(true);
     } else {
-      navigate("/redeem");
+      navigate("/redeem-now");
     }
+  };
+
+  const handleLoginRedirect = () => {
+    navigate("/login", { state: { fromRewards: true } });
   };
 
   return (
@@ -88,41 +92,43 @@ const RewardSection = ({ title }) => {
       </motion.div>
 
       {showModal && (
-  <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-    <div className="bg-white p-6 rounded-lg shadow-lg w-[90%] max-w-md relative">
-      <div className="flex items-center justify-center gap-2">
-        <img
-          src={Logo}
-          alt="LM Club"
-          className="w-12 h-12 absolute top-4 left-4"
-        />
-        <h2 className="text-3xl font-bold">
-          LM <span className="text-green-600">Club</span>
-        </h2>
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="bg-white p-6 rounded-lg shadow-lg w-[90%] max-w-md relative">
+            <div className="flex items-center justify-center gap-2">
+              <img
+                src={Logo}
+                alt="LM Club"
+                className="w-12 h-12 absolute top-4 left-4"
+              />
+              <h2 className="text-3xl font-bold">
+                LM <span className="text-green-600">Club</span>
+              </h2>
+            </div>
+            <div className="mt-6 text-center">
+              <p className="text-lg font-semibold text-gray-800">
+                Please log in to continue
+              </p>
+            </div>
+            <div className="mt-6 flex justify-center gap-4">
+              <button 
+                onClick={() => setShowModal(false)} 
+                className="px-4 py-2 bg-gray-300 rounded text-gray-800"
+              >
+                Cancel
+              </button>
+              <button 
+                onClick={handleLoginRedirect} 
+                className="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700"
+              >
+                OK
+              </button>
+            </div>
+            <div className="text-center text-xs mt-6 text-gray-500">
+        <p>© 2025, Laoe Maom. All Rights Reserved.</p>
       </div>
-      <div className="mt-6 text-center">
-        <p className="text-lg font-semibold text-gray-800">
-          Please log in to continue
-        </p>
-      </div>
-      <div className="mt-6 flex justify-center gap-4">
-        <button 
-          onClick={() => setShowModal(false)} 
-          className="px-4 py-2 bg-gray-300 rounded text-gray-800"
-        >
-          Cancel
-        </button>
-        <button 
-          onClick={() => navigate("/login")} 
-          className="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700"
-        >
-          OK
-        </button>
-      </div>
-    </div>
-  </div>
-)}
-
+          </div>
+        </div>
+      )}
     </div>
   );
 };

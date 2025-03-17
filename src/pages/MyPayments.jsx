@@ -3,7 +3,8 @@ import { AppContext } from "./../context/AppContext";
 import axios from "axios";
 import paypal from "../assets/paypalOne.svg";
 import stripe from "../assets/stripe.svg";
-
+import WhatsApp from "../components/WhatsApp";
+import ScrollToTop from "../components/ScrollToTop";
 const MyPayments = () => {
   const { userData, token, backendUrl } = useContext(AppContext);
 
@@ -41,6 +42,8 @@ const MyPayments = () => {
   return (
     userData && (
       <div className="w-[100%]">
+         <ScrollToTop />
+         <WhatsApp />
         <div className="relative">
           <div className="w-full">
             <div className="w-full mx-auto max-w-[1400px]">

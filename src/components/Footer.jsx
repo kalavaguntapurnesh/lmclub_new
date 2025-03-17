@@ -437,47 +437,49 @@ const Footer = () => {
                     <p className="text-red-500 text-xs mt-1">{error}</p>
                   )}
                   {showPopup && (
-                    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-                      <div className="bg-white p-6 rounded-lg shadow-lg w-[90%] max-w-md relative">
-                        <img
-                          src={Logo}
-                          alt="LM Club"
-                          className="w-12 h-12 absolute top-4 left-4"
-                        />
+  <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+    <div className="bg-white p-6 rounded-lg shadow-lg w-[90%] max-w-md relative">
+      <img
+        src={Logo}
+        alt="LM Club"
+        className="w-12 h-12 absolute top-4 left-4"
+      />
 
-                        <h2 className="text-3xl font-bold text-center mt-2">
-                          LM <span className="text-green-600">Club</span>
-                        </h2>
-                        <div className="text-center mt-6">
-                          {popupMessage.includes("successfully") ? (
-                            <FaCheckCircle className="text-green-600 mx-auto text-5xl my-3" />
-                          ) : (
-                            <FaExclamationCircle className="text-red-600 mx-auto text-5xl my-3" />
-                          )}
-                          <p className="text-gray-700 text-lg">
-                            {popupMessage}
-                          </p>
-                          {popupMessage.includes("already subscribed") && (
-                            <a
-                              href={whatsappUrl}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="block mt-4 px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700"
-                            >
-                              Contact on WhatsApp
-                            </a>
-                          )}
+      <h2 className="text-3xl font-bold text-center mt-2">
+        LM <span className="text-green-600">Club</span>
+      </h2>
+      <div className="text-center mt-6">
+        {popupMessage.includes("successfully") ? (
+          <FaCheckCircle className="text-green-600 mx-auto text-5xl my-3" />
+        ) : (
+          <FaExclamationCircle className="text-red-600 mx-auto text-5xl my-3" />
+        )}
+        <p className="text-gray-700 text-lg">{popupMessage}</p>
+        {popupMessage.includes("already subscribed") && (
+          <a
+            href={whatsappUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="block mt-4 px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700"
+          >
+            Contact on WhatsApp
+          </a>
+        )}
 
-                          <button
-                            onClick={() => setShowPopup(false)}
-                            className="mt-4 px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700"
-                          >
-                            OK
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  )}
+        <button
+          onClick={() => setShowPopup(false)}
+          className="mt-4 px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700"
+        >
+          OK
+        </button>
+      </div>
+      <div className="text-center text-xs mt-6 text-gray-500">
+        <p>© 2025, Laoe Maom. All Rights Reserved.</p>
+      </div>
+    </div>
+  </div>
+)}
+
                 </div>
               </div>
             </div>

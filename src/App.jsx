@@ -57,6 +57,7 @@ import BeehiveFunctionality from "./pages/BeehiveFunctionality.jsx";
 import BeehiveViewPosts from "./pages/BeehiveViewPosts.jsx";
 import BeehiveAddPosts from "./pages/BeehiveAddPosts.jsx";
 import Redeem from "./pages/ReedemNow.jsx"
+import BeehiveMyPosts from "./pages/BeehiveMyPosts.jsx";
 
 function App() {
   const { token } = useContext(AppContext);
@@ -111,6 +112,11 @@ function App() {
                 path="/terms-and-conditions"
                 element={<TermsAndConditions />}
               />
+              <Route
+                path="/beehive-workflow/view-posts/my-posts"
+                element={<BeehiveMyPosts />}
+              />
+
             </Routes>
         </ECommerceCartProvider>
       </div>

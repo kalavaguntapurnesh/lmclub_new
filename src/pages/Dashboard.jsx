@@ -14,6 +14,8 @@ import { IoIosClose } from "react-icons/io";
 import Lottie from "lottie-react";
 import SadLottie from "../assets/SadLottie.json";
 import Swal from "sweetalert2";
+import WhatsApp from "../components/WhatsApp";
+import ScrollToTop from "../components/ScrollToTop";
 // const public_stripe_key =
 
 const Dashboard = () => {
@@ -183,6 +185,8 @@ const Dashboard = () => {
   return (
     userData && (
       <div className="w-[100%]">
+        <ScrollToTop />
+        <WhatsApp />
         <div className="relative">
           <div className="w-full">
             <div className="w-full mx-auto max-w-[1400px] ">

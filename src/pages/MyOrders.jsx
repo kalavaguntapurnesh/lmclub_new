@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { AppContext } from "../context/AppContext";
-
+import WhatsApp from "../components/WhatsApp";
+import ScrollToTop from "../components/ScrollToTop";
 const MyOrders = () => {
   const { userData, setUserData, token, backendUrl, loadUserProfileData } =
     useContext(AppContext);
@@ -8,6 +9,8 @@ const MyOrders = () => {
   return (
     userData && (
       <div className="w-[100%]">
+         <ScrollToTop />
+         <WhatsApp />
         <div className="relative">
           <div className="w-full">
             <div className="w-full mx-auto max-w-[1400px] ">

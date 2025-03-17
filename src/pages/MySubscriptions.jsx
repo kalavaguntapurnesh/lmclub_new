@@ -1,7 +1,8 @@
 import React, { useContext, useEffect, useState } from "react";
 import { AppContext } from "./../context/AppContext";
 import axios from "axios";
-
+import WhatsApp from "../components/WhatsApp";
+import ScrollToTop from "../components/ScrollToTop";
 const MySubscriptions = () => {
   const { userData, token, backendUrl } = useContext(AppContext);
 
@@ -42,6 +43,8 @@ const MySubscriptions = () => {
   return (
     userData && (
       <div className="w-[100%]">
+        <ScrollToTop />
+        <WhatsApp />
         <div className="relative">
           <div className="w-full">
             <div className="w-full mx-auto max-w-[1400px]">

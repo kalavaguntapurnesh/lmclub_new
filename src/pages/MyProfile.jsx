@@ -4,7 +4,8 @@ import { toast } from "react-toastify";
 import { AppContext } from "./../context/AppContext";
 import countriesData from "../countries.json";
 import { TiArrowRight } from "react-icons/ti";
-
+import WhatsApp from "../components/WhatsApp";
+import ScrollToTop from "../components/ScrollToTop";
 const MyProfile = () => {
   const { userData, setUserData, token, backendUrl, loadUserProfileData } =
     useContext(AppContext);
@@ -111,6 +112,8 @@ const MyProfile = () => {
   return (
     userData && (
       <div className="w-[100%]">
+         <ScrollToTop />
+         <WhatsApp />
         <div className="relative">
           <div className="w-full">
             <div className="w-full mx-auto max-w-[1400px] ">

@@ -1,12 +1,12 @@
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import axios from "axios";
 import { motion } from "framer-motion";
-import { useNavigate } from "react-router-dom";
+import {useNavigate , useLocation } from "react-router-dom";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import apple from "../assets/Apple.svg";
 import google from "../assets/Google.svg";
-import React, { useEffect } from "react";
+import React from "react";
 import star from "../assets/star.svg";
 import ReCAPTCHA from "react-google-recaptcha";
 import { AppContext } from "./../context/AppContext";
@@ -15,7 +15,16 @@ import countriesData from "../countries.json";
 
 const Login = () => {
   const { backendUrl, token, setToken } = useContext(AppContext);
-
+  const location = useLocation();
+  const navigate = useNavigate();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [state, setState] = useState("Login");
+  const [type, setType] = useState("password");
+  const [captchaStatus, setCaptchaStatus] = useState(false);
   const [selectedCountry, setSelectedCountry] = useState("");
   const [selectedState, setSelectedState] = useState("");
   const [selectedCity, setSelectedCity] = useState("");
@@ -48,78 +57,69 @@ const Login = () => {
       setSelectedCity("");
     }
   }, [selectedState, selectedCountry]);
-
-  const [captchaStatus, setCaptchaStatus] = useState(false);
-
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState("");
-  const [state, setState] = useState("Login");
-  const [type, setType] = useState("password");
-
-  const onSubmitHandler = async (e) => {
-    e.preventDefault();
-    if (captchaStatus) {
-      try {
-        if (state === "Sign Up") {
-          const { data } = await axios.post(backendUrl + "/api/user/register", {
-            firstName,
-            lastName,
-            email,
-            country: selectedCountry,
-            stateResidence: selectedState,
-            cityResidence: selectedCity,
-            password,
-            selectedRole,
-          });
-
-          if (data.success) {
-            toast.success(
-              "Registration Successful! Please check your email for verification link."
-            );
-            setState("Login");
-
-            scrollTo(0, 0);
-          } else {
-            toast.error(data.message);
-          }
-        } else {
-          const { data } = await axios.post(backendUrl + "/api/user/login", {
-            email,
-            password,
-          });
-          if (data.success) {
-            if (data.verified) {
-              localStorage.setItem("token", data.token);
-              toast.success("Registered Successfully!");
-              setToken(data.token);
-              navigate("/dashboard");
-              scrollTo(0, 0);
-            } else {
-              toast.warning("Please verify your email before logging in.");
-            }
-          } else {
-            toast.error(data.message);
-          }
-        }
-      } catch (error) {
-        toast.error(error.message);
-        console.log(error.message);
-      }
-    } else {
-      toast.error("Please verify the captcha");
-    }
-  };
-
   useEffect(() => {
     if (token) {
       navigate("/dashboard");
     }
   }, [token]);
 
-  const navigate = useNavigate();
+  const handleCaptcha = (value) => {
+    setCaptchaStatus(true);
+  };
+  const onSubmitHandler = async (e) => {
+    e.preventDefault();
+    if (!captchaStatus) {
+      toast.error("Please verify the captcha");
+      return;
+    }
+
+    try {
+      if (state === "Sign Up") {
+        const { data } = await axios.post(`${backendUrl}/api/user/register`, {
+          firstName,
+          lastName,
+          email,
+          country: selectedCountry,
+          stateResidence: selectedState,
+          cityResidence: selectedCity,
+          password,
+          selectedRole,
+        });
+
+        if (data.success) {
+          toast.success("Registration Successful! Check your email for verification.");
+          setState("Login");
+          window.scrollTo(0, 0);
+        } else {
+          toast.error(data.message);
+        }
+      } else {
+        const { data } = await axios.post(`${backendUrl}/api/user/login`, {
+          email,
+          password,
+        });
+
+        if (data.success) {
+          if (data.verified) {
+            localStorage.setItem("token", data.token);
+            toast.success("Login Successful!");
+            setToken(data.token);
+
+            // Redirect based on previous route
+            const fromRewards = location.state?.fromRewards || false;
+            navigate(fromRewards ? "/redeem-now" : "/dashboard");
+          } else {
+            toast.warning("Please verify your email before logging in.");
+          }
+        } else {
+          toast.error(data.message);
+        }
+      }
+    } catch (error) {
+      toast.error(error.message);
+      console.log(error.message);
+    }
+  };
 
   const [currentImage, setCurrentImage] = useState(0);
 
@@ -156,10 +156,6 @@ const Login = () => {
     }, 5000);
     return () => clearInterval(interval);
   }, []);
-
-  const handleCaptcha = (value) => {
-    setCaptchaStatus(true);
-  };
 
   return (
     <div>
