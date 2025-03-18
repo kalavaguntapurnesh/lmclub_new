@@ -13,7 +13,10 @@ import isBetween from 'dayjs/plugin/isBetween';
 dayjs.extend(isBetween);
 import { CiMenuBurger } from "react-icons/ci";
 import beehive from "../assets/beehive.webp";
-
+import like from "../assets/like.png"
+import save from "../assets/save.jpg"
+import share from "../assets/share.png"
+import liked from "../assets/like_red.png"
 const BeehiveViewPosts = () => {
   const [search, setSearch] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('');
@@ -109,6 +112,160 @@ const BeehiveViewPosts = () => {
         break;
     }
   };
+
+
+  const [likedPosts, setLikedPosts] = useState({}); // To store the like status of each post
+
+  // Fetch the like status when the modal is opened or when the posts change
+  useEffect(() => {
+    const fetchLikeStatus = async () => {
+      try {
+        // Fetch like status for each post
+        const likeStatuses = await Promise.all(
+          posts.map(async (post) => {
+            const response = await axios.get(
+              backendUrl + `/api/beehive/fetching-liked-posts/${post._id}/${userData._id}`
+            );
+            return { postId: post._id, liked: response.data.liked };
+          })
+        );
+        // Set the like statuses in the state
+        const newLikedPosts = likeStatuses.reduce((acc, { postId, liked }) => {
+          acc[postId] = liked;
+          return acc;
+        }, {});
+        setLikedPosts(newLikedPosts);
+      } catch (error) {
+        console.error('Error fetching like status:', error);
+      }
+    };
+
+    fetchLikeStatus();
+  }, [posts, userData, backendUrl]);
+
+  // Increment like for a specific post
+  const incrementLike = async (postId) => {
+    if (likedPosts[postId]) {
+      // If the user already liked the post, show a message or just do nothing
+      alert("You've already liked this post!");
+      return; // Early return to avoid making a request
+    }
+    try {
+      const response = await axios.post(backendUrl + `/api/beehive/increment-like`, {
+        postId,
+        userId: userData._id,
+      });
+
+      if (response.data.message === 'Like incremented successfully') {
+        setLikedPosts((prev) => ({
+          ...prev,
+          [postId]: true, // Set the like status of the clicked post to true
+        }));
+      }
+    } catch (error) {
+      console.error('Error liking the post:', error);
+    }
+  };
+
+
+  // const [isLiked, setIsLiked] = useState(false); // State to track if the post is liked
+  // const [isSaved, setIsSaved] = useState(false);
+  // const [isShared, setIsShared] = useState(false);
+
+  // Fetch like status when the modal is opened
+  // useEffect(() => {
+  //   if (showModal && selectedPost) {
+
+  //     const fetchLikeStatus = async () => {
+  //       try {
+  //         const response = await axios.get(backendUrl + `/api/beehive/fetching-liked-posts/${selectedPost._id}/${userData._id}`);
+  //         console.log("ygfu " ,response.data.liked);
+  //         setIsLiked(response.data.liked); 
+  //       } catch (error) {
+  //         console.error('Error fetching like status:', error);
+  //       }
+  //     };
+
+  //     fetchLikeStatus(); 
+  //   }
+  // }, [showModal, selectedPost, userData]);
+
+ 
+
+//  const incrementLike = async()=>{
+//     try{
+//         const response = await axios.post(backendUrl + `/api/beehive/increment-like`, {
+//           postId: selectedPost._id,
+//           userId: userData._id
+//         }
+//       );
+//       console.log("in increment like : ", response)
+//       // if (response.data.success) {
+//       //   setIsLiked(!isLiked); 
+//       // }
+//     } catch (error) {
+//       console.error('Error liking the post:', error);
+//     }
+//   };
+
+// const incrementLike = async () => {
+//   try {
+//     console.log("Sending like request for post", selectedPost._id, "by user", userData._id);
+
+//     // Send like request
+//     const response = await axios.post(backendUrl + `/api/beehive/increment-like`, {
+//       postId: selectedPost._id,
+//       userId: userData._id
+//     });
+
+//     console.log("Response:", response); // Log the response to check if it's successful
+
+//     // Check if the like was successfully incremented
+//     if (response.data.message === 'Like incremented successfully') {
+//       setIsLiked(true);  // Update the state to show that the post is liked
+//     } else {
+//       console.log('Failed to increment like:', response.data.message);
+//     }
+//   } catch (error) {
+//     console.error('Error liking the post:', error);
+//   }
+// };
+
+const incrementView = async()=>{
+  try{
+    await axios.post(backendUrl + `/api/beehive/increment-view`, {
+      postId: selectedPost._id,
+      userId: userData._id
+    } 
+    );
+  }catch(error){
+    console.log('Error incrementing view count: ', error)
+  }
+}
+
+  const incrementShare = async()=>{
+    try{
+      await axios.post(backendUrl + `/api/beehive/increment-share`, {
+        postId: selectedPost._id,
+        userId: userData._id
+      } 
+      );
+    }catch(error){
+      console.log('Error incrementing like share: ', error)
+    }
+  }
+
+  const incrementSave = async()=>{
+    try{
+      await axios.post(backendUrl + `/api/beehive/increment-save`, {
+        postId: selectedPost._id,
+        userId: userData._id
+      } 
+      );
+    }catch(error){
+      console.log('Error incrementing like save: ', error)
+    }
+  }
 
   return (
     <div className="pt-2">
@@ -352,21 +509,47 @@ const BeehiveViewPosts = () => {
               <p>Category:</p>
               <p className="font-light">{selectedPost.category}</p>
               <p>Event Start Date:</p>
-              <p className="font-light">{selectedPost.eventStartDate.slice(0, 10) || 'N/A'}</p>
-              <p>Event End Date:</p>
-              <p className="font-light">{selectedPost.eventEndDate.slice(0, 10) || 'N/A'}</p>
+              <p className="font-light">{selectedPost.eventStartDate.slice(0, 10) || 'N/A'} & {selectedPost.eventStartTime || 'N/A'} </p>
               {/* <p>Event Start Time:</p>
-              <p className="font-light">{selectedPost.eventStartTime || 'N/A'}</p>
-              <p>Event End Time:</p>
+              <p className="font-light">{selectedPost.eventStartTime || 'N/A'}</p> */}
+              <p>Event End Date:</p>
+              <p className="font-light">{selectedPost.eventEndDate.slice(0, 10) || 'N/A'} & {selectedPost.eventEndTime || 'N/A'}</p>
+              {/* <p>Event End Time:</p>
               <p className="font-light">{selectedPost.eventEndTime || 'N/A'}</p> */}
               <p>Company Name:</p>
               <p className="font-light">{selectedPost.companyName}</p>
-              
               <p>Description:</p>
               <p className="font-light">{selectedPost.description}</p>
               <p>Location:</p>
               <p className="font-light">{selectedPost.location}</p>
               
+            </div>
+
+            <div className='flex items-center gap-[50px] p-6 '>
+                <div className="flex justify-center items-center">
+                  <img
+                    src={likedPosts[selectedPost._id] ? liked : like} // Show different hearts based on like status
+                    alt="like"
+                    className={`w-[35px] h-[35px] cursor-pointer ${likedPosts[selectedPost._id] ? 'bg-red-700' : ''}`}
+                    onClick={() => incrementLike(selectedPost._id)} // Increment like for the specific post
+                  />
+                </div>
+                <div className="flex justify-center items-center">
+                  <img
+                    src={share}
+                    alt="share"
+                    className="w-[35px] h-[35px]"
+                    onClick={incrementShare}
+                  />
+                </div>
+                <div className="flex justify-center items-center">
+                  <img
+                    src={save}
+                    alt="save"
+                    className="w-[35px] h-[35px]"
+                    onClick={incrementSave}
+                  />
+                </div>
             </div>
 
             <div className="flex justify-center mt-6">
@@ -410,6 +593,39 @@ const BeehiveViewPosts = () => {
               
             </div>
 
+            <div className='flex items-center gap-[50px] p-6 '>
+                <div className="flex justify-center items-center">
+                  <img
+                    src={likedPosts[selectedPost._id] ? liked : like} // Show different hearts based on like status
+                    alt="like"
+                    className={`w-[35px] h-[35px] cursor-pointer ${likedPosts[selectedPost._id] ? 'bg-red-700' : ''}`}
+                    onClick={() => incrementLike(selectedPost._id)} // Increment like for the specific post
+                  />
+                  {/* <img
+                    src={like}
+                    alt="share"
+                    className="w-[35px] h-[35px]"
+                    onClick={incrementShare}
+                  /> */}
+                </div>
+                <div className="flex justify-center items-center">
+                  <img
+                    src={share}
+                    alt="share"
+                    className="w-[35px] h-[35px]"
+                    onClick={incrementShare}
+                  />
+                </div>
+                <div className="flex justify-center items-center">
+                  <img
+                    src={save}
+                    alt="save"
+                    className="w-[35px] h-[35px]"
+                    onClick={incrementSave}
+                  />
+                </div>
+            </div>
+
             <div className="flex justify-center mt-6">
               <button
                 onClick={closeModal}
@@ -446,6 +662,40 @@ const BeehiveViewPosts = () => {
               <p className="font-light">{selectedPost.location}</p>
               
              </div>
+
+             <div className='flex items-center gap-[50px] p-6 '>
+                <div className="flex justify-center items-center">
+                  <img
+                    src={likedPosts[selectedPost._id] ? liked : like} // Show different hearts based on like status
+                    alt="like"
+                    className={`w-[35px] h-[35px] cursor-pointer ${likedPosts[selectedPost._id] ? 'bg-red-700' : ''}`}
+                    onClick={() => incrementLike(selectedPost._id)} // Increment like for the specific post
+                  />
+                  {/* <img
+                    src={like}
+                    alt="share"
+                    className="w-[35px] h-[35px]"
+                    onClick={incrementShare}
+                  /> */}
+                </div>
+                <div className="flex justify-center items-center">
+                  <img
+                    src={share}
+                    alt="share"
+                    className="w-[35px] h-[35px]"
+                    onClick={incrementShare}
+                  />
+                </div>
+                <div className="flex justify-center items-center">
+                  <img
+                    src={save}
+                    alt="save"
+                    className="w-[35px] h-[35px]"
+                    onClick={incrementSave}
+                  />
+                </div>
+            </div>
+
 
             <div className="flex justify-center mt-6">
               <button

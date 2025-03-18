@@ -18,8 +18,8 @@ const { userData, token, backendUrl } = useContext(AppContext);
     companyName: "",
     eventStartDate: "",
     eventEndDate: "",
-    // eventStartTime: "",
-    // eventEndTime: "",
+    eventStartTime: "",
+    eventEndTime: "",
     couponCode: "",
     validUpto: "",
     location:""
@@ -197,8 +197,8 @@ const [image, setImages] = useState(null);
             companyName: '',
             eventStartDate: '',
             eventEndDate: '',
-            // eventStartTime: '',
-            // eventEndTime: '',
+            eventStartTime: '',
+            eventEndTime: '',
             couponCode: '',
             validUpto: '',
             location:''
@@ -347,6 +347,24 @@ const [image, setImages] = useState(null);
                     
                     <div className="w-full">
                     <label className="block mb-1 text-sm font-bold text-colorThree text-left">
+                        Event Start Time
+                    </label>
+                    <input
+                        type="time"
+                        name="eventStartTime"
+                        value={formData.eventStartTime}
+                        onChange={handleInputChange}
+                        className="border border-gray-300 text-gray-900 rounded block w-full p-2.5"
+                        required
+                        format="hh:mm a"
+                    />
+                    </div>
+
+                   
+                </div>
+                <div className="flex w-full gap-1">
+                  <div className="w-full">
+                    <label className="block mb-1 text-sm font-bold text-colorThree text-left">
                         Event End Date
                     </label>
                     <input
@@ -358,22 +376,7 @@ const [image, setImages] = useState(null);
                         required
                     />
                     </div>
-                </div>
-                <div className="flex w-full gap-1">
-                    {/* <div className="w-full">
-                    <label className="block mb-1 text-sm font-bold text-colorThree text-left">
-                        Event Start Time
-                    </label>
-                    <input
-                        type="time"
-                        name="eventStartTime"
-                        value={formData.eventStartTime}
-                        onChange={handleInputChange}
-                        className="border border-gray-300 text-gray-900 rounded block w-full p-2.5"
-                        required
-                    />
-                    </div> */}
-                    {/* <div className="w-full">
+                    <div className="w-full">
                       <label className="block mb-1 text-sm font-bold text-colorThree text-left">
                           Event End Time
                       </label>
@@ -384,8 +387,9 @@ const [image, setImages] = useState(null);
                           onChange={handleInputChange}
                           className="border border-gray-300 text-gray-900 rounded block w-full p-2.5"
                           required
+                          format="hh:mm a"
                       />
-                    </div> */}
+                    </div>
 
                 </div>
               </>

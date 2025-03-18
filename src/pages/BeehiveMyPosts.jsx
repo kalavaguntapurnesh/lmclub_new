@@ -43,7 +43,7 @@ const BeehiveMyPosts = () => {
   
     useEffect(() => {
       fetchPosts();
-    }, []);
+    }, [userData._id]);
   
     // Filter posts based on search, category, and date
     const filteredPosts = posts.filter((post) => {
@@ -92,7 +92,39 @@ const BeehiveMyPosts = () => {
     const paginate = (pageNumber) => setCurrentPage(pageNumber);
     const totalPages = Math.ceil(filteredPosts.length / rowsPerPage);
   
+    const [likes, setLikes] = useState({}); // Store likes dynamically for each post
+
+    // Fetch likes for each post when component mounts or when currentPosts change
+    useEffect(() => {
+      const fetchLikesCount = async () => {
+        try {
+          // Loop through each post in currentPosts array and fetch likes
+          const likesData = await Promise.all(
+            currentPosts.map(async (post) => {
+              const response = await axios.get(backendUrl + `/api/beehive/fetching-likes-count/${post._id}`);
+              console.log(response);
+              return { postId: post._id, likes: response.data.likes }; // Fetch likes for each post
+            })
+          );
+        
+          // Update the state with the likes data for each post
+          const likesMap = likesData.reduce((acc, { postId, likes }) => {
+            acc[postId] = likes;
+            return acc;
+          }, {});
+          setLikes(likesMap); // Store the likes data
+        } catch (error) {
+          console.error('Error fetching likes count:', error);
+        }
+      };
   
+      if (currentPosts.length > 0) {
+        fetchLikesCount(); 
+      }
+    }, [currentPosts]);
+
+ 
+    console.log(currentPosts)
   return (
 
  <div className="pt-2">
@@ -108,31 +140,32 @@ const BeehiveMyPosts = () => {
                     </div>
                 </div> */}
 
-                <div className="flex justify-between gap-3 text-center mt-4 items-center w-full  shadow-lg p-4 bg-white">
-                    <div className="flex justify-center items-center">
-                        <img
-                          src={beehive}
-                          alt="about_one"
-                          className="w-[72px] h-[72px]"
-                        />
-                     </div>
+                <div className="flex justify-between gap-3 text-center mt-4 items-center w-full shadow-lg p-4 bg-white flex-col lg:flex-row">
+                  {/* Image Section */}
+                  <div className="flex justify-center items-center mb-4 lg:mb-0">
+                    <img
+                      src={beehive}
+                      alt="about_one"
+                      className="w-[72px] h-[72px]"
+                    />
+                  </div>
 
-                      <p className="lg:text-3xl text-2xl font-bold lg:text-start text-center">
-                        <span className="text-green-500">My</span> Posts
-                      </p>
-                    
-                    {/* Icons Section */}
-                    <div className="flex flex-col gap-1 left-5 ">
-                      <p className="text-lg">
-                           Total Likes : <span>0</span>
-                      </p>
-                      <p className="text-lg">
-                           Total Views : <span>0</span>
-                      </p>
-                    </div>
+                  {/* Text Section */}
+                  <p className="lg:text-3xl text-2xl font-bold lg:text-start text-center">
+                    <span className="text-green-500">My</span> Posts
+                  </p>
 
+                  {/* Icons and Stats Section */}
+                  <div className="flex flex-col gap-1 lg:left-5 text-center lg:text-left">
+                    <p className="text-lg">
+                      Total Likes : <span></span>
+                    </p>
+                    <p className="text-lg">
+                      Total Views : <span>0</span>
+                    </p>
+                  </div>
                 </div>
-                </div>
+               </div>
                 
               
 
@@ -252,7 +285,7 @@ const BeehiveMyPosts = () => {
                             </button>
                           </td>
                           <td className="border text-center border-gray-300 px-4 py-2 text-zinc-600 text-sm">
-                            0
+                            {likes[post._id] || 0} 
                           </td>
                           <td className="border text-center border-gray-300 px-4 py-2 text-zinc-600 text-sm">
                             0
