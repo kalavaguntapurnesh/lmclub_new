@@ -58,7 +58,8 @@ import BeehiveViewPosts from "./pages/BeehiveViewPosts.jsx";
 import BeehiveAddPosts from "./pages/BeehiveAddPosts.jsx";
 import Redeem from "./pages/ReedemNow.jsx"
 import BeehiveMyPosts from "./pages/BeehiveMyPosts.jsx";
-
+import Referal from "./pages/Referal.jsx";
+import RewardCard from "./pages/RewardCard.jsx";
 function App() {
   const { token } = useContext(AppContext);
 
@@ -146,6 +147,8 @@ function App() {
           <Route path="/broadcast" element={<Broadcast />}></Route>
           <Route path="/blogs" element={<Blogs />}></Route>
           <Route path="/verify-email/:token" element={<VerifyEmail />} />
+          <Route path="/referal" element={<Referal />}></Route>
+          <Route path="/rewardcard" element={<RewardCard />}></Route>
           <Route
             path="/verify-bussiness-email/:token"
             element={<VerifyEmailForBussinessUser />}

@@ -3,7 +3,7 @@ import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import ScrollToTop from "../components/ScrollToTop";
 import { TiArrowRight } from "react-icons/ti";
-import LaptopRewards from "../assets/LaptopRewards.png";
+import LaptopRewards from "../assets/growwidgetvideo.mp4";
 import money from "../assets/money.svg";
 import profit from "../assets/Profits.svg";
 import RewardTwo from "../assets/RewardTwo.svg";
@@ -375,13 +375,18 @@ const Grow = () => {
                   </div>
 
                   <div className="flex justify-center items-center lg:pt-0 pt-4">
-                    <div>
-                      <img
-                        src={LaptopRewards}
-                        className="rounded w-auto h-auto"
+                   <div>
+                      <video 
+                        src={LaptopRewards} 
+                        className="rounded w-auto h-auto" 
+                        controls 
+                        autoPlay 
+                        loop 
+                        muted 
                       />
                     </div>
                   </div>
+
                 </div>
 
                 <div className="grid lg:grid-cols-2 grid-cols-1 gap-4 pt-20">
