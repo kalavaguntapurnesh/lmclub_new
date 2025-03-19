@@ -92,8 +92,8 @@ const BeehiveMyPosts = () => {
     const paginate = (pageNumber) => setCurrentPage(pageNumber);
     const totalPages = Math.ceil(filteredPosts.length / rowsPerPage);
   
-    const [likes, setLikes] = useState({}); // Store likes dynamically for each post
-
+    const [likes, setLikes] = useState({}); 
+    const [totalLikes, setTotalLikes] = useState(0);
     // Fetch likes for each post when component mounts or when currentPosts change
     useEffect(() => {
       const fetchLikesCount = async () => {
@@ -106,13 +106,15 @@ const BeehiveMyPosts = () => {
               return { postId: post._id, likes: response.data.likes }; // Fetch likes for each post
             })
           );
-        
+        let totalLikes = 0;
           // Update the state with the likes data for each post
           const likesMap = likesData.reduce((acc, { postId, likes }) => {
             acc[postId] = likes;
+            totalLikes += likes;
             return acc;
           }, {});
-          setLikes(likesMap); // Store the likes data
+          setLikes(likesMap);
+        setTotalLikes(totalLikes);  
         } catch (error) {
           console.error('Error fetching likes count:', error);
         }
@@ -123,8 +125,30 @@ const BeehiveMyPosts = () => {
       }
     }, [currentPosts]);
 
+  //   const [totalLikes, setTotalLikes] = useState(0); 
+  //   const [loading, setLoading] = useState(true); 
+  //   const [error, setError] = useState(null); 
+
+  //   useEffect(() => {
+  //     const fetchTotalLikes = async () => {
+  //     try {
+  //       setLoading(true); 
+  //       const response = await axios.get(backendUrl + `/api/beehive/total-likes-per-user/${userData._id}`);
+  //       setTotalLikes(response.data.totalLikes); 
+  //     } catch (error) {
+  //       console.error('Error fetching total likes:', error);
+  //       setError('Error fetching total likes'); 
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   };
+
+  //   if (userData._id) {
+  //     fetchTotalLikes(); 
+  //   }
+  // }, [userData._id]);
  
-    console.log(currentPosts)
+  console.log(currentPosts)
   return (
 
  <div className="pt-2">
@@ -158,7 +182,7 @@ const BeehiveMyPosts = () => {
                   {/* Icons and Stats Section */}
                   <div className="flex flex-col gap-1 lg:left-5 text-center lg:text-left">
                     <p className="text-lg">
-                      Total Likes : <span></span>
+                      Total Likes : <span>{totalLikes}</span>
                     </p>
                     <p className="text-lg">
                       Total Views : <span>0</span>
