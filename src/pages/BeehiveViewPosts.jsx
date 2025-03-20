@@ -80,8 +80,14 @@ const BeehiveViewPosts = () => {
   const indexOfFirstPost = indexOfLastPost - rowsPerPage;
   const currentPosts = filteredPosts.slice(indexOfFirstPost, indexOfLastPost);
 
+
+ const [viewedPosts, setViewedPosts] = useState(new Set());
+  
   // Handle modal open and close
   const openModal = (post) => {
+      
+      incrementView(post._id);
+
     setSelectedPost(post);
     setShowModal(true);
   };
@@ -169,17 +175,18 @@ const BeehiveViewPosts = () => {
   
 
 
-const incrementView = async()=>{
-  try{
-    await axios.post(backendUrl + `/api/beehive/increment-view`, {
-      postId: selectedPost._id,
-      userId: userData._id
-    } 
-    );
-  }catch(error){
-    console.log('Error incrementing view count: ', error)
-  }
-}
+  const incrementView = async (postId) => {
+    try {
+        const response = await axios.post(backendUrl + `/api/beehive/increment-view`, {
+            postId,
+            userId: userData._id
+        });
+        console.log("views increment :", response);
+        setViewedPosts(prev => new Set(prev).add(postId)); // Mark this post as viewed
+    } catch (error) {
+        console.log('Error incrementing view count: ', error);
+    }
+};
 
   const incrementShare = async()=>{
     try{
@@ -256,14 +263,18 @@ const incrementView = async()=>{
             <div className="p-4">
               <div className="space-y-2 w-full px-4 flex items-center">
 
-                <div className="flex justify-between gap-3 text-center mt-4 items-center w-full  shadow-lg p-4 bg-white">
-                    <div className="flex justify-center items-center">
+                <div className="flex justify-between gap-3 text-center mt-4 items-center w-full  shadow-lg p-6 bg-white">
+
+                    <p className="lg:text-3xl text-2xl font-bold lg:text-start text-center">
+                        <span onClick={()=>{navigate('/beehive-workflow')}} className="text-green-500 cursor-pointer "> < FaArrowLeftLong/> </span> 
+                    </p>
+                    {/* <div className="flex justify-center items-center">
                         <img
                           src={beehive}
                           alt="about_one"
                           className="w-[72px] h-[72px]"
                         />
-                     </div>
+                     </div> */}
 
                       <p className="lg:text-3xl text-2xl font-bold lg:text-start text-center">
                         <span className="text-green-500">Beehive</span> Posts
@@ -407,10 +418,11 @@ const incrementView = async()=>{
                       currentPosts.map((post, index) => (
                         <tr key={index} className="hover:bg-gray-100">
                           <td className="border text-center border-gray-300 px-4 py-2 text-neutral-800 text-sm">
-                            {post.category}
+                           {post.category}
                           </td>
                           <td className="border text-center border-gray-300 px-4 py-2 text-zinc-600 text-sm">
-                            {post.postName || post.eventName}
+                            
+                            <span onClick={()=>openModal(post)} className='cursor-pointer hover:underline hover:text-blue-600'> {post.postName || post.eventName} </span>
                           </td>
                           <td className="border text-center border-gray-300 px-4 py-2">
                             {post.image ? (

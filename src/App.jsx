@@ -62,6 +62,7 @@ import Referal from "./pages/Referal.jsx";
 import RewardCard from "./pages/RewardCard.jsx";
 import BeehiveMyLikedPosts from "./pages/BeehiveMyLikedPosts.jsx";
 import BeehiveMySavedPosts from "./pages/BeehiveMySavedPosts.jsx";
+import growFunctionality from "./pages/growFunctionality.jsx";
 
 function App() {
   const { token } = useContext(AppContext);
@@ -128,8 +129,11 @@ function App() {
                 path="/beehive-workflow/view-posts/saved-posts"
                 element={<BeehiveMySavedPosts />}
               />
-          <Route path="/redeem-now" element={<Redeem />} />
-
+              <Route path="/redeem-now" element={<Redeem />} />
+              {/* <Route
+                path="/grow-workflow"
+                element={<growFunctionality />}
+              /> */}
             </Routes>
         </ECommerceCartProvider>
       </div>

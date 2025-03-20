@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, {useRef, useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import { FaSearch } from 'react-icons/fa';
 import { IoIosClose } from 'react-icons/io';
@@ -93,47 +93,121 @@ const BeehiveMyLikedPosts = () => {
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
   const totalPages = Math.ceil(filteredPosts.length / rowsPerPage);
 
-  const [likes, setLikes] = useState({}); // Store likes dynamically for each post
-  const [totalLikes, setTotalLikes] = useState(0);
-//   Fetch likes for each post when component mounts or when currentPosts change
-useEffect(() => {
-    const fetchLikesCount = async () => {
-      try {
-        // Loop through each post in currentPosts array and fetch likes
-        const likesData = await Promise.all(
-          currentPosts.map(async (post) => {
-            const response = await axios.get(
-              backendUrl + `/api/beehive/fetching-likes-count/${post?.beehivePostId?._id}`
-            );
-            console.log("Fetched Likes:", response.data.likes);
-            return { postId: post?.beehivePostId?._id, likes: response.data.likes }; 
-          })
-        );
+//   const [likes, setLikes] = useState({}); // Store likes dynamically for each post
+//   const [totalLikes, setTotalLikes] = useState(0);
+// //   Fetch likes for each post when component mounts or when currentPosts change
+// useEffect(() => {
+//     const fetchLikesCount = async () => {
+//       try {
+//         // Loop through each post in currentPosts array and fetch likes
+//         const likesData = await Promise.all(
+//           currentPosts.map(async (post) => {
+//             const response = await axios.get(
+//               backendUrl + `/api/beehive/fetching-likes-count/${post?.beehivePostId?._id}`
+//             );
+//             console.log("Fetched Likes:", response.data.likes);
+//             return { postId: post?.beehivePostId?._id, likes: response.data.likes }; 
+//           })
+//         );
   
-        // Update the state with the likes data for each post
-        let totalLikes = 0;
-        const likesMap = likesData.reduce((acc, { postId, likes }) => {
-          acc[postId] = likes;
-          totalLikes += likes;
-          return acc;
-        }, {});
-        console.log("likesMap", likesMap);
+//         // Update the state with the likes data for each post
+//         let totalLikes = 0;
+//         const likesMap = likesData.reduce((acc, { postId, likes }) => {
+//           acc[postId] = likes;
+//           totalLikes += likes;
+//           return acc;
+//         }, {});
+//         console.log("likesMap", likesMap);
   
-        setLikes(likesMap); 
-        setTotalLikes(totalLikes);  
+//         setLikes(likesMap); 
+//         setTotalLikes(totalLikes);  
 
-      } catch (error) {
-        console.error('Error fetching likes count:', error);
-      }
-    };
+//       } catch (error) {
+//         console.error('Error fetching likes count:', error);
+//       }
+//     };
   
-    if (currentPosts.length > 0) {
-      fetchLikesCount();
-    }
-  }, [currentPosts]);
+//     if (currentPosts.length > 0) {
+//       fetchLikesCount();
+//     }
+//   }, [currentPosts]);
 
-console.log("likes: ",likes);
-console.log("total likes:",totalLikes);
+   // Fetch likes and views for each post when component mounts or when currentPosts change
+ 
+   const [likes, setLikes] = useState({});
+   const [views, setViews] = useState({});
+   const [totalLikes, setTotalLikes] = useState(0);
+   const [totalViews, setTotalViews] = useState(0);
+   const [loading, setLoading] = useState(true);
+   
+   const fetchedPosts = useRef(new Set()); // Store already fetched posts
+   
+   useEffect(() => {
+     const fetchCounts = async () => {
+       setLoading(true);
+       try {
+         const newPosts = currentPosts.filter(post => !fetchedPosts.current.has(post?.beehivePostId?._id));
+        
+         if (newPosts.length === 0) {
+           setLoading(false);
+           return; // Avoid fetching already fetched posts
+         }
+   
+         const likesData = await Promise.all(
+           newPosts.map(async (post) => {
+            console.log("post id: ",post?.beehivePostId?._id);
+            
+             const response = await axios.get(`${backendUrl}/api/beehive/fetching-likes-count/${post?.beehivePostId?._id}`);
+             return { postId: post?.beehivePostId?._id, likes:  response.data?.likes || 0 };
+           })
+         );
+   
+         const viewsData = await Promise.all(
+           newPosts.map(async (post) => {
+             const response = await axios.get(`${backendUrl}/api/beehive/fetching-views-count/${post?.beehivePostId?._id}`);
+             return { postId: post?.beehivePostId?._id, views:  response.data?.likes || 0 };
+           })
+         );
+   
+         let totalLikesCount = totalLikes;
+         let totalViewsCount = totalViews;
+   
+         const updatedLikes = { ...likes };
+         const updatedViews = { ...views };
+   
+         likesData.forEach(({ postId, likes }) => {
+           updatedLikes[postId] = likes;
+           totalLikesCount += likes;
+         });
+   
+         viewsData.forEach(({ postId, views }) => {
+           updatedViews[postId] = views;
+           totalViewsCount += views;
+         });
+   
+         setLikes(updatedLikes);
+         setViews(updatedViews);
+         setTotalLikes(totalLikesCount);
+         setTotalViews(totalViewsCount);
+   
+         // Mark posts as fetched
+         newPosts.forEach(post => fetchedPosts.current.add(post?.beehivePostId?._id));
+   
+       } catch (error) {
+         console.error("Error fetching likes or views count:", error);
+       } finally {
+         setLoading(false);
+       }
+     };
+   
+     if (currentPosts.length > 0) {
+       fetchCounts();
+     }
+   }, [currentPosts]); // Only fetch on `currentPosts` change
+   
+
+// console.log("likes: ",likes);
+// console.log("total likes:",totalLikes);
 
   console.log("current post :", currentPosts)
 
@@ -153,8 +227,19 @@ console.log("total likes:",totalLikes);
                        </div>
                    </div> */}
    
-                   <div className="flex justify-around gap-3 text-center mt-4 items-center w-full shadow-lg p-4 bg-white flex-col lg:flex-row">
-                     {/* Image Section */}
+                   <div className="flex justify-between gap-3 text-center mt-4 items-center w-full shadow-lg p-4 bg-white flex-col lg:flex-row">
+                    {/* left arrow */}
+                      <p className="lg:text-3xl text-2xl font-bold lg:text-start text-center">
+                        <span onClick={()=>{navigate('/beehive-workflow/view-posts')}} className="text-green-500 cursor-pointer "> < FaArrowLeftLong/> </span> 
+                      </p>
+                    
+   
+                     {/* Text Section */}
+                     <p className="lg:text-3xl text-2xl font-bold lg:text-start text-center">
+                       <span className="text-green-500">Likes</span> Posts
+                     </p>
+
+                       {/* Image Section */}
                      <div className="flex justify-center items-center mb-4 lg:mb-0">
                        <img
                          src={beehive}
@@ -162,12 +247,7 @@ console.log("total likes:",totalLikes);
                          className="w-[72px] h-[72px]"
                        />
                      </div>
-   
-                     {/* Text Section */}
-                     <p className="lg:text-3xl text-2xl font-bold lg:text-start text-center">
-                       <span className="text-green-500">Likes</span> Posts
-                     </p>
-   
+                     
                      {/* Icons and Stats Section */}
                      {/* <div className="flex flex-col gap-1 lg:left-5 text-center lg:text-left">
                        <p className="text-lg">
@@ -280,7 +360,8 @@ console.log("total likes:",totalLikes);
                                {post?.beehivePostId?.category}
                              </td>
                              <td className="border text-center border-gray-300 px-4 py-2 text-zinc-600 text-sm">
-                               {post?.beehivePostId?.postName || post?.beehivePostId?.eventName}
+                               {/* {post?.beehivePostId?.postName || post?.beehivePostId?.eventName} */}
+                               <span onClick={()=>openModal(post?.beehivePostId)} className='cursor-pointer hover:underline hover:text-blue-600'> {post?.beehivePostId?.postName || post?.beehivePostId?.eventName} </span>
                              </td>
                              <td className="border text-center border-gray-300 px-4 py-2">
                                {post?.beehivePostId?.image ? (

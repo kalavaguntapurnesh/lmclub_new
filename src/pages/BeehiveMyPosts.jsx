@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, {useRef, useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import { FaSearch } from 'react-icons/fa';
 import { IoIosClose } from 'react-icons/io';
@@ -13,7 +13,7 @@ import isBetween from 'dayjs/plugin/isBetween';
 dayjs.extend(isBetween);
 import { CiMenuBurger } from "react-icons/ci";
 import beehive from "../assets/beehive.webp";
-
+import load from "../assets/loading.png"
 
 const BeehiveMyPosts = () => {
 
@@ -92,38 +92,77 @@ const BeehiveMyPosts = () => {
     const paginate = (pageNumber) => setCurrentPage(pageNumber);
     const totalPages = Math.ceil(filteredPosts.length / rowsPerPage);
   
-    const [likes, setLikes] = useState({}); 
+    // Fetch likes and views for each post when component mounts or when currentPosts change
+ 
+    const [likes, setLikes] = useState({});
+    const [views, setViews] = useState({});
     const [totalLikes, setTotalLikes] = useState(0);
-    // Fetch likes for each post when component mounts or when currentPosts change
+    const [totalViews, setTotalViews] = useState(0);
+    const [loading, setLoading] = useState(true);
+    
+    const fetchedPosts = useRef(new Set()); // Store already fetched posts
+    
     useEffect(() => {
-      const fetchLikesCount = async () => {
+      const fetchCounts = async () => {
+        setLoading(true);
         try {
-          // Loop through each post in currentPosts array and fetch likes
+          const newPosts = currentPosts.filter(post => !fetchedPosts.current.has(post._id));
+    
+          if (newPosts.length === 0) {
+            setLoading(false);
+            return; // Avoid fetching already fetched posts
+          }
+    
           const likesData = await Promise.all(
-            currentPosts.map(async (post) => {
-              const response = await axios.get(backendUrl + `/api/beehive/fetching-likes-count/${post._id}`);
-              console.log(response);
-              return { postId: post._id, likes: response.data.likes }; // Fetch likes for each post
+            newPosts.map(async (post) => {
+              const response = await axios.get(`${backendUrl}/api/beehive/fetching-likes-count/${post._id}`);
+              return { postId: post._id, likes: response.data.likes };
             })
           );
-        let totalLikes = 0;
-          // Update the state with the likes data for each post
-          const likesMap = likesData.reduce((acc, { postId, likes }) => {
-            acc[postId] = likes;
-            totalLikes += likes;
-            return acc;
-          }, {});
-          setLikes(likesMap);
-        setTotalLikes(totalLikes);  
+    
+          const viewsData = await Promise.all(
+            newPosts.map(async (post) => {
+              const response = await axios.get(`${backendUrl}/api/beehive/fetching-views-count/${post._id}`);
+              return { postId: post._id, views: response.data.views };
+            })
+          );
+    
+          let totalLikesCount = totalLikes;
+          let totalViewsCount = totalViews;
+    
+          const updatedLikes = { ...likes };
+          const updatedViews = { ...views };
+    
+          likesData.forEach(({ postId, likes }) => {
+            updatedLikes[postId] = likes;
+            totalLikesCount += likes;
+          });
+    
+          viewsData.forEach(({ postId, views }) => {
+            updatedViews[postId] = views;
+            totalViewsCount += views;
+          });
+    
+          setLikes(updatedLikes);
+          setViews(updatedViews);
+          setTotalLikes(totalLikesCount);
+          setTotalViews(totalViewsCount);
+    
+          // Mark posts as fetched
+          newPosts.forEach(post => fetchedPosts.current.add(post._id));
+    
         } catch (error) {
-          console.error('Error fetching likes count:', error);
+          console.error("Error fetching likes or views count:", error);
+        } finally {
+          setLoading(false);
         }
       };
-  
+    
       if (currentPosts.length > 0) {
-        fetchLikesCount(); 
+        fetchCounts();
       }
-    }, [currentPosts]);
+    }, [currentPosts]); // Only fetch on `currentPosts` change
+    
 
   //   const [totalLikes, setTotalLikes] = useState(0); 
   //   const [loading, setLoading] = useState(true); 
@@ -185,7 +224,7 @@ const BeehiveMyPosts = () => {
                       Total Likes : <span>{totalLikes}</span>
                     </p>
                     <p className="text-lg">
-                      Total Views : <span>0</span>
+                      Total Views : <span>{totalViews}</span>
                     </p>
                   </div>
                 </div>
@@ -291,7 +330,7 @@ const BeehiveMyPosts = () => {
                             {post.category}
                           </td>
                           <td className="border text-center border-gray-300 px-4 py-2 text-zinc-600 text-sm">
-                            {post.postName || post.eventName}
+                          <span onClick={()=>openModal(post)} className='cursor-pointer hover:underline hover:text-blue-600'> {post.postName || post.eventName} </span>
                           </td>
                           <td className="border text-center border-gray-300 px-4 py-2">
                             {post.image ? (
@@ -309,10 +348,14 @@ const BeehiveMyPosts = () => {
                             </button>
                           </td>
                           <td className="border text-center border-gray-300 px-4 py-2 text-zinc-600 text-sm">
-                            {likes[post._id] || 0} 
+                            {/* {likes[post._id] || 0}  */}
+                            {loading ? <img src={load} alt="Loading..." className="w-10 h-10 mx-auto" /> : likes[post._id] || 0}
+
                           </td>
                           <td className="border text-center border-gray-300 px-4 py-2 text-zinc-600 text-sm">
-                            0
+                          {/* {views[post._id] || 0}  */}
+                          {loading ? <img src={load} alt="Loading..." className="w-10 h-10 mx-auto" />  : views[post._id] || 0}
+
                           </td>
                         </tr>
                       ))

@@ -150,7 +150,17 @@ console.log("total likes:",totalLikes);
                         </div>
                     </div> */}
     
-                    <div className="flex justify-around gap-3 text-center mt-4 items-center w-full shadow-lg p-4 bg-white flex-col lg:flex-row">
+                    <div className="flex justify-between gap-3 text-center mt-4 items-center w-full shadow-lg p-4 bg-white flex-col lg:flex-row">
+                      
+                      <p className="lg:text-3xl text-2xl font-bold lg:text-start text-center">
+                          <span onClick={()=>{navigate('/beehive-workflow/view-posts')}} className="text-green-500 cursor-pointer "> < FaArrowLeftLong/> </span> 
+                      </p>
+                      
+                      {/* Text Section */}
+                      <p className="lg:text-3xl text-2xl font-bold lg:text-start text-center">
+                        <span className="text-green-500">Saved</span> Posts
+                      </p>
+
                       {/* Image Section */}
                       <div className="flex justify-center items-center mb-4 lg:mb-0">
                         <img
@@ -159,11 +169,6 @@ console.log("total likes:",totalLikes);
                           className="w-[72px] h-[72px]"
                         />
                       </div>
-    
-                      {/* Text Section */}
-                      <p className="lg:text-3xl text-2xl font-bold lg:text-start text-center">
-                        <span className="text-green-500">Saved</span> Posts
-                      </p>
     
                       {/* Icons and Stats Section */}
                       {/* <div className="flex flex-col gap-1 lg:left-5 text-center lg:text-left">
@@ -277,7 +282,9 @@ console.log("total likes:",totalLikes);
                                 {post?.beehivePostId?.category}
                               </td>
                               <td className="border text-center border-gray-300 px-4 py-2 text-zinc-600 text-sm">
-                                {post?.beehivePostId?.postName || post?.beehivePostId?.eventName}
+                                {/* {post?.beehivePostId?.postName || post?.beehivePostId?.eventName} */}
+                                <span onClick={()=>openModal(post?.beehivePostId)} className='cursor-pointer hover:underline hover:text-blue-600'> {post?.beehivePostId?.postName || post?.beehivePostId?.eventName} </span>
+
                               </td>
                               <td className="border text-center border-gray-300 px-4 py-2">
                                 {post?.beehivePostId?.image ? (

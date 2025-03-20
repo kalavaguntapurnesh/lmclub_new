@@ -147,41 +147,75 @@ const Dashboard = () => {
     `;
     document.head.appendChild(style);
 
-  const [isChecked, setIsChecked] = useState(false);
 
-  const handleContinueClick = ()=>{
-    if(isChecked){
-    navigate("/beehive-workflow");
-    // setIsChecked(!isChecked);
-    }
-    else{
-      Swal.fire({
-              html: `
-                   <div style="display: flex; flex-direction: column; align-items: center;">
-                        <div style="width: 100%; display: flex; align-items: center; justify-content: center; position: relative; margin-bottom: 20px;">
-                            <img src="${Logo}" alt="Logo" 
-                                 style="position: absolute; top: 0; left: 0; width: 50px; height: 50px; margin: 10px;" />
+      
+    const [isChecked, setIsChecked] = useState(false);
+    const [hasAccepted, setHasAccepted] = useState(false);
+    const userId = userData._id; 
+
+   
+    useEffect(() => {
+      const fetchTCStatus = async () => {
+        try {
+          const response = await axios.get(backendUrl + `/api/user/get-terms-accepted/${userId}`);
+         
+          if (response.data.isAcceptedTCsForBeehive) {
+            setHasAccepted(true);
+          }
+        } catch (error) {
+          console.error("Error fetching terms status:", error);
+        }
+      };
+    
+      fetchTCStatus();
+    }, [userId, hasAccepted]);
+
+  const handleContinueClick = async ()=>{
+    // if (isChecked) {
+        await axios.post(backendUrl + "/api/user/post-terms-accepted", {
+          userId,
+          isAcceptedTCsForBeehive: true,
+        });
+        setHasAccepted(true);
+        navigate("/beehive-workflow");
+    // }
+    // else{
+    //   Swal.fire({
+    //           html: `
+    //                <div style="display: flex; flex-direction: column; align-items: center;">
+    //                     <div style="width: 100%; display: flex; align-items: center; justify-content: center; position: relative; margin-bottom: 20px;">
+    //                         <img src="${Logo}" alt="Logo" 
+    //                              style="position: absolute; top: 0; left: 0; width: 50px; height: 50px; margin: 10px;" />
                                                
-                                  <h4 style="margin: 0; font-size: 30px; font-weight: bold;">
-                                      <span style="color: black;">LM</span>
-                                      <span style="color: rgb(37, 218, 73);">Club</span>
-                                  </h4>
-                        </div>
+    //                               <h4 style="margin: 0; font-size: 30px; font-weight: bold;">
+    //                                   <span style="color: black;">LM</span>
+    //                                   <span style="color: rgb(37, 218, 73);">Club</span>
+    //                               </h4>
+    //                     </div>
                   
-                       <div style="text-align: center; font-size: 22px; font-weight: bold; color: #333; margin: 20px;">
-                        <p>Please accept the terms before proceeding.</p>
-                      </div> 
-                   </div>
-                `,
-              customClass: {
-                confirmButton: "swal-custom-ok-button",
-              },
-              footer: `
-                  <p style="font-size: 12px; text-align: center; width: 100%;">© 2025, Laoe Maom. All Rights Reserved.</p>
-              `,
-            });
-    }
+    //                    <div style="text-align: center; font-size: 22px; font-weight: bold; color: #333; margin: 20px;">
+    //                     <p>Please accept the terms before proceeding.</p>
+    //                   </div> 
+    //                </div>
+    //             `,
+    //           customClass: {
+    //             confirmButton: "swal-custom-ok-button",
+    //           },
+    //           footer: `
+    //               <p style="font-size: 12px; text-align: center; width: 100%;">© 2025, Laoe Maom. All Rights Reserved.</p>
+    //           `,
+    //         });
+    // }
   }
+
+  // const handleEnrollClick = () => {
+  //   if (isChecked) {
+  //     navigate("/grow-workflow");
+  //   } else {
+  //     showTermsAlert();
+  //   }
+  // };
+
   return (
     userData && (
       <div className="w-[100%]">
@@ -643,7 +677,7 @@ const Dashboard = () => {
                   hotels and more.
                 </p>
 
-                <div className="flex flex-row gap-2 items-center text-sm mt-4">
+                {/* <div className="flex flex-row gap-2 items-center text-sm mt-4">
                   <input
                     id="terms"
                     aria-describedby="terms"
@@ -663,7 +697,35 @@ const Dashboard = () => {
                     </a>{" "}
                     of Beehive
                   </label>
-                </div>
+                </div> */}
+
+                {hasAccepted ? (
+                  <p className="text-green-600 text-sm mt-4">
+                    ✅ You have already accepted the Terms and Conditions. Go ahead.
+                  </p>
+                ) : (
+                  <div className="flex flex-row gap-2 items-center text-sm mt-4">
+                    <input
+                      id="terms"
+                      aria-describedby="terms"
+                      type="checkbox"
+                      checked={isChecked}
+                      required
+                      onChange={() => setIsChecked(!isChecked)}
+                      className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 cursor-pointer"
+                    />
+                    <label htmlFor="terms" className="font-light text-gray-500">
+                      I accept the{" "}
+                      <a
+                        className="font-medium text-gray-500 hover:underline hover:text-green-600"
+                        href="/terms-and-conditions"
+                      >
+                        Terms and Conditions
+                      </a>{" "}
+                      of Beehive
+                    </label>
+                  </div>
+                )}
 
                 <button
                   onClick={handleContinueClick}
@@ -729,7 +791,7 @@ const Dashboard = () => {
                   </label>
                 </div>
                 <button
-                  onClick={handleContinueClick}
+                  onClick={handleEnrollClick}
                   className="bg-green-400 transition ease-in-out duration-1000 cursor-pointer text-white md:px-16 px-12 md:py-2 py-[6px] rounded hover:bg-green-600 my-8"
                 >
                   Continue Enroll
