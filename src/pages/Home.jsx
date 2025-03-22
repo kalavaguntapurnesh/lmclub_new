@@ -13,11 +13,11 @@ const Home = () => {
       <MainLayout />
       <ScrollToTop />
       <WhatsApp />
-      <HomeProducts />
       <AppDesc />
+      <HomeProducts />
       {/* <Stack /> */}
       <Testimonial />
-      <Banner />
+      {/* <Banner /> */}
       <Footer />
     </>
   );

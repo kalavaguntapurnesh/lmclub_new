@@ -33,7 +33,7 @@ const AppDesc = () => {
 
   return (
     <>
-      <div className="pt-12">
+      <div className="pt-12 pb-0">
         <div className="relative">
           <div className="w-full">
             <div className="w-full mx-auto max-w-[1400px] ">
@@ -159,7 +159,7 @@ const AppDesc = () => {
         </div>
       </div>
 
-      <div>
+      {/* <div>
         <div className="relative">
           <div className="w-full">
             <div className="w-full mx-auto max-w-[1400px] ">
@@ -212,10 +212,7 @@ const AppDesc = () => {
                                 src={value.icon}
                                 className="flex justify-center items-center w-12 h-12 border-2 border-green-50 bg-green-50 rounded-full"
                               >
-                                {/* <FaHandshake
-                                  size={24}
-                                  className="text-mainColor"
-                                /> */}
+                                
                               </img>
                             </div>
 
@@ -237,9 +234,11 @@ const AppDesc = () => {
                 </div>
               </div>
             </div>
+
           </div>
         </div>
-      </div>
+      </div> */}
+
     </>
   );
 };

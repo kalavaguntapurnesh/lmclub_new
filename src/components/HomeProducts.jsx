@@ -49,7 +49,7 @@ const HomeProducts = () => {
   ];
 
   return (
-    <div className="pt-8 lg:pb-8">
+    <div className="pt-0 lg:pb-8">
       <div className="relative">
         <div className="w-full">
           <div className="w-full mx-auto max-w-[1400px] ">
