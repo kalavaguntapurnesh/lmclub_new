@@ -18,7 +18,19 @@ import save from "../assets/save.jpg"
 import share from "../assets/share.png"
 import liked from "../assets/like_red.png"
 import saved from "../assets/saved.png"
-
+import { FaInstagram } from "react-icons/fa";
+import { FaXTwitter } from "react-icons/fa6";
+import { FaLinkedin } from "react-icons/fa";
+import { FaFacebook } from "react-icons/fa";
+import { FaTiktok } from "react-icons/fa";
+import { FaYoutube } from "react-icons/fa";
+import whatsapp from "../assets/whatsapp.png"
+import Instagram from "../assets/Instagram.webp"
+import linkedin from "../assets/linkedin.png"
+import facebook from "../assets/facebook.webp"
+import tiktok from "../assets/tiktok.png"
+import twittor from "../assets/twittor.png"
+import youtube from "../assets/youtube.png"
 const BeehiveViewPosts = () => {
   const [search, setSearch] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('');
@@ -38,7 +50,9 @@ const BeehiveViewPosts = () => {
   const fetchPosts = async () => {
     try {
       const response = await axios.get(backendUrl + '/api/beehive/fetching-post');
-      setPosts(response.data);
+      const sortedPosts = response.data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+      // setPosts(response.data);
+      setPosts(sortedPosts);
     } catch (error) {
       console.error('Error fetching posts:', error);
     }
@@ -95,6 +109,7 @@ const BeehiveViewPosts = () => {
   const closeModal = () => {
     setShowModal(false);
     setSelectedPost(null);
+    
   };
 
 
@@ -188,18 +203,19 @@ const BeehiveViewPosts = () => {
     }
 };
 
+const [isClickedOnShareButton, setIsClickedOnShareButton] = useState(false);
+const [isOpenShareModel, setIsOpenShareModel] = useState(false);
   const incrementShare = async()=>{
-    try{
-      await axios.post(backendUrl + `/api/beehive/increment-share`, {
-        postId: selectedPost._id,
-        userId: userData._id
-      } 
-      );
-    }catch(error){
-      console.log('Error incrementing like share: ', error)
-    }
+    setIsClickedOnShareButton(true);
+    closeModal();
+    setIsOpenShareModel(true);
   }
 
+  const closeModalShareButton = async()=>{
+    setIsClickedOnShareButton(false);
+    setIsOpenShareModel(false);
+  }
+  
   // const incrementSave = async()=>{
   //   try{
   //     await axios.post(backendUrl + `/api/beehive/increment-save`, {
@@ -255,6 +271,30 @@ const BeehiveViewPosts = () => {
       }
     }, [showModal, selectedPost, userData, backendUrl]);
   
+  
+    // whatsapp integration
+    const phoneNumber = "16782004524";
+    const message =
+      "Hello LM Club, I need your guidance on professional technicians..."; // Pre-filled message
+    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(
+      message
+    )}`;
+
+    // media opening as a pop-up
+
+    const [isMediaOpen, setIsMediaOpen] = useState(false);
+    const [mediaType, setMediaType] = useState(null);
+  
+    const openMediaModal = (media) => {
+      setMediaType(media);
+      setIsMediaOpen(true);
+    };
+  
+    const closeMediaModal = () => {
+      setIsMediaOpen(false);
+      setMediaType(null);
+    };
+
   return (
     <div className="pt-2">
       <div className="relative">
@@ -425,10 +465,37 @@ const BeehiveViewPosts = () => {
                             <span onClick={()=>openModal(post)} className='cursor-pointer hover:underline hover:text-blue-600'> {post.postName || post.eventName} </span>
                           </td>
                           <td className="border text-center border-gray-300 px-4 py-2">
-                            {post.image ? (
+                            {/* {post.image ? (
                               <img src={post.image} alt="Post" className="w-16 h-16 object-cover mx-auto" />
                             ) : (
                               'No Image'
+                            )} */}
+                            
+                            {/* <p>Images/Videos:</p> */}
+                            {post.image ? (
+                              post.image.includes("video") ? (  // ✅ Check if it's a video
+                                <video 
+                                  controls 
+                                  muted 
+                                  preload="metadata"
+                                  className="w-[150px] mx-auto h-[75px] object-cover"
+                                  onClick={() => openMediaModal({ type: "video", src: post.image })}
+                                >
+                                  <source src={post.image} type="video/mp4" />
+                                  <source src={post.image.replace('.mp4', '.webm')} type="video/webm" />
+                                  <source src={post.image.replace('.mp4', '.ogg')} type="video/ogg" />
+                                  Your browser does not support the video tag.
+                                </video>
+                              ) : (
+                                <img 
+                                src={post.image} 
+                                alt="Post" 
+                                className="w-[150px] mx-auto h-[75px] object-cover cursor-pointer" 
+                                onClick={() => openMediaModal({ type: "image", src: post.image })}
+                                />
+                              )
+                            ) : (
+                              <p>No Media</p>
                             )}
                           </td>
                           <td className="border text-center border-gray-300 px-4 py-2">
@@ -501,6 +568,36 @@ const BeehiveViewPosts = () => {
               <p className="font-light">{selectedPost.eventName}</p>
               <p>Category:</p>
               <p className="font-light">{selectedPost.category}</p>
+              {/* <p>Images/Videos:</p>
+              <p className="font-light "> {selectedPost.image ? (
+                              <img src={selectedPost.image} alt="Post" className="w-[75px] h-[75px] object-cover" />
+                            ) : (
+                              'No Image'
+                            )} </p> */}
+
+              <p>Images/Videos:</p>
+                {selectedPost.image ? (
+                  selectedPost.image.includes("video") ? (  // ✅ Check if it's a video
+                    <video 
+                    controls 
+                    className="w-[150px] h-[150px] object-cover cursor-pointer"
+                    onClick={() => openMediaModal({ type: "video", src: selectedPost.image })}
+                    >
+                      <source src={selectedPost.image} type="video/mp4" />
+                      Your browser does not support the video tag.
+                    </video>
+                  ) : (
+                    <img 
+                    src={selectedPost.image} 
+                    alt="Post" 
+                    className="w-[75px] h-[75px] object-cover cursor-pointer" 
+                    onClick={() => openMediaModal({ type: "image", src: selectedPost.image })}
+                    />
+                  )
+                ) : (
+                  <p>No Media</p>
+                )}
+              {/* <p className="font-light">{selectedPost.image}</p> */}
               <p>Event Start Date:</p>
               <p className="font-light">{selectedPost.eventStartDate.slice(0, 10) || 'N/A'} & {selectedPost.eventStartTime || 'N/A'} </p>
               {/* <p>Event Start Time:</p>
@@ -532,7 +629,7 @@ const BeehiveViewPosts = () => {
                   <img
                     src={share}
                     alt="share"
-                    className="w-[35px] h-[35px]"
+                    className="w-[35px] h-[35px] cursor-pointer "
                     onClick={incrementShare}
                   />
                 </div>
@@ -576,6 +673,35 @@ const BeehiveViewPosts = () => {
               <p className="font-light">{selectedPost.postName}</p>
               <p>Category:</p>
               <p className="font-light">{selectedPost.category}</p>
+              {/* <p>Images/Videos:</p>
+              <p className="font-light "> {selectedPost.image ? (
+                 <img src={selectedPost.image} alt="Post" className="w-[75px] h-[75px] object-cover" />
+               ) : (
+                 'No Image'
+               )} </p> */}
+
+              <p>Images/Videos:</p>
+                {selectedPost.image ? (
+                  selectedPost.image.includes("video") ? (  
+                    <video 
+                    controls 
+                    className="w-[150px] h-[150px] object-cover cursor-pointer"
+                    onClick={() => openMediaModal({ type: "video", src: selectedPost.image })}
+                    >
+                      <source src={selectedPost.image} type="video/mp4" />
+                      Your browser does not support the video tag.
+                    </video>
+                  ) : (
+                    <img 
+                    src={selectedPost.image} 
+                    alt="Post" 
+                    className="w-[75px] h-[75px] object-cover cursor-pointer" 
+                    onClick={() => openMediaModal({ type: "image", src: selectedPost.image })}
+                    />
+                  )
+                ) : (
+                  <p>No Media</p>
+                )}
               <p>Description:</p>
               <p className="font-light">{selectedPost.description}</p>
               <p>Coupon Code:</p>
@@ -600,7 +726,7 @@ const BeehiveViewPosts = () => {
                   <img
                     src={share}
                     alt="share"
-                    className="w-[35px] h-[35px]"
+                    className="w-[35px] h-[35px] cursor-pointer"
                     onClick={incrementShare}
                   />
                 </div>
@@ -644,6 +770,35 @@ const BeehiveViewPosts = () => {
               <p className="font-light">{selectedPost.postName}</p>
               <p>Category:</p>
               <p className="font-light">{selectedPost.category}</p>
+              {/* <p>Images/Videos:</p>
+              <p className="font-light "> {selectedPost.image ? (
+                 <img src={selectedPost.image} alt="Post" className="w-[75px] h-[75px] object-cover" />
+               ) : (
+                 'No Image'
+               )} </p> */}
+
+                <p>Images/Videos:</p>
+                {selectedPost.image ? (
+                  selectedPost.image.includes("video") ? (  
+                    <video 
+                    controls 
+                    className="w-[150px] h-[150px] object-cover cursor-pointer"
+                    onClick={() => openMediaModal({ type: "video", src: selectedPost.image })}
+                    >
+                      <source src={selectedPost.image} type="video/mp4" />
+                      Your browser does not support the video tag.
+                    </video>
+                  ) : (
+                    <img 
+                    src={selectedPost.image} 
+                    alt="Post" 
+                    className="w-[75px] h-[75px] object-cover cursor-pointer" 
+                    onClick={() => openMediaModal({ type: "image", src: selectedPost.image })}
+                    />
+                  )
+                ) : (
+                  <p>No Media</p>
+                )}
               <p>Description:</p>
               <p className="font-light">{selectedPost.description}</p>
               <p>Location:</p>
@@ -664,7 +819,7 @@ const BeehiveViewPosts = () => {
                   <img
                     src={share}
                     alt="share"
-                    className="w-[35px] h-[35px]"
+                    className="w-[35px] h-[35px] cursor-pointer "
                     onClick={incrementShare}
                   />
                 </div>
@@ -693,6 +848,164 @@ const BeehiveViewPosts = () => {
           </div>
         </div>
       )}
+
+      {isClickedOnShareButton && isOpenShareModel && (
+              <div className="fixed inset-0 bg-transparent bg-opacity-50 flex justify-center items-center">
+                <div className="bg-white p-6 rounded shadow w-[90%] sm:w-[600px] z-20">
+                  <div className="flex flex-row justify-between items-center">
+                    <img src={Logo} alt="logo" className="w-[52px] h-auto" />
+                    <h2 className="text-lg font-semibold">Share Your Post / Event</h2>
+                    <IoIosClose onClick={closeModalShareButton} className="w-8 h-8 cursor-pointer" />
+                  </div>
+                  <div className="border-b border-gray-200 pt-2"></div>
+
+                  <div className="mt-6 p-6">
+                    <div className="w-[80%] mx-auto">
+                      <div className="grid grid-cols-1 lg:gap-4 gap-8 w-full">
+                        <div className="grid grid-cols-4 gap-8">
+                          <a
+                            href={whatsappUrl}
+                            className="flex lg:justify-start justify-center items-center"
+                          >
+                            <img
+                              src={whatsapp}
+                              alt="WhatsApp"
+                              className="w-10 h-10 cursor-pointer text-secondaryColor"
+                            />
+                          </a>
+
+                          <a
+                            href="https://www.linkedin.com/company/laoe-maom"
+                            className="flex lg:justify-start justify-center items-center"
+                          >
+                            <img
+                              src={linkedin}
+                              alt="LinkedIn"
+                              className="w-10 h-10 cursor-pointer text-secondaryColor"
+                            />
+                          </a>
+
+                          <a
+                            href="https://x.com/RichardLMCLUB"
+                            className="flex lg:justify-start justify-center items-center"
+                          >
+                            <img
+                              src={twittor}
+                              alt="Twitter"
+                              className="w-10 h-10 cursor-pointer text-secondaryColor"
+                            />
+                          </a>
+
+                          <a
+                            href="https://www.instagram.com/laoemaomclub/"
+                            className="flex lg:justify-start justify-center items-center"
+                          >
+                            <img
+                              src={Instagram}
+                              alt="Instagram"
+                              className="w-10 h-10 cursor-pointer text-secondaryColor"
+                            />
+                          </a>
+
+                          <a
+                            href="https://www.tiktok.com/@lmclub0"
+                            className="flex lg:justify-start justify-center items-center"
+                          >
+                            <img
+                              src={tiktok}
+                              alt="TikTok"
+                              className="w-10 h-10 cursor-pointer text-secondaryColor"
+                            />
+                          </a>
+
+                          <a
+                            href="https://www.facebook.com/people/Laoe-Maom/100063772398711/#"
+                            className="flex lg:justify-start justify-center items-center"
+                          >
+                            <img
+                              src={facebook}
+                              alt="Facebook"
+                              className="w-10 h-10 cursor-pointer text-secondaryColor"
+                            />
+                          </a>
+
+                          <a
+                            href="https://www.youtube.com/watch?v=g16zVRWJpxA"
+                            className="flex lg:justify-start justify-center items-center"
+                          >
+                            <img
+                              src={youtube}
+                              alt="YouTube"
+                              className="w-10 h-10 cursor-pointer text-secondaryColor"
+                            />
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+            <div className="flex justify-center mt-6">
+              <button
+                onClick={closeModalShareButton}
+                className="bg-green-400 text-white px-12 py-2 rounded hover:bg-green-600"
+              >
+                Close
+              </button>
+            </div>
+            <div className="text-center text-xs mt-6 mb-4">
+              <p>© 2025, Laoe Maom. All Rights Reserved.</p>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Modal for Fullscreen Image/Video */}
+      {isMediaOpen && (
+      <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+        <div className="flex flex-col gap-3 w-[95%] sm:w-[750px] h-[700px] bg-white rounded-lg shadow-lg p-6">
+          
+          {/* Header Section */}
+          <div className="flex flex-row justify-between items-center">
+            <img src={Logo} alt="logo" className="w-[60px] h-auto" />
+            <h2 className="text-xl font-semibold"> View Image / Video</h2>
+            <IoIosClose onClick={closeMediaModal} className="w-10 h-10 cursor-pointer" />
+          </div>
+          
+          <div className="border-b border-gray-300"></div>
+
+          {/* Media Section */}
+          <div className="flex justify-center items-center flex-1">
+            {mediaType.type === "video" ? (
+
+              <video controls autoPlay className="max-w-full max-h-[600px] rounded-lg">
+                <source src={mediaType.src} type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+            ) : (
+              <img src={mediaType.src} alt="Fullscreen Media" className="max-w-full max-h-[600px] rounded-lg" />
+            )}
+          </div>
+
+          {/* Button Section */}
+          <div className="flex justify-center">
+            <button
+              onClick={closeMediaModal}
+              className="bg-green-500 text-white px-8 py-2 rounded hover:bg-green-600 transition duration-200"
+            >
+              Close
+            </button>
+          </div>
+
+          {/* Footer Section */}
+          <div className="text-center text-xs text-gray-500 mt-2">
+            <p>© 2025, Laoe Maom. All Rights Reserved.</p>
+          </div>
+        </div>
+      </div>
+    )}
+
+
+
     <div className="text-center text-xs mt-6 mb-4">
               <p>© 2025, Laoe Maom. All Rights Reserved.</p>
             </div>

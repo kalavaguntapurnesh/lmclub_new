@@ -238,6 +238,42 @@ const Dashboard = () => {
 
                 {subscription ? (
                   <div className="grid lg:grid-cols-5 grid-cols-1 gap-4 pt-4">
+
+<div
+                      onClick={() => setShowWidgetModalFive(true)}
+                      className="flex justify-center"
+                    >
+                      <div className="w-full bg-white border border-gray-200 rounded p-4  cursor-pointer">
+                        <div className="space-y-2">
+                          <div className="flex justify-center items-center">
+                            <img
+                              src={network}
+                              alt="about_one"
+                              className="w-[72px] h-[72px]"
+                            />
+                          </div>
+
+                          <div className="flex justify-center items-center">
+                            <h1 className="text-lg text-trumpTwo font-semibold    text-center">
+                              Network
+                            </h1>
+                          </div>
+
+                          {/* <div className=" flex justify-center">
+                            <a
+                              // href={value.link}
+                              className="flex flex-row items-center text-green-500 "
+                            >
+                              <span className="relative text-sm">
+                                Know More
+                              </span>
+                              <MdArrowRightAlt className="ml-1 mt-1 w-5 h-5 " />
+                            </a>
+                          </div> */}
+                        </div>
+                      </div>
+                    </div>
+
                     <div
                       onClick={() => setShowWidgetModal(true)}
                       className="flex justify-center"
@@ -269,29 +305,6 @@ const Dashboard = () => {
                               <MdArrowRightAlt className="ml-1 mt-1 w-5 h-5 " />
                             </a>
                           </div> */}
-                        </div>
-                      </div>
-                    </div>
-
-                    <div
-                      onClick={() => setShowWidgetModalTwo(true)}
-                      className="flex justify-center"
-                    >
-                      <div className="w-full bg-white border border-gray-200 rounded p-4  cursor-pointer">
-                        <div className="space-y-2">
-                          <div className="flex justify-center items-center">
-                            <img
-                              src={enroll}
-                              alt="about_one"
-                              className="w-[72px] h-[72px]"
-                            />
-                          </div>
-
-                          <div className="flex justify-center items-center">
-                            <h1 className="text-lg text-trumpTwo font-semibold    text-center">
-                              Refer & Earn
-                            </h1>
-                          </div>
                         </div>
                       </div>
                     </div>
@@ -367,14 +380,14 @@ const Dashboard = () => {
                     </div>
 
                     <div
-                      onClick={() => setShowWidgetModalFive(true)}
+                      onClick={() => setShowWidgetModalTwo(true)}
                       className="flex justify-center"
                     >
                       <div className="w-full bg-white border border-gray-200 rounded p-4  cursor-pointer">
                         <div className="space-y-2">
                           <div className="flex justify-center items-center">
                             <img
-                              src={network}
+                              src={enroll}
                               alt="about_one"
                               className="w-[72px] h-[72px]"
                             />
@@ -382,24 +395,16 @@ const Dashboard = () => {
 
                           <div className="flex justify-center items-center">
                             <h1 className="text-lg text-trumpTwo font-semibold    text-center">
-                              Network
+                              Grow
                             </h1>
                           </div>
-
-                          {/* <div className=" flex justify-center">
-                            <a
-                              // href={value.link}
-                              className="flex flex-row items-center text-green-500 "
-                            >
-                              <span className="relative text-sm">
-                                Know More
-                              </span>
-                              <MdArrowRightAlt className="ml-1 mt-1 w-5 h-5 " />
-                            </a>
-                          </div> */}
                         </div>
                       </div>
                     </div>
+
+                    
+
+                   
                   </div>
                 ) : (
                   <div>
@@ -701,7 +706,7 @@ const Dashboard = () => {
 
                 {hasAccepted ? (
                   <p className="text-green-600 text-sm mt-4">
-                    ✅ You have already accepted the Terms and Conditions. Go ahead.
+                    ✅ You have already accepted the Terms and Conditions.
                   </p>
                 ) : (
                   <div className="flex flex-row gap-2 items-center text-sm mt-4">

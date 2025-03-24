@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, {useRef,  useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { AppContext } from "./../context/AppContext";
 import Swal from "sweetalert2";
 import Logo from "../assets/LMDarkLogo.webp";
 import { useContext } from "react";
+import { IoIosClose } from 'react-icons/io';
 
 const BeehiveAddPosts = () => {
 
@@ -57,11 +58,126 @@ const { userData, token, backendUrl } = useContext(AppContext);
           }
         `;
   document.head.appendChild(style);
-const [image, setImages] = useState(null);
+
+  const [image, setImages] = useState(null);
+
+  const [showModal, setShowModal] = useState(false);
+  const [fileType, setFileType] = useState("image"); // Default to image
+  const [media, setMedia] = useState(null);
+  const fileInputRef = useRef(null); // Use useRef for cleaner code
+
+
+  const handleFileTypeSelection = (type) => {
+    setFileType(type);
+    setShowModal(false);
+    setTimeout(() => {
+          fileInputRef.current.click(); // Open file picker
+        }, 100); 
+    // fileInputRef.current.click();
+  };
+
+  const closeModal = () => {
+      setShowModal(false);
+    };
+
+  const handleFileChange = (event) => {
+    const selectedFile = event.target.files[0];
+
+    if (!selectedFile) return;
+
+    // Validate file size < 5MB
+    if (selectedFile.size > 5 * 1024 * 1024) {
+      // Swal.fire({
+      //   icon: "error",
+      //   title: "File Size Exceeded",
+      //   text: "Please select a file smaller than 5MB.",
+      // });
+      Swal.fire({
+        html: `
+          <div style="display: flex; flex-direction: column; align-items: center;">
+            <div style="width: 100%; display: flex; align-items: center; justify-content: center; position: relative; margin-bottom: 30px;">
+              <img src="${Logo}" alt="Logo" 
+                style="position: absolute; top: 0; left: 0; width: 50px; height: 50px; " />
+              <h4 style="margin: 0; font-size: 30px; font-weight: bold;">
+                <span style="color: black;">LM</span>
+                <span style="color: rgb(37, 218, 73);">Club</span>
+              </h4>
+            </div>
+            <div style="text-align: center; font-size: 22px; font-weight: bold; color: #333; margin-bottom: 10px;">
+              <p>Please select a file smaller than 5MB.</p>
+            </div>
+          </div>
+        `,
+        customClass: {
+          confirmButton: "swal-custom-ok-button",
+        },
+        footer: `
+          <p style="font-size: 12px; text-align: center; width: 100%;">© 2025, Laoe Maom. All Rights Reserved.</p>
+        `,
+      });
+      return;
+    }
+
+    setImages(selectedFile);
+  };
+
+  // const handleFileChange = (e) => {
+    
+  //   if (e.target.files.length > 0) {
+  //     setImages(e.target.files[0]); // Save selected file
+  //   }
+  // };
+
+  // const closeModal = () => {
+  //   setShowModal(false);
+  // };
+
+
+  // const handleFileTypeSelection = (type) => {
+  //   setFileType(type);
+  //   setShowModal(false); // Close modal
+  //   setTimeout(() => {
+  //     fileInputRef.current.click(); // Open file picker
+  //   }, 100); // Small delay to ensure UI updates properly
+  // };
 
   const handleSubmit = (event) => {
     event.preventDefault();
   
+    
+    if (!image) {
+      fileInputRef.current?.focus();
+      // Swal.fire({
+      //   icon: "error",
+      //   title: "Missing File",
+      //   text: "Please upload an image or video before submitting.",
+      // });
+      Swal.fire({
+        html: `
+          <div style="display: flex; flex-direction: column; align-items: center;">
+            <div style="width: 100%; display: flex; align-items: center; justify-content: center; position: relative; margin-bottom: 30px;">
+              <img src="${Logo}" alt="Logo" 
+                style="position: absolute; top: 0; left: 0; width: 50px; height: 50px; " />
+              <h4 style="margin: 0; font-size: 30px; font-weight: bold;">
+                <span style="color: black;">LM</span>
+                <span style="color: rgb(37, 218, 73);">Club</span>
+              </h4>
+            </div>
+            <div style="text-align: center; font-size: 22px; font-weight: bold; color: #333; margin-bottom: 10px;">
+              <p>Please upload an image or video before submitting</p>
+            </div>
+          </div>
+        `,
+        customClass: {
+          confirmButton: "swal-custom-ok-button",
+        },
+        footer: `
+          <p style="font-size: 12px; text-align: center; width: 100%;">© 2025, Laoe Maom. All Rights Reserved.</p>
+        `,
+      });
+      return;
+    }
+
     // Dynamically adjust the form data based on the category
     const formattedFormData = {
       ...formData,
@@ -86,6 +202,7 @@ const [image, setImages] = useState(null);
     }
     console.log("image: ", image)
     console.log("formData1 :",formData1)
+
 
     for (let pair of formData1.entries()) {
       console.log(pair[0] + ": " + pair[1]);
@@ -462,46 +579,91 @@ const [image, setImages] = useState(null);
 
             
               <div className="w-full">
-                    <label className="block mb-1 text-sm font-bold text-colorThree text-left">
-                        Location
-                    </label>
-                    <input
-                        type="text"
-                        name="location"
-                        value={formData.location}
-                        onChange={handleInputChange}
-                        className="border border-gray-300 text-gray-900 rounded block w-full p-2.5"
-                        placeholder="USA, GA, Alpharetta, Park Woods Circle, 30005"
-                        required
-                    />
-                    </div>
-            {/* Image Section with Two Buttons */}
-            <label
-                  htmlFor="username"
-                  className="block mb-2 text-sm font-bold text-colorThree text-left"
-                >
-                  Picture/Videos
+                <label className="block mb-1 text-sm font-bold text-colorThree text-left">
+                    Location
                 </label>
-            <div className="w-[95%] flex justify-center items-start  gap-4 mb-2">
-                
-                <img
-                  src={
-                    image
-                      ? URL.createObjectURL(image)
-                      : "https://res.cloudinary.com/dieqhbgmy/image/upload/v1740039858/uploads/tntaay3cfzuiyeregrvg.png"
-                  }
-                  alt="Doctor"
-                  className="w-12 h-12 rounded-full cursor-pointer object-cover"
-                />
-
                 <input
-                  type="file"
-                  className="border-2 border-dotted border-gray-500 p-2 rounded-lg hover:bg-gray-100"
-                  accept="image/*"
-                  onChange={(e) => setImages(e.target.files[0])}
-                  required
+                    type="text"
+                    name="location"
+                    value={formData.location}
+                    onChange={handleInputChange}
+                    className="border border-gray-300 text-gray-900 rounded block w-full p-2.5"
+                    placeholder="USA, GA, Alpharetta, Park Woods Circle, 30005"
+                    required
                 />
               </div>
+              {/* Image Section with Two Buttons */}
+
+
+          {/* Upload Button */}
+          <div className="w-[95%] flex  items-start  gap-4 mb-2"> 
+                <div className="w-[95%] flex justify-center items-center gap-4">
+                  {image && image.type.startsWith("image/") ? (
+                    <img
+                      src={URL.createObjectURL(image)}
+                      alt="Uploaded"
+                      className="w-12 h-12 rounded-full cursor-pointer object-cover"
+                    />
+                  ) : image && image.type.startsWith("video/") ? (
+                    <video
+                      src={URL.createObjectURL(image)}
+                      controls
+                      className="w-12 h-12 rounded-full cursor-pointer object-cover"
+                    />
+                  ) : <img className="w-12 h-12 rounded-full cursor-pointer object-cover" src="https://res.cloudinary.com/dieqhbgmy/image/upload/v1740039858/uploads/tntaay3cfzuiyeregrvg.png"/> }
+
+                  
+                {image ? (
+                    <span className="text-gray-700 font-semibold">{image.name}</span>
+                  ) : (
+                  <button
+                    className="border-2 border-dotted border-gray-500 p-2 rounded-lg hover:bg-gray-100"
+                    onClick={() => setShowModal(true)}
+                    required
+                  >
+                    Upload Image/Video
+                  </button>
+                  )}
+                  <h1 className="flex items-center justify-center font-bold text-xl"> {`(< 5 MB)`}</h1>
+                </div>
+                  
+              {/* Hidden File Input */}
+              <input
+                type="file"
+                ref={fileInputRef}
+                className="hidden"
+                accept={fileType === "image" ? "image/*" : "video/*"}
+                onChange={handleFileChange}
+                
+              />
+            </div>
+
+              {/* <label
+                    htmlFor="username"
+                    className="block mb-2 text-sm font-bold text-colorThree text-left"
+                  >
+                    Picture/Videos
+                  </label>
+              <div className="w-[95%] flex justify-center items-start  gap-4 mb-2">
+                  
+                  <img
+                    src={
+                      image
+                        ? URL.createObjectURL(image)
+                        : "https://res.cloudinary.com/dieqhbgmy/image/upload/v1740039858/uploads/tntaay3cfzuiyeregrvg.png"
+                    }
+                    alt="Doctor"
+                    className="w-12 h-12 rounded-full cursor-pointer object-cover"
+                  />
+
+                  <input
+                    type="file"
+                    className="border-2 border-dotted border-gray-500 p-2 rounded-lg hover:bg-gray-100"
+                    accept="image/*, video/*"
+                    onChange={(e) => setImages(e.target.files[0])}
+                    required
+                  />
+                </div> */}
 
 
             <div className="flex justify-between p-4">
@@ -523,6 +685,41 @@ const [image, setImages] = useState(null);
                 </div>
         </div>
       </div>
+
+       {/* Modal for File Type Selection */}
+       {showModal && (
+        <div className="fixed inset-0 flex flex-col items-center justify-center bg-black bg-opacity-50 p-4">
+          <div className="bg-white p-4 rounded-lg shadow-lg w-[450px] h-[250px]">
+            <div className="flex flex-row justify-between items-center">
+               <img src={Logo} alt="logo" className="w-[52px] h-auto" />
+               <h2 className="text-lg font-semibold">Select File Type</h2>
+               <IoIosClose onClick={closeModal} className="w-8 h-8 cursor-pointer" />
+             </div>
+            <div className="flex flex-col w-full gap-4 mt-5">
+              <button
+                className="bg-blue-500 text-white px-4 py-2 rounded mr-2"
+                onClick={() => handleFileTypeSelection("image")}
+              >
+                Image
+              </button>
+
+              
+              <button
+                className="bg-green-500 text-white px-4 py-2 rounded"
+                onClick={() => handleFileTypeSelection("video")}
+              >
+                Video
+              </button>
+              
+            </div>
+            <div className="text-center text-xs mt-6 ">
+                    <p>© 2025, Laoe Maom. All Rights Reserved.</p>
+                </div>
+            
+          </div>
+        </div>
+      )}
+
 
      
     </div>

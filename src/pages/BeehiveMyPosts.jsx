@@ -188,6 +188,22 @@ const BeehiveMyPosts = () => {
   // }, [userData._id]);
  
   console.log(currentPosts)
+
+    // media opening as a pop-up
+  
+      const [isMediaOpen, setIsMediaOpen] = useState(false);
+      const [mediaType, setMediaType] = useState(null);
+    
+      const openMediaModal = (media) => {
+        setMediaType(media);
+        setIsMediaOpen(true);
+      };
+    
+      const closeMediaModal = () => {
+        setIsMediaOpen(false);
+        setMediaType(null);
+      };
+
   return (
 
  <div className="pt-2">
@@ -204,14 +220,19 @@ const BeehiveMyPosts = () => {
                 </div> */}
 
                 <div className="flex justify-between gap-3 text-center mt-4 items-center w-full shadow-lg p-4 bg-white flex-col lg:flex-row">
-                  {/* Image Section */}
+                  {/* Image Section
                   <div className="flex justify-center items-center mb-4 lg:mb-0">
                     <img
                       src={beehive}
                       alt="about_one"
                       className="w-[72px] h-[72px]"
                     />
-                  </div>
+                  </div> */}
+
+                  {/* left arrow */}
+                    <p className="lg:text-3xl text-2xl font-bold lg:text-start text-center">
+                      <span onClick={()=>{navigate('/beehive-workflow/view-posts')}} className="text-green-500 cursor-pointer "> < FaArrowLeftLong/> </span> 
+                    </p>
 
                   {/* Text Section */}
                   <p className="lg:text-3xl text-2xl font-bold lg:text-start text-center">
@@ -333,11 +354,38 @@ const BeehiveMyPosts = () => {
                           <span onClick={()=>openModal(post)} className='cursor-pointer hover:underline hover:text-blue-600'> {post.postName || post.eventName} </span>
                           </td>
                           <td className="border text-center border-gray-300 px-4 py-2">
-                            {post.image ? (
+                            {/* {post.image ? (
                               <img src={post.image} alt="Post" className="w-16 h-16 object-cover mx-auto" />
                             ) : (
                               'No Image'
+                            )} */}
+
+{post.image ? (
+                              post.image.includes("video") ? (  // ✅ Check if it's a video
+                                <video 
+                                  controls 
+                                  muted 
+                                  preload="metadata"
+                                  className="w-[150px] mx-auto h-[75px] object-cover"
+                                  onClick={() => openMediaModal({ type: "video", src: post.image })}
+                                >
+                                  <source src={post.image} type="video/mp4" />
+                                  <source src={post.image.replace('.mp4', '.webm')} type="video/webm" />
+                                  <source src={post.image.replace('.mp4', '.ogg')} type="video/ogg" />
+                                  Your browser does not support the video tag.
+                                </video>
+                              ) : (
+                                <img 
+                                src={post.image} 
+                                alt="Post" 
+                                className="w-[150px] mx-auto h-[75px] object-cover cursor-pointer" 
+                                onClick={() => openMediaModal({ type: "image", src: post.image })}
+                                />
+                              )
+                            ) : (
+                              <p>No Media</p>
                             )}
+
                           </td>
                           <td className="border text-center border-gray-300 px-4 py-2">
                             <button
@@ -419,6 +467,35 @@ const BeehiveMyPosts = () => {
               <p className="font-light">{selectedPost.eventName}</p>
               <p>Category:</p>
               <p className="font-light">{selectedPost.category}</p>
+              {/* <p>Images/Videos:</p>
+              <p className="font-light "> {selectedPost.image ? (
+                 <img src={selectedPost.image} alt="Post" className="w-[75px] h-[75px] object-cover" />
+               ) : (
+                 'No Image'
+               )} </p> */}
+               <p>Images/Videos:</p>
+                {selectedPost.image ? (
+                  selectedPost.image.includes("video") ? (  
+                    <video 
+                    controls 
+                    className="w-[150px] h-[150px] object-cover cursor-pointer"
+                    onClick={() => openMediaModal({ type: "video", src: selectedPost.image })}
+                    >
+                      <source src={selectedPost.image} type="video/mp4" />
+                      Your browser does not support the video tag.
+                    </video>
+                  ) : (
+                    <img 
+                    src={selectedPost.image} 
+                    alt="Post" 
+                    className="w-[75px] h-[75px] object-cover cursor-pointer" 
+                    onClick={() => openMediaModal({ type: "image", src: selectedPost.image })}
+                    />
+                  )
+                ) : (
+                  <p>No Media</p>
+                )}
+
               <p>Event Start Date:</p>
               <p className="font-light">{selectedPost.eventStartDate.slice(0, 10) || 'N/A'}</p>
               <p>Event End Date:</p>
@@ -467,6 +544,35 @@ const BeehiveMyPosts = () => {
               <p className="font-light">{selectedPost.postName}</p>
               <p>Category:</p>
               <p className="font-light">{selectedPost.category}</p>
+              {/* <p>Images/Videos:</p>
+              <p className="font-light "> {selectedPost.image ? (
+                 <img src={selectedPost.image} alt="Post" className="w-[75px] h-[75px] object-cover" />
+               ) : (
+                 'No Image'
+               )} </p> */}
+               <p>Images/Videos:</p>
+                {selectedPost.image ? (
+                  selectedPost.image.includes("video") ? (  
+                    <video 
+                    controls 
+                    className="w-[150px] h-[150px] object-cover cursor-pointer"
+                    onClick={() => openMediaModal({ type: "video", src: selectedPost.image })}
+                    >
+                      <source src={selectedPost.image} type="video/mp4" />
+                      Your browser does not support the video tag.
+                    </video>
+                  ) : (
+                    <img 
+                    src={selectedPost.image} 
+                    alt="Post" 
+                    className="w-[75px] h-[75px] object-cover cursor-pointer" 
+                    onClick={() => openMediaModal({ type: "image", src: selectedPost.image })}
+                    />
+                  )
+                ) : (
+                  <p>No Media</p>
+                )}
+
               <p>Description:</p>
               <p className="font-light">{selectedPost.description}</p>
               <p>Coupon Code:</p>
@@ -508,6 +614,34 @@ const BeehiveMyPosts = () => {
               <p className="font-light">{selectedPost.postName}</p>
               <p>Category:</p>
               <p className="font-light">{selectedPost.category}</p>
+              {/* <p>Images/Videos:</p>
+              <p className="font-light "> {selectedPost.image ? (
+                 <img src={selectedPost.image} alt="Post" className="w-[75px] h-[75px] object-cover" />
+               ) : (
+                 'No Image'
+               )} </p> */}
+               <p>Images/Videos:</p>
+                {selectedPost.image ? (
+                  selectedPost.image.includes("video") ? (  
+                    <video 
+                    controls 
+                    className="w-[150px] h-[150px] object-cover cursor-pointer"
+                    onClick={() => openMediaModal({ type: "video", src: selectedPost.image })}
+                    >
+                      <source src={selectedPost.image} type="video/mp4" />
+                      Your browser does not support the video tag.
+                    </video>
+                  ) : (
+                    <img 
+                    src={selectedPost.image} 
+                    alt="Post" 
+                    className="w-[75px] h-[75px] object-cover cursor-pointer" 
+                    onClick={() => openMediaModal({ type: "image", src: selectedPost.image })}
+                    />
+                  )
+                ) : (
+                  <p>No Media</p>
+                )}
               <p>Description:</p>
               <p className="font-light">{selectedPost.description}</p>
               <p>Location:</p>
@@ -529,6 +663,54 @@ const BeehiveMyPosts = () => {
           </div>
         </div>
       )}
+
+                  {/* Modal for Fullscreen Image/Video */}
+                     {isMediaOpen && (
+                     <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+                       <div className="flex flex-col gap-3 w-[95%] sm:w-[750px] h-[750px] bg-white rounded-lg shadow-lg p-6">
+                         
+                         {/* Header Section */}
+                         <div className="flex flex-row justify-between items-center">
+                           <img src={Logo} alt="logo" className="w-[60px] h-auto" />
+                           <h2 className="text-xl font-semibold"> View Image / Video</h2>
+                           <IoIosClose onClick={closeMediaModal} className="w-10 h-10 cursor-pointer" />
+                         </div>
+                         
+                         <div className="border-b border-gray-300"></div>
+               
+                         {/* Media Section */}
+                         <div className="flex justify-center items-center flex-1">
+                           {mediaType.type === "video" ? (
+               
+                             <video controls autoPlay className="max-w-full max-h-[600px] rounded-lg">
+                               <source src={mediaType.src} type="video/mp4" />
+                               Your browser does not support the video tag.
+                             </video>
+                           ) : (
+                             <img src={mediaType.src} alt="Fullscreen Media" className="max-w-full max-h-[600px] rounded-lg" />
+                           )}
+                         </div>
+               
+                         {/* Button Section */}
+                         <div className="flex justify-center">
+                           <button
+                             onClick={closeMediaModal}
+                             className="bg-green-500 text-white px-8 py-2 rounded hover:bg-green-600 transition duration-200"
+                           >
+                             Close
+                           </button>
+                         </div>
+               
+                         {/* Footer Section */}
+                         <div className="text-center text-xs text-gray-500 mt-2">
+                           <p>© 2025, Laoe Maom. All Rights Reserved.</p>
+                         </div>
+                       </div>
+                     </div>
+                   )}
+               
+
+
     <div className="text-center text-xs mt-6 mb-4">
               <p>© 2025, Laoe Maom. All Rights Reserved.</p>
             </div>

@@ -137,7 +137,7 @@ const MyMembership = () => {
                           </td>
 
                           <td className="border border-gray-300 px-4 py-2 text-zinc-600 text-sm">
-                            Beehive Broadcast Grow
+                              Network,Beehive,Broadcast,E-Store,Grow
                           </td>
                           <td className="border border-gray-300 px-4 py-2 text-zinc-600 text-sm">
                             <div
