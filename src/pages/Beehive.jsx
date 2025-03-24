@@ -8,8 +8,47 @@ import moneyTwo from "../assets/moneyTwo.svg";
 import Business from "../assets/Business.svg";
 import Reward from "../assets/Reward.svg";
 import WhatsApp from "../components/WhatsApp";
-
+import { FaAngleDown, FaAngleRight } from "react-icons/fa6";
+import { useState } from "react";
+const beehiveWidgetFaqs=[
+  { question: "What is the LM Club Beehive widget?", answer: "The LM Club Beehive widget is an interactive feature within the LM Club App that allows members to earn points by sharing and accessing exclusive deals, coupons, and community-shared updates. Members can redeem points for gift cards and enjoy special offers from local businesses." },
+  { question: "How do I unlock the Beehive widget?", answer: "To unlock the Beehive widget, tap the Unlock Beehive button on your LM Club App dashboard, agree to the Terms & Conditions, and then tap to unlock." },
+  { question: "Is there a cost to use the Beehive widget?", answer: "No, accessing and using the Beehive widget is free for all LM Club members as part of their membership benefits."},
+  { question: "How do I post a deal on Beehive?", answer: "Go to the Beehive section in the app, click 'Add Post', select the relevant category, fill in the necessary details like post name and description, and optionally upload images or videos. Finally, click 'Create' to submit your post for review." },
+  { question: "How are points calculated when I share a deal?", answer: "Points are awarded based on several factors including the engagement your post receives (like the number of likes), the uniqueness of the deal, and your membership level. More engagement and higher membership levels yield more points."},
+  { question: "How can I redeem the points I earn on Beehive?", answer: "Points can be redeemed through the LM Club App by accessing the ‘Redeem Points’ section. You can exchange points for gift cards or special offers as available." },
+  { question: "How can I customize notifications I receive from Beehive?", answer: "You can customize your notifications by accessing the settings section in the Beehive widget. Here, you can adjust the filters to receive alerts for specific types of deals and information that interest you most."},
+  { question: "I'm not receiving notifications, what should I do?", answer:"Ensure that your app notifications are enabled in both the LM Club App and your device's settings. If issues persist, contact support for further assistance." },
+  { question: "What should I do if I cannot unlock the Beehive widget?", answer: "Make sure your app is updated to the latest version. If the problem continues, restart your app or device and try again. For persistent issues, contact our support team."  },
+  { question: "My post was not approved, why?", answer: "Posts may not be approved if they fail to meet community guidelines, such as promoting inappropriate content or not adhering to the terms of deal postings. Review the guidelines in the Terms & Conditions or contact support for specific feedback." },
+  { question: "How can I contact support if I need help?", answer:"For any assistance, you can contact our support team directly through the app by navigating to the 'Contact Support' section, where you can send a message or call for help." },
+  { question: "Where can I find more information about using Beehive?", answer:"Additional information, including detailed user guides and tips, is available under the 'Learn More' section in the Beehive widget of your LM Club App."   },
+  { question: "How can I see the deals shared by others on Beehive?", answer: "You can view deals shared by others by navigating to the 'View Post' section in the Beehive widget. Here, you can browse through different categories or use the search feature to find specific types of deals."},
+  { question: "What are the benefits of liking or commenting on a post?", answer:"Engaging with posts by liking or commenting not only supports other community members but also enhances your visibility and activity within the community, which can contribute to earning more points."   },
+  { question: "Can I share a deal I found on Beehive with someone not in the LM Club?", answer: "Sharing deals outside the LM Club is typically restricted to ensure exclusivity for members. However, specific deals may have different sharing policies, which are detailed within the post." },
+  { question: "What should I do if the app crashes while I’m using Beehive?", answer:"If the app crashes, try restarting the app and ensure your device's operating system is up-to-date. If the problem persists, uninstall and reinstall the app, or contact our technical support for help."  },
+  { question: "How do I report a problem or a bug within the Beehive widget?", answer: "To report a technical issue or bug, use the 'Report a Problem' feature in the app settings or contact support with a detailed description of the issue, including screenshots if possible."  },
+  { question: "Are there any specific membership requirements to access Beehive?", answer:  "Beehive is available to all LM Club members, but certain features and the number of points that can be earned may vary by membership level."},
+  { question: "What happens to my points if I cancel my LM Club membership?", answer: "Points typically expire when a membership is canceled. It's recommended to redeem any accumulated points before canceling your membership."},
+  { question: "How often do the Terms & Conditions for Beehive get updated?", answer: "The Terms & Conditions may be updated periodically to reflect changes in policies or the operational aspects of the widget. Members will be notified of any significant changes through email or app notifications." },
+  { question: "How can I maximize the visibility of my posts on Beehive?", answer:"To maximize visibility, ensure your posts are compelling, include high-quality images or videos, and use relevant keywords and categories. Posting during high-activity hours can also increase engagement."   },
+  { question: "What types of deals are most popular on Beehive?", answer:"Deals offering substantial discounts, unique experiences, or popular items tend to attract more attention and engagement from the community."  },
+  { question: "How can I keep track of my favorite types of deals on Beehive?", answer: "You can bookmark deals or set up personalized alerts for your favorite types of deals through the notification settings in the Beehive widget." },
+  { question: "Can I edit a post after it has been published on Beehive?", answer: "Yes, you can edit your posts after they have been published. Simply go to your post, select the 'Edit' option, make the necessary changes, and resubmit it for approval." },
+  { question: "What should I do if I see inappropriate content in a post?", answer: "If you encounter inappropriate content, please use the 'Report' feature on the post to alert our moderation team, who will review the content and take appropriate action." },
+  { question: "Are there any restrictions on the types of deals I can post on Beehive?", answer: "Yes, all deals must comply with LM Club's community guidelines, which prohibit illegal, offensive, or harmful content. Deals should be relevant to the community and provide genuine value." },
+  { question: "How can I update my email or contact information in Beehive?", answer: "To update your contact information, navigate to the 'Settings' section of your LM Club App, where you can update your email and other personal details." },
+  { question: "What security measures are in place to protect my personal information on Beehive?", answer: "Beehive employs robust security measures including data encryption, secure server connections, and compliance with privacy laws to protect your personal information." },
+  { question: "Can I deactivate my Beehive widget without affecting my LM Club membership?", answer: "Yes, you can deactivate the Beehive widget independently of your LM Club membership by adjusting your settings in the app. This action will not affect your overall membership status." },
+  { question: "What types of rewards can I redeem with my points on Beehive?", answer: "You can redeem your points for a variety of rewards, including gift cards, exclusive deals, and special promotions from our business partners." },
+  { question: "Is there a limit to how many points I can earn on Beehive?", answer: "There is no cap on the number of points you can earn; however, the rate at which you earn points may vary based on promotional activities and changes to policy." },
+  { question: "How long do points remain valid on my Beehive account?", answer: "Points typically remain valid for one year from the date they are earned. Be sure to check the specific terms and conditions for any changes to this policy." },
+  { question: "Does Beehive offer any features to make it more accessible for users with disabilities?", answer: "Beehive is designed with accessibility in mind, featuring options for text enlargement, voice commands, and screen reader compatibility to ensure all members can navigate and use the widget effectively." },
+  { question: "Can I access Beehive from multiple devices?", answer: "Yes, you can access Beehive from multiple devices as long as you are logged into your LM Club account. Your data and points will synchronize across all devices." },
+  { question: "Are there tutorials available to help new users understand how to use Beehive effectively?", answer: "Yes, Beehive provides a range of tutorials and step-by-step guides available within the app to help new users familiarize themselves with all features and functionalities." },
+];
 const Estore = () => {
+  const [openQuestion, setOpenQuestion] = useState(null);
   return (
     <div>
       <Navbar />
@@ -173,6 +212,31 @@ const Estore = () => {
                   </div>
                 </div>
                 <div>
+                   <div className="w-full mx-auto max-w-[1400px] p-4 mt-10">
+                        <h2 className="text-3xl font-bold text-center text-green-600 mb-6">
+                          Frequently Asked Questions (FAQ)
+                        </h2>
+                        <div className="max-w-4xl mx-auto space-y-2">
+                          {beehiveWidgetFaqs.map((item, index) => (
+                            <div key={index} className="border-b border-gray-300 pb-2">
+                              <button
+                                className="w-full flex justify-between items-center text-left p-3 bg-gray-100 font-medium text-m rounded-md hover:bg-gray-200"
+                                onClick={() =>
+                                  setOpenQuestion(openQuestion === index ? null : index)
+                                }
+                              >
+                                {item.question}
+                                {openQuestion === index ? <FaAngleDown /> : <FaAngleRight />}
+                              </button>
+                              {openQuestion === index && (
+                                <p className="mt-2 p-3 text-gray-600 bg-gray-100 rounded-md">
+                                  {item.answer}
+                                </p>
+                              )}
+                            </div>
+                          ))}
+                        </div>
+                      </div>
                   <h2 className="text-3xl text-center font-semibold mt-6 text-green-600 pt-6">
                     Do's and Don’ts
                   </h2>

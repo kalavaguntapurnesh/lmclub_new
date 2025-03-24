@@ -63,6 +63,7 @@ import RewardCard from "./pages/RewardCard.jsx";
 import BeehiveMyLikedPosts from "./pages/BeehiveMyLikedPosts.jsx";
 import BeehiveMySavedPosts from "./pages/BeehiveMySavedPosts.jsx";
 import growFunctionality from "./pages/growFunctionality.jsx";
+import Faqs from "./pages/Faqs.jsx";
 
 function App() {
   const { token } = useContext(AppContext);
@@ -184,7 +185,7 @@ function App() {
 
           <Route path="/login" element={<Login />}></Route>
           <Route path="/videos" element={<Videos />}></Route>
-
+          <Route path="/faqs" element={<Faqs/>}></Route>
           <Route path="/register" element={<Register />}></Route>
           <Route path="/events" element={<Events />}></Route>
 

@@ -732,6 +732,20 @@ const ContactBar = () => {
           </div>
         </div>
       </a>
+      <a
+        href="/faqs"
+        className="space-y-1 transition duration-1000 ease-in-out p-2 hover:bg-[#e6e6e6] rounded-lg"
+      >
+        <div className="flex flex-col items-start gap-3">
+          <img src={LMDark} alt="network" className="w-10 h-10" />
+          <div className="flex flex-col">
+            <h1 className="text-[#1a1a1a] font-semibold">FAQs</h1>
+            <p className="text-gray-800 text-sm">
+              Learn more about your list of favourite items.
+            </p>
+          </div>
+        </div>
+      </a>
     </div>
   );
 };
