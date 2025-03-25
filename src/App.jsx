@@ -64,6 +64,7 @@ import BeehiveMyLikedPosts from "./pages/BeehiveMyLikedPosts.jsx";
 import BeehiveMySavedPosts from "./pages/BeehiveMySavedPosts.jsx";
 import growFunctionality from "./pages/growFunctionality.jsx";
 import Faqs from "./pages/Faqs.jsx";
+import SharablePost from "./pages/SharablePost.jsx";
 
 function App() {
   const { token } = useContext(AppContext);
@@ -131,10 +132,7 @@ function App() {
                 element={<BeehiveMySavedPosts />}
               />
               <Route path="/redeem-now" element={<Redeem />} />
-              {/* <Route
-                path="/grow-workflow"
-                element={<growFunctionality />}
-              /> */}
+              
             </Routes>
         </ECommerceCartProvider>
       </div>
@@ -233,6 +231,10 @@ function App() {
             element={<ECommercePaymentMethods />}
           />
           <Route path="/redeem-now" element={<Redeem />} />
+          <Route
+                path="/beehive-posts/:postId"
+                element={<SharablePost />}
+              />
         </Routes>
       </CartProvider>
     </ECommerceCartProvider>

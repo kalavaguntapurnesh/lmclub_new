@@ -31,6 +31,8 @@ import facebook from "../assets/facebook.webp"
 import tiktok from "../assets/tiktok.png"
 import twittor from "../assets/twittor.png"
 import youtube from "../assets/youtube.png"
+import email from "../assets/email.png"
+
 const BeehiveViewPosts = () => {
   const [search, setSearch] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('');
@@ -61,6 +63,23 @@ const BeehiveViewPosts = () => {
   useEffect(() => {
     fetchPosts();
   }, []);
+
+  const [postUserName, setPostUserName] = useState(null);
+
+  useEffect(() => {
+    const postUserNameFunction = async () => {
+      try {
+        const response = await axios.get( backendUrl + `/api/beehive/each-post-username/${selectedPost?._id}`);
+        setPostUserName(response.data);
+      } catch (error) {
+        console.log("while fetching username for posts: ", error)
+      } 
+    };
+
+    postUserNameFunction();
+  }, [selectedPost]);
+
+  console.log("post name : ", postUserName);
 
   // Filter posts based on search, category, and date
   const filteredPosts = posts.filter((post) => {
@@ -205,13 +224,28 @@ const BeehiveViewPosts = () => {
 
 const [isClickedOnShareButton, setIsClickedOnShareButton] = useState(false);
 const [isOpenShareModel, setIsOpenShareModel] = useState(false);
-  const incrementShare = async()=>{
+
+// const BASE_URL = backendUrl + `/beehive-posts/`;
+
+const BASE_URL =  `http://localhost:5173/beehive-posts/`;
+
+const generateShareableLink = (postId) => {
+  return `${BASE_URL}${postId}`;
+};
+// console.log("generateShareableLink : ", generateShareableLink);
+
+const [sharablePostId, setSharablePostId] = useState(null)
+
+  const incrementShare = async(postId)=>{
+    // generateShareableLink(postId)
+    setSharablePostId(postId);
     setIsClickedOnShareButton(true);
     closeModal();
     setIsOpenShareModel(true);
   }
 
   const closeModalShareButton = async()=>{
+    
     setIsClickedOnShareButton(false);
     setIsOpenShareModel(false);
   }
@@ -630,7 +664,7 @@ const [isOpenShareModel, setIsOpenShareModel] = useState(false);
                     src={share}
                     alt="share"
                     className="w-[35px] h-[35px] cursor-pointer "
-                    onClick={incrementShare}
+                    onClick={() => incrementShare(selectedPost._id)}
                   />
                 </div>
                 <div className="flex justify-center items-center">
@@ -727,7 +761,7 @@ const [isOpenShareModel, setIsOpenShareModel] = useState(false);
                     src={share}
                     alt="share"
                     className="w-[35px] h-[35px] cursor-pointer"
-                    onClick={incrementShare}
+                    onClick={() => incrementShare(selectedPost._id)}
                   />
                 </div>
                 <div className="flex justify-center items-center">
@@ -820,7 +854,7 @@ const [isOpenShareModel, setIsOpenShareModel] = useState(false);
                     src={share}
                     alt="share"
                     className="w-[35px] h-[35px] cursor-pointer "
-                    onClick={incrementShare}
+                    onClick={() => incrementShare(selectedPost._id)}
                   />
                 </div>
                 <div className="flex justify-center items-center">
@@ -849,160 +883,185 @@ const [isOpenShareModel, setIsOpenShareModel] = useState(false);
         </div>
       )}
 
-      {isClickedOnShareButton && isOpenShareModel && (
-              <div className="fixed inset-0 bg-transparent bg-opacity-50 flex justify-center items-center">
-                <div className="bg-white p-6 rounded shadow w-[90%] sm:w-[600px] z-20">
-                  <div className="flex flex-row justify-between items-center">
-                    <img src={Logo} alt="logo" className="w-[52px] h-auto" />
-                    <h2 className="text-lg font-semibold">Share Your Post / Event</h2>
-                    <IoIosClose onClick={closeModalShareButton} className="w-8 h-8 cursor-pointer" />
-                  </div>
-                  <div className="border-b border-gray-200 pt-2"></div>
-
-                  <div className="mt-6 p-6">
-                    <div className="w-[80%] mx-auto">
-                      <div className="grid grid-cols-1 lg:gap-4 gap-8 w-full">
-                        <div className="grid grid-cols-4 gap-8">
-                          <a
-                            href={whatsappUrl}
-                            className="flex lg:justify-start justify-center items-center"
-                          >
-                            <img
-                              src={whatsapp}
-                              alt="WhatsApp"
-                              className="w-10 h-10 cursor-pointer text-secondaryColor"
-                            />
-                          </a>
-
-                          <a
-                            href="https://www.linkedin.com/company/laoe-maom"
-                            className="flex lg:justify-start justify-center items-center"
-                          >
-                            <img
-                              src={linkedin}
-                              alt="LinkedIn"
-                              className="w-10 h-10 cursor-pointer text-secondaryColor"
-                            />
-                          </a>
-
-                          <a
-                            href="https://x.com/RichardLMCLUB"
-                            className="flex lg:justify-start justify-center items-center"
-                          >
-                            <img
-                              src={twittor}
-                              alt="Twitter"
-                              className="w-10 h-10 cursor-pointer text-secondaryColor"
-                            />
-                          </a>
-
-                          <a
-                            href="https://www.instagram.com/laoemaomclub/"
-                            className="flex lg:justify-start justify-center items-center"
-                          >
-                            <img
-                              src={Instagram}
-                              alt="Instagram"
-                              className="w-10 h-10 cursor-pointer text-secondaryColor"
-                            />
-                          </a>
-
-                          <a
-                            href="https://www.tiktok.com/@lmclub0"
-                            className="flex lg:justify-start justify-center items-center"
-                          >
-                            <img
-                              src={tiktok}
-                              alt="TikTok"
-                              className="w-10 h-10 cursor-pointer text-secondaryColor"
-                            />
-                          </a>
-
-                          <a
-                            href="https://www.facebook.com/people/Laoe-Maom/100063772398711/#"
-                            className="flex lg:justify-start justify-center items-center"
-                          >
-                            <img
-                              src={facebook}
-                              alt="Facebook"
-                              className="w-10 h-10 cursor-pointer text-secondaryColor"
-                            />
-                          </a>
-
-                          <a
-                            href="https://www.youtube.com/watch?v=g16zVRWJpxA"
-                            className="flex lg:justify-start justify-center items-center"
-                          >
-                            <img
-                              src={youtube}
-                              alt="YouTube"
-                              className="w-10 h-10 cursor-pointer text-secondaryColor"
-                            />
-                          </a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-            <div className="flex justify-center mt-6">
-              <button
-                onClick={closeModalShareButton}
-                className="bg-green-400 text-white px-12 py-2 rounded hover:bg-green-600"
-              >
-                Close
-              </button>
-            </div>
-            <div className="text-center text-xs mt-6 mb-4">
-              <p>© 2025, Laoe Maom. All Rights Reserved.</p>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* Modal for Fullscreen Image/Video */}
-      {isMediaOpen && (
-      <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-        <div className="flex flex-col gap-3 w-[95%] sm:w-[750px] h-[700px] bg-white rounded-lg shadow-lg p-6">
-          
-          {/* Header Section */}
+    {isClickedOnShareButton && isOpenShareModel && (
+      <div className="fixed inset-0 bg-transparent bg-opacity-50 flex justify-center items-center">
+        <div className="bg-white p-6 rounded shadow w-[90%] sm:w-[600px] z-20">
           <div className="flex flex-row justify-between items-center">
-            <img src={Logo} alt="logo" className="w-[60px] h-auto" />
-            <h2 className="text-xl font-semibold"> View Image / Video</h2>
-            <IoIosClose onClick={closeMediaModal} className="w-10 h-10 cursor-pointer" />
+            <img src={Logo} alt="logo" className="w-[52px] h-auto" />
+            <h2 className="text-lg font-semibold">Share Your Post / Event</h2>
+            <IoIosClose onClick={closeModalShareButton} className="w-8 h-8 cursor-pointer" />
           </div>
-          
-          <div className="border-b border-gray-300"></div>
+          <div className="border-b border-gray-200 pt-2"></div>
 
-          {/* Media Section */}
-          <div className="flex justify-center items-center flex-1">
-            {mediaType.type === "video" ? (
-
-              <video controls autoPlay className="max-w-full max-h-[600px] rounded-lg">
-                <source src={mediaType.src} type="video/mp4" />
-                Your browser does not support the video tag.
-              </video>
-            ) : (
-              <img src={mediaType.src} alt="Fullscreen Media" className="max-w-full max-h-[600px] rounded-lg" />
-            )}
-          </div>
-
-          {/* Button Section */}
-          <div className="flex justify-center">
+          {/* Shareable Link Section */}
+          <div className="mt-4 flex items-center border border-gray-300 p-2 rounded">
+            <input
+              type="text"
+              value={generateShareableLink(sharablePostId)}
+              readOnly
+              className="flex-1 p-2 outline-none text-gray-600"
+            />
             <button
-              onClick={closeMediaModal}
-              className="bg-green-500 text-white px-8 py-2 rounded hover:bg-green-600 transition duration-200"
+              onClick={() => {
+                navigator.clipboard.writeText(generateShareableLink(sharablePostId));
+                alert("Link copied!");
+              }}
+              className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700 ml-2"
             >
-              Close
+              Copy Link
             </button>
           </div>
 
-          {/* Footer Section */}
-          <div className="text-center text-xs text-gray-500 mt-2">
+          <div className="mt-6 p-6">
+            <div className="w-[80%] mx-auto">
+              <div className="grid grid-cols-1 lg:gap-4 gap-8 w-full">
+                <div className="grid grid-cols-4 gap-8">
+                  {/* <a href={whatsappUrl} className="flex lg:justify-start justify-center items-center">
+                    <img src={whatsapp} alt="WhatsApp" className="w-10 h-10 cursor-pointer" />
+                  </a> */}
+
+                    <a 
+                      href={`https://api.whatsapp.com/send?text=${encodeURIComponent(generateShareableLink(sharablePostId))}`} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="flex lg:justify-start justify-center items-center"
+                    >
+                      <img src={whatsapp} alt="WhatsApp" className="w-10 h-10 cursor-pointer" />
+                    </a>
+
+                    <a 
+                      href={`https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(generateShareableLink(sharablePostId))}&title=Check%20this%20post%20out!`} 
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex lg:justify-start justify-center items-center"
+                    >
+                      <img src={linkedin} alt="LinkedIn" className="w-10 h-10 cursor-pointer" />
+                    </a>
+
+                    <a 
+                      href={`https://x.com/intent/tweet?url=${encodeURIComponent(generateShareableLink(sharablePostId))}&text=Check%20this%20out!`} 
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex lg:justify-start justify-center items-center"
+                    >
+                      <img src={twittor} alt="Twitter" className="w-10 h-10 cursor-pointer" />
+                    </a>
+
+
+
+                    <a 
+                        href={`https://www.instagram.com/direct/new/?text=${encodeURIComponent(
+                          `Hey, check out this post: ${generateShareableLink(sharablePostId)}`
+                        )}`} 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="flex lg:justify-start justify-center items-center"
+                      >
+                        <img src={Instagram} alt="Instagram" className="w-10 h-10 cursor-pointer" />
+                      </a>
+
+                  <a 
+                    href="https://www.tiktok.com/" 
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex lg:justify-start justify-center items-center"
+                  >
+                    <img src={tiktok} alt="TikTok" className="w-10 h-10 cursor-pointer" />
+                  </a>
+
+
+                  <a 
+                    href={`https://www.messenger.com/t/?link=${encodeURIComponent(generateShareableLink(sharablePostId))}`} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="flex lg:justify-start justify-center items-center"
+                  >
+                    <img src={facebook} alt="Messenger" className="w-10 h-10 cursor-pointer" />
+                  </a>
+
+
+                  <a 
+                    href={`https://www.youtube.com`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex lg:justify-start justify-center items-center"
+                  >
+                    <img src={youtube} alt="YouTube" className="w-10 h-10 cursor-pointer" />
+                  </a>
+
+
+
+                  <a 
+                    href={`mailto:?subject=Check out LMCLUB Beehive posts!&body=${encodeURIComponent(
+                      `Hey,\n\nI found this post and thought you might be interested:\n\n` +
+                      generateShareableLink(sharablePostId) +
+                      `\n\nLet me know what you think!\n\n Team LMCLUB!`
+                    )}`}                     
+                    className="flex lg:justify-start justify-center items-center"
+                  >
+                    <img src={email} alt="email" className="w-10 h-10 cursor-pointer" />
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="flex justify-center mt-6">
+            <button onClick={closeModalShareButton} className="bg-green-400 text-white px-12 py-2 rounded hover:bg-green-600">
+              Close
+            </button>
+          </div>
+          <div className="text-center text-xs mt-6 mb-4">
             <p>© 2025, Laoe Maom. All Rights Reserved.</p>
           </div>
         </div>
       </div>
     )}
+
+          {/* Modal for Fullscreen Image/Video */}
+          {isMediaOpen && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+            <div className="flex flex-col gap-3 w-[95%] sm:w-[750px] h-[700px] bg-white rounded-lg shadow-lg p-6">
+              
+              {/* Header Section */}
+              <div className="flex flex-row justify-between items-center">
+                <img src={Logo} alt="logo" className="w-[60px] h-auto" />
+                <h2 className="text-xl font-semibold"> View Image / Video</h2>
+                <IoIosClose onClick={closeMediaModal} className="w-10 h-10 cursor-pointer" />
+              </div>
+              
+              <div className="border-b border-gray-300"></div>
+
+              {/* Media Section */}
+              <div className="flex justify-center items-center flex-1">
+                {mediaType.type === "video" ? (
+
+                  <video controls autoPlay className="max-w-full max-h-[600px] rounded-lg">
+                    <source src={mediaType.src} type="video/mp4" />
+                    Your browser does not support the video tag.
+                  </video>
+                ) : (
+                  <img src={mediaType.src} alt="Fullscreen Media" className="max-w-full max-h-[600px] rounded-lg" />
+                )}
+              </div>
+
+              {/* Button Section */}
+              <div className="flex justify-center">
+                <button
+                  onClick={closeMediaModal}
+                  className="bg-green-500 text-white px-8 py-2 rounded hover:bg-green-600 transition duration-200"
+                >
+                  Close
+                </button>
+              </div>
+
+              {/* Footer Section */}
+              <div className="text-center text-xs text-gray-500 mt-2">
+                <p>© 2025, Laoe Maom. All Rights Reserved.</p>
+              </div>
+            </div>
+          </div>
+        )}
 
 
 
