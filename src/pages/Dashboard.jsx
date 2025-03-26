@@ -16,14 +16,11 @@ import SadLottie from "../assets/SadLottie.json";
 import Swal from "sweetalert2";
 import WhatsApp from "../components/WhatsApp";
 import ScrollToTop from "../components/ScrollToTop";
-
 // const public_stripe_key =
 
 const Dashboard = () => {
   const { userData, token, backendUrl } = useContext(AppContext);
-  const [remainingDays, setRemainingDays] = useState(null);
-  const [isExpired, setIsExpired] = useState(false);
-  const username = "John"; // Replace with actual user data
+
   const navigate = useNavigate();
 
   // const [categoryOpen, setCategoryOpen] = useState(false);
@@ -218,11 +215,15 @@ const Dashboard = () => {
   //     showTermsAlert();
   //   }
   // };
+
+  const [remainingDays, setRemainingDays] = useState(null);
+  const [isExpired, setIsExpired] = useState(false);
+
   useEffect(() => {
     const fetchRemainingDays = async () => {
       try {
         const token = localStorage.getItem("token");
-        const response = await axios.get("http://localhost:4000/api/user/remaining-days", {
+        const response = await axios.get(backendUrl + "/api/user/remaining-days", {
           headers: { Authorization: `Bearer ${token}` }
         });
   
@@ -236,6 +237,7 @@ const Dashboard = () => {
   
     fetchRemainingDays();
   }, []);
+  
   return (
     userData && (
       <div className="w-[100%]">
@@ -438,7 +440,7 @@ const Dashboard = () => {
             ) : (
               <span>
                 Hello, your free tier subscription ends in{" "}
-                <span className="text-green-500 font-bold">{remainingDays} day</span>.
+                <span className="text-green-500 font-bold">{remainingDays} days</span>.
               </span>
             )}
           </p>
@@ -460,11 +462,11 @@ const Dashboard = () => {
 
       <div className="grid lg:grid-cols-5 grid-cols-1 gap-4 pt-8">
         {[
+          { title: "Network", src: network },
           { title: "Beehive", src: beehive },
-          { title: "Refer & Earn", src: enroll },
           { title: "Broadcast", src: broadcast },
           { title: "E-Store", src: estore },
-          { title: "Network", src: network },
+          { title: "Grow", src: enroll },
         ].map(({ title, src }) => (
           <div key={title} className="flex justify-center">
             <div

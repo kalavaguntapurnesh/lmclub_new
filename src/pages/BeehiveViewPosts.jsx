@@ -64,22 +64,7 @@ const BeehiveViewPosts = () => {
     fetchPosts();
   }, []);
 
-  const [postUserName, setPostUserName] = useState(null);
 
-  useEffect(() => {
-    const postUserNameFunction = async () => {
-      try {
-        const response = await axios.get( backendUrl + `/api/beehive/each-post-username/${selectedPost?._id}`);
-        setPostUserName(response.data);
-      } catch (error) {
-        console.log("while fetching username for posts: ", error)
-      } 
-    };
-
-    postUserNameFunction();
-  }, [selectedPost]);
-
-  console.log("post name : ", postUserName);
 
   // Filter posts based on search, category, and date
   const filteredPosts = posts.filter((post) => {
@@ -225,9 +210,9 @@ const BeehiveViewPosts = () => {
 const [isClickedOnShareButton, setIsClickedOnShareButton] = useState(false);
 const [isOpenShareModel, setIsOpenShareModel] = useState(false);
 
-// const BASE_URL = backendUrl + `/beehive-posts/`;
+const BASE_URL = backendUrl + `/beehive-posts/`;
 
-const BASE_URL =  `http://localhost:5173/beehive-posts/`;
+// const BASE_URL =  `http://localhost:5173/beehive-posts/`;
 
 const generateShareableLink = (postId) => {
   return `${BASE_URL}${postId}`;
@@ -328,6 +313,52 @@ const [sharablePostId, setSharablePostId] = useState(null)
       setIsMediaOpen(false);
       setMediaType(null);
     };
+
+    
+  const [postUserNames, setPostUserNames] = useState({});
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchUsernames = async () => {
+      try {
+        setLoading(true); // Start loading
+        const postsToFetch = currentPosts.filter((post) => !postUserNames[post._id]);
+  
+        if (postsToFetch.length === 0) {
+          setLoading(false);
+          return;
+        }
+  
+        const requests = postsToFetch.map((post) =>
+          axios.get(`${backendUrl}/api/beehive/each-post-username/${post._id}`)
+        );
+  
+        const responses = await Promise.all(requests);
+  
+        const userNameMap = responses.reduce((acc, response, index) => {
+          acc[postsToFetch[index]._id] = response.data;
+          return acc;
+        }, {});
+  
+        setPostUserNames((prevUserNames) => ({
+          ...prevUserNames,
+          ...userNameMap,
+        }));
+  
+        setLoading(false); 
+      } catch (error) {
+        console.log("Error fetching usernames for posts: ", error);
+        setLoading(false);
+      }
+    };
+  
+    if (currentPosts.length > 0) {
+      fetchUsernames();
+    }
+  }, [currentPosts]);
+  
+  console.log("post user name:", postUserNames);
+  
 
   return (
     <div className="pt-2">
@@ -478,13 +509,14 @@ const [sharablePostId, setSharablePostId] = useState(null)
 
               {/* Table to display posts */}
               <div className="overflow-x-auto mt-5 lg:px-20 px-1">
-                <table className="w-full border border-gray-100">
+                <table className="lg:w-full border border-gray-100">
                   <thead>
                     <tr className="bg-green-400">
                       <th className="border border-gray-300 px-4 py-2">Category</th>
                       <th className="border border-gray-300 px-4 py-2">Post Name/Event Name</th>
                       <th className="border border-gray-300 px-4 py-2">Picture/Videos</th>
                       <th className="border border-gray-300 px-4 py-2">View More Details</th>
+                      <th className="border border-gray-300 px-4 py-2">Posted By</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -540,6 +572,10 @@ const [sharablePostId, setSharablePostId] = useState(null)
                               <img src={eye} alt="edit" className="w-10 h-10" />
                             </button>
                           </td>
+                          <td className="border text-center border-gray-300 px-4 py-2 text-gray-700 text-sm">
+                            {postUserNames[post._id] ? postUserNames[post._id].firstName +" "+ postUserNames[post._id].lastName : "Loading..."}
+                          </td>
+
                         </tr>
                       ))
                     ) : (
