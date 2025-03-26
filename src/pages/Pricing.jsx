@@ -17,7 +17,7 @@ import bronze from "../assets/bronze.jpg"
 import gold from "../assets/gold.jpg"
 import silver from "../assets/silver.jpg"
 import platinum from "../assets/platinum.jpg"
-
+import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 const Pricing = () => {
@@ -362,11 +362,15 @@ const Pricing = () => {
                       </tr>
                       <tr className="hover:bg-gray-100 transition-all duration-300 shadow-md">
                         <td className="p-4 border border-gray-300">
+                        <Link to="/beehive"
+                         onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+                        >
                           <img
                             src={beehive}
                             alt="beehive"
                             className="w-16 h-16 drop-shadow-lg"
                           />
+                        </Link>
                         </td>
                         <td className="p-4 text-center font-semibold text-gray-700 border border-gray-300">
                           5
@@ -393,11 +397,15 @@ const Pricing = () => {
                       </tr>
                       <tr className="hover:bg-gray-100 transition-all duration-300 shadow-md">
                         <td className="p-4 border border-gray-300">
+                        <Link to="/broadcast"
+                         onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+                        >
                           <img
                             src={broadcast}
                             alt="broadcast"
                             className="w-16 h-16 drop-shadow-lg"
                           />
+                        </Link>
                         </td>
                         <td className="p-4 text-center font-semibold text-gray-700 border border-gray-300">
                           5
@@ -424,11 +432,15 @@ const Pricing = () => {
                       </tr>
                       <tr className="hover:bg-gray-100 transition-all duration-300 shadow-md">
                         <td className="p-4 border border-gray-300">
+                        <Link to="/network"
+                         onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+                        >
                           <img
                             src={network}
                             alt="network"
                             className="w-16 h-16 drop-shadow-lg"
                           />
+                        </Link>
                         </td>
                         <td className="p-4 text-center font-semibold text-gray-700 border border-gray-300">
                           25
@@ -455,11 +467,15 @@ const Pricing = () => {
                       </tr>
                       <tr className="hover:bg-gray-100 transition-all duration-300 shadow-md">
                         <td className="p-4 border border-gray-300">
+                        <Link to="/estore"
+                         onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+                        >
                           <img
                             src={estore}
                             alt="estore"
                             className="w-16 h-16 drop-shadow-lg"
                           />
+                        </Link>
                         </td>
                         <td className="p-4 text-center font-semibold text-gray-700 border border-gray-300">
                           20%
@@ -486,11 +502,15 @@ const Pricing = () => {
                       </tr>
                       <tr className="hover:bg-gray-100 transition-all duration-300 shadow-md">
                         <td className="p-4 border border-gray-300">
+                        <Link to="/grow"
+                         onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+                        >
                           <img
                             src={enroll}
                             alt="enroll"
                             className="w-16 h-16 drop-shadow-lg"
                           />
+                        </Link>
                         </td>
                         <td className="p-4 text-center font-semibold text-gray-700 border border-gray-300">
                           35

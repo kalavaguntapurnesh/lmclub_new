@@ -16,11 +16,14 @@ import SadLottie from "../assets/SadLottie.json";
 import Swal from "sweetalert2";
 import WhatsApp from "../components/WhatsApp";
 import ScrollToTop from "../components/ScrollToTop";
+
 // const public_stripe_key =
 
 const Dashboard = () => {
   const { userData, token, backendUrl } = useContext(AppContext);
-
+  const [remainingDays, setRemainingDays] = useState(null);
+  const [isExpired, setIsExpired] = useState(false);
+  const username = "John"; // Replace with actual user data
   const navigate = useNavigate();
 
   // const [categoryOpen, setCategoryOpen] = useState(false);
@@ -215,7 +218,24 @@ const Dashboard = () => {
   //     showTermsAlert();
   //   }
   // };
-
+  useEffect(() => {
+    const fetchRemainingDays = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        const response = await axios.get("http://localhost:4000/api/user/remaining-days", {
+          headers: { Authorization: `Bearer ${token}` }
+        });
+  
+        console.log("Remaining Days Response:", response.data); // Debugging
+        setRemainingDays(response.data.remainingDays);
+        setIsExpired(response.data.isExpired);
+      } catch (error) {
+        console.error("Error fetching countdown data", error);
+      }
+    };
+  
+    fetchRemainingDays();
+  }, []);
   return (
     userData && (
       <div className="w-[100%]">
@@ -408,204 +428,62 @@ const Dashboard = () => {
                   </div>
                 ) : (
                   <div>
-                    <div className="flex flex-row justify-between">
-                      <p className="text-gray-600 px-4  text-base mt-2 mb-4">
-                        You are currently on a free trial.
-                      </p>
+      <div className="flex flex-row justify-between">
+        <div>
+          <p className="text-gray-600 px-4 text-base mt-2 mb-4">
+            {isExpired ? (
+              <span className="text-red-500 font-bold">
+                Hello, your free tier has expired. Please subscribe to any one of the membership package.
+              </span>
+            ) : (
+              <span>
+                Hello, your free tier subscription ends in{" "}
+                <span className="text-green-500 font-bold">{remainingDays} day</span>.
+              </span>
+            )}
+          </p>
+        </div>
 
-                      <div
-                        onClick={() => {
-                          navigate("/my-membership");
-                          scrollTo(0, 0);
-                        }}
-                        className="group border-[1px] cursor-pointer relative px-6 py-2 text-white text-sm rounded-full border-green-400 bg-green-400 font-semibold overflow-hidden flex items-center gap-2 w-[180px] hover:bg-green-500 hover:text-white duration-1000 ease-in-out transition hover:font-medium"
-                      >
-                        <span className="relative flex-[8] text-center">
-                          Go to Plans
-                        </span>
-                        <span className="w-7 h-7 flex items-center justify-center rounded-full bg-white flex-[2] transition duration-1000 ease-in-out text-black group-hover:bg-black group-hover:text-green-400">
-                          <TiArrowRight className=" text-lg" />
-                        </span>
-                      </div>
-                    </div>
+        <div
+          onClick={() => {
+            navigate("/my-membership");
+            window.scrollTo(0, 0);
+          }}
+          className="group border-[1px] cursor-pointer relative px-6 py-2 text-white text-sm rounded-full border-green-400 bg-green-400 font-semibold overflow-hidden flex items-center gap-2 w-[180px] hover:bg-green-500 hover:text-white duration-1000 ease-in-out transition hover:font-medium"
+        >
+          <span className="relative flex-[8] text-center">Go to Plans</span>
+          <span className="w-7 h-7 flex items-center justify-center rounded-full bg-white flex-[2] transition duration-1000 ease-in-out text-black group-hover:bg-black group-hover:text-green-400">
+            <TiArrowRight className=" text-lg" />
+          </span>
+        </div>
+      </div>
 
-                    <div className="grid lg:grid-cols-5 grid-cols-1 gap-4 pt-8">
-                      <div
-                        onClick={() => setShowPlanModal(true)}
-                        className="flex justify-center "
-                      >
-                        <div className="w-full bg-gray-200 border border-gray-200 rounded p-4">
-                          <div className="space-y-2">
-                            <div className="flex justify-center items-center">
-                              <img
-                                src={beehive}
-                                alt="about_one"
-                                className="w-[72px] h-[72px]"
-                              />
-                            </div>
-
-                            <div className="flex justify-center items-center">
-                              <h1 className="text-lg text-trumpTwo font-semibold    text-center">
-                                Beehive
-                              </h1>
-                            </div>
-
-                            {/* <div className="flex justify-center">
-                              <a
-                                // href={value.link}
-                                className="flex flex-row items-center text-green-500 "
-                              >
-                                <span className="relative text-sm">
-                                  Know More
-                                </span>
-                                <MdArrowRightAlt className="ml-1 mt-1 w-5 h-5 " />
-                              </a>
-                            </div> */}
-                          </div>
-                        </div>
-                      </div>
-
-                      <div
-                        onClick={() => setShowPlanModal(true)}
-                        className="flex justify-center "
-                      >
-                        <div className="w-full bg-gray-200 border border-gray-200 rounded p-4">
-                          <div className="space-y-2">
-                            <div className="flex justify-center items-center">
-                              <img
-                                src={enroll}
-                                alt="about_one"
-                                className="w-[72px] h-[72px]"
-                              />
-                            </div>
-
-                            <div className="flex justify-center items-center">
-                              <h1 className="text-lg text-trumpTwo font-semibold    text-center">
-                                Refer & Earn
-                              </h1>
-                            </div>
-
-                            {/* <div className=" flex justify-center">
-                              <a
-                                // href={value.link}
-                                className="flex flex-row items-center text-green-500 "
-                              >
-                                <span className="relative text-sm">
-                                  Know More
-                                </span>
-                                <MdArrowRightAlt className="ml-1 mt-1 w-5 h-5 " />
-                              </a>
-                            </div> */}
-                          </div>
-                        </div>
-                      </div>
-
-                      <div
-                        onClick={() => setShowPlanModal(true)}
-                        className="flex justify-center "
-                      >
-                        <div className="w-full bg-gray-200 border border-gray-200 rounded p-4">
-                          <div className="space-y-2">
-                            <div className="flex justify-center items-center">
-                              <img
-                                src={broadcast}
-                                alt="about_one"
-                                className="w-[72px] h-[72px]"
-                              />
-                            </div>
-
-                            <div className="flex justify-center items-center">
-                              <h1 className="text-lg text-trumpTwo font-semibold   text-center">
-                                Broadcast
-                              </h1>
-                            </div>
-
-                            {/* <div className=" flex justify-center">
-                              <a
-                                // href={value.link}
-                                className="flex flex-row items-center text-green-500 "
-                              >
-                                <span className="relative text-sm">
-                                  Know More
-                                </span>
-                                <MdArrowRightAlt className="ml-1 mt-1 w-5 h-5 " />
-                              </a>
-                            </div> */}
-                          </div>
-                        </div>
-                      </div>
-
-                      <div
-                        onClick={() => setShowPlanModal(true)}
-                        className="flex justify-center "
-                      >
-                        <div className="w-full bg-gray-200 border border-gray-200 rounded p-4">
-                          <div className="space-y-2">
-                            <div className="flex justify-center items-center">
-                              <img
-                                src={estore}
-                                alt="about_one"
-                                className="w-[72px] h-[72px]"
-                              />
-                            </div>
-
-                            <div className="flex justify-center items-center">
-                              <h1 className="text-lg text-trumpTwo font-semibold    text-center">
-                                E-Store
-                              </h1>
-                            </div>
-
-                            {/* <div className=" flex justify-center">
-                              <a
-                                // href={value.link}
-                                className="flex flex-row items-center text-green-500 "
-                              >
-                                <span className="relative text-sm">
-                                  Know More
-                                </span>
-                                <MdArrowRightAlt className="ml-1 mt-1 w-5 h-5 " />
-                              </a>
-                            </div> */}
-                          </div>
-                        </div>
-                      </div>
-
-                      <div
-                        onClick={() => setShowPlanModal(true)}
-                        className="flex justify-center "
-                      >
-                        <div className="w-full bg-gray-200 border border-gray-200 rounded p-4">
-                          <div className="space-y-2">
-                            <div className="flex justify-center items-center">
-                              <img
-                                src={network}
-                                alt="about_one"
-                                className="w-[72px] h-[72px]"
-                              />
-                            </div>
-
-                            <div className="flex justify-center items-center">
-                              <h1 className="text-lg text-trumpTwo font-semibold    text-center">
-                                Network
-                              </h1>
-                            </div>
-
-                            {/* <div className=" flex justify-center">
-                              <a
-                                // href={value.link}
-                                className="flex flex-row items-center text-green-500 "
-                              >
-                                <span className="relative text-sm">
-                                  Know More
-                                </span>
-                                <MdArrowRightAlt className="ml-1 mt-1 w-5 h-5 " />
-                              </a>
-                            </div> */}
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+      <div className="grid lg:grid-cols-5 grid-cols-1 gap-4 pt-8">
+        {[
+          { title: "Beehive", src: beehive },
+          { title: "Refer & Earn", src: enroll },
+          { title: "Broadcast", src: broadcast },
+          { title: "E-Store", src: estore },
+          { title: "Network", src: network },
+        ].map(({ title, src }) => (
+          <div key={title} className="flex justify-center">
+            <div
+              className={`w-full border rounded p-4 ${
+                isExpired ? "bg-gray-300 cursor-not-allowed" : "bg-gray-200 cursor-pointer"
+              }`}
+              onClick={() => !isExpired && setShowPlanModal(true)}
+            >
+              <div className="space-y-2 text-center">
+                <div className="flex justify-center items-center">
+                  <img src={src} alt={title} className="w-[72px] h-[72px]" />
+                </div>
+                <h1 className="text-lg font-semibold">{title}</h1>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
                 )}
               </div>
             </div>
