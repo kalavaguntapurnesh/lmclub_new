@@ -14,9 +14,11 @@ import { IoIosClose } from 'react-icons/io';
 import eye from "../assets/Eye.svg";
 import Swal from "sweetalert2";
 import Logo from "../assets/LMDark.webp";
-
+import { useContext } from 'react';
+import { AppContext } from "./../context/AppContext";
 
 const SharablePost = () => {
+  const { userData, token, backendUrl } = useContext(AppContext);
     const postId = useParams();
     console.log(postId.postId);
     const navigate = useNavigate();
@@ -32,7 +34,7 @@ const SharablePost = () => {
     // Fetch data from API
     const fetchPosts = async () => {
       try {
-        const response = await axios.get('http://localhost:4000/api/beehive/fetching-post');
+        const response = await axios.get(backendUrl + `/api/beehive/fetch-post-details/${postId.postId}`);
         setPosts(response.data);
       } catch (error) {
         console.error('Error fetching posts:', error);
@@ -44,44 +46,45 @@ const SharablePost = () => {
     }, []);
   
     // Function to get the specific post
+    console.log(posts);
+    
+    // const [specificPost, setSpecificPost] = useState(null);
 
-    const [specificPost, setSpecificPost] = useState(null);
+    // useEffect(() => {
+    //     if (posts.length > 0) {
+    //         const foundPost = posts.find((post) => post._id ===  postId.postId);
+    //         setSpecificPost(foundPost || null);
+    //     }
+    // }, [posts, postId.postId]);
 
-    useEffect(() => {
-        if (posts.length > 0) {
-            const foundPost = posts.find((post) => post._id ===  postId.postId);
-            setSpecificPost(foundPost || null);
-        }
-    }, [posts, postId.postId]);
-
-    if (!specificPost) {
-        return <div>Loading...</div>;
-    }
+    // if (!specificPost) {
+    //     return <div>Loading...</div>;
+    // }
 
 
     const handleMoreEventsClick = async()=>{
         navigate('/events')
     }
  
-    console.log("specificPost : ", specificPost);
+    // console.log("specificPost : ", specificPost);
 
     // Filter posts based on search, category, and date
-  const filteredPosts = posts.filter((post) => {
-    const postName = post.postName ? post.postName.toLowerCase() : '';
-    const eventName = post.eventName ? post.eventName.toLowerCase() : '';
-    const category = post.category ? post.category.toLowerCase() : '';
-    const query = search.toLowerCase();  
+  // const filteredPosts = posts.filter((post) => {
+  //   const postName = post.postName ? post.postName.toLowerCase() : '';
+  //   const eventName = post.eventName ? post.eventName.toLowerCase() : '';
+  //   const category = post.category ? post.category.toLowerCase() : '';
+  //   const query = search.toLowerCase();  
   
-    // Date filtering (if selectedDate is provided)
-    const postDate = post.createdAt ? dayjs(post.eventStartDate).format('YYYY-MM-DD') : '';
-    const isDateMatch = selectedDate ? postDate === selectedDate : true;
+  //   // Date filtering (if selectedDate is provided)
+  //   const postDate = post.createdAt ? dayjs(post.eventStartDate).format('YYYY-MM-DD') : '';
+  //   const isDateMatch = selectedDate ? postDate === selectedDate : true;
   
-    return (
-      (postName.includes(query) || eventName.includes(query) || category.includes(query)) &&
-      (category.includes(selectedCategory.toLowerCase()) || !selectedCategory) &&
-      isDateMatch
-    );
-  });
+  //   return (
+  //     (postName.includes(query) || eventName.includes(query) || category.includes(query)) &&
+  //     (category.includes(selectedCategory.toLowerCase()) || !selectedCategory) &&
+  //     isDateMatch
+  //   );
+  // });
   
   
     const openModal = (post) => {
@@ -185,16 +188,17 @@ const SharablePost = () => {
                        </tr>
                      </thead>
                      <tbody>
+                     {posts && posts.data ? (
                            <tr className="hover:bg-gray-100">
                              <td className="border text-center border-gray-300 px-4 py-2 text-neutral-800 text-sm">
-                               {specificPost.category}
+                               {posts?.data.category || N/A}
                              </td>
                              <td className="border text-center border-gray-300 px-4 py-2 text-zinc-600 text-sm">
-                               {specificPost.postName || specificPost.eventName}
+                               {posts?.data.postName || posts?.data.eventName || N/A}
                              </td>
                              <td className="border text-center border-gray-300 px-4 py-2">
-                               {specificPost.image ? (
-                                 <img src={specificPost.image} alt="Post" className="w-16 h-16 object-cover mx-auto" />
+                               {posts?.data.image ? (
+                                 <img src={posts?.data.image} alt="Post" className="w-16 h-16 object-cover mx-auto" />
                                ) : (
                                  'No Image'
                                )}
@@ -209,6 +213,13 @@ const SharablePost = () => {
                                </button>
                              </td>
                            </tr>
+                            ) : (
+                              <tr>
+                                <td colSpan="4" className="text-center py-4">
+                                  No posts found
+                                </td>
+                              </tr>
+                            )}
                      </tbody>
                    </table>
                  </div>
