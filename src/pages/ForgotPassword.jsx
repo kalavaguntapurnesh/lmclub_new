@@ -5,13 +5,18 @@ import axios from "axios";
 import { FaUnlock } from "react-icons/fa";
 import Footer from "../components/Footer";
 import { AppContext } from "./../context/AppContext";
-import { toast } from "react-toastify";
+import Logo from "../assets/LMDark.webp";
 const ForgotPassword = () => {
   const { backendUrl } = useContext(AppContext);
-
+  const [showModal, setShowModal] = useState(false);
+  const [modalMessage, setModalMessage] = useState("");
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
-
+  const navigate = useNavigate();
+  const showPopup = (message) => {
+    setModalMessage(message);
+    setShowModal(true);
+  };
   const handleSubmit = async (e) => {
     try {
       e.preventDefault();
@@ -20,11 +25,11 @@ const ForgotPassword = () => {
         backendUrl + "/api/user/forgot-password",
         { email }
       );
-      toast.success(data.message);
+      showPopup(data.message);
       resetForm();
     } catch (error) {
       console.log(error);
-      toast.error("Something went wrong");
+      showPopup("Something went wrong");
     }
     setLoading(false);
   };
@@ -32,7 +37,9 @@ const ForgotPassword = () => {
   const resetForm = () => {
     setEmail("");
   };
-
+  const handleLoginRedirect = () => {
+    setShowModal(false);
+  };
   return (
     <div>
       <Navbar />
@@ -90,6 +97,42 @@ const ForgotPassword = () => {
                               >
                                 {loading ? "Sending..." : "Send Reset Link"}
                               </button>
+                              {showModal && (
+                                      <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+                                        <div className="bg-white p-6 rounded-lg shadow-lg w-[90%] max-w-md relative">
+                                          <div className="flex items-center justify-center gap-2">
+                                            <img
+                                              src={Logo}
+                                              alt="LM Club"
+                                              className="w-12 h-12 absolute top-4 left-4"
+                                            />
+                                            <h2 className="text-3xl font-bold">
+                                              LM <span className="text-green-600">Club</span>
+                                            </h2>
+                                          </div>
+                                          <div className="mt-6 text-center">
+                                            <p className="text-lg font-semibold text-gray-800">{modalMessage}</p>
+                                          </div>
+                                          <div className="mt-6 flex justify-center gap-4">
+                                            <button 
+                                              onClick={() => setShowModal(false)} 
+                                              className="px-4 py-2 bg-gray-300 rounded text-gray-800"
+                                            >
+                                              Cancel
+                                            </button>
+                                            <button 
+                                              onClick={handleLoginRedirect} 
+                                              className="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700"
+                                            >
+                                              OK
+                                            </button>
+                                          </div>
+                                          <div className="text-center text-xs mt-6 text-gray-500">
+                                            <p>© 2025, Laoe Maom. All Rights Reserved.</p>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    )}
                               <p className="text-sm text-center font-light text-gray-500 ">
                                 Don’t have an account yet?{" "}
                                 <a

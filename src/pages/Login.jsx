@@ -10,9 +10,8 @@ import React from "react";
 import star from "../assets/star.svg";
 import ReCAPTCHA from "react-google-recaptcha";
 import { AppContext } from "./../context/AppContext";
-import { toast } from "react-toastify";
 import countriesData from "../countries.json";
-
+import Logo from "../assets/LMDark.webp";
 const Login = () => {
   const { backendUrl, token, setToken } = useContext(AppContext);
   const location = useLocation();
@@ -28,11 +27,18 @@ const Login = () => {
   const [selectedCountry, setSelectedCountry] = useState("");
   const [selectedState, setSelectedState] = useState("");
   const [selectedCity, setSelectedCity] = useState("");
+  const [showModal, setShowModal] = useState(false);
+  const [modalMessage, setModalMessage] = useState("");
 
   const [selectedRole, setSelectedRole] = useState("");
 
   const [states, setStates] = useState([]);
   const [cities, setCities] = useState([]);
+
+  const showPopup = (message) => {
+    setModalMessage(message);
+    setShowModal(true);
+  };
   useEffect(() => {
     if (selectedCountry) {
       const countryObj = countriesData.find((c) => c.name === selectedCountry);
@@ -57,6 +63,7 @@ const Login = () => {
       setSelectedCity("");
     }
   }, [selectedState, selectedCountry]);
+
   useEffect(() => {
     if (token) {
       navigate("/dashboard");
@@ -69,7 +76,7 @@ const Login = () => {
   const onSubmitHandler = async (e) => {
     e.preventDefault();
     if (!captchaStatus) {
-      toast.error("Please verify the captcha");
+      showPopup("Please verify the captcha");
       return;
     }
 
@@ -87,11 +94,11 @@ const Login = () => {
         });
 
         if (data.success) {
-          toast.success("Registration Successful! Check your email for verification.");
+          showPopup("Registration Successful! Check your email for verification.");
           setState("Login");
           window.scrollTo(0, 0);
         } else {
-          toast.error(data.message);
+          showPopup(data.message);
         }
       } else {
         const { data } = await axios.post(`${backendUrl}/api/user/login`, {
@@ -102,21 +109,21 @@ const Login = () => {
         if (data.success) {
           if (data.verified) {
             localStorage.setItem("token", data.token);
-            toast.success("Login Successful!");
+            showPopup("Login Successful!");
             setToken(data.token);
 
             // Redirect based on previous route
             const fromRewards = location.state?.fromRewards || false;
             navigate(fromRewards ? "/redeem-now" : "/dashboard");
           } else {
-            toast.warning("Please verify your email before logging in.");
+            showPopup("Please verify your email before logging in.");
           }
         } else {
-          toast.error(data.message);
+          showPopup( data.message);
         }
       }
     } catch (error) {
-      toast.error(error.message);
+      showPopup( error.message);
       console.log(error.message);
     }
   };
@@ -156,9 +163,17 @@ const Login = () => {
     }, 5000);
     return () => clearInterval(interval);
   }, []);
-
+  const handleLoginRedirect = () => {
+    console.log("OK button clicked! Redirecting...");
+    setShowModal(false); // Close the modal first
+  
+    setTimeout(() => {
+      navigate("/login"); // Navigate after closing modal
+    }, 300); // Small delay to allow modal to close smoothly
+  };
   return (
     <div>
+     
       <Navbar />
       <div className="pt-16">
         <div className="relative">
@@ -380,6 +395,7 @@ const Login = () => {
                           )}
                         </form>
                       </div>
+                      
                     </div>
                   </div>
                   <div className="relative w-full max-w-[450px] md:max-w-[600px] lg:max-w-[800px] mx-auto h-[350px] md:h-[450px] lg:h-full lg:min-h-screen flex items-center"> 
@@ -412,6 +428,43 @@ const Login = () => {
                       </div>
                     </motion.div>
                   </div>
+                  {/* Modal Component */}
+     {showModal && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="bg-white p-6 rounded-lg shadow-lg w-[90%] max-w-md relative">
+            <div className="flex items-center justify-center gap-2">
+              <img
+                src={Logo}
+                alt="LM Club"
+                className="w-12 h-12 absolute top-4 left-4"
+              />
+              <h2 className="text-3xl font-bold">
+                LM <span className="text-green-600">Club</span>
+              </h2>
+            </div>
+            <div className="mt-6 text-center">
+              <p className="text-lg font-semibold text-gray-800">{modalMessage}</p>
+            </div>
+            <div className="mt-6 flex justify-center gap-4">
+              <button 
+                onClick={() => setShowModal(false)} 
+                className="px-4 py-2 bg-gray-300 rounded text-gray-800"
+              >
+                Cancel
+              </button>
+              <button 
+                onClick={handleLoginRedirect} 
+                className="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700"
+              >
+                OK
+              </button>
+            </div>
+            <div className="text-center text-xs mt-6 text-gray-500">
+              <p>© 2025, Laoe Maom. All Rights Reserved.</p>
+            </div>
+          </div>
+        </div>
+      )}
                 </div>
               </div>
             </div>

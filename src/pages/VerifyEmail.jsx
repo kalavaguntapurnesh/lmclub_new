@@ -32,87 +32,67 @@ const VerifyEmail = () => {
         );
 
         setMessage(data.message);
-        toast.success("Verification Successful");
+        // toast.success("Verification Successful");
         setLoading(false);
       } catch (error) {
-        toast.error(error.message);
+        // toast.error(error.message);
         setMessage("Verification failed.");
         setLoading(false);
       }
     };
 
     verifyToken();
-  }, [token]);
+  }, [token, backendUrl]);
 
-  const style = document.createElement('style');
-  style.innerHTML = `
-    .swal-custom-ok-button {
-      background-color:rgb(27, 202, 103); /* Custom color */
-      color:white;
-      border: none;
-      padding: 10px 20px;
-      font-size: 16px;
-      border-radius: 5px;
-    }
-
-    .swal-custom-ok-button:hover {
-      background-color:rgb(18, 91, 25); /* Hover color */
-    }
-  `;
-  document.head.appendChild(style);
-  // {loading ? <p>Verifying your email...</p> : <p>{message}</p>}
-
-Swal.fire({
-  html: `
-    <div style="display: flex; flex-direction: column; align-items: center;">
-      <div style="width: 100%; display: flex; align-items: center; justify-content: center; position: relative; margin-bottom: 20px;">
-        <img src="${Logo}" alt="Success" 
-          style="position: absolute; top: 0; left: 0; width: 50px; height: 50px; margin: 10px;" />
-        <h4 style="margin: 0; font-size: 30px; font-weight: bold;">
-          <span style="color: black;">LM</span>
-          <span style="color: rgb(37, 218, 73);">Club</span>
-        </h4>
-      </div>
-
-       ${!loading ? `
-        <div style="margin-bottom: 20px;">
-          <img src="${success}" alt="Success" style="width: 50px; height: 50px; margin: 0 10px;" />
-        </div>
-      ` : ""}
-
-      <!-- Dynamic Content Based on Loading State -->
-      <div style="width: 100%; text-align: center;">
-        <h1 style="margin: 0; font-size: 30px;">
-          ${loading ? "Verifying your email..." : "Email Verified Successfully"}
-        </h1>
-      </div>
-
-     
-    </div>
-  `,
-  timer: loading ? undefined : 60000,
-  timerProgressBar: !loading,
-  showConfirmButton: !loading,
-  customClass: {
-    confirmButton: 'swal-custom-ok-button' 
-  },
-  confirmButtonText: "Login Here",
-  willClose: () => {
+  useEffect(() => {
     if (!loading) {
-      window.location.href = "https://lmclub.club/login";
+      const footerHTML = `<p style="text-align: center; font-size: 12px; color: gray;">© 2025, Laoe Maom. All Rights Reserved.</p>`;
+      console.log("Footer HTML being added:", footerHTML);
+      Swal.fire({
+        html: `
+          <div style="display: flex; flex-direction: column; align-items: center;">
+            <div style="width: 100%; display: flex; align-items: center; justify-content: center; position: relative; margin-bottom: 20px;">
+              <img src="${Logo}" alt="Success" 
+                style="position: absolute; top: 0; left: 0; width: 50px; height: 50px; margin: 10px;" />
+              <h4 style="margin: 0; font-size: 30px; font-weight: bold;">
+                <span style="color: black;">LM</span>
+                <span style="color: rgb(37, 218, 73);">Club</span>
+              </h4>
+            </div>
+
+            <div style="margin-bottom: 20px;">
+              <img src="${success}" alt="Success" style="width: 50px; height: 50px; margin: 0 10px;" />
+            </div>
+
+            <div style="width: 100%; text-align: center;">
+              <h1 style="margin: 0; font-size: 30px;">Email Verified Successfully</h1>
+            </div>
+
+            
+          </div>
+        `,
+        footer: footerHTML , 
+        timer: 60000,
+        timerProgressBar: true,
+        showConfirmButton: true,
+        confirmButtonText: "Login Here",
+        customClass: {
+          confirmButton: "swal-custom-ok-button",
+        },
+        willClose: () => {
+          window.location.href = "https://lmclub.club/login";
+        }
+      });
     }
-  }
-});
+  }, [loading]);
 
   return (
 
     <div className="container">
 
-
-
-
       {/* {loading ? <p>Verifying your email...</p> : <p>{message}</p>} */}
       {/* <button onClick={() => navigate("/login")}>Go to Login</button> */}
+      
     </div>
   );
 };

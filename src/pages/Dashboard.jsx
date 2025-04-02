@@ -219,24 +219,29 @@ const Dashboard = () => {
   const [remainingDays, setRemainingDays] = useState(null);
   const [isExpired, setIsExpired] = useState(false);
 
-  useEffect(() => {
-    const fetchRemainingDays = async () => {
-      try {
-        const token = localStorage.getItem("token");
-        const response = await axios.get(backendUrl + "/api/user/remaining-days", {
-          headers: { Authorization: `Bearer ${token}` }
-        });
+        
+        useEffect(() => {
+          const fetchRemainingDays = async () => {
+            try {
+              const storedToken = localStorage.getItem("token"); // Retrieve token once
+              if (!storedToken) return;
+        
+              const response = await axios.get(`${backendUrl}/api/user/remaining-days`, {
+                headers: { Authorization: `Bearer ${storedToken}` },
+              });
+        
+              setRemainingDays(response.data.remainingDays);
+              setIsExpired(response.data.isExpired);
+            } catch (error) {
+              console.error("Error fetching countdown data", error);
+            } finally {
+              setLoading(false); // Stop loading when API call is done
+            }
+          };
+        
+          fetchRemainingDays();
+   }, []);
   
-        console.log("Remaining Days Response:", response.data); // Debugging
-        setRemainingDays(response.data.remainingDays);
-        setIsExpired(response.data.isExpired);
-      } catch (error) {
-        console.error("Error fetching countdown data", error);
-      }
-    };
-  
-    fetchRemainingDays();
-  }, []);
   
   return (
     userData && (

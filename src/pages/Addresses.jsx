@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useContext } from "react";
 import { AppContext } from "./../context/AppContext";
 import countriesData from "../countries.json";
-import { toast } from "react-toastify";
 import { TiTrash } from "react-icons/ti";
 import axios from "axios";
 import WhatsApp from "../components/WhatsApp";
 import ScrollToTop from "../components/ScrollToTop";
+import Logo from "../assets/LMDark.webp";
 const Addresses = () => {
   const { userData, setUserData, token, backendUrl, loadUserProfileData } =
     useContext(AppContext);
@@ -17,7 +17,12 @@ const Addresses = () => {
   const [cities, setCities] = useState([]);
   const [shippingAddresses, setShippingAddresses] = useState([]);
   const [useBillingAsShipping, setUseBillingAsShipping] = useState(false);
-
+  const [showModal, setShowModal] = useState(false);
+  const [modalMessage, setModalMessage] = useState("");
+  const showPopup = (message) => {
+    setModalMessage(message);
+    setShowModal(true);
+  };
   const defaultShippingAddress = {
     firstName: "",
     lastName: "",
@@ -60,7 +65,7 @@ const Addresses = () => {
       !newShippingAddress.city ||
       !newShippingAddress.pinCode
     ) {
-      toast.error("Please fill out all fields for the new shipping address.");
+      showPopup("Please fill out all fields for the new shipping address.");
       return;
     }
 
@@ -77,7 +82,7 @@ const Addresses = () => {
       );
 
       if (data.success) {
-        toast.success("Shipping address added successfully.");
+        showPopup("Shipping address added successfully.");
         setShippingAddresses(updatedShippingAddresses);
         setUserData((prev) => ({
           ...prev,
@@ -87,14 +92,16 @@ const Addresses = () => {
         setUseBillingAsShipping(false);
         loadUserProfileData();
       } else {
-        toast.error(data.message);
+        showPopup(data.message);
       }
     } catch (error) {
-      toast.error("Error adding shipping address.");
+      showPopup("Error adding shipping address.");
       console.log(error);
     }
   };
-
+  const handleLoginRedirect = () => {
+    setShowModal(false);
+  };
   return (
     userData && (
       <div className="w-[100%]">
@@ -136,8 +143,44 @@ const Addresses = () => {
                       </div>
                     ))}
                   </div>
+                  {showModal && (
+                    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+                      <div className="bg-white p-6 rounded-lg shadow-lg w-[90%] max-w-md relative">
+                        <div className="flex items-center justify-center gap-2">
+                          <img
+                            src={Logo}
+                            alt="LM Club"
+                            className="w-12 h-12 absolute top-4 left-4"
+                          />
+                          <h2 className="text-3xl font-bold">
+                            LM <span className="text-green-600">Club</span>
+                          </h2>
+                        </div>
+                        <div className="mt-6 text-center">
+                          <p className="text-lg font-semibold text-gray-800">{modalMessage}</p>
+                        </div>
+                        <div className="mt-6 flex justify-center gap-4">
+                          <button 
+                            onClick={() => setShowModal(false)} 
+                            className="px-4 py-2 bg-gray-300 rounded text-gray-800"
+                          >
+                           Cancel
+                          </button>
+                          <button 
+                            onClick={handleLoginRedirect} 
+                            className="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700"
+                          >
+                            OK
+                          </button>
+                          </div>
+                          <div className="text-center text-xs mt-6 text-gray-500">
+                            <p>© 2025, Laoe Maom. All Rights Reserved.</p>
+                          </div>
+                      </div>
+                    </div>
+                  )}
                 </div>
-
+                
                 <div className="border-b border-gray-800"></div>
 
                 <div className="mt-4 mb-4">
